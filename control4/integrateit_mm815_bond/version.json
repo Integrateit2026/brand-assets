@@ -1,7 +1,7 @@
 {
   "name": "MantelMount MM815 (Bond Bridge) by IntegrateIT",
-  "version": "1.3.1",
-  "xml_version": 7,
+  "version": "1.4.1",
+  "xml_version": 9,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/integrateit_mm815_bond.c4z",
-  "notes": "Over-the-air self-update validation build. Functionally identical to 1.3.0; bumped so an installed 1.3.0 shows a pending update and you can exercise Download & Stage > Update Driver."
+  "notes": "OTA self-update validation build. Identical code to 1.4.0; bumped so an installed 1.4.0 shows a pending update you can exercise via Download & Stage > Update Driver."
 }
