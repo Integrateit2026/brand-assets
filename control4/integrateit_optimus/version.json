@@ -1,0 +1,7 @@
+{
+  "name": "IntegrateIT Optimus AI",
+  "version": "2.1.1",
+  "xml_version": 20260619,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/integrateit_optimus.c4z",
+  "notes": "Over-the-air self-update validation build. Functionally identical to 2.1.0; bumped so an installed 2.1.0 shows a pending update and you can exercise Download & Stage > Update Driver."
+}
