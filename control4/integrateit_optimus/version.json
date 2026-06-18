@@ -1,7 +1,7 @@
 {
   "name": "IntegrateIT Optimus AI",
-  "version": "2.2.11",
-  "xml_version": 20260631,
+  "version": "2.3.1",
+  "xml_version": 20260633,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/integrateit_optimus.c4z",
-  "notes": "OTA self-update validation build. Identical code to 2.2.10."
+  "notes": "OTA self-update validation build. Identical code to 2.3.0."
 }
