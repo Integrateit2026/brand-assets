@@ -1,7 +1,7 @@
 {
   "name": "IntegrateIT Optimus AI",
-  "version": "2.2.3",
-  "xml_version": 20260623,
+  "version": "2.2.5",
+  "xml_version": 20260625,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/integrateit_optimus.c4z",
-  "notes": "OTA self-update validation build. Identical code to 2.2.2; bumped so an installed 2.2.2 shows a pending update you can exercise via Download & Stage > Update Driver."
+  "notes": "OTA self-update validation build. Identical code to 2.2.4; bumped so an installed 2.2.4 shows a pending update you can exercise via Download & Stage > Update Driver."
 }
