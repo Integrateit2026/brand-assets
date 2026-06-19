@@ -3,5 +3,5 @@
   "version": "1.5.1",
   "xml_version": 15,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/integrateit_mm815_bond.c4z",
-  "notes": "OTA self-update validation build. Identical code to 1.5.0."
+  "notes": "PTZ-style control of a MantelMount MM815 motorized TV mount over Bond Bridge — nudge, drive-to-limit, true hold-to-move, six favorites, and TV-follow (auto Deploy/Stow with TV power). Bond auto-discovery + health, position state variables/events, per-controller licensing, and over-the-air updates."
 }
