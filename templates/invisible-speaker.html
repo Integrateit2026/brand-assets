@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invisible Speakers · Bent-Ward Foster House — IntegrateIT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0e; --bg2:#101216; --ink:#f4ede0; --cream:#f4ede0;
+    --soft:rgba(244,237,224,.74); --muted:rgba(244,237,224,.52);
+    --gold:#c9a24b; --gold2:#9c7f3c; --rule:rgba(201,162,75,.28);
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);display:inline-block}
+  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.05}
+
+  /* Top bar */
+  .bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(11,12,14,.82),rgba(11,12,14,0))}
+  .bar img{height:30px;width:auto}
+  .bar .tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+
+  /* Hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background:url('https://ops.integrateit.tech/proposal-assets/foster-band-fabric.jpg') center/cover;opacity:.34;transform:scale(1.04)}
+  .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 40%,rgba(11,12,14,.5),rgba(11,12,14,.93))}
+  .hero .inner{position:relative;z-index:2;padding:140px 0 90px}
+  .hero h1{font-size:clamp(44px,8vw,104px);margin:22px 0 0;color:var(--cream)}
+  .hero h1 em{font-style:italic;color:var(--gold);display:block}
+  .hero p{font-size:clamp(16px,1.7vw,21px);color:var(--soft);max-width:620px;margin-top:30px;font-weight:300}
+  .cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-align:center}
+  .cue .d{width:1px;height:38px;margin:10px auto 0;background:linear-gradient(180deg,var(--gold),transparent)}
+
+  section{padding:clamp(72px,11vh,128px) 0;position:relative}
+  .lede{max-width:760px}
+  .lede h2{font-size:clamp(30px,4.6vw,58px);margin-top:16px;color:var(--cream)}
+  .lede p{font-size:clamp(15px,1.5vw,18px);color:var(--soft);margin-top:22px;max-width:660px}
+
+  /* Video */
+  .video-sec{background:var(--bg2)}
+  .videobox{margin-top:46px;position:relative;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;border:1px solid var(--rule);box-shadow:0 44px 100px rgba(0,0,0,.6)}
+  .videobox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .vlink{display:inline-flex;align-items:center;gap:9px;margin-top:24px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:3px}
+
+  /* Steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px}
+  .step{padding:32px 26px 30px;border:1px solid rgba(244,237,224,.10);border-radius:14px;background:rgba(244,237,224,.02)}
+  .step .no{font-family:var(--serif);font-size:40px;color:var(--gold);line-height:1}
+  .step h3{font-family:var(--serif);font-size:22px;margin:16px 0 10px;color:var(--cream);font-weight:400}
+  .step p{font-size:14.5px;color:var(--muted)}
+
+  /* Split */
+  .split{display:grid;grid-template-columns:1.05fr 1fr;min-height:62vh}
+  .split .ph{background-size:cover;background-position:center}
+  .split .tx{display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,7vw,90px)}
+  .split .tx h2{font-family:var(--serif);font-size:clamp(28px,4vw,50px);color:var(--cream);margin:16px 0 0}
+  .split .tx p{font-size:clamp(15px,1.5vw,18px);color:var(--soft);margin-top:22px;max-width:520px}
+
+  /* Rooms */
+  .rooms{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:50px}
+  .room{padding:26px 22px;border:1px solid var(--rule);border-radius:13px;background:linear-gradient(180deg,rgba(201,162,75,.06),rgba(244,237,224,.01))}
+  .room h4{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--cream)}
+  .room span{font-size:12px;letter-spacing:.06em;color:var(--muted);display:block;margin-top:8px}
+
+  /* Offer */
+  .offer{background:var(--bg2)}
+  .offercard{margin-top:44px;border:1px solid var(--rule);border-radius:18px;padding:clamp(34px,5vw,56px);background:linear-gradient(180deg,rgba(201,162,75,.07),rgba(244,237,224,.015));display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+  .offercard .big{font-family:var(--serif);font-size:clamp(52px,8vw,96px);color:var(--gold);line-height:.95}
+  .offercard .big small{display:block;font-family:var(--sans);font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:14px;font-weight:500}
+  .offercard h3{font-family:var(--serif);font-size:clamp(24px,3vw,34px);color:var(--cream);font-weight:400;margin-bottom:14px}
+  .offercard p{color:var(--soft);font-size:15.5px}
+  .offercard .strike{color:var(--muted);text-decoration:line-through;margin-right:8px}
+  .cta{display:inline-block;margin-top:24px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#0b0c0e;background:var(--gold);text-decoration:none;padding:14px 26px;border-radius:100px}
+
+  footer{padding:40px 0;text-align:center;border-top:1px solid rgba(244,237,224,.08)}
+  footer .pi{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+  footer .pi b{color:var(--cream)}
+
+  @media(max-width:860px){
+    .steps{grid-template-columns:1fr}
+    .split{grid-template-columns:1fr}.split .ph{min-height:300px}
+    .rooms{grid-template-columns:1fr 1fr}
+    .offercard{grid-template-columns:1fr;text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <img src="https://ops.integrateit.tech/integrateit-lockup-ondark.png" alt="IntegrateIT — Automation & Security">
+  <span class="tag">Origin Acoustics · Blends Series</span>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="bg"></div>
+  <div class="wrap inner">
+    <span class="eyebrow">For the Bent-Ward Foster House</span>
+    <h1 class="serif">The speakers<br>you'll never see.<em>Only hear.</em></h1>
+    <p>Origin Acoustics Blends mount inside the wall, get skim-coated in plaster, and painted over with the room. No grilles. No boxes. Just sound that seems to come from the architecture itself — the only speaker worthy of a two-hundred-year-old home.</p>
+  </div>
+  <div class="cue">Scroll<div class="d"></div></div>
+</header>
+
+<!-- VIDEO -->
+<section class="video-sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="eyebrow">Watch them disappear</span>
+      <h2 class="serif">Ninety seconds, and the speaker is gone.</h2>
+      <p>This is a real Blends installation — from the bracket in the open wall to the finished, painted surface with nothing left to see. Play it full-screen.</p>
+    </div>
+    <div class="videobox">
+      <iframe src="https://player.vimeo.com/video/1100334797?title=0&byline=0&portrait=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <a class="vlink" href="https://vimeo.com/1100334797" target="_blank" rel="noopener">Open the video on Vimeo →</a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <div class="lede">
+      <span class="eyebrow">How it works</span>
+      <h2 class="serif">Built into the house, not bolted onto it.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="no serif">01</div>
+        <h3>Set in the wall</h3>
+        <p>The Blends backing mounts flush inside the wall cavity during construction — no cabinet, no protruding box, no visible footprint in the room.</p>
+      </div>
+      <div class="step">
+        <div class="no serif">02</div>
+        <h3>Skim-coated in plaster</h3>
+        <p>A thin layer of plaster or joint compound is applied directly over the speaker face, blending it seamlessly into the surrounding wall or ceiling.</p>
+      </div>
+      <div class="step">
+        <div class="no serif">03</div>
+        <h3>Painted to vanish</h3>
+        <p>Painted over with the rest of the room. Sound passes straight through the finish — so the wall plays music, and the speaker is invisible. Forever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE EXPERIENCE -->
+<section class="split" style="padding:0">
+  <div class="ph" style="background-image:url('https://ops.integrateit.tech/proposal-assets/foster-band-audio.jpg')"></div>
+  <div class="tx">
+    <span class="eyebrow">The experience</span>
+    <h2 class="serif">Sound from everywhere. Speakers from nowhere.</h2>
+    <p>Walk into the room and it's simply filled with music — warm, even, and effortless — with nothing on the walls to tell you where it's coming from. No black grilles interrupting the millwork, no boxes competing with the architecture. Just the home, sounding the way it should.</p>
+  </div>
+</section>
+
+<!-- WHY HISTORIC -->
+<section>
+  <div class="wrap">
+    <div class="lede" style="max-width:820px">
+      <span class="eyebrow">Why this, for this house</span>
+      <h2 class="serif">A two-hundred-year-old home deserves technology it can't see.</h2>
+      <p>Every other speaker asks the house to make room for it. Blends asks nothing. The original plaster, the millwork, the oxblood doors and columned porches stay exactly as they are — and the music lives invisibly inside them. For a home being restored with this much care, it is the only kind of speaker worth installing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR ROOMS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="lede">
+      <span class="eyebrow">In your home</span>
+      <h2 class="serif">Hidden pairs, room by room.</h2>
+      <p>A pair of invisible Blends speakers, each room individually engineered and tuned. (Final room mix is yours to set with us.)</p>
+    </div>
+    <div class="rooms">
+      <div class="room"><h4>Kitchen</h4><span>Invisible pair · BLENDS602</span></div>
+      <div class="room"><h4>Living Room</h4><span>Invisible pair · BLENDS602</span></div>
+      <div class="room"><h4>Master Bedroom</h4><span>Invisible pair · BLENDS602</span></div>
+      <div class="room"><h4>Library</h4><span>Invisible pair · BLENDS602</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer">
+  <div class="wrap">
+    <div class="offercard">
+      <div>
+        <div class="big">$570<small>per invisible pair · installed</small></div>
+      </div>
+      <div>
+        <h3 class="serif">Our gift to a landmark.</h3>
+        <p>For this showcase home we've priced the Origin Acoustics Blends at <strong style="color:var(--cream)">$570 a pair</strong> — well below the usual <span class="strike">$2,167</span> — because the homeowners' first love is exactly what we do best. The speakers you'll never see, at a price that honors what you're preserving.</p>
+        <a class="cta" href="https://originacoustics.com/blends-series/" target="_blank" rel="noopener">See the full Blends series →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="pi">Powered by <b>IntegrateIT</b> · Automation &amp; Security · Kansas City · South Florida</p>
+  </div>
+</footer>
+
+</body>
+</html>
