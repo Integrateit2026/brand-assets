@@ -22,6 +22,7 @@
   nav a.on{color:var(--txt);background:var(--panel);border-color:var(--line);border-bottom:1px solid var(--bg)}
   .sub{color:var(--mut);font-size:13px;margin:-6px 0 20px}
   .sub b{color:var(--accent2)}
+  /* catalog grid */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
   .dcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px 19px;display:flex;flex-direction:column}
   .dcard h3{margin:0 0 2px;font-size:15.5px}
@@ -30,11 +31,46 @@
     border:1px solid var(--line2);border-radius:20px;padding:3px 10px;margin:10px 0}
   .ver small{color:var(--mut);font-weight:600}
   .notes{font-size:13px;color:#cdd7e6;margin:4px 0 12px;line-height:1.5;flex:1}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+  .chip{font-size:11px;font-weight:700;color:var(--mut);background:var(--panel2);border:1px solid var(--line);
+    border-radius:20px;padding:2px 9px;white-space:nowrap}
+  .chip b{color:var(--txt);font-weight:700}
   .acts{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
   .ib{font-size:12px;font-weight:700;border:1px solid var(--line2);border-radius:9px;padding:7px 11px;color:var(--txt);
-    text-decoration:none;background:var(--panel2)}
+    text-decoration:none;background:var(--panel2);cursor:pointer;font-family:var(--font)}
   .ib.pri{background:linear-gradient(135deg,var(--accent1),var(--accent));border:0;color:#fff}
   .empty{text-align:center;color:var(--mut2);padding:50px 0;font-size:14px;grid-column:1/-1}
+  /* detail view */
+  .back{display:inline-block;font-size:12.5px;font-weight:700;color:var(--mut);text-decoration:none;margin:0 0 14px}
+  .back:hover{color:var(--txt)}
+  .dhead{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+  .dhead h2{margin:0 0 2px;font-size:18px}
+  .dhead .slug{font-family:var(--mono);font-size:12px;color:var(--mut2)}
+  .dhead .notes{margin-top:10px}
+  section.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-bottom:14px}
+  section.panel h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut)}
+  ol.steps{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#cdd7e6}
+  ol.steps b{color:var(--txt)}
+  .hash{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hash code{font-family:var(--mono);font-size:11.5px;color:var(--accent2);word-break:break-all}
+  .hint{font-size:12px;color:var(--mut2);font-family:var(--mono);margin-top:8px}
+  .cbtn{font-size:11px;font-weight:700;border:1px solid var(--line2);border-radius:7px;padding:3px 9px;color:var(--mut);
+    background:var(--panel2);cursor:pointer;font-family:var(--font)}
+  .cbtn.done{color:var(--good);border-color:rgba(52,211,153,.5)}
+  /* changelog render */
+  .cl h4{margin:14px 0 6px;font-size:13px;color:var(--accent2)}
+  .cl h4:first-child{margin-top:0}
+  .cl ul{margin:0;padding-left:20px}
+  .cl li{font-size:12.5px;color:#cdd7e6;line-height:1.6}
+  /* history table */
+  .tblwrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{font-size:12.5px;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  td.mono{font-family:var(--mono);font-size:11.5px;color:var(--mut);white-space:nowrap}
+  td .vtag{font-weight:800;color:var(--accent2)}
+  td.notes{color:#cdd7e6;min-width:220px}
   .powered{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);text-align:center}
   .powered .pb{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--mut);margin:0 0 12px;padding-left:.4em}
   .powered img{height:34px;opacity:.95}
@@ -48,52 +84,175 @@
     <a href="https://relay.integrateit.dev/ops/licenses.html">Licenses</a>
     <a href="https://relay.integrateit.dev/ops/drivers.html" class="on">Driver Catalog</a>
   </nav>
-  <div class="sub">Every published IntegrateIT Control4 driver — live from the update channel, so this
+  <div class="sub">Every published IntegrateIT Control4 driver, live from the update channel, so this
     always shows the <b>current</b> version dealers receive over the air.</div>
-  <div id="grid" class="grid"><div class="empty">Loading the latest from the channel…</div></div>
+  <div id="view"><div class="empty">Loading the latest from the channel…</div></div>
   <div class="powered"><div class="pb">Powered by</div><img src="https://relay.integrateit.dev/app/logo.png" alt="IntegrateIT"></div>
 </div>
 <script>
-// Read the live self-update channel (the SAME source the drivers update from),
-// so the catalog can never drift from what's actually published. raw.githubusercontent
-// sends permissive CORS; ?t= busts any edge cache for freshness.
+// Reads the live self-update channel (the SAME source the drivers update from),
+// so the catalog can never drift from what's actually published. catalog.json
+// (schema 2) is the primary source; the fallback chain rebuilds the same shape
+// from index.json + per-slug version.json, and last-ditch asks the relay's own
+// mirror (/api/drivers). raw.githubusercontent sends permissive CORS; ?t= busts
+// any edge cache for freshness.
 const CHANNEL='https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4';
-const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const bust=u=>u+(u.includes('?')?'&':'?')+'t='+Date.now();
+const kb=n=>n==null?'':(n>=1048576?(n/1048576).toFixed(1)+' MB':Math.round(n/1024)+' KB');
+const day=iso=>iso?String(iso).slice(0,10):'';
+const c4zUrl=slug=>`${CHANNEL}/${encodeURIComponent(slug)}/${encodeURIComponent(slug)}.c4z`;
+
+let DRIVERS=null; // catalog-shaped [{slug,name,summary,version,xml_version,min_os,category,device_type,size_bytes,sha256,changelog_url,doc_url,releases_url,published_at}]
+
+async function j(url){ const r=await fetch(bust(url),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
+async function t(url){ const r=await fetch(bust(url),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); }
+
+async function loadDrivers(){
+  if(DRIVERS) return DRIVERS;
+  try{ const c=await j(CHANNEL+'/catalog.json'); if(c.schema===2&&Array.isArray(c.drivers)&&c.drivers.length) return DRIVERS=c.drivers; }catch(_){}
+  try{ // fallback: index.json + per-slug legacy/v2 manifests
+    const slugs=await j(CHANNEL+'/index.json');
+    const ds=(await Promise.all(slugs.map(async slug=>{
+      try{ const v=await j(`${CHANNEL}/${slug}/version.json`);
+        return {slug,name:v.name,summary:v.notes,version:v.version,xml_version:v.xml_version,min_os:v.min_os,
+          size_bytes:v.size_bytes,sha256:v.sha256,changelog_url:v.changelog_url,releases_url:v.releases_url,published_at:v.published_at};
+      }catch(_){ return null; }
+    }))).filter(Boolean);
+    if(ds.length) return DRIVERS=ds;
+  }catch(_){}
+  const {drivers=[]}=await j('/api/drivers'); // relay mirror (kept in sync by the relay's channel sync)
+  return DRIVERS=drivers;
+}
+
 function card(d){
+  const chips=[
+    d.category?`<span class="chip">${esc(d.category)}</span>`:'',
+    d.device_type?`<span class="chip">${esc(d.device_type)}</span>`:'',
+    d.min_os?`<span class="chip">OS <b>${esc(d.min_os)}+</b></span>`:'',
+    d.size_bytes?`<span class="chip">${kb(d.size_bytes)}</span>`:''
+  ].join('');
   return `<div class="dcard">
     <h3>${esc(d.name||d.slug)}</h3>
     <div class="slug">${esc(d.slug)}</div>
     <div class="ver">v${esc(d.version||'?')}${d.xml_version?` <small>· xml ${esc(d.xml_version)}</small>`:''}</div>
-    <div class="notes">${esc(d.notes||'')}</div>
+    <div class="notes">${esc(d.summary||'')}</div>
+    <div class="chips">${chips}</div>
     <div class="acts">
-      ${d.url?`<a class="ib pri" href="${esc(d.url)}" download>Download .c4z</a>`:''}
-      <a class="ib" href="${CHANNEL}/${encodeURIComponent(d.slug)}/version.json" target="_blank" rel="noopener">manifest</a>
+      <a class="ib pri" href="${esc(c4zUrl(d.slug))}" download>Download .c4z</a>
+      <a class="ib" href="#/driver/${encodeURIComponent(d.slug)}">Details</a>
     </div>
   </div>`;
 }
-async function load(){
-  const grid=document.getElementById('grid');
-  try{
-    // index.json lists the published slugs; fall back to the two known drivers.
-    let slugs;
-    try{ slugs=await (await fetch(bust(CHANNEL+'/index.json'))).json(); }
-    catch(_){ slugs=['integrateit_mm815_bond','integrateit_optimus']; }
-    const drivers=(await Promise.all(slugs.map(async slug=>{
-      try{ const v=await (await fetch(bust(`${CHANNEL}/${slug}/version.json`))).json(); return {slug,...v}; }
-      catch(_){ return null; }
-    }))).filter(Boolean);
-    if(!drivers.length){ grid.innerHTML='<div class="empty">No drivers published yet.</div>'; return; }
-    grid.innerHTML=drivers.map(card).join('');
-  }catch(e){
-    // last-ditch: the relay's own store
-    try{
-      const {drivers=[]}=await (await fetch('/api/drivers')).json();
-      grid.innerHTML=drivers.length?drivers.map(d=>card({slug:d.slug,name:d.name,version:d.version,xml_version:d.xmlVersion,notes:d.notes,url:`/drivers/${d.slug}/${d.file}`})).join(''):'<div class="empty">No drivers published yet.</div>';
-    }catch(_){ grid.innerHTML='<div class="empty">Could not reach the driver channel.</div>'; }
-  }
+
+function copyBtn(text,label){
+  return `<button class="cbtn" onclick="copyText(this,'${esc(text)}')">${esc(label||'copy')}</button>`;
 }
-load();
+window.copyText=async(btn,text)=>{
+  try{ await navigator.clipboard.writeText(text); }
+  catch(_){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+  btn.classList.add('done'); const was=btn.textContent; btn.textContent='copied';
+  setTimeout(()=>{ btn.classList.remove('done'); btn.textContent=was; },1400);
+};
+
+// minimal Keep-a-Changelog markdown: "## x.y.z - date" headings + "-" bullets.
+// Text is escaped BEFORE wrapping, so the source can never inject markup.
+function mdToHtml(md){
+  let out='',inUl=false;
+  for(const raw of String(md).split('\n')){
+    const ln=esc(raw);
+    if(/^##\s/.test(ln)){ if(inUl){out+='</ul>';inUl=false;} out+=`<h4>${ln.replace(/^##\s*/,'')}</h4>`; }
+    else if(/^#\s/.test(ln)) continue;
+    else if(/^\s*[-*]\s+/.test(ln)){ if(!inUl){out+='<ul>';inUl=true;} out+=`<li>${ln.replace(/^\s*[-*]\s+/,'')}</li>`; }
+    else if(/^\s+\S/.test(ln)&&inUl){ out=out.replace(/<\/li>\s*$/,' '+ln.trim()+'</li>'); }
+    else if(inUl){ out+='</ul>'; inUl=false; }
+  }
+  if(inUl) out+='</ul>';
+  return out;
+}
+
+function historyRow(d,h){
+  const dl=`${CHANNEL}/${encodeURIComponent(d.slug)}/releases/${encodeURIComponent(h.version)}/${encodeURIComponent(d.slug)}.c4z`;
+  return `<tr>
+    <td><span class="vtag">v${esc(h.version)}</span>${h.xml_version?` <span class="mono" style="color:var(--mut2)">xml ${esc(h.xml_version)}</span>`:''}</td>
+    <td class="mono">${esc(day(h.published_at))}</td>
+    <td class="mono">${kb(h.size_bytes)}</td>
+    <td class="mono">${h.sha256?`${esc(h.sha256.slice(0,12))}… ${copyBtn(h.sha256)}`:''}</td>
+    <td class="notes">${esc(h.notes||'')}</td>
+    <td><a class="ib" href="${esc(dl)}" download>.c4z</a></td>
+  </tr>`;
+}
+
+async function detail(slug){
+  const view=document.getElementById('view');
+  const ds=await loadDrivers();
+  const d=ds.find(x=>x.slug===slug);
+  if(!d){ view.innerHTML=`<a class="back" href="#">&larr; All drivers</a><div class="empty">No published driver called <b>${esc(slug)}</b>.</div>`; return; }
+  let rel=null, cl=null;
+  try{ rel=await j(d.releases_url||`${CHANNEL}/${slug}/releases.json`); }catch(_){}
+  try{ cl=await t(d.changelog_url||`${CHANNEL}/${slug}/CHANGELOG.md`); }catch(_){}
+  const docUrl=d.doc_url||null;
+  view.innerHTML=`
+    <a class="back" href="#">&larr; All drivers</a>
+    <div class="dhead">
+      <h2>${esc(d.name||d.slug)}</h2>
+      <div class="slug">${esc(d.slug)}</div>
+      <div class="ver">v${esc(d.version||'?')}${d.xml_version?` <small>· xml ${esc(d.xml_version)}</small>`:''}
+        ${d.published_at?` <small>· published ${esc(day(d.published_at))}</small>`:''}</div>
+      <div class="notes">${esc(d.summary||'')}</div>
+      <div class="acts">
+        <a class="ib pri" href="${esc(c4zUrl(d.slug))}" download>Download v${esc(d.version)} .c4z</a>
+        ${docUrl?`<a class="ib" href="${esc(docUrl)}" target="_blank" rel="noopener">Documentation</a>`:''}
+        <a class="ib" href="${CHANNEL}/${encodeURIComponent(d.slug)}/version.json" target="_blank" rel="noopener">manifest</a>
+      </div>
+    </div>
+    <section class="panel">
+      <h3>Install</h3>
+      <ol class="steps">
+        <li>Download the .c4z above.</li>
+        <li>ComposerPro &gt; <b>Driver &gt; Add or Update Driver or Agent</b>, pick the file.</li>
+        <li>First install: add the driver to a room, then set <b>License Key</b> and <b>License Server URL</b> in driver properties.</li>
+      </ol>
+      <h3 style="margin-top:16px">Over-the-air updates</h3>
+      <ol class="steps">
+        <li>Installed drivers poll this channel and raise <b>Update Available</b> when a newer version publishes.</li>
+        <li>Run the driver action <b>Download &amp; Stage Update</b> (or wait; it stages on its own).</li>
+        <li>In ComposerPro, right-click the driver and choose <b>Update Driver</b>. No re-adding, settings survive.</li>
+      </ol>
+    </section>
+    ${d.sha256?`<section class="panel">
+      <h3>Integrity</h3>
+      <div class="hash"><code>sha256 ${esc(d.sha256)}</code>${copyBtn(d.sha256)}</div>
+      <div class="hint">verify: shasum -a 256 ${esc(d.slug)}.c4z</div>
+    </section>`:''}
+    ${rel&&Array.isArray(rel.history)&&rel.history.length?`<section class="panel">
+      <h3>Version history</h3>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Version</th><th>Date</th><th>Size</th><th>sha256</th><th>Notes</th><th></th></tr></thead>
+        <tbody>${rel.history.map(h=>historyRow(d,h)).join('')}</tbody>
+      </table></div>
+    </section>`:''}
+    ${cl?`<section class="panel"><h3>Changelog</h3><div class="cl">${mdToHtml(cl)}</div></section>`:''}
+  `;
+}
+
+async function grid(){
+  const view=document.getElementById('view');
+  try{
+    const ds=await loadDrivers();
+    view.innerHTML=ds.length?`<div class="grid">${ds.map(card).join('')}</div>`
+      :'<div class="empty">No drivers published yet.</div>';
+  }catch(_){ view.innerHTML='<div class="empty">Could not reach the driver channel.</div>'; }
+}
+
+// hash routing: '' = catalog grid, '#/driver/<slug>' = detail
+async function route(){
+  const m=location.hash.match(/^#\/driver\/([A-Za-z0-9_%-]+)/);
+  try{ m?await detail(decodeURIComponent(m[1])):await grid(); }
+  catch(_){ document.getElementById('view').innerHTML='<div class="empty">Could not reach the driver channel.</div>'; }
+}
+addEventListener('hashchange',route);
+route();
 </script>
 </body>
 </html>
