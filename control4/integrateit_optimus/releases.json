@@ -1,6 +1,14 @@
 {
-  "latest": "2.3.1",
+  "latest": "2.3.2",
   "history": [
+    {
+      "version": "2.3.2",
+      "xml_version": 20260634,
+      "sha256": "4a42b94f2819005dabba88251027866cf8743e53a64084075c5255d13daed7b1",
+      "size_bytes": 165625,
+      "published_at": "2026-07-03T15:02:33.929Z",
+      "notes": "Navigator button press (SELECT) now re-pushes the current app URL and refreshes the in-app snapshot — a stale Navigator heals on tap (a declared uibutton proxy previously had no ReceivedFromProxy handler). · Test Event / Test Announcement actions are now license-gated like every other control path (Strict + unlicensed fires no device events)."
+    },
     {
       "version": "2.3.1",
       "xml_version": 20260633,

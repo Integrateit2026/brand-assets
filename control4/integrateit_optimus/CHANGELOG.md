@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Optimus AI
 
+## [2.3.2] - 2026-07-03
+- Navigator button press (SELECT) now re-pushes the current app URL and refreshes the in-app snapshot — a stale Navigator heals on tap (a declared uibutton proxy previously had no ReceivedFromProxy handler).
+- Test Event / Test Announcement actions are now license-gated like every other control path (Strict + unlicensed fires no device events).
+
 ## [2.3.1] - 2026-06-18
 - OTA self-update validation build. Identical code to 2.3.0.
 

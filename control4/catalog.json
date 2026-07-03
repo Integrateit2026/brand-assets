@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-07-03T14:48:17.044Z",
+  "generated_at": "2026-07-03T15:02:33.931Z",
   "drivers": [
     {
       "slug": "integrateit_mm815_bond",
@@ -24,15 +24,15 @@
       "summary": "The AI assistant, Service Requests, and My System experience inside Control4 Navigator. The assistant drives lights, scenes, thermostat, shades, fans, locks, and announcements; optional driver-hosted quick-control panel; resilient relay link with backoff and optional two-way device state. Per-controller licensing + over-the-air updates.",
       "category": "others",
       "device_type": "Optimus AI",
-      "version": "2.3.1",
-      "xml_version": 20260633,
+      "version": "2.3.2",
+      "xml_version": 20260634,
       "min_os": "3.0.0",
-      "size_bytes": 165034,
-      "sha256": "bebf14467e67b0e2f8d71da66e08add84d7701f3021ea1af8cf4c7b46fbd3e91",
+      "size_bytes": 165625,
+      "sha256": "4a42b94f2819005dabba88251027866cf8743e53a64084075c5255d13daed7b1",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/CHANGELOG.md",
       "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/documentation.html",
       "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/releases.json",
-      "published_at": "2026-07-03T14:48:17.042Z"
+      "published_at": "2026-07-03T15:02:33.929Z"
     }
   ]
 }
