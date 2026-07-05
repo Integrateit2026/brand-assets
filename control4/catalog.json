@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-07-03T15:02:33.931Z",
+  "generated_at": "2026-07-05T15:37:12.141Z",
   "drivers": [
     {
       "slug": "integrateit_mm815_bond",
@@ -8,15 +8,15 @@
       "summary": "PTZ-style control of a MantelMount MM815 motorized TV mount over Bond Bridge — nudge, drive-to-limit, true hold-to-move, six favorites, and TV-follow (auto Deploy/Stow with TV power). Bond auto-discovery + health, position state variables/events, per-controller licensing, and over-the-air updates.",
       "category": "others",
       "device_type": "MM815",
-      "version": "1.5.1",
-      "xml_version": 15,
+      "version": "1.5.2",
+      "xml_version": 16,
       "min_os": "3.0.0",
-      "size_bytes": 792415,
-      "sha256": "902d611c5a20dee81ccfb74f4be24456eea5c15791b3ecbc98de93663979020c",
+      "size_bytes": 792554,
+      "sha256": "0c5cc8f6131511ad0cfaa6834157257dbcf58a30ab4078c175f7e00704ce7c1a",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/CHANGELOG.md",
       "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/documentation.html",
       "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/releases.json",
-      "published_at": "2026-07-03T14:48:17.038Z"
+      "published_at": "2026-07-05T15:37:12.136Z"
     },
     {
       "slug": "integrateit_optimus",

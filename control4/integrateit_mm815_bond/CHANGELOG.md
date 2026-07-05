@@ -1,5 +1,8 @@
 # Changelog — MantelMount MM815 (Bond Bridge)
 
+## [1.5.2] - 2026-07-05
+- resync channel bytes after iit_update.lua channel-comment fix
+
 ## [1.5.1] - 2026-06-18
 - OTA self-update validation build. Identical code to 1.5.0.
 

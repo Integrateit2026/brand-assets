@@ -1,6 +1,14 @@
 {
-  "latest": "1.5.1",
+  "latest": "1.5.2",
   "history": [
+    {
+      "version": "1.5.2",
+      "xml_version": 16,
+      "sha256": "0c5cc8f6131511ad0cfaa6834157257dbcf58a30ab4078c175f7e00704ce7c1a",
+      "size_bytes": 792554,
+      "published_at": "2026-07-05T15:37:12.136Z",
+      "notes": "resync channel bytes after iit_update.lua channel-comment fix"
+    },
     {
       "version": "1.5.1",
       "xml_version": 15,
