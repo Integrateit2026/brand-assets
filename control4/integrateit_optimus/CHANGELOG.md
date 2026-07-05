@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Optimus AI
 
+## [2.3.3] - 2026-07-05
+- resync channel bytes after iit_update.lua channel-comment fix
+
 ## [2.3.2] - 2026-07-03
 - Navigator button press (SELECT) now re-pushes the current app URL and refreshes the in-app snapshot — a stale Navigator heals on tap (a declared uibutton proxy previously had no ReceivedFromProxy handler).
 - Test Event / Test Announcement actions are now license-gated like every other control path (Strict + unlicensed fires no device events).
