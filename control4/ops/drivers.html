@@ -129,6 +129,9 @@ function normalize(d){
 }
 async function loadCatalog(){
   if(CATALOG)return CATALOG;
+  if(!localHost){
+    try{const mirror=await getJson(location.origin+'/api/drivers');if(mirror.ok&&Array.isArray(mirror.drivers))return CATALOG=mirror.drivers.map(normalize)}catch(_){ }
+  }
   try{const c=await getJson(CHANNEL+'/catalog.json');if([2,3].includes(c.schema)&&Array.isArray(c.drivers))return CATALOG=c.drivers.map(normalize)}catch(_){ }
   const slugs=await getJson(CHANNEL+'/index.json');
   CATALOG=(await Promise.all(slugs.map(async slug=>{try{const v=await getJson(`${CHANNEL}/${slug}/version.json`);return normalize({slug,name:v.name,summary:v.notes,version:v.version,xml_version:v.xml_version,min_os:v.min_os,size_bytes:v.size_bytes,sha256:v.sha256,published_at:v.published_at})}catch(_){return null}}))).filter(Boolean);
