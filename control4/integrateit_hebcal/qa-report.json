@@ -14,9 +14,9 @@
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
-    "status": "pending",
-    "checked_at": null,
-    "note": "Live channel verification runs after publication."
+    "status": "pass",
+    "checked_at": "2026-07-14T07:49:04.240Z",
+    "note": "Published bytes, manifest, catalog, and immutable release pointer verified."
   },
   "stages": [
     {
