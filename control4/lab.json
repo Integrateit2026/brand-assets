@@ -3,40 +3,54 @@
   "generatedAt": "2026-07-14",
   "source": {
     "files": [
-      "batch-audit.json",
-      "batch-audit.md"
+      "2026-07-14 V1 metadata audit — 142 unique encrypted references",
+      "2026-07-14 New Folder With Items metadata audit — 145 unique encrypted references"
     ],
-    "constraint": "Classification uses audit metadata only. No proprietary C4Z runtime, documentation, image, or encrypted content was opened, extracted, executed, copied, or used as a specification.",
-    "auditedUniqueEncryptedDrivers": 142,
-    "familyCount": 44
+    "intakeBatches": [
+      {
+        "id": "v1",
+        "packageFiles": 54,
+        "duplicatePackageGroups": 4,
+        "uniqueEncryptedDrivers": 142
+      },
+      {
+        "id": "new-folder-with-items",
+        "packageFiles": 20,
+        "duplicatePackageGroups": 0,
+        "uniqueEncryptedDrivers": 145
+      }
+    ],
+    "constraint": "Classification uses public package filenames and audit metadata only. No proprietary C4Z runtime, documentation, image, or encrypted content was opened, extracted, executed, copied, published, or used as a specification.",
+    "auditedUniqueEncryptedDrivers": 287,
+    "familyCount": 69
   },
-  "mappingRule": "Every exact name in a family's sourceDrivers array inherits that family's primaryClass, wave, prerequisites, and release gates. The 44 arrays contain each of the 142 audited unique driver names exactly once.",
+  "mappingRule": "Every exact label in a family's sourceDrivers array inherits that family's primaryClass, wave, prerequisites, and release gates. A label is the audit metadata name; where metadata names repeat, the package entry filename is appended in brackets. The 69 arrays contain each of the 287 audited unique driver references exactly once. Labels are chain-of-custody records only, never product specifications.",
   "reconciliation": {
     "classificationCounts": {
-      "generic-control4": 22,
-      "documented-public-api-protocol-research": 39,
-      "vendor-authorization-hardware-required": 33,
-      "do-not-republish": 48,
-      "total": 142
+      "generic-control4": 49,
+      "documented-public-api-protocol-research": 71,
+      "vendor-authorization-hardware-required": 57,
+      "do-not-republish": 110,
+      "total": 287
     },
     "releaseWaveSourceCounts": {
       "wave-1-foundation": 2,
-      "wave-2-control4-native": 21,
-      "wave-3-local-public-protocols": 26,
-      "wave-4-public-cloud-apis": 2,
+      "wave-2-control4-native": 48,
+      "wave-3-local-public-protocols": 55,
+      "wave-4-public-cloud-apis": 5,
       "wave-5-unifi-research": 10,
-      "wave-6-authorized-hardware": 33,
-      "retired-not-republished": 48,
-      "total": 142
+      "wave-6-authorized-hardware": 57,
+      "retired-not-republished": 110,
+      "total": 287
     },
     "targetArtifactCounts": {
-      "cleanRoomArtifactsIfAllGatesPass": 91,
+      "cleanRoomArtifactsIfAllGatesPass": 136,
       "newTrademarkNeutralConsoleReplacement": 1,
-      "maximumPlannedIntegrateITArtifacts": 92,
-      "sourceDriversCollapsedByAdaptiveOrLocalizedImplementations": 3,
-      "sourceIconDriversRetired": 48
+      "maximumPlannedIntegrateITArtifacts": 137,
+      "sourceDriversCollapsedByAdaptiveOrLocalizedImplementations": 41,
+      "sourceArtifactsRetired": 110
     },
-    "reconciliationEquation": "22 + 39 + 33 + 48 = 142; waves 2 + 21 + 26 + 2 + 10 + 33 + 48 = 142"
+    "reconciliationEquation": "49 + 71 + 57 + 110 = 287; waves 2 + 48 + 55 + 5 + 10 + 57 + 110 = 287; 287 - 110 retired - 41 collapsed = 136 gated clean-room artifacts, plus at most 1 separately conceived trademark-neutral console replacement = 137 maximum."
   },
   "classificationDefinitions": {
     "generic-control4": "Original behavior can be specified from Control4 public SDK/proxy contracts and IntegrateIT requirements without depending on a third-party device protocol. This is not permission to imitate another driver's UX, names, bindings, or implementation.",
@@ -49,139 +63,428 @@
       "id": "P0",
       "name": "Reference quarantine",
       "pass": "Third-party packages remain outside source, build, test-fixture, screenshot, documentation, and publication trees; hashes may be retained only in the audit ledger.",
-      "evidence": ["quarantine path record", "deny-list scan", "release tree scan"]
+      "evidence": [
+        "quarantine path record",
+        "deny-list scan",
+        "release tree scan"
+      ]
     },
     {
       "id": "P1",
       "name": "Independent specification",
       "pass": "Requirements cite only Control4 public contracts, official vendor materials, IntegrateIT-authored behavior, and black-box observations made on owned hardware where terms permit.",
-      "evidence": ["requirements document", "source citation ledger", "author attestation"]
+      "evidence": [
+        "requirements document",
+        "source citation ledger",
+        "author attestation"
+      ]
     },
     {
       "id": "P2",
       "name": "Rights and terms review",
       "pass": "API/protocol access, trademarks, screenshots, icons, names, cloud credentials, and redistribution terms are reviewed and recorded; unclear rights block release.",
-      "evidence": ["terms snapshot/date", "vendor authorization if required", "brand-usage decision"]
+      "evidence": [
+        "terms snapshot/date",
+        "vendor authorization if required",
+        "brand-usage decision"
+      ]
     },
     {
       "id": "P3",
       "name": "Original implementation",
       "pass": "Source, XML, documentation, icons, screenshots, binding IDs, and update metadata are IntegrateIT-authored and pass similarity/manual provenance review.",
-      "evidence": ["commit history", "review sign-off", "asset source files"]
+      "evidence": [
+        "commit history",
+        "review sign-off",
+        "asset source files"
+      ]
     },
     {
       "id": "P4",
       "name": "Security and privacy",
       "pass": "Secrets are never logged or packaged; TLS/certificate behavior, token storage, least privilege, redaction, local/cloud data flow, and destructive commands are tested.",
-      "evidence": ["threat model", "secret scan", "negative-path tests", "privacy note"]
+      "evidence": [
+        "threat model",
+        "secret scan",
+        "negative-path tests",
+        "privacy note"
+      ]
     },
     {
       "id": "P5",
       "name": "Control4 contract verification",
       "pass": "Stable driver UUID/binding IDs, proxy semantics, Composer properties/actions/events, upgrade behavior, and minimum OS claims pass static and controller tests.",
-      "evidence": ["schema/static report", "runtime simulator report", "Composer commissioning record"]
+      "evidence": [
+        "schema/static report",
+        "runtime simulator report",
+        "Composer commissioning record"
+      ]
     },
     {
       "id": "P6",
       "name": "Representative hardware acceptance",
       "pass": "Every supported device generation, firmware/API variant, transport, failure mode, and recovery path in the published compatibility matrix has passed on owned lab hardware.",
-      "evidence": ["hardware serial/model ledger", "firmware matrix", "72-hour soak", "power/network recovery"]
+      "evidence": [
+        "hardware serial/model ledger",
+        "firmware matrix",
+        "72-hour soak",
+        "power/network recovery"
+      ]
     },
     {
       "id": "P7",
       "name": "Release truthfulness",
       "pass": "Ops Portal states release maturity, exact compatibility, untested combinations, known limitations, hardware-test status, checksum, version, support path, and rollback instructions.",
-      "evidence": ["signed release manifest", "catalog validation", "portal browser QA", "download checksum"]
+      "evidence": [
+        "signed release manifest",
+        "catalog validation",
+        "portal browser QA",
+        "download checksum"
+      ]
     }
   ],
   "releaseWaves": [
     {
       "id": "wave-0-quarantine",
-      "sourceDriverCount": 142,
+      "sourceDriverCount": 287,
       "releaseCount": 0,
       "purpose": "Register provenance-only records and deny publication of all third-party payloads.",
-      "exit": ["P0 passes for all 142 hashes", "classification and owner assigned", "no third-party binary or asset appears in a release tree"]
+      "exit": [
+        "P0 passes for all 287 hashes",
+        "classification, intake batch, and owner assigned",
+        "no third-party binary, implementation structure, documentation, screenshot, icon, or other asset appears in a source, build, fixture, or public channel"
+      ]
     },
     {
       "id": "wave-1-foundation",
       "sourceDriverCount": 2,
-      "familyIds": ["advanced-hebcal", "garage-integration"],
+      "familyIds": [
+        "advanced-hebcal",
+        "garage-integration"
+      ],
       "purpose": "Ship the already independent foundation candidates only after their existing code, docs, packaging, portal pages, and regression evidence pass P0-P7.",
-      "exit": ["all automated gates green", "real Composer smoke test", "honest release-candidate label until controller/hardware evidence exists"]
+      "exit": [
+        "all automated gates green",
+        "real Composer smoke test",
+        "honest release-candidate label until controller/hardware evidence exists"
+      ]
     },
     {
       "id": "wave-2-control4-native",
-      "sourceDriverCount": 21,
-      "familyIds": ["integrator-tools", "circadian-lighting", "code-agent", "color-integration", "colour-wheel", "doorbell-integration", "enhanced-lighting", "enhanced-scheduler", "gate-integration", "holiday-integration", "leak-detection", "lock-integration", "mode-integration", "network-agents", "occupancy", "remote-detection", "soundfx-integration"],
+      "sourceDriverCount": 48,
+      "familyIds": [
+        "integrator-tools",
+        "circadian-lighting",
+        "code-agent",
+        "color-integration",
+        "colour-wheel",
+        "doorbell-integration",
+        "enhanced-lighting",
+        "enhanced-scheduler",
+        "gate-integration",
+        "holiday-integration",
+        "leak-detection",
+        "lock-integration",
+        "mode-integration",
+        "network-agents",
+        "occupancy",
+        "remote-detection",
+        "soundfx-integration",
+        "integrateit-support-surfaces",
+        "experience-state-buttons",
+        "generic-appliance-status",
+        "lifestyle-mode-buttons",
+        "assistance-request-button",
+        "safe-power-cycle",
+        "generic-tcp-toolkit",
+        "graphing-insights"
+      ],
       "purpose": "Build original, device-independent Composer utilities from IntegrateIT requirements and Control4 contracts.",
-      "exit": ["requirements approved without competitor feature matching", "destructive/recursive programming guardrails tested", "OS 3.3 and current OS controller matrix passes"]
+      "exit": [
+        "requirements approved without competitor feature matching",
+        "destructive/recursive programming guardrails tested",
+        "OS 3.3 and current OS controller matrix passes"
+      ]
     },
     {
       "id": "wave-3-local-public-protocols",
-      "sourceDriverCount": 26,
-      "familyIds": ["bond-home", "govee", "nanoleaf", "shelly", "vestaboard"],
+      "sourceDriverCount": 55,
+      "familyIds": [
+        "bond-home",
+        "govee",
+        "nanoleaf",
+        "shelly",
+        "vestaboard",
+        "esphome",
+        "lifx",
+        "philips-hue",
+        "ratgdo"
+      ],
       "purpose": "Prioritize integrations that may operate through officially documented local or openly documented device APIs.",
-      "exit": ["official documentation/terms verified at implementation time", "owned hardware matrix complete", "discovery, auth, rate-limit, reconnect, and firmware-drift tests pass"]
+      "exit": [
+        "official documentation/terms verified at implementation time",
+        "owned hardware matrix complete",
+        "discovery, auth, rate-limit, reconnect, and firmware-drift tests pass"
+      ]
     },
     {
       "id": "wave-4-public-cloud-apis",
-      "sourceDriverCount": 2,
-      "familyIds": ["gemini-ai", "openai-chatgpt"],
+      "sourceDriverCount": 5,
+      "familyIds": [
+        "gemini-ai",
+        "openai-chatgpt",
+        "push-notifications",
+        "smtp-notifications"
+      ],
       "purpose": "Implement cloud API clients only after cost, consent, data handling, model capability, and credential protections are productized.",
-      "exit": ["official API docs and terms verified", "budget/rate controls and redaction tested", "no API key in project backup/logs", "clear AI disclosure and failure behavior"]
+      "exit": [
+        "official API docs and terms verified",
+        "budget/rate controls and redaction tested",
+        "no API key in project backup/logs",
+        "clear AI disclosure and failure behavior"
+      ]
     },
     {
       "id": "wave-5-unifi-research",
       "sourceDriverCount": 10,
-      "familyIds": ["unifi-network", "unifi-protect"],
+      "familyIds": [
+        "unifi-network",
+        "unifi-protect"
+      ],
       "purpose": "Run a separate official-API feasibility program because controller/application versions and endpoint support can change materially.",
-      "exit": ["supported official API surface identified", "Ubiquiti terms permit the intended use", "UDM/CloudKey and application-version lab matrix passes", "unsupported endpoints are excluded"]
+      "exit": [
+        "supported official API surface identified",
+        "Ubiquiti terms permit the intended use",
+        "UDM/CloudKey and application-version lab matrix passes",
+        "unsupported endpoints are excluded"
+      ]
     },
     {
       "id": "wave-6-authorized-hardware",
-      "sourceDriverCount": 33,
-      "familyIds": ["aprilaire-wifi", "lutron-homeworks-qs", "esi-r2d7", "esi-rq", "flo-by-moen", "future-automation", "honeywell-tcc", "mcintosh-c12000", "paradox-security", "proluxe-pixel-art", "qolsys-security", "lutron-radiora-classic", "somfy-urtsii", "unifi-access", "unifi-connect"],
+      "sourceDriverCount": 57,
+      "familyIds": [
+        "aprilaire-wifi",
+        "lutron-homeworks-qs",
+        "esi-r2d7",
+        "esi-rq",
+        "flo-by-moen",
+        "future-automation",
+        "honeywell-tcc",
+        "mcintosh-c12000",
+        "paradox-security",
+        "proluxe-pixel-art",
+        "qolsys-security",
+        "lutron-radiora-classic",
+        "somfy-urtsii",
+        "unifi-access",
+        "unifi-connect",
+        "benq-projectors",
+        "big-ass-fans-haiku",
+        "daikin-wifi",
+        "elk-m1",
+        "hegel-audio",
+        "hisense-vidaa",
+        "optoma-projectors",
+        "tplink-kasa-tapo",
+        "yale-home"
+      ],
       "purpose": "Proceed family by family only after written integration authority or clearly permitted official protocol terms and a complete physical lab are secured.",
-      "exit": ["P0-P7 pass", "vendor/partner approval recorded where applicable", "supported models and firmware explicitly bounded", "no reverse-engineered private cloud endpoints"]
+      "exit": [
+        "P0-P7 pass",
+        "vendor/partner approval recorded where applicable",
+        "supported models and firmware explicitly bounded",
+        "no reverse-engineered private cloud endpoints"
+      ]
     },
     {
       "id": "retired-not-republished",
-      "sourceDriverCount": 48,
-      "familyIds": ["game-console-icons"],
-      "purpose": "Permanently exclude third-party and trademark-bearing icon drivers. If dealer demand exists, create one new trademark-neutral generic console source selector with original IntegrateIT geometry and no copied trade dress.",
-      "exit": ["48 source artifacts remain deny-listed", "legal/design review approves any wholly new generic replacement"]
+      "sourceDriverCount": 110,
+      "familyIds": [
+        "game-console-icons",
+        "hisense-app-buttons-retired",
+        "media-upload-helpers-retired"
+      ],
+      "purpose": "Permanently exclude 110 third-party presentation, branded app/button, media-helper, and icon references. Any future generic replacement must be separately conceived, independently specified, legally reviewed, and built with original IntegrateIT geometry, copy, assets, and interactions.",
+      "exit": [
+        "110 source artifacts remain deny-listed",
+        "legal/design review approves any wholly new generic replacement"
+      ]
     }
   ],
   "hardwareLabMatrix": [
     {
       "scope": "Control4 baseline",
-      "familyIds": ["advanced-hebcal", "integrator-tools", "circadian-lighting", "code-agent", "color-integration", "colour-wheel", "doorbell-integration", "enhanced-lighting", "enhanced-scheduler", "garage-integration", "gate-integration", "holiday-integration", "leak-detection", "lock-integration", "mode-integration", "network-agents", "occupancy", "remote-detection", "soundfx-integration"],
-      "required": ["CA-1 or CA-10 current production controller", "second supported controller generation", "Composer Pro current and minimum-supported versions", "OS 3.3 baseline plus current production OS", "physical relay/contact/sensor fixtures where applicable"],
-      "acceptance": ["fresh add/identify/connect", "upgrade without reconnection", "project reboot", "controller reboot", "binding deletion/re-add", "programming-loop protection", "72-hour soak"]
+      "familyIds": [
+        "advanced-hebcal",
+        "integrator-tools",
+        "circadian-lighting",
+        "code-agent",
+        "color-integration",
+        "colour-wheel",
+        "doorbell-integration",
+        "enhanced-lighting",
+        "enhanced-scheduler",
+        "garage-integration",
+        "gate-integration",
+        "holiday-integration",
+        "leak-detection",
+        "lock-integration",
+        "mode-integration",
+        "network-agents",
+        "occupancy",
+        "remote-detection",
+        "soundfx-integration",
+        "generic-tcp-toolkit",
+        "graphing-insights",
+        "integrateit-support-surfaces",
+        "experience-state-buttons",
+        "generic-appliance-status",
+        "lifestyle-mode-buttons",
+        "assistance-request-button",
+        "safe-power-cycle"
+      ],
+      "required": [
+        "CA-1 or CA-10 current production controller",
+        "second supported controller generation",
+        "Composer Pro current and minimum-supported versions",
+        "OS 3.3 baseline plus current production OS",
+        "physical relay/contact/sensor fixtures where applicable"
+      ],
+      "acceptance": [
+        "fresh add/identify/connect",
+        "upgrade without reconnection",
+        "project reboot",
+        "controller reboot",
+        "binding deletion/re-add",
+        "programming-loop protection",
+        "72-hour soak"
+      ]
     },
     {
       "scope": "Local IP/IoT APIs",
-      "familyIds": ["bond-home", "govee", "nanoleaf", "shelly", "vestaboard"],
-      "required": ["at least two supported device generations per family", "current and previous supported firmware", "segmented VLAN with mDNS/multicast controls", "DHCP lease and static-address scenarios", "offline WAN scenario"],
-      "acceptance": ["pairing/token lifecycle", "discovery on same and routed VLAN", "rate-limit/backoff", "device reboot", "IP change", "controller restart", "WAN loss", "firmware upgrade", "72-hour soak"]
+      "familyIds": [
+        "bond-home",
+        "govee",
+        "nanoleaf",
+        "shelly",
+        "vestaboard",
+        "esphome",
+        "lifx",
+        "philips-hue",
+        "ratgdo"
+      ],
+      "required": [
+        "at least two supported device generations per family",
+        "current and previous supported firmware",
+        "segmented VLAN with mDNS/multicast controls",
+        "DHCP lease and static-address scenarios",
+        "offline WAN scenario"
+      ],
+      "acceptance": [
+        "pairing/token lifecycle",
+        "discovery on same and routed VLAN",
+        "rate-limit/backoff",
+        "device reboot",
+        "IP change",
+        "controller restart",
+        "WAN loss",
+        "firmware upgrade",
+        "72-hour soak"
+      ]
     },
     {
       "scope": "Cloud APIs and AI",
-      "familyIds": ["gemini-ai", "openai-chatgpt", "flo-by-moen", "honeywell-tcc"],
-      "required": ["dedicated test tenants", "least-privilege/revocable credentials", "network impairment harness", "cost and quota alarms"],
-      "acceptance": ["credential rotation/revocation", "429/5xx/backoff", "timeout/cancel", "quota exhaustion", "privacy/redaction", "regional/account variation", "service outage recovery"]
+      "familyIds": [
+        "gemini-ai",
+        "openai-chatgpt",
+        "flo-by-moen",
+        "honeywell-tcc",
+        "push-notifications",
+        "smtp-notifications"
+      ],
+      "required": [
+        "dedicated test tenants",
+        "least-privilege/revocable credentials",
+        "network impairment harness",
+        "cost and quota alarms"
+      ],
+      "acceptance": [
+        "credential rotation/revocation",
+        "429/5xx/backoff",
+        "timeout/cancel",
+        "quota exhaustion",
+        "privacy/redaction",
+        "regional/account variation",
+        "service outage recovery"
+      ]
     },
     {
       "scope": "Serial, lighting, shade, AV, and security hardware",
-      "familyIds": ["aprilaire-wifi", "lutron-homeworks-qs", "esi-r2d7", "esi-rq", "future-automation", "mcintosh-c12000", "paradox-security", "proluxe-pixel-art", "qolsys-security", "lutron-radiora-classic", "somfy-urtsii"],
-      "required": ["every claimed gateway/controller generation", "representative endpoint for every claimed proxy type", "RS-232 null/direct adapters and serial capture", "current and oldest claimed firmware", "security panel isolated test bench"],
-      "acceptance": ["documented command/response conformance", "framing and malformed input", "power loss mid-command", "bus saturation", "state reconciliation", "alarm/safety fail-safe", "multi-day soak"]
+      "familyIds": [
+        "aprilaire-wifi",
+        "lutron-homeworks-qs",
+        "esi-r2d7",
+        "esi-rq",
+        "future-automation",
+        "mcintosh-c12000",
+        "paradox-security",
+        "proluxe-pixel-art",
+        "qolsys-security",
+        "lutron-radiora-classic",
+        "somfy-urtsii",
+        "benq-projectors",
+        "big-ass-fans-haiku",
+        "daikin-wifi",
+        "elk-m1",
+        "hegel-audio",
+        "optoma-projectors",
+        "tplink-kasa-tapo",
+        "yale-home",
+        "hisense-vidaa"
+      ],
+      "required": [
+        "every claimed gateway/controller generation",
+        "representative endpoint for every claimed proxy type",
+        "RS-232 null/direct adapters and serial capture",
+        "current and oldest claimed firmware",
+        "security panel isolated test bench"
+      ],
+      "acceptance": [
+        "documented command/response conformance",
+        "framing and malformed input",
+        "power loss mid-command",
+        "bus saturation",
+        "state reconciliation",
+        "alarm/safety fail-safe",
+        "multi-day soak"
+      ]
     },
     {
       "scope": "UniFi applications",
-      "familyIds": ["unifi-network", "unifi-protect", "unifi-access", "unifi-connect"],
-      "required": ["UDM Pro/SE class console", "CloudKey-class console if claimed", "current and previous supported Network/Protect/Access/Connect application versions", "camera, sensor, relay, ViewPort, display/cast, and intercom endpoints matching claims", "isolated lab site and test identities"],
-      "acceptance": ["official authentication flow", "least privilege", "event reconnect/replay", "console reboot", "application upgrade", "device adoption/removal", "certificate change", "routed VLAN", "72-hour event soak"]
+      "familyIds": [
+        "unifi-network",
+        "unifi-protect",
+        "unifi-access",
+        "unifi-connect"
+      ],
+      "required": [
+        "UDM Pro/SE class console",
+        "CloudKey-class console if claimed",
+        "current and previous supported Network/Protect/Access/Connect application versions",
+        "camera, sensor, relay, ViewPort, display/cast, and intercom endpoints matching claims",
+        "isolated lab site and test identities"
+      ],
+      "acceptance": [
+        "official authentication flow",
+        "least privilege",
+        "event reconnect/replay",
+        "console reboot",
+        "application upgrade",
+        "device adoption/removal",
+        "certificate change",
+        "routed VLAN",
+        "72-hour event soak"
+      ]
     }
   ],
   "families": [
@@ -189,444 +492,1340 @@
       "id": "advanced-hebcal",
       "name": "Advanced Hebcal",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Advanced Hebcal"],
+      "sourceDrivers": [
+        "Advanced Hebcal"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-1-foundation",
       "targetArtifactCount": 1,
-      "prerequisites": ["Verify current official Hebcal API documentation and terms", "Fixture timezone/DST and Hebrew/Gregorian boundary cases", "Do not use audited driver behavior or documentation as a specification"]
+      "prerequisites": [
+        "Verify current official Hebcal API documentation and terms",
+        "Fixture timezone/DST and Hebrew/Gregorian boundary cases",
+        "Do not use audited driver behavior or documentation as a specification"
+      ]
     },
     {
       "id": "aprilaire-wifi",
       "name": "Aprilaire Extended Wi-Fi",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Aprilaire Extended Wi-Fi Sensor/Support Module (Domosapiens)", "Aprilaire Extended Wi-Fi Thermostat (Domosapiens)"],
+      "sourceDrivers": [
+        "Aprilaire Extended Wi-Fi Sensor/Support Module (Domosapiens)",
+        "Aprilaire Extended Wi-Fi Thermostat (Domosapiens)"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 2,
-      "prerequisites": ["Aprilaire-authorized protocol/API documentation", "Supported thermostat and sensor hardware", "Thermostat safety, setpoint, mode, and reconnect test plan"]
+      "prerequisites": [
+        "Aprilaire-authorized protocol/API documentation",
+        "Supported thermostat and sensor hardware",
+        "Thermostat safety, setpoint, mode, and reconnect test plan"
+      ]
     },
     {
       "id": "bond-home",
       "name": "Bond Home",
       "sourceDriverCount": 15,
-      "sourceDrivers": ["Bond Breeze Pro", "Bond Bridge", "Bond Fan", "Bond Fan (2 Speed)", "Bond Fan (3 Speed)", "Bond Fan (4 Speed)", "Bond Fan (5 Speed)", "Bond Fan (6 Speed)", "Bond Fan (On/Off)", "Bond Fireplace", "Bond Generic", "Bond Light", "Bond Scene", "Bond Shade", "Bond Sidekick"],
+      "sourceDrivers": [
+        "Bond Breeze Pro",
+        "Bond Bridge",
+        "Bond Fan",
+        "Bond Fan (2 Speed)",
+        "Bond Fan (3 Speed)",
+        "Bond Fan (4 Speed)",
+        "Bond Fan (5 Speed)",
+        "Bond Fan (6 Speed)",
+        "Bond Fan (On/Off)",
+        "Bond Fireplace",
+        "Bond Generic",
+        "Bond Light",
+        "Bond Scene",
+        "Bond Shade",
+        "Bond Sidekick"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-3-local-public-protocols",
       "targetArtifactCount": 15,
-      "prerequisites": ["Verify official Bond local API and redistribution terms", "Bond Bridge and Breeze Pro hardware", "Capability-driven endpoint contracts; no assumptions from source driver names"]
+      "prerequisites": [
+        "Verify official Bond local API and redistribution terms",
+        "Bond Bridge and Breeze Pro hardware",
+        "Capability-driven endpoint contracts; no assumptions from source driver names"
+      ]
     },
     {
       "id": "lutron-homeworks-qs",
       "name": "Lutron HomeWorks QS Shade",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Cindev HomeworksQS Shade and Group Driver"],
+      "sourceDrivers": [
+        "Cindev HomeworksQS Shade and Group Driver"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 1,
-      "prerequisites": ["Lutron integration-program authorization and protocol rights", "HomeWorks QS processor, shade, and group fixtures", "Do not imply Lutron certification without written approval"]
+      "prerequisites": [
+        "Lutron integration-program authorization and protocol rights",
+        "HomeWorks QS processor, shade, and group fixtures",
+        "Do not imply Lutron certification without written approval"
+      ]
     },
     {
       "id": "integrator-tools",
       "name": "Integrator Tools",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Cindev Integrator Tools"],
+      "sourceDrivers": [
+        "Cindev Integrator Tools"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Write an IntegrateIT dealer-needs specification", "Define privileged actions and confirmation/audit behavior", "Exclude competitor naming and feature-by-feature imitation"]
+      "prerequisites": [
+        "Write an IntegrateIT dealer-needs specification",
+        "Define privileged actions and confirmation/audit behavior",
+        "Exclude competitor naming and feature-by-feature imitation"
+      ]
     },
     {
       "id": "circadian-lighting",
       "name": "Circadian Lighting",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Circadian Lighting Controller", "Circadian Lighting Webview"],
+      "sourceDrivers": [
+        "Circadian Lighting Controller",
+        "Circadian Lighting Webview"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 2,
-      "prerequisites": ["Original solar/circadian requirements and curve math", "Control4 lighting/color proxy research", "DST, polar-day/night, override, and webview accessibility fixtures"]
+      "prerequisites": [
+        "Original solar/circadian requirements and curve math",
+        "Control4 lighting/color proxy research",
+        "DST, polar-day/night, override, and webview accessibility fixtures"
+      ]
     },
     {
       "id": "code-agent",
       "name": "Code Agent",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Code Agent"],
+      "sourceDrivers": [
+        "Code Agent"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Threat model before implementation", "No arbitrary remote code execution or unbounded eval", "Allowlisted actions, local-only control, audit log, and safe rollback"]
+      "prerequisites": [
+        "Threat model before implementation",
+        "No arbitrary remote code execution or unbounded eval",
+        "Allowlisted actions, local-only control, audit log, and safe rollback"
+      ]
     },
     {
       "id": "color-integration",
       "name": "Color Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Color Integration+"],
+      "sourceDrivers": [
+        "Color Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original color-space and proxy mapping specification", "Clamp/gamut/transition tests", "No dependency on third-party interface conventions"]
+      "prerequisites": [
+        "Original color-space and proxy mapping specification",
+        "Clamp/gamut/transition tests",
+        "No dependency on third-party interface conventions"
+      ]
     },
     {
       "id": "colour-wheel",
       "name": "Colour Wheel",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Colour Wheel"],
+      "sourceDrivers": [
+        "Colour Wheel"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original accessible picker design", "Control4 color proxy contract", "RGB/HSV/CCT conversion and boundary tests"]
+      "prerequisites": [
+        "Original accessible picker design",
+        "Control4 color proxy contract",
+        "RGB/HSV/CCT conversion and boundary tests"
+      ]
     },
     {
       "id": "doorbell-integration",
       "name": "Doorbell Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Doorbell Integration+"],
+      "sourceDrivers": [
+        "Doorbell Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Define generic event/binding requirements", "Debounce, repeated press, announcement, and offline tests", "No vendor-specific claims without separate gates"]
+      "prerequisites": [
+        "Define generic event/binding requirements",
+        "Debounce, repeated press, announcement, and offline tests",
+        "No vendor-specific claims without separate gates"
+      ]
     },
     {
       "id": "enhanced-lighting",
       "name": "Enhanced Lighting Interface",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Enhanced Lighting Interface", "Enhanced Lighting Interface (OS3.3+)"],
+      "sourceDrivers": [
+        "Enhanced Lighting Interface",
+        "Enhanced Lighting Interface (OS3.3+)"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
       "collapse": "One IntegrateIT adaptive implementation replaces version-specific source variants; it does not copy either interface.",
-      "prerequisites": ["Control4 version-capability detection", "Original UI and interaction model", "OS 3.3 and current OS regression matrix"]
+      "prerequisites": [
+        "Control4 version-capability detection",
+        "Original UI and interaction model",
+        "OS 3.3 and current OS regression matrix"
+      ]
     },
     {
       "id": "enhanced-scheduler",
       "name": "Enhanced Scheduler",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Enhanced Scheduler"],
+      "sourceDrivers": [
+        "Enhanced Scheduler"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original scheduling requirements", "DST, timezone, recurrence, missed-event, reboot, and idempotency tests", "Safe editing and rollback semantics"]
+      "prerequisites": [
+        "Original scheduling requirements",
+        "DST, timezone, recurrence, missed-event, reboot, and idempotency tests",
+        "Safe editing and rollback semantics"
+      ]
     },
     {
       "id": "esi-r2d7",
       "name": "ESI R2D7 Shades",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["ESI R2D7 Bridge", "ESI R2D7 Shade"],
+      "sourceDrivers": [
+        "ESI R2D7 Bridge",
+        "ESI R2D7 Shade"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 2,
-      "prerequisites": ["Electronic Solutions authorized protocol", "R2D7 controller and shade", "Addressing, limits, feedback, multi-shade, and bus-recovery lab tests"]
+      "prerequisites": [
+        "Electronic Solutions authorized protocol",
+        "R2D7 controller and shade",
+        "Addressing, limits, feedback, multi-shade, and bus-recovery lab tests"
+      ]
     },
     {
       "id": "esi-rq",
       "name": "ESI RQ Shades",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["ESI RQ Bridge (OS3+)", "ESI RQ Shade (OS3+)"],
+      "sourceDrivers": [
+        "ESI RQ Bridge (OS3+)",
+        "ESI RQ Shade (OS3+)"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 2,
-      "prerequisites": ["Electronic Solutions authorized RS-232 protocol", "RQ controller and shade", "Serial framing, addressing, limits, feedback, and recovery tests"]
+      "prerequisites": [
+        "Electronic Solutions authorized RS-232 protocol",
+        "RQ controller and shade",
+        "Serial framing, addressing, limits, feedback, and recovery tests"
+      ]
     },
     {
       "id": "flo-by-moen",
       "name": "Flo by Moen",
       "sourceDriverCount": 4,
-      "sourceDrivers": ["Flo by Moen - Gateway", "Flo by Moen - Leak Detector", "Flo by Moen - Location", "Flo by Moen - Shutoff"],
+      "sourceDrivers": [
+        "Flo by Moen - Gateway",
+        "Flo by Moen - Leak Detector",
+        "Flo by Moen - Location",
+        "Flo by Moen - Shutoff"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 4,
-      "prerequisites": ["Moen-approved API and account flow", "Flo shutoff and leak hardware in a safe plumbing test rig", "Explicit confirmation/fail-safe design for valve operations", "No reverse-engineered private cloud endpoints"]
+      "prerequisites": [
+        "Moen-approved API and account flow",
+        "Flo shutoff and leak hardware in a safe plumbing test rig",
+        "Explicit confirmation/fail-safe design for valve operations",
+        "No reverse-engineered private cloud endpoints"
+      ]
     },
     {
       "id": "future-automation",
       "name": "Future Automation Mechanisms",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Future Automation Articulated Mechanism", "Future Automation Mechanism"],
+      "sourceDrivers": [
+        "Future Automation Articulated Mechanism",
+        "Future Automation Mechanism"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 2,
-      "prerequisites": ["Future Automation authorized control protocol", "Representative articulated and standard mechanisms", "Interlock, obstruction, timeout, limit, and power-loss safety tests"]
+      "prerequisites": [
+        "Future Automation authorized control protocol",
+        "Representative articulated and standard mechanisms",
+        "Interlock, obstruction, timeout, limit, and power-loss safety tests"
+      ]
     },
     {
       "id": "game-console-icons",
       "name": "Game Console Icons",
-      "sourceDriverCount": 48,
-      "sourceDrivers": ["Game Console Icon (Apple Pippin)", "Game Console Icon (Atari 2600)", "Game Console Icon (Atari Jaguar)", "Game Console Icon (Cassette Vision)", "Game Console Icon (ColecoVision)", "Game Console Icon (Generic 1)", "Game Console Icon (Generic 2)", "Game Console Icon (Generic 3)", "Game Console Icon (Generic 4)", "Game Console Icon (Google Stadia)", "Game Console Icon (Intellivision)", "Game Console Icon (Magnavox Odyssey)", "Game Console Icon (Nintendo GameCube)", "Game Console Icon (Nintendo Glove)", "Game Console Icon (Nintendo N64)", "Game Console Icon (Nintendo NES)", "Game Console Icon (Nintendo SNES)", "Game Console Icon (Nintendo Switch)", "Game Console Icon (Nintendo Wii U)", "Game Console Icon (Nintendo Wii)", "Game Console Icon (PC)", "Game Console Icon (PlayStation 1 Option)", "Game Console Icon (PlayStation 1)", "Game Console Icon (PlayStation 2 Slim)", "Game Console Icon (PlayStation 2)", "Game Console Icon (PlayStation 3 Slim)", "Game Console Icon (PlayStation 3 Super Slim)", "Game Console Icon (PlayStation 3)", "Game Console Icon (PlayStation 4 Pro)", "Game Console Icon (PlayStation 4 Slim)", "Game Console Icon (PlayStation 4)", "Game Console Icon (PlayStation 5-Option1)", "Game Console Icon (PlayStation 5-Option2)", "Game Console Icon (PlayStation 5)", "Game Console Icon (Polymega)", "Game Console Icon (Racing)", "Game Console Icon (Sega Dreamcast)", "Game Console Icon (Sega Genesis II)", "Game Console Icon (Sega Genesis)", "Game Console Icon (Sega Saturn)", "Game Console Icon (Steam Deck)", "Game Console Icon (Virtual Boy)", "Game Console Icon (VR)", "Game Console Icon (Xbox 360)", "Game Console Icon (Xbox One S)", "Game Console Icon (Xbox One X)", "Game Console Icon (Xbox One)", "Game Console Icon (Xbox)"],
+      "sourceDriverCount": 94,
+      "sourceDrivers": [
+        "Game Console Icon (Apple Pippin)",
+        "Game Console Icon (Atari 2600)",
+        "Game Console Icon (Atari Jaguar)",
+        "Game Console Icon (Cassette Vision)",
+        "Game Console Icon (ColecoVision)",
+        "Game Console Icon (Generic 1)",
+        "Game Console Icon (Generic 2)",
+        "Game Console Icon (Generic 3)",
+        "Game Console Icon (Generic 4)",
+        "Game Console Icon (Google Stadia)",
+        "Game Console Icon (Intellivision)",
+        "Game Console Icon (Magnavox Odyssey)",
+        "Game Console Icon (Nintendo GameCube)",
+        "Game Console Icon (Nintendo Glove)",
+        "Game Console Icon (Nintendo N64)",
+        "Game Console Icon (Nintendo NES)",
+        "Game Console Icon (Nintendo SNES)",
+        "Game Console Icon (Nintendo Switch)",
+        "Game Console Icon (Nintendo Wii U)",
+        "Game Console Icon (Nintendo Wii)",
+        "Game Console Icon (PC)",
+        "Game Console Icon (PlayStation 1 Option)",
+        "Game Console Icon (PlayStation 1)",
+        "Game Console Icon (PlayStation 2 Slim)",
+        "Game Console Icon (PlayStation 2)",
+        "Game Console Icon (PlayStation 3 Slim)",
+        "Game Console Icon (PlayStation 3 Super Slim)",
+        "Game Console Icon (PlayStation 3)",
+        "Game Console Icon (PlayStation 4 Pro)",
+        "Game Console Icon (PlayStation 4 Slim)",
+        "Game Console Icon (PlayStation 4)",
+        "Game Console Icon (PlayStation 5-Option1)",
+        "Game Console Icon (PlayStation 5-Option2)",
+        "Game Console Icon (PlayStation 5)",
+        "Game Console Icon (Polymega)",
+        "Game Console Icon (Racing)",
+        "Game Console Icon (Sega Dreamcast)",
+        "Game Console Icon (Sega Genesis II)",
+        "Game Console Icon (Sega Genesis)",
+        "Game Console Icon (Sega Saturn)",
+        "Game Console Icon (Steam Deck)",
+        "Game Console Icon (Virtual Boy)",
+        "Game Console Icon (VR)",
+        "Game Console Icon (Xbox 360)",
+        "Game Console Icon (Xbox One S)",
+        "Game Console Icon (Xbox One X)",
+        "Game Console Icon (Xbox One)",
+        "Game Console Icon (Xbox)",
+        "Arcade Games - UI Button",
+        "Atari 2600 - UI Button",
+        "Atari 5200 - UI Button",
+        "Atari 7800 - UI Button",
+        "Atari Jaguar - UI Button",
+        "ColecoVision - UI Button",
+        "Microsoft Xbox - UI Button",
+        "Microsoft Xbox 360 - UI Button",
+        "Microsoft Xbox One - UI Button",
+        "Microsoft Xbox Series S - UI Button",
+        "Microsoft Xbox Series X - UI Button",
+        "NEC PC Engine - UI Button",
+        "NEC TurboGrafx 16 - UI Button",
+        "Nes Classic Edition - UI Button",
+        "Nintendo 64 - UI Button",
+        "Nintendo Entertainment System - UI Button",
+        "Nintendo Famicom - UI Button",
+        "Nintendo Famicom Mini - UI Button",
+        "Nintendo Gamecube - UI Button",
+        "Nintendo Switch 2- UI Button",
+        "Nintendo Switch- UI Button",
+        "Nintendo Wii - UI Button",
+        "Nintendo Wii U - UI Button",
+        "Odyssey² - UI Button",
+        "Philips CD-i - UI Button",
+        "Playstation - UI Button",
+        "Playstation 2 - UI Button",
+        "Playstation 3 - UI Button",
+        "Playstation 4 - UI Button",
+        "Playstation 5 - UI Button",
+        "Playstation Vita TV - UI Button",
+        "PSone - UI Button",
+        "Raspberry Pi",
+        "RetroPie",
+        "Sega Dreamcast - UI Button",
+        "Sega Genesis - UI Button",
+        "Sega Master System - UI Button",
+        "Sega Master System II- UI Button",
+        "Sega Mega Drive - UI Button",
+        "Sega Saturn - UI Button",
+        "SNK Neo Geo - UI Button",
+        "Super Famicom - UI Button",
+        "Super Famicom Classic Mini- UI Button",
+        "Super Nintendo - UI Button",
+        "Super Nintendo Classic Mini - UI Button",
+        "Valve Steamdeck- UI Button"
+      ],
       "primaryClass": "do-not-republish",
       "wave": "retired-not-republished",
       "targetArtifactCount": 0,
-      "collapse": "Retire all 48 source icon packages. Optionally create one new, trademark-neutral generic console selector as a separate original product; even the four source items named Generic remain copyrighted third-party artwork and cannot be reused.",
-      "prerequisites": ["Permanent release deny-list", "No copied, traced, or confusingly similar silhouettes, logos, names, trade dress, screenshots, or metadata", "Legal/design approval for any new generic replacement"]
+      "collapse": "Retire all 94 source icon/button packages from both intakes. Optionally create one new trademark-neutral generic console selector as a separate original product; generic labels in either source batch remain copyrighted third-party presentation material and cannot be reused.",
+      "prerequisites": [
+        "Permanent release deny-list for all 94 source hashes",
+        "No copied, traced, redrawn, or confusingly similar silhouettes, logos, product names, trade dress, screenshots, UI states, metadata, or documentation",
+        "Legal/design approval for any wholly new trademark-neutral replacement"
+      ]
     },
     {
       "id": "garage-integration",
       "name": "Garage Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Garage Integration+"],
+      "sourceDrivers": [
+        "Garage Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-1-foundation",
       "targetArtifactCount": 1,
-      "prerequisites": ["Independent IntegrateIT contact/relay state machine", "Obstruction, timeout, contradictory-contact, manual-motion, and reboot tests", "Real controller plus representative opener fixture before stable status"]
+      "prerequisites": [
+        "Independent IntegrateIT contact/relay state machine",
+        "Obstruction, timeout, contradictory-contact, manual-motion, and reboot tests",
+        "Real controller plus representative opener fixture before stable status"
+      ]
     },
     {
       "id": "gate-integration",
       "name": "Gate Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Gate Integration+"],
+      "sourceDrivers": [
+        "Gate Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original relay/contact state machine", "Pedestrian/hold-open/obstruction/safety-loop requirements", "Physical gate simulator before real gate commissioning"]
+      "prerequisites": [
+        "Original relay/contact state machine",
+        "Pedestrian/hold-open/obstruction/safety-loop requirements",
+        "Physical gate simulator before real gate commissioning"
+      ]
     },
     {
       "id": "gemini-ai",
       "name": "Gemini AI",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Gemini AI"],
+      "sourceDrivers": [
+        "Gemini AI"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-4-public-cloud-apis",
       "targetArtifactCount": 1,
-      "prerequisites": ["Verify current official Google Gemini API docs and terms", "User consent, cost caps, redaction, model/region capability matrix", "Prompt-injection and unsafe action isolation"]
+      "prerequisites": [
+        "Verify current official Google Gemini API docs and terms",
+        "User consent, cost caps, redaction, model/region capability matrix",
+        "Prompt-injection and unsafe action isolation"
+      ]
     },
     {
       "id": "govee",
       "name": "Govee",
       "sourceDriverCount": 3,
-      "sourceDrivers": ["Govee Gateway", "Govee Light", "Govee Plug"],
+      "sourceDrivers": [
+        "Govee Gateway",
+        "Govee Light",
+        "Govee Plug"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-3-local-public-protocols",
       "targetArtifactCount": 3,
-      "prerequisites": ["Verify current official Govee API surface and terms", "Representative lights/plugs and gateway/API account", "Capability, quota, LAN/cloud fallback, color, state, and reconnect tests"]
+      "prerequisites": [
+        "Verify current official Govee API surface and terms",
+        "Representative lights/plugs and gateway/API account",
+        "Capability, quota, LAN/cloud fallback, color, state, and reconnect tests"
+      ]
     },
     {
       "id": "holiday-integration",
       "name": "Holiday Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Holiday Integration+"],
+      "sourceDrivers": [
+        "Holiday Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original holiday/calendar data model", "Locale, observed-date, sunset/timezone, and annual rollover tests", "User-editable exceptions and transparent source attribution"]
+      "prerequisites": [
+        "Original holiday/calendar data model",
+        "Locale, observed-date, sunset/timezone, and annual rollover tests",
+        "User-editable exceptions and transparent source attribution"
+      ]
     },
     {
       "id": "honeywell-tcc",
       "name": "Honeywell Total Connect Comfort",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Honeywell TCC Gateway", "Honeywell TCC Thermostat"],
+      "sourceDrivers": [
+        "Honeywell TCC Gateway",
+        "Honeywell TCC Thermostat"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 2,
-      "prerequisites": ["Resideo/Honeywell-approved API access and terms", "Dedicated TCC test tenant and supported thermostats", "No private endpoint emulation; thermostat safety and cloud-outage tests"]
+      "prerequisites": [
+        "Resideo/Honeywell-approved API access and terms",
+        "Dedicated TCC test tenant and supported thermostats",
+        "No private endpoint emulation; thermostat safety and cloud-outage tests"
+      ]
     },
     {
       "id": "leak-detection",
       "name": "Leak Detection",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Leak Detection+"],
+      "sourceDrivers": [
+        "Leak Detection+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original generic sensor aggregation requirements", "Latch/reset/supervision/offline and false-positive tests", "No automatic shutoff without explicit safe programming contract"]
+      "prerequisites": [
+        "Original generic sensor aggregation requirements",
+        "Latch/reset/supervision/offline and false-positive tests",
+        "No automatic shutoff without explicit safe programming contract"
+      ]
     },
     {
       "id": "lock-integration",
       "name": "Lock Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Lock Integration+"],
+      "sourceDrivers": [
+        "Lock Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Control4 lock proxy/event contract", "Original aggregation and programming requirements", "Permission, stale state, jam, battery, and mass-command safeguards"]
+      "prerequisites": [
+        "Control4 lock proxy/event contract",
+        "Original aggregation and programming requirements",
+        "Permission, stale state, jam, battery, and mass-command safeguards"
+      ]
     },
     {
       "id": "mcintosh-c12000",
       "name": "McIntosh C12000",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["McIntosh C12000"],
+      "sourceDrivers": [
+        "McIntosh C12000"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 1,
-      "prerequisites": ["McIntosh-authorized command protocol", "C12000 hardware and supported firmware", "Input/volume/mute/power feedback and serial/network recovery tests"]
+      "prerequisites": [
+        "McIntosh-authorized command protocol",
+        "C12000 hardware and supported firmware",
+        "Input/volume/mute/power feedback and serial/network recovery tests"
+      ]
     },
     {
       "id": "mode-integration",
       "name": "Mode Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Mode Integration+"],
+      "sourceDrivers": [
+        "Mode Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original finite-state/mode requirements", "Atomic transitions, recursion prevention, persistence, restart, and conflicting-request tests", "Dealer-readable audit/status model"]
+      "prerequisites": [
+        "Original finite-state/mode requirements",
+        "Atomic transitions, recursion prevention, persistence, restart, and conflicting-request tests",
+        "Dealer-readable audit/status model"
+      ]
     },
     {
       "id": "nanoleaf",
       "name": "Nanoleaf",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Nanoleaf Controller"],
+      "sourceDrivers": [
+        "Nanoleaf Controller"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-3-local-public-protocols",
       "targetArtifactCount": 1,
-      "prerequisites": ["Verify official local API documentation and terms", "At least two supported Nanoleaf generations", "Pairing token, discovery, effects, color, firmware, and recovery tests"]
+      "prerequisites": [
+        "Verify official local API documentation and terms",
+        "At least two supported Nanoleaf generations",
+        "Pairing token, discovery, effects, color, firmware, and recovery tests"
+      ]
     },
     {
       "id": "network-agents",
       "name": "Network Agents",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Network Client Agent", "Network Server Agent"],
+      "sourceDrivers": [
+        "Network Client Agent",
+        "Network Server Agent"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 2,
-      "prerequisites": ["Original bounded diagnostics protocol", "Authenticated local transport, allowlisted peers, rate limits, redacted logs", "No shell execution, network scanning by default, or covert remote access"]
+      "prerequisites": [
+        "Original bounded diagnostics protocol",
+        "Authenticated local transport, allowlisted peers, rate limits, redacted logs",
+        "No shell execution, network scanning by default, or covert remote access"
+      ]
     },
     {
       "id": "occupancy",
       "name": "Occupancy",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Occupancy Driver", "Occupancy Driver Controller"],
+      "sourceDrivers": [
+        "Occupancy Driver",
+        "Occupancy Driver Controller"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 2,
-      "prerequisites": ["Original occupancy confidence/state model", "Multi-sensor debounce, timeout, sleep/guest/privacy, restart, and contradictory-input tests", "Clear distinction between occupancy and security presence"]
+      "prerequisites": [
+        "Original occupancy confidence/state model",
+        "Multi-sensor debounce, timeout, sleep/guest/privacy, restart, and contradictory-input tests",
+        "Clear distinction between occupancy and security presence"
+      ]
     },
     {
       "id": "openai-chatgpt",
       "name": "OpenAI ChatGPT",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["OpenAI ChatGPT"],
+      "sourceDrivers": [
+        "OpenAI ChatGPT"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-4-public-cloud-apis",
       "targetArtifactCount": 1,
-      "prerequisites": ["Verify current official OpenAI API documentation and terms", "User consent, cost caps, redaction, supported-model capability matrix", "Prompt-injection isolation; model output cannot directly execute Control4 actions"]
+      "prerequisites": [
+        "Verify current official OpenAI API documentation and terms",
+        "User consent, cost caps, redaction, supported-model capability matrix",
+        "Prompt-injection isolation; model output cannot directly execute Control4 actions"
+      ]
     },
     {
       "id": "paradox-security",
       "name": "Paradox Security RS-232",
       "sourceDriverCount": 3,
-      "sourceDrivers": ["Paradox Security RS232 (English)", "Paradox Security RS232 (French)", "Paradox Security RS232 (Polish)"],
+      "sourceDrivers": [
+        "Paradox Security RS232 (English)",
+        "Paradox Security RS232 (French)",
+        "Paradox Security RS232 (Polish)"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 1,
       "collapse": "One locale-aware IntegrateIT driver replaces three language-specific source packages; no third-party translations or labels are reused.",
-      "prerequisites": ["Paradox-authorized integration protocol", "Supported panel/keypad/module matrix", "Independent English/French/Polish localization", "Alarm safety, partition/zone, supervision, and malformed-serial tests"]
+      "prerequisites": [
+        "Paradox-authorized integration protocol",
+        "Supported panel/keypad/module matrix",
+        "Independent English/French/Polish localization",
+        "Alarm safety, partition/zone, supervision, and malformed-serial tests"
+      ]
     },
     {
       "id": "proluxe-pixel-art",
       "name": "Proluxe Pixel-Art Scene Control",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Pixel-Art Scene Control"],
+      "sourceDrivers": [
+        "Pixel-Art Scene Control"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 1,
-      "prerequisites": ["Proluxe-authorized RS-232 protocol", "Representative controller/light hardware", "Scene, feedback, malformed frame, power-cycle, and bus-load tests"]
+      "prerequisites": [
+        "Proluxe-authorized RS-232 protocol",
+        "Representative controller/light hardware",
+        "Scene, feedback, malformed frame, power-cycle, and bus-load tests"
+      ]
     },
     {
       "id": "qolsys-security",
       "name": "Qolsys Security",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Qolsys Security"],
+      "sourceDrivers": [
+        "Qolsys Security"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 1,
-      "prerequisites": ["Johnson Controls/Qolsys-approved integration protocol", "Supported IQ Panel generations and firmware", "Partitions/zones/users/alarms, supervision, certificate, and fail-safe tests"]
+      "prerequisites": [
+        "Johnson Controls/Qolsys-approved integration protocol",
+        "Supported IQ Panel generations and firmware",
+        "Partitions/zones/users/alarms, supervision, certificate, and fail-safe tests"
+      ]
     },
     {
       "id": "lutron-radiora-classic",
       "name": "Lutron RadioRA Classic/Legacy",
       "sourceDriverCount": 4,
-      "sourceDrivers": ["RadioRa Classic Dimmer", "RadioRa Classic Keypad", "RadioRa Classic Switch", "RadioRa Classic/Legacy Gateway"],
+      "sourceDrivers": [
+        "RadioRa Classic Dimmer",
+        "RadioRa Classic Keypad",
+        "RadioRa Classic Switch",
+        "RadioRa Classic/Legacy Gateway"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 4,
-      "prerequisites": ["Lutron authorization and legacy integration protocol", "RadioRA Classic gateway, keypad, dimmer, and switch", "Addressing, level/ramp, LED, feedback, reconnect, and long-term legacy-support tests"]
+      "prerequisites": [
+        "Lutron authorization and legacy integration protocol",
+        "RadioRA Classic gateway, keypad, dimmer, and switch",
+        "Addressing, level/ramp, LED, feedback, reconnect, and long-term legacy-support tests"
+      ]
     },
     {
       "id": "remote-detection",
       "name": "Remote Detection",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Remote Detection+"],
+      "sourceDrivers": [
+        "Remote Detection+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original Control4 event/binding requirements", "Supported remote classes explicitly bounded", "Battery, stale state, duplicate event, reconnect, and privacy tests"]
+      "prerequisites": [
+        "Original Control4 event/binding requirements",
+        "Supported remote classes explicitly bounded",
+        "Battery, stale state, duplicate event, reconnect, and privacy tests"
+      ]
     },
     {
       "id": "shelly",
       "name": "Shelly",
-      "sourceDriverCount": 6,
-      "sourceDrivers": ["Shelly Dimmer", "Shelly Input", "Shelly Network", "Shelly RGBW (OS 3.3.0)", "Shelly Sensor", "Shelly Switch/Relay/EM"],
+      "sourceDriverCount": 20,
+      "sourceDrivers": [
+        "Shelly Dimmer",
+        "Shelly Input",
+        "Shelly Network",
+        "Shelly RGBW (OS 3.3.0)",
+        "Shelly Sensor",
+        "Shelly Switch/Relay/EM",
+        "Shelly Blind (Chowmain)",
+        "Shelly BTHome Agent (Chowmain)",
+        "Shelly BTHome Device (Chowmain)",
+        "Shelly Cloud/LAN Agent (Chowmain)",
+        "Shelly Component Controller (Chowmain)",
+        "Shelly Dimmer V1 - Depreciated (Chowmain)",
+        "Shelly Light V2 - OS 3.3+ (Chowmain)",
+        "Shelly Module - Gen 1 (Chowmain)",
+        "Shelly NG Module - Gen 2+ (Chowmain)",
+        "Shelly Relay Light V1 - Depreciated (Chowmain)",
+        "Shelly RGB Dimmer V1 - Depreciated (Chowmain)",
+        "Shelly RGBW Dimmer V1 - Depreciated (Chowmain)",
+        "Shelly Thermostat (Chowmain)",
+        "Shelly Tunable White Dimmer V1 - Depreciated (Chowmain)"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-3-local-public-protocols",
-      "targetArtifactCount": 6,
-      "prerequisites": ["Verify official Shelly Gen1/Gen2+ API documentation and terms", "Representative Wi-Fi/Ethernet devices across every claimed capability", "RPC/CoIoT/event, auth, discovery, firmware, power-metering, and recovery tests"]
+      "targetArtifactCount": 8,
+      "prerequisites": [
+        "Verify current official Shelly Gen1, Gen2+, BTHome, Cloud/LAN API documentation, terms, trademark rules, and commercial redistribution rights",
+        "Representative Wi-Fi, Ethernet, battery, Bluetooth, cover, light, relay, metering, thermostat, and sensor hardware across claimed generations",
+        "RPC, CoIoT, BLE event, auth, discovery, firmware, power-metering, cloud opt-in, local-only, reconnect, and recovery tests",
+        "No copied protocol code, legacy packaging, source assets, documentation, or private endpoints"
+      ],
+      "collapse": "Use eight original capability-driven products covering coordination, BTHome, component control, adaptive lighting, blind/cover, thermostat, Gen1 modules, and Gen2+ modules. Do not reproduce legacy/version-specific packaging."
     },
     {
       "id": "somfy-urtsii",
       "name": "Somfy URTSII",
       "sourceDriverCount": 2,
-      "sourceDrivers": ["Somfy Main", "Somfy Shade"],
+      "sourceDrivers": [
+        "Somfy Main",
+        "Somfy Shade"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 2,
-      "prerequisites": ["Somfy-authorized URTSII protocol", "URTSII transmitter and multiple shade channels", "Channel addressing, my/stop, travel-time estimation, limits, and serial recovery tests"]
+      "prerequisites": [
+        "Somfy-authorized URTSII protocol",
+        "URTSII transmitter and multiple shade channels",
+        "Channel addressing, my/stop, travel-time estimation, limits, and serial recovery tests"
+      ]
     },
     {
       "id": "soundfx-integration",
       "name": "SoundFX Integration",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["SoundFX Integration+"],
+      "sourceDrivers": [
+        "SoundFX Integration+"
+      ],
       "primaryClass": "generic-control4",
       "wave": "wave-2-control4-native",
       "targetArtifactCount": 1,
-      "prerequisites": ["Original audio-cue requirements and licensed/IntegrateIT-owned media only", "Queue, concurrency, volume restore, zone removal, and controller restart tests", "No third-party sound assets or copied presets"]
+      "prerequisites": [
+        "Original audio-cue requirements and licensed/IntegrateIT-owned media only",
+        "Queue, concurrency, volume restore, zone removal, and controller restart tests",
+        "No third-party sound assets or copied presets"
+      ]
     },
     {
       "id": "unifi-access",
       "name": "UniFi Access",
       "sourceDriverCount": 3,
-      "sourceDrivers": ["UniFi Access Gateway", "UniFi Access Intercom", "UniFi Access Location"],
+      "sourceDrivers": [
+        "UniFi Access Gateway",
+        "UniFi Access Intercom",
+        "UniFi Access Location"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 3,
-      "prerequisites": ["Official supported UniFi Access API or written Ubiquiti approval", "Access console, hub/reader/intercom, and isolated door hardware rig", "Credential, unlock, event, safety, audit, and outage tests; exclude private endpoints"]
+      "prerequisites": [
+        "Official supported UniFi Access API or written Ubiquiti approval",
+        "Access console, hub/reader/intercom, and isolated door hardware rig",
+        "Credential, unlock, event, safety, audit, and outage tests; exclude private endpoints"
+      ]
     },
     {
       "id": "unifi-connect",
       "name": "UniFi Connect",
       "sourceDriverCount": 3,
-      "sourceDrivers": ["UniFi Connect Cast,Cast-Pro", "UniFi Connect Display", "UniFi Connect Gateway"],
+      "sourceDrivers": [
+        "UniFi Connect Cast,Cast-Pro",
+        "UniFi Connect Display",
+        "UniFi Connect Gateway"
+      ],
       "primaryClass": "vendor-authorization-hardware-required",
       "wave": "wave-6-authorized-hardware",
       "targetArtifactCount": 3,
-      "prerequisites": ["Official supported UniFi Connect API or written Ubiquiti approval", "Connect console, display, Cast, and Cast Pro hardware", "Playback/input/state, adoption, app upgrade, and outage tests; exclude private endpoints"]
+      "prerequisites": [
+        "Official supported UniFi Connect API or written Ubiquiti approval",
+        "Connect console, display, Cast, and Cast Pro hardware",
+        "Playback/input/state, adoption, app upgrade, and outage tests; exclude private endpoints"
+      ]
     },
     {
       "id": "unifi-network",
       "name": "UniFi Network",
       "sourceDriverCount": 3,
-      "sourceDrivers": ["UniFi Network Control", "UniFi Network Device", "UniFi Network Gateway"],
+      "sourceDrivers": [
+        "UniFi Network Control",
+        "UniFi Network Device",
+        "UniFi Network Gateway"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-5-unifi-research",
       "targetArtifactCount": 3,
-      "prerequisites": ["Verify current official UniFi Network API and terms", "Explicitly exclude undocumented/private endpoints", "UDM/CloudKey, application-version, device-class, event, auth, and upgrade matrix"]
+      "prerequisites": [
+        "Verify current official UniFi Network API and terms",
+        "Explicitly exclude undocumented/private endpoints",
+        "UDM/CloudKey, application-version, device-class, event, auth, and upgrade matrix"
+      ]
     },
     {
       "id": "unifi-protect",
       "name": "UniFi Protect",
       "sourceDriverCount": 7,
-      "sourceDrivers": ["UniFi Protect Camera", "UniFi Protect Find Anything", "UniFi Protect Floodlight", "UniFi Protect Gateway", "UniFi Protect Relay", "UniFi Protect Sensor", "UniFi Protect ViewPort"],
+      "sourceDrivers": [
+        "UniFi Protect Camera",
+        "UniFi Protect Find Anything",
+        "UniFi Protect Floodlight",
+        "UniFi Protect Gateway",
+        "UniFi Protect Relay",
+        "UniFi Protect Sensor",
+        "UniFi Protect ViewPort"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-5-unifi-research",
       "targetArtifactCount": 7,
-      "prerequisites": ["Verify current official UniFi Protect API and terms for each capability", "Explicitly exclude undocumented/private endpoints", "Console/app, camera, sensor, relay, floodlight, ViewPort, event-stream, certificate, and upgrade matrix"]
+      "prerequisites": [
+        "Verify current official UniFi Protect API and terms for each capability",
+        "Explicitly exclude undocumented/private endpoints",
+        "Console/app, camera, sensor, relay, floodlight, ViewPort, event-stream, certificate, and upgrade matrix"
+      ]
     },
     {
       "id": "vestaboard",
       "name": "Vestaboard",
       "sourceDriverCount": 1,
-      "sourceDrivers": ["Vestaboard"],
+      "sourceDrivers": [
+        "Vestaboard"
+      ],
       "primaryClass": "documented-public-api-protocol-research",
       "wave": "wave-3-local-public-protocols",
       "targetArtifactCount": 1,
-      "prerequisites": ["Verify current official Vestaboard API documentation and terms", "Owned board or vendor-supported test environment", "Character validation, queue/rate limit, offline, credential rotation, and recovery tests"]
+      "prerequisites": [
+        "Verify current official Vestaboard API documentation and terms",
+        "Owned board or vendor-supported test environment",
+        "Character validation, queue/rate limit, offline, credential rotation, and recovery tests"
+      ]
+    },
+    {
+      "id": "benq-projectors",
+      "name": "BenQ Projectors",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "BENQ Universal Projector (115200)",
+        "BENQ Universal Projector (9600)"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 1,
+      "collapse": "Collapse the two baud-specific references into one original capability-driven projector driver with an explicit serial-profile setting.",
+      "prerequisites": [
+        "BenQ-approved serial protocol documentation and commercial redistribution authority",
+        "Owned representative projectors covering 9600 and 115200 baud profiles, supported firmware, warm-up/cool-down, inputs, feedback, and errors",
+        "Independent capability matrix; no copied third-party command tables, model lists, implementation structure, documentation, or metadata"
+      ]
+    },
+    {
+      "id": "big-ass-fans-haiku",
+      "name": "Big Ass Fans / Haiku",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "Big Ass Fans V2 (Chowmain)",
+        "Big Ass Fans V2 Fan / Light (Chowmain) - Requires OS 3.3.0 +"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 2,
+      "prerequisites": [
+        "Written confirmation of the supported local/cloud integration surface and commercial redistribution rights",
+        "Owned fan/light hardware across supported generations and firmware",
+        "Independent agent and fan/light proxy design with discovery, auth, reconnect, and rate-limit tests"
+      ]
+    },
+    {
+      "id": "integrateit-support-surfaces",
+      "name": "IntegrateIT Support Surfaces",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "Contact Us (Webview)",
+        "Technical Support Button - Type 1"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Independent IntegrateIT requirements, copy, interaction design, and original visual assets",
+        "HTTPS-only configurable destination, strict URL validation, privacy disclosure, no hidden tracking, offline/error behavior, and safe WebView isolation",
+        "Composer, Navigator, mobile, accessibility, and update-without-rebinding acceptance tests"
+      ],
+      "collapse": "Create one original, configurable IntegrateIT support experience spanning WebView and button entry points; do not reproduce third-party layouts, icons, copy, tracking, or behavior."
+    },
+    {
+      "id": "experience-state-buttons",
+      "name": "Experience State Buttons",
+      "sourceDriverCount": 8,
+      "sourceDrivers": [
+        "Checkbox",
+        "Favorite - Type 1",
+        "On/Off Button - Type 1",
+        "On/Off Button - Type 2",
+        "On/Off Button - Type 3",
+        "On/Off Button - Type 4",
+        "Radio Button",
+        "Yes/No Button - Type 1"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 2,
+      "collapse": "Create an original configurable state/choice experience plus a focused favorite action. All geometry, copy, icons, states, and interaction behavior must be newly designed.",
+      "prerequisites": [
+        "Independent Control4 state/action requirements and original IntegrateIT visual system",
+        "Persistence, accessibility, debounce, mutually exclusive state, programming-loop, and update tests",
+        "No copied/traced icons, names, state machines, screenshots, metadata, or documentation"
+      ]
+    },
+    {
+      "id": "generic-appliance-status",
+      "name": "Generic Appliance Status",
+      "sourceDriverCount": 5,
+      "sourceDrivers": [
+        "Generic Dishwasher",
+        "Generic Dryer",
+        "Generic Oven",
+        "Generic Vacuum",
+        "Generic Washing Machine"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 1,
+      "collapse": "Use one original capability-driven appliance-status experience rather than five presentation-only variants.",
+      "prerequisites": [
+        "Original generic appliance states and artwork with no copied third-party presentation material",
+        "Never imply measured or safety-critical state unless bound to authoritative feedback",
+        "Unknown, stale, offline, fault, reset, localization, accessibility, and project-restart tests"
+      ]
+    },
+    {
+      "id": "lifestyle-mode-buttons",
+      "name": "Lifestyle Mode Buttons",
+      "sourceDriverCount": 7,
+      "sourceDrivers": [
+        "Holiday Mode - Type 1",
+        "Holiday Mode - Type 2",
+        "Holiday Mode - Type 3",
+        "Holiday Mode - Type 4",
+        "Party Mode - Type 1",
+        "Party Mode - Type 2",
+        "Romance Mode - Type 1"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 1,
+      "collapse": "Create one original configurable mode experience instead of reproducing seven themed button variants.",
+      "prerequisites": [
+        "Original neutral mode UX, names, colors, and icons; no copied/traced themed assets",
+        "Explicit activation/reset semantics, visible active state, idempotence, debounce, and programming-loop protection",
+        "Document that downstream automation is dealer-programmed and may have broad effects"
+      ]
+    },
+    {
+      "id": "assistance-request-button",
+      "name": "Assistance Request Button",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "Nurse Call Button"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Wholly original assistance-request UX that does not imply a medical, emergency, supervised, or life-safety system",
+        "Conspicuous non-emergency disclosure plus acknowledgment, timeout, offline, retry, supervision, and failure messaging",
+        "Accessibility and false-positive/false-negative scenario review"
+      ]
+    },
+    {
+      "id": "safe-power-cycle",
+      "name": "Safe Power Cycle",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "Power Cycle - Type 1"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Original guarded power-cycle requirements and visual design",
+        "Authorization, destructive-action confirmation, minimum-off time, cooldown, idempotence, cancellation, and audit evidence",
+        "Prove recovery from controller restart, repeated programming, missing feedback, and stuck relay/contact states"
+      ]
+    },
+    {
+      "id": "daikin-wifi",
+      "name": "Daikin Wi-Fi HVAC",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "Daikin Split Wifi Controller (Chowmain)"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Daikin-approved integration documentation and rights for the BRP072A42-class interface",
+        "Representative indoor units, adapters, firmware, modes, setpoint bounds, and fault states",
+        "No private-cloud reverse engineering; credentials, tokens, and customer HVAC data must remain protected"
+      ]
+    },
+    {
+      "id": "elk-m1",
+      "name": "ELK M1 Security & Automation",
+      "sourceDriverCount": 5,
+      "sourceDrivers": [
+        "ELK M1 - Dimmer Light (V1/V2) - Chowmain",
+        "ELK M1 - On/Off Light (V1/V2) - Chowmain",
+        "ELK M1 - Relay/Generic Light (V1/V2) - Chowmain",
+        "ELK M1 History (V2 Only) - Chowmain",
+        "Elk M1/EZ8 (V2) - Chowmain"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 5,
+      "prerequisites": [
+        "ELK-approved protocol/SDK terms and written commercial redistribution authority",
+        "Owned M1 and EZ8 lab panels with zones, outputs, lighting, history, arming, alarms, and failure fixtures",
+        "Security review for PINs, logs, event ordering, reconnect, stale state, and fail-safe behavior"
+      ]
+    },
+    {
+      "id": "esphome",
+      "name": "ESPHome",
+      "sourceDriverCount": 4,
+      "sourceDrivers": [
+        "ESPHome",
+        "ESPHome Button",
+        "ESPHome Light",
+        "ESPHome Sensor"
+      ],
+      "primaryClass": "documented-public-api-protocol-research",
+      "wave": "wave-3-local-public-protocols",
+      "targetArtifactCount": 4,
+      "prerequisites": [
+        "Review the current official ESPHome Native API specification, licensing, attribution, and compatibility rules",
+        "Build protocol support independently from the public specification without copying audited or incompatible source",
+        "Test encryption, reconnect, entity churn, API-version drift, unavailable states, and representative button/light/sensor nodes"
+      ]
+    },
+    {
+      "id": "generic-tcp-toolkit",
+      "name": "Generic TCP Toolkit",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "Generic TCP Command (Chowmain)",
+        "Web To Variables - Generic TCP Driver (Chowmain)"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 2,
+      "prerequisites": [
+        "Original command/response and web-to-variable requirements based only on Control4 contracts and IntegrateIT dealer workflows",
+        "Allowlisted destinations, bounded payloads, TLS disclosure, secrets redaction, timeouts, backoff, injection defenses, and audit logging",
+        "Fuzz malformed responses and prove controller stability under flood, reconnect, DNS failure, and unreachable-host scenarios"
+      ]
+    },
+    {
+      "id": "graphing-insights",
+      "name": "Graphing & Insights",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "Graph It (Chowmain)"
+      ],
+      "primaryClass": "generic-control4",
+      "wave": "wave-2-control4-native",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Independent data model, retention policy, visual design, and Composer contract",
+        "Bounded storage, sampling, aggregation, timezone/DST, privacy, export, and project-backup tests",
+        "No copied charts, layouts, icons, terminology, documentation, or behavior from the audited reference"
+      ]
+    },
+    {
+      "id": "hegel-audio",
+      "name": "Hegel Audio",
+      "sourceDriverCount": 3,
+      "sourceDrivers": [
+        "Driver Config [hegel_h150.c4z]",
+        "Driver Config [hegel_h400.c4z]",
+        "Driver Config [hegel_h600.c4z]"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 1,
+      "collapse": "Use one original capability-profiled audio driver for supported Hegel models rather than cloning three model configurations.",
+      "prerequisites": [
+        "Hegel-approved command documentation and commercial redistribution rights",
+        "H150, H400, and H600 hardware/firmware coverage or an explicitly narrower support matrix",
+        "Input, power, volume, mute, source feedback, reconnect, transport error, and update tests"
+      ]
+    },
+    {
+      "id": "hisense-vidaa",
+      "name": "Hisense VIDAA Smart TV",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "Hisense VIDAA Smart TV (Chowmain)"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Hisense/VIDAA-approved API/protocol documentation, app-launch rights, and commercial redistribution authority",
+        "Owned representative regional TV models and firmware covering pairing, wake, standby, input, feedback, reconnect, and a generic configurable app-ID launcher",
+        "No copied streaming-service identifiers or art, private endpoint reverse engineering, credential leakage, or one-driver-per-brand packaging"
+      ]
+    },
+    {
+      "id": "hisense-app-buttons-retired",
+      "name": "Hisense App Buttons — Retired",
+      "sourceDriverCount": 14,
+      "sourceDrivers": [
+        "Hisense VIDAA - Apple TV (Chowmain)",
+        "Hisense VIDAA - Binge (Chowmain)",
+        "Hisense VIDAA - Crunchyroll (Chowmain)",
+        "Hisense VIDAA - Custom App (Chowmain)",
+        "Hisense VIDAA - Disney+ (Chowmain)",
+        "Hisense VIDAA - Foxtel (Chowmain)",
+        "Hisense VIDAA - HBO Max (Chowmain)",
+        "Hisense VIDAA - Kayo (Chowmain)",
+        "Hisense VIDAA - Netflix (Chowmain)",
+        "Hisense VIDAA - Plex (Chowmain)",
+        "Hisense VIDAA - Prime Video (Chowmain)",
+        "Hisense VIDAA - Stan (Chowmain)",
+        "Hisense VIDAA - Tubi (Chowmain)",
+        "Hisense VIDAA - YouTube (Chowmain)"
+      ],
+      "primaryClass": "do-not-republish",
+      "wave": "retired-not-republished",
+      "targetArtifactCount": 0,
+      "collapse": "Permanently retire all 14 third-party streaming-service app/button artifacts. A future authorized TV integration may expose a generic configurable app-ID launcher with no copied brand art or source metadata.",
+      "prerequisites": [
+        "Permanent release deny-list for all 14 source hashes and bundled presentation assets",
+        "No copied, traced, redrawn, or confusingly similar streaming-service logos, icons, names, trade dress, screenshots, metadata, or documentation",
+        "Vendor and app-platform authorization for any future generic launch capability"
+      ]
+    },
+    {
+      "id": "lifx",
+      "name": "LIFX Lighting",
+      "sourceDriverCount": 6,
+      "sourceDrivers": [
+        "LIFX Agent V3 (Chowmain)",
+        "LIFX Group Driver (Chowmain) - Depreciated (Use V3 / OS 3.3+)",
+        "LIFX Light / Group V2 (Chowmain) - Depreciated (Use V3 / OS 3.3+)",
+        "LIFX Light Driver (Chowmain) - Depreciated (Use V2 / OS 3.3+)",
+        "LIFX Local Light V3 (Chowmain) - OS 3.3+",
+        "LIFX V1/V2 Master Driver (Chowmain) - Depreciated (Use V3 / OS 3.3+)"
+      ],
+      "primaryClass": "documented-public-api-protocol-research",
+      "wave": "wave-3-local-public-protocols",
+      "targetArtifactCount": 2,
+      "collapse": "Retire legacy-version duplication in favor of one original discovery/coordination agent and one adaptive light/group driver.",
+      "prerequisites": [
+        "Verify current official LIFX LAN protocol/API documentation, terms, attribution, and product status",
+        "Representative bulbs, strips, zones, groups, firmware, broadcast/VLAN, color, white-temperature, effects, and recovery fixtures",
+        "Independent packet implementation with bounds checking, deduplication, rate limiting, sequence handling, and no audited code or assets"
+      ]
+    },
+    {
+      "id": "push-notifications",
+      "name": "Push Notifications",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "Notification Service [driverworks_pushover.c4z]",
+        "Notification Service [driverworks_pushsafer.c4z]"
+      ],
+      "primaryClass": "documented-public-api-protocol-research",
+      "wave": "wave-4-public-cloud-apis",
+      "targetArtifactCount": 2,
+      "prerequisites": [
+        "Current official Pushover and Pushsafer API documentation, commercial terms, privacy rules, rate limits, and service-specific redistribution approval",
+        "Independent service adapters with credential vaulting, recipient consent, redaction, abuse/spam controls, retries, deduplication, quotas, and delivery audit trail",
+        "Do not copy audited message formats, names, implementation structure, documentation, or assets"
+      ]
+    },
+    {
+      "id": "smtp-notifications",
+      "name": "SMTP Notifications",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "SMTP client"
+      ],
+      "primaryClass": "documented-public-api-protocol-research",
+      "wave": "wave-4-public-cloud-apis",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Independent standards-based SMTP/TLS implementation or permissively licensed dependency review",
+        "Strict certificate validation, credential vaulting, recipient allowlists, redaction, relay-abuse controls, attachment limits, retries, and delivery logging",
+        "Provider matrix for authentication methods, ports, TLS modes, timeouts, rate limits, and failure responses"
+      ]
+    },
+    {
+      "id": "media-upload-helpers-retired",
+      "name": "Media Upload Helpers — Retired",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "Chowmain image uploader",
+        "Deviantsart image uploader"
+      ],
+      "primaryClass": "do-not-republish",
+      "wave": "retired-not-republished",
+      "targetArtifactCount": 0,
+      "collapse": "Permanently retire the two proprietary/branded media-upload helpers. A future bounded media pipeline requires a separately approved documented service and original implementation.",
+      "prerequisites": [
+        "Permanent release deny-list for both source hashes and every bundled asset/document",
+        "No copied endpoints, message formats, credentials model, upload behavior, service art, documentation, or metadata",
+        "Privacy, image-rights, retention, deletion, credential, abuse, and service-terms review before any new media transport is considered"
+      ]
+    },
+    {
+      "id": "optoma-projectors",
+      "name": "Optoma Projectors",
+      "sourceDriverCount": 1,
+      "sourceDrivers": [
+        "Optoma Universal Projector"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 1,
+      "prerequisites": [
+        "Optoma-approved command documentation and commercial redistribution authority",
+        "Owned representative projectors/firmware for transport, power, warm-up/cool-down, inputs, feedback, error, and recovery",
+        "Independent capability matrix; no copied third-party command tables, model lists, implementation structure, documentation, or metadata"
+      ]
+    },
+    {
+      "id": "philips-hue",
+      "name": "Philips Hue",
+      "sourceDriverCount": 3,
+      "sourceDrivers": [
+        "Philips Hue Bridge (Chowmain)",
+        "Philips Hue Device (Chowmain)",
+        "Philips Hue Light (Chowmain)"
+      ],
+      "primaryClass": "documented-public-api-protocol-research",
+      "wave": "wave-3-local-public-protocols",
+      "targetArtifactCount": 3,
+      "prerequisites": [
+        "Verify current official Hue local API documentation, developer terms, naming/trademark rules, and commercial redistribution rights",
+        "Owned bridge generations and representative light/device capabilities across supported firmware",
+        "Pairing, key storage, event stream, gamut, scenes, groups, rate limits, reconnect, bridge replacement, and upgrade tests"
+      ]
+    },
+    {
+      "id": "ratgdo",
+      "name": "ratgdo Garage Interface",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "ratgdo",
+        "ratgdo dry contact"
+      ],
+      "primaryClass": "documented-public-api-protocol-research",
+      "wave": "wave-3-local-public-protocols",
+      "targetArtifactCount": 2,
+      "prerequisites": [
+        "Verify official ratgdo/ratCloud integration documentation, trademark rules, firmware variants, licenses, and commercial compatibility",
+        "Independent implementation from permitted public specifications; do not copy audited or license-incompatible source",
+        "Physical garage-door safety rig covering obstruction, motion, dry contact, stale state, reconnect, power loss, and command confirmation"
+      ]
+    },
+    {
+      "id": "tplink-kasa-tapo",
+      "name": "TP-Link Kasa / Tapo",
+      "sourceDriverCount": 7,
+      "sourceDrivers": [
+        "TP-Link Kasa V2 Light - Requires OS3.3+ (Chowmain)",
+        "TP-Link Kasa V2 Outlet",
+        "TP-Link Kasa/Tapo KLAP Device (Chowmain)",
+        "TP-Link Kasa/Tapo KLAP Fan (Chowmain)",
+        "TP-Link Kasa/Tapo KLAP Light (Chowmain)",
+        "TP-Link Kasa/Tapo V2 Agent (Chowmain)",
+        "TP-Link Tapo Camera (Chowmain)"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 5,
+      "collapse": "Target one authorized coordination agent plus adaptive device/outlet, light, fan, and camera products. Unsupported or private protocols remain excluded.",
+      "prerequisites": [
+        "TP-Link-approved Kasa/Tapo/KLAP protocol/API documentation and commercial redistribution authority",
+        "Owned current and prior device generations with firmware, local/cloud auth, account-region, VLAN, discovery, and revocation coverage",
+        "No reverse-engineered private endpoints or copied protocol code; camera credentials, URLs, recordings, and tokens require a dedicated threat model"
+      ]
+    },
+    {
+      "id": "yale-home",
+      "name": "Yale Home Smart Locks",
+      "sourceDriverCount": 2,
+      "sourceDrivers": [
+        "Yale Home",
+        "Yale Home Cloud"
+      ],
+      "primaryClass": "vendor-authorization-hardware-required",
+      "wave": "wave-6-authorized-hardware",
+      "targetArtifactCount": 2,
+      "prerequisites": [
+        "Yale-approved integration/cloud API, partner agreement, commercial redistribution rights, and supported-region matrix",
+        "Owned supported locks, bridges/modules, accounts, firmware, credential rotation, invitation, revocation, and offline fixtures",
+        "Security review for tokens, PINs, users, audit history, remote unlock, stale state, rate limits, and fail-safe behavior"
+      ]
     }
   ]
 }
