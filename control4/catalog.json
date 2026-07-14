@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-14T07:49:16.134Z",
+  "generated_at": "2026-07-14T08:07:29.051Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -136,7 +136,7 @@
       "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/qa-report.json",
       "update_mode": "manual-or-staged-in-place",
       "update_min_os": "3.3.1",
-      "license": "IntegrateIT runtime license required",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-14T07:47:19.435Z"
     },
@@ -274,7 +274,7 @@
       "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/qa-report.json",
       "update_mode": "manual-or-staged-in-place",
       "update_min_os": "3.3.1",
-      "license": "IntegrateIT runtime license required",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-14T07:47:19.439Z"
     },
@@ -413,7 +413,7 @@
       "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/qa-report.json",
       "update_mode": "manual-or-staged-in-place",
       "update_min_os": "3.3.1",
-      "license": "IntegrateIT runtime license required",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-14T07:47:19.442Z"
     },
@@ -552,7 +552,7 @@
       "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/qa-report.json",
       "update_mode": "manual-or-staged-in-place",
       "update_min_os": "3.3.1",
-      "license": "IntegrateIT runtime license required",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-14T07:47:19.445Z"
     }
