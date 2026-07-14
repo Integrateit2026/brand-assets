@@ -1,5 +1,9 @@
 # Changelog — MantelMount MM815 (Bond Bridge)
 
+## [1.5.3] - 2026-07-14
+- Adds schema v3 release evidence, compatibility, limitations, and a packaged documentation screenshot.
+- Refreshes the shared IntegrateIT commissioning guide and release pipeline without changing bindings.
+
 ## [1.5.2] - 2026-07-05
 - resync channel bytes after iit_update.lua channel-comment fix
 

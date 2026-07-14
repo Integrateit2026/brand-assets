@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_hebcal",
+  "generated_at": "2026-07-14T07:47:12.554Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "1787ab487df0c95c05a0bb9aff3d9286a5eb91fc6e881c82aaa8821d7bbf7da9",
+  "artifact_sha256": "63a8c676e81b5e13c66ffebab75830748904c7ec83d76f591e83de94e3f93565",
+  "artifact_size_bytes": 44681,
+  "build_version_manifest_sha256": "f31d136d51816dfdd14045b0c3f612108d3a52d82d18bea1e697ae9248bb2ce7",
+  "version_manifest_sha256": "17e451c71e3d03835853e6942e63da3ef2ad9dc27e2f1e382034f65867d939a2",
+  "version": "0.9.0",
+  "xml_version": 2,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 112
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 76,
+      "checks": 17,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 102,
+      "checks": 246,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 56,
+      "files": 2
+    }
+  ]
+}

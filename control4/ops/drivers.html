@@ -3,256 +3,219 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IntegrateIT — Ops Portal — Driver Catalog</title>
+<meta name="color-scheme" content="dark">
+<title>IntegrateIT — Driver Engine</title>
 <style>
-  :root{--bg:#0a0d13;--panel:#141a26;--panel2:#1a2332;--line:#26303f;--line2:#32405a;--txt:#edf2f9;--mut:#8794a8;--mut2:#5d6a7e;
-    --accent:#0157FF;--accent1:#3d7dff;--accent2:#7fb2ff;--good:#34d399;--warn:#fbbf24;--bad:#f87171;
-    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,Menlo,monospace}
+  :root{
+    --bg:#0a0d13;--deep:#070a0f;--panel:#141a26;--raised:#1a2332;--line:#2b3749;--line2:#3a4960;
+    --txt:#edf2f9;--mut:#a7b2c3;--mut2:#909db0;--blue:#0157ff;--blue2:#7fb2ff;--brass:#b89968;
+    --good:#34d399;--warn:#fbbf24;--bad:#f87171;--focus:#9cc3ff;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;--mono:ui-monospace,Menlo,SFMono-Regular,monospace
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--font);padding:28px 20px;
-    background-image:radial-gradient(1100px 520px at 80% -10%,rgba(61,125,255,.10),transparent 60%)}
-  .wrap{max-width:980px;margin:0 auto}
-  h1{font-size:20px;display:flex;align-items:center;gap:12px;margin:0 0 14px}
-  h1 img{height:26px}
-  /* shared portal nav */
-  nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:18px;padding-bottom:0}
-  nav a{font-size:13px;font-weight:600;color:var(--mut);text-decoration:none;padding:9px 14px;border-radius:9px 9px 0 0;
-    border:1px solid transparent;border-bottom:none;position:relative;top:1px}
-  nav a:hover{color:var(--txt)}
-  nav a.on{color:var(--txt);background:var(--panel);border-color:var(--line);border-bottom:1px solid var(--bg)}
-  .sub{color:var(--mut);font-size:13px;margin:-6px 0 20px}
-  .sub b{color:var(--accent2)}
-  /* catalog grid */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-  .dcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px 19px;display:flex;flex-direction:column}
-  .dcard h3{margin:0 0 2px;font-size:15.5px}
-  .dcard .slug{font-family:var(--mono);font-size:11.5px;color:var(--mut2)}
-  .ver{display:inline-block;align-self:flex-start;font-size:12px;font-weight:800;color:var(--accent2);background:rgba(61,125,255,.13);
-    border:1px solid var(--line2);border-radius:20px;padding:3px 10px;margin:10px 0}
-  .ver small{color:var(--mut);font-weight:600}
-  .notes{font-size:13px;color:#cdd7e6;margin:4px 0 12px;line-height:1.5;flex:1}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
-  .chip{font-size:11px;font-weight:700;color:var(--mut);background:var(--panel2);border:1px solid var(--line);
-    border-radius:20px;padding:2px 9px;white-space:nowrap}
-  .chip b{color:var(--txt);font-weight:700}
-  .acts{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
-  .ib{font-size:12px;font-weight:700;border:1px solid var(--line2);border-radius:9px;padding:7px 11px;color:var(--txt);
-    text-decoration:none;background:var(--panel2);cursor:pointer;font-family:var(--font)}
-  .ib.pri{background:linear-gradient(135deg,var(--accent1),var(--accent));border:0;color:#fff}
-  .empty{text-align:center;color:var(--mut2);padding:50px 0;font-size:14px;grid-column:1/-1}
-  /* detail view */
-  .back{display:inline-block;font-size:12.5px;font-weight:700;color:var(--mut);text-decoration:none;margin:0 0 14px}
-  .back:hover{color:var(--txt)}
-  .dhead{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:14px}
-  .dhead h2{margin:0 0 2px;font-size:18px}
-  .dhead .slug{font-family:var(--mono);font-size:12px;color:var(--mut2)}
-  .dhead .notes{margin-top:10px}
-  section.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-bottom:14px}
-  section.panel h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut)}
-  ol.steps{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#cdd7e6}
-  ol.steps b{color:var(--txt)}
-  .hash{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .hash code{font-family:var(--mono);font-size:11.5px;color:var(--accent2);word-break:break-all}
-  .hint{font-size:12px;color:var(--mut2);font-family:var(--mono);margin-top:8px}
-  .cbtn{font-size:11px;font-weight:700;border:1px solid var(--line2);border-radius:7px;padding:3px 9px;color:var(--mut);
-    background:var(--panel2);cursor:pointer;font-family:var(--font)}
-  .cbtn.done{color:var(--good);border-color:rgba(52,211,153,.5)}
-  /* changelog render */
-  .cl h4{margin:14px 0 6px;font-size:13px;color:var(--accent2)}
-  .cl h4:first-child{margin-top:0}
-  .cl ul{margin:0;padding-left:20px}
-  .cl li{font-size:12.5px;color:#cdd7e6;line-height:1.6}
-  /* history table */
-  .tblwrap{overflow-x:auto}
-  table{width:100%;border-collapse:collapse}
-  th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-  td{font-size:12.5px;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
-  tr:last-child td{border-bottom:none}
-  td.mono{font-family:var(--mono);font-size:11.5px;color:var(--mut);white-space:nowrap}
-  td .vtag{font-weight:800;color:var(--accent2)}
-  td.notes{color:#cdd7e6;min-width:220px}
-  .powered{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);text-align:center}
-  .powered .pb{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--mut);margin:0 0 12px;padding-left:.4em}
-  .powered img{height:34px;opacity:.95}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.6 var(--font);padding:28px 20px 44px}
+  body:before{content:"";position:fixed;inset:0 0 auto;height:360px;z-index:-1;background:linear-gradient(180deg,var(--deep),transparent)}
+  a{color:var(--blue2)}
+  button,input,select{font:inherit}
+  button,a,input,select{outline:none}
+  button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{box-shadow:0 0 0 3px rgba(127,178,255,.35);border-color:var(--focus)!important}
+  .wrap{max-width:1180px;margin:0 auto}
+  .mast{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .mast img{height:27px;width:auto}.mast b{font-size:20px;letter-spacing:-.015em}.mast span{color:var(--mut2);font-size:12px;margin-left:auto;font-family:var(--mono)}
+  .portal-nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .portal-nav a{font-size:13px;font-weight:650;color:var(--mut);text-decoration:none;padding:9px 14px;border-radius:9px 9px 0 0;border:1px solid transparent;border-bottom:none;position:relative;top:1px}
+  .portal-nav a:hover{color:var(--txt)}.portal-nav a.on{color:var(--txt);background:var(--panel);border-color:var(--line);border-bottom:1px solid var(--bg)}
+  .eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:800;color:var(--brass)}
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:end;padding:22px 0 28px;border-bottom:1px solid var(--line)}
+  .hero h1{font-size:clamp(29px,5vw,50px);line-height:1.02;letter-spacing:-.04em;margin:8px 0 12px;max-width:760px}
+  .hero p{color:var(--mut);margin:0;max-width:720px;font-size:15px}
+  .snapshot{display:grid;grid-template-columns:repeat(3,minmax(74px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:300px}
+  .snapshot div{background:var(--panel);padding:13px 14px}.snapshot b{display:block;font-size:21px;line-height:1.2}.snapshot span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut2);font-weight:750}
+  .toolbar{display:grid;grid-template-columns:minmax(230px,1fr) 190px auto;gap:10px;align-items:center;margin:22px 0 12px}
+  .toolbar label{min-width:0}.search,.filter{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;min-width:0;width:100%}
+  .filter{cursor:pointer}.result-count{font-size:12px;color:var(--mut);text-align:right;min-width:110px}
+  .catalog{border-top:1px solid var(--line)}
+  .driver-row{display:grid;grid-template-columns:minmax(220px,1.05fr) minmax(300px,1.7fr) minmax(230px,.85fr);gap:24px;align-items:center;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:background .12s ease}
+  .driver-row:hover{background:rgba(255,255,255,.018)}
+  .identity{display:flex;align-items:center;gap:14px;min-width:0}.driver-icon{width:54px;height:54px;border:1px solid var(--line);border-radius:12px;background:var(--raised);object-fit:contain;padding:7px}
+  .identity h2{font-size:17px;line-height:1.25;margin:0 0 2px;letter-spacing:-.01em}.slug{font:11px/1.4 var(--mono);color:var(--mut2);overflow-wrap:anywhere}
+  .promise{color:var(--mut);font-size:13.5px;line-height:1.55}.promise p{margin:0 0 9px}.mini-features{display:flex;gap:6px;flex-wrap:wrap}
+  .mini-features span{font-size:10.5px;color:#cbd5e3;background:var(--raised);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+  .release{display:grid;grid-template-columns:1fr auto;gap:7px 10px;align-items:center}.release .ver{font-weight:800;color:var(--blue2)}
+  .release small{color:var(--mut2);grid-column:1/-1}.chev{font-size:20px;color:var(--mut2)}
+  .badge{display:inline-flex;align-items:center;gap:6px;width:max-content;border-radius:999px;border:1px solid var(--line);padding:3px 9px;font-size:10.5px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+  .badge:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.badge.good{color:var(--good)}.badge.warn{color:var(--warn)}.badge.muted{color:var(--mut)}.badge.bad{color:var(--bad)}
+  .empty{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:48px 24px;text-align:center;color:var(--mut);margin-top:18px}.empty b{display:block;color:var(--txt);font-size:16px}
+  .back{display:inline-flex;align-items:center;gap:8px;color:var(--mut);font-size:12.5px;font-weight:750;text-decoration:none;margin-bottom:16px}.back:hover{color:var(--txt)}
+  .product-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;padding:26px 0 24px;border-bottom:1px solid var(--line)}
+  .product-head h1{font-size:clamp(28px,5vw,46px);line-height:1.04;letter-spacing:-.035em;margin:9px 0 12px}.product-head p{color:var(--mut);max-width:730px;margin:0}
+  .head-actions{display:flex;align-items:flex-end;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border:1px solid var(--line2);border-radius:9px;color:var(--txt);background:var(--raised);padding:9px 13px;font-size:12.5px;font-weight:750;cursor:pointer;min-height:40px}
+  .btn:hover{border-color:var(--blue2)}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.quiet{background:transparent}
+  .status-strip{display:flex;gap:0;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}
+  .status-item{padding:10px 14px;border-right:1px solid var(--line);min-width:130px}.status-item:last-child{border-right:0}.status-item span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--mut2);font-weight:800}.status-item b{font-size:12.5px;font-weight:700}
+  .tabs{display:flex;gap:4px;overflow:auto;border-bottom:1px solid var(--line);margin:22px 0 18px;scrollbar-width:thin}
+  .tab{appearance:none;background:transparent;border:1px solid transparent;border-bottom:0;color:var(--mut);padding:9px 13px;border-radius:9px 9px 0 0;font-size:12.5px;font-weight:750;white-space:nowrap;cursor:pointer;position:relative;top:1px}
+  .tab[aria-selected="true"]{background:var(--panel);border-color:var(--line);color:var(--txt)}
+  .tab-panel[hidden]{display:none}
+  .overview-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:16px}.stack{display:grid;gap:16px}
+  .section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:21px 22px}.section h2{font-size:16px;margin:0 0 12px;letter-spacing:-.01em}.section h3{font-size:11px;margin:20px 0 8px;text-transform:uppercase;letter-spacing:.09em;color:var(--mut);}.section p{color:var(--mut);margin:0 0 12px}
+  .checklist,.plain-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}.checklist li,.plain-list li{position:relative;padding-left:24px;color:#d5deea;font-size:13.5px}.checklist li:before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:850}.plain-list li:before{content:"—";position:absolute;left:0;color:var(--mut2)}
+  .warning-list li:before{content:"!";display:grid;place-items:center;width:15px;height:15px;border:1px solid rgba(251,191,36,.5);border-radius:50%;font-size:9px;top:3px;color:var(--warn)}
+  .facts{display:grid;gap:0}.fact{display:grid;grid-template-columns:minmax(90px,.7fr) minmax(0,1.3fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12.5px}.fact:last-child{border-bottom:0}.fact span{color:var(--mut)}.fact b{font-weight:650;text-align:right;overflow-wrap:anywhere}
+  .qa-verdict{display:flex;align-items:center;gap:12px;padding:13px;background:var(--raised);border:1px solid var(--line);border-radius:11px;margin-bottom:12px}.qa-verdict .mark{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(52,211,153,.1);color:var(--good);font-weight:900}.qa-verdict b{display:block}.qa-verdict span{font-size:11px;color:var(--mut)}
+  .qa-stage{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12.5px}.qa-stage:last-child{border-bottom:0}.qa-stage b{font-weight:650}.qa-stage span{font-weight:800}.qa-stage small{grid-column:1/-1;color:var(--mut2);font-size:11.5px}
+  .shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.shot{margin:0}.shot button{appearance:none;width:100%;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);cursor:zoom-in;text-align:left;color:var(--txt)}.shot img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--deep)}.shot figcaption{padding:12px 14px}.shot b{display:block;font-size:13px}.shot span{display:block;color:var(--mut);font-size:11.5px;margin-top:2px}
+  dialog{border:1px solid var(--line);border-radius:14px;padding:0;background:var(--deep);color:var(--txt);max-width:min(1100px,94vw);max-height:92vh}dialog::backdrop{background:rgba(0,0,0,.78)}dialog img{display:block;max-width:100%;max-height:82vh}dialog .dialog-bar{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel)}dialog .dialog-bar b{font-size:12px}dialog .dialog-bar button{margin-left:auto}
+  .doc-frame{width:100%;height:min(76vh,900px);border:1px solid var(--line);border-radius:12px;background:#fff}.doc-tools{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.doc-tools p{margin:0;color:var(--mut);font-size:12px}
+  .steps{counter-reset:steps;list-style:none;padding:0;margin:0;display:grid;gap:14px}.steps li{counter-increment:steps;display:grid;grid-template-columns:28px 1fr;gap:11px;color:#d5deea;font-size:13.5px}.steps li:before{content:counter(steps);width:28px;height:28px;border:1px solid var(--line2);border-radius:50%;display:grid;place-items:center;color:var(--blue2);font:750 11px var(--mono)}
+  .code-row{display:flex;gap:8px;align-items:center;background:var(--deep);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:12px}.code-row code{font:11px/1.5 var(--mono);color:var(--blue2);overflow-wrap:anywhere;min-width:0}.copy{margin-left:auto;white-space:nowrap}
+  .history{width:100%;border-collapse:collapse}.history th{text-align:left;color:var(--mut2);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:9px 10px;border-bottom:1px solid var(--line)}.history td{font-size:12px;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}.history tr:last-child td{border-bottom:0}.history .mono{font-family:var(--mono);color:var(--mut)}
+  .powered{margin-top:46px;padding-top:28px;border-top:1px solid var(--line);text-align:center}.powered:before{content:"";display:block;width:40px;height:1px;background:var(--brass);margin:0 auto 16px}.powered span{display:block;font-size:10px;font-weight:650;letter-spacing:.34em;text-transform:uppercase;color:var(--mut);padding-left:.34em}.powered img{height:32px;margin-top:10px;opacity:.96}
+  .places{font:9px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--mut2);margin-top:8px}
+  @media(max-width:900px){.hero{grid-template-columns:1fr}.snapshot{max-width:420px}.driver-row{grid-template-columns:minmax(220px,1fr) minmax(260px,1.35fr)}.release{grid-column:1/-1}.product-head{grid-template-columns:1fr}.head-actions{justify-content:flex-start}.overview-grid{grid-template-columns:1fr}}
+  @media(max-width:640px){body{padding:18px 14px 36px}.mast span{display:none}.toolbar{grid-template-columns:1fr}.result-count{grid-column:auto;text-align:left}.driver-row{grid-template-columns:1fr;gap:12px;padding:18px 2px}.release{grid-column:auto}.snapshot{min-width:0}.status-item{min-width:50%;border-bottom:1px solid var(--line)}.shots{grid-template-columns:1fr}.section{padding:18px}.doc-frame{height:68vh}.doc-tools{align-items:flex-start;flex-direction:column}.history th:nth-child(3),.history td:nth-child(3),.history th:nth-child(4),.history td:nth-child(4){display:none}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.driver-row{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1><img src="https://relay.integrateit.dev/app/logo.png" alt="IntegrateIT"> Ops Portal</h1>
-  <nav>
+  <header class="mast"><img src="https://relay.integrateit.dev/app/logo.png" alt="IntegrateIT"><b>Ops Portal</b><span>CONTROL4 DRIVER ENGINE</span></header>
+  <nav class="portal-nav" aria-label="Ops Portal">
     <a href="https://relay.integrateit.dev/ops/index.html">Service Requests</a>
     <a href="https://relay.integrateit.dev/ops/licenses.html">Licenses</a>
-    <a href="https://relay.integrateit.dev/ops/drivers.html" class="on">Driver Catalog</a>
+    <a href="https://relay.integrateit.dev/ops/drivers.html" class="on" aria-current="page">Driver Engine</a>
   </nav>
-  <div class="sub">Every published IntegrateIT Control4 driver, live from the update channel, so this
-    always shows the <b>current</b> version dealers receive over the air.</div>
-  <div id="view"><div class="empty">Loading the latest from the channel…</div></div>
-  <div class="powered"><div class="pb">Powered by</div><img src="https://relay.integrateit.dev/app/logo.png" alt="IntegrateIT"></div>
+  <main id="view"><div class="empty"><b>Opening the release channel…</b>Reading the exact catalog used by installed drivers.</div></main>
+  <footer class="powered"><span>Powered by</span><img src="https://relay.integrateit.dev/app/logo.png" alt="IntegrateIT"><div class="places">Kansas City · South Florida</div></footer>
 </div>
+<dialog id="lightbox" aria-labelledby="lightbox-title"><div class="dialog-bar"><b id="lightbox-title"></b><button class="btn quiet" id="lightbox-close">Close</button></div><img id="lightbox-image" alt=""></dialog>
 <script>
-// Reads the live self-update channel (the SAME source the drivers update from),
-// so the catalog can never drift from what's actually published. catalog.json
-// (schema 2) is the primary source; the fallback chain rebuilds the same shape
-// from index.json + per-slug version.json, and last-ditch asks the relay's own
-// mirror (/api/drivers). raw.githubusercontent sends permissive CORS; ?t= busts
-// any edge cache for freshness.
-const CHANNEL='https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4';
+const PROD_CHANNEL='https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4';
+const requestedChannel=new URLSearchParams(location.search).get('channel');
+const localHost=/^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+let CHANNEL=PROD_CHANNEL;
+if(requestedChannel&&localHost){
+  try{const u=new URL(requestedChannel);if(u.origin===location.origin&&/^\/\.brand-assets-cache[^/]*\/control4$/.test(u.pathname))CHANNEL=u.href.replace(/\/$/,'')}catch(_){ }
+}
+const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const bust=u=>u+(u.includes('?')?'&':'?')+'t='+Date.now();
-const kb=n=>n==null?'':(n>=1048576?(n/1048576).toFixed(1)+' MB':Math.round(n/1024)+' KB');
-const day=iso=>iso?String(iso).slice(0,10):'';
-const c4zUrl=slug=>`${CHANNEL}/${encodeURIComponent(slug)}/${encodeURIComponent(slug)}.c4z`;
+const kb=n=>n==null?'—':n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
+const date=iso=>iso?new Date(iso).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}):'Not recorded';
+const c4z=d=>d.download_url||`${CHANNEL}/${encodeURIComponent(d.slug)}/${encodeURIComponent(d.slug)}.c4z`;
+let CATALOG=null;
+let PANEL_REQUEST=0;
 
-let DRIVERS=null; // catalog-shaped [{slug,name,summary,version,xml_version,min_os,category,device_type,size_bytes,sha256,changelog_url,doc_url,releases_url,published_at}]
-
-async function j(url){ const r=await fetch(bust(url),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
-async function t(url){ const r=await fetch(bust(url),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); }
-
-async function loadDrivers(){
-  if(DRIVERS) return DRIVERS;
-  try{ const c=await j(CHANNEL+'/catalog.json'); if(c.schema===2&&Array.isArray(c.drivers)&&c.drivers.length) return DRIVERS=c.drivers; }catch(_){}
-  try{ // fallback: index.json + per-slug legacy/v2 manifests
-    const slugs=await j(CHANNEL+'/index.json');
-    const ds=(await Promise.all(slugs.map(async slug=>{
-      try{ const v=await j(`${CHANNEL}/${slug}/version.json`);
-        return {slug,name:v.name,summary:v.notes,version:v.version,xml_version:v.xml_version,min_os:v.min_os,
-          size_bytes:v.size_bytes,sha256:v.sha256,changelog_url:v.changelog_url,releases_url:v.releases_url,published_at:v.published_at};
-      }catch(_){ return null; }
-    }))).filter(Boolean);
-    if(ds.length) return DRIVERS=ds;
-  }catch(_){}
-  const {drivers=[]}=await j('/api/drivers'); // relay mirror (kept in sync by the relay's channel sync)
-  return DRIVERS=drivers;
+async function getJson(url){const r=await fetch(bust(url),{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}
+async function getText(url){const r=await fetch(bust(url),{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.text()}
+function statusMeta(d){
+  const s=d.release_status||'published';
+  if(s==='stable')return{label:'Stable',tone:'good'};
+  if(s==='release-candidate')return{label:'Release candidate',tone:'warn'};
+  if(s==='deprecated')return{label:'Deprecated',tone:'bad'};
+  return{label:s.replaceAll('-',' '),tone:'muted'};
 }
-
-function card(d){
-  const chips=[
-    d.category?`<span class="chip">${esc(d.category)}</span>`:'',
-    d.device_type?`<span class="chip">${esc(d.device_type)}</span>`:'',
-    d.min_os?`<span class="chip">OS <b>${esc(d.min_os)}+</b></span>`:'',
-    d.size_bytes?`<span class="chip">${kb(d.size_bytes)}</span>`:''
-  ].join('');
-  return `<div class="dcard">
-    <h3>${esc(d.name||d.slug)}</h3>
-    <div class="slug">${esc(d.slug)}</div>
-    <div class="ver">v${esc(d.version||'?')}${d.xml_version?` <small>· xml ${esc(d.xml_version)}</small>`:''}</div>
-    <div class="notes">${esc(d.summary||'')}</div>
-    <div class="chips">${chips}</div>
-    <div class="acts">
-      <a class="ib pri" href="${esc(c4zUrl(d.slug))}" download>Download .c4z</a>
-      <a class="ib" href="#/driver/${encodeURIComponent(d.slug)}">Details</a>
-    </div>
-  </div>`;
-}
-
-function copyBtn(text,label){
-  return `<button class="cbtn" onclick="copyText(this,'${esc(text)}')">${esc(label||'copy')}</button>`;
-}
-window.copyText=async(btn,text)=>{
-  try{ await navigator.clipboard.writeText(text); }
-  catch(_){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
-  btn.classList.add('done'); const was=btn.textContent; btn.textContent='copied';
-  setTimeout(()=>{ btn.classList.remove('done'); btn.textContent=was; },1400);
-};
-
-// minimal Keep-a-Changelog markdown: "## x.y.z - date" headings + "-" bullets.
-// Text is escaped BEFORE wrapping, so the source can never inject markup.
-function mdToHtml(md){
-  let out='',inUl=false;
-  for(const raw of String(md).split('\n')){
-    const ln=esc(raw);
-    if(/^##\s/.test(ln)){ if(inUl){out+='</ul>';inUl=false;} out+=`<h4>${ln.replace(/^##\s*/,'')}</h4>`; }
-    else if(/^#\s/.test(ln)) continue;
-    else if(/^\s*[-*]\s+/.test(ln)){ if(!inUl){out+='<ul>';inUl=true;} out+=`<li>${ln.replace(/^\s*[-*]\s+/,'')}</li>`; }
-    else if(/^\s+\S/.test(ln)&&inUl){ out=out.replace(/<\/li>\s*$/,' '+ln.trim()+'</li>'); }
-    else if(inUl){ out+='</ul>'; inUl=false; }
-  }
-  if(inUl) out+='</ul>';
+function hardwareLabel(s){return({'field-validated':'Field validated','bench-tested':'Bench tested','simulation-verified':'Simulation verified','not-tested':'Not hardware tested'})[s]||String(s||'Not recorded').replaceAll('-',' ')}
+function qaChecks(qa){return(qa?.stages||[]).reduce((n,s)=>n+(s.checks||s.files||0),0)}
+const channelUrl=url=>CHANNEL!==PROD_CHANNEL&&String(url||'').startsWith(PROD_CHANNEL)?CHANNEL+String(url).slice(PROD_CHANNEL.length):url;
+const trustedChannelUrl=url=>{try{const base=new URL(CHANNEL+'/'),u=new URL(String(url||''));return u.origin===base.origin&&u.pathname.startsWith(base.pathname)?u.href:null}catch(_){return null}};
+function normalize(d){
+  const out={features:[],compatibility:[],requirements:[],limitations:[],screenshots:[],stats:{},...d};
+  for(const k of ['download_url','manifest_url','changelog_url','doc_url','releases_url','qa_url'])if(out[k])out[k]=trustedChannelUrl(channelUrl(out[k]));
+  out.screenshots=(out.screenshots||[]).map(s=>({...s,url:trustedChannelUrl(channelUrl(s.url))})).filter(s=>s.url);
   return out;
 }
-
-function historyRow(d,h){
-  const dl=`${CHANNEL}/${encodeURIComponent(d.slug)}/releases/${encodeURIComponent(h.version)}/${encodeURIComponent(d.slug)}.c4z`;
-  return `<tr>
-    <td><span class="vtag">v${esc(h.version)}</span>${h.xml_version?` <span class="mono" style="color:var(--mut2)">xml ${esc(h.xml_version)}</span>`:''}</td>
-    <td class="mono">${esc(day(h.published_at))}</td>
-    <td class="mono">${kb(h.size_bytes)}</td>
-    <td class="mono">${h.sha256?`${esc(h.sha256.slice(0,12))}… ${copyBtn(h.sha256)}`:''}</td>
-    <td class="notes">${esc(h.notes||'')}</td>
-    <td><a class="ib" href="${esc(dl)}" download>.c4z</a></td>
-  </tr>`;
+async function loadCatalog(){
+  if(CATALOG)return CATALOG;
+  try{const c=await getJson(CHANNEL+'/catalog.json');if([2,3].includes(c.schema)&&Array.isArray(c.drivers))return CATALOG=c.drivers.map(normalize)}catch(_){ }
+  const slugs=await getJson(CHANNEL+'/index.json');
+  CATALOG=(await Promise.all(slugs.map(async slug=>{try{const v=await getJson(`${CHANNEL}/${slug}/version.json`);return normalize({slug,name:v.name,summary:v.notes,version:v.version,xml_version:v.xml_version,min_os:v.min_os,size_bytes:v.size_bytes,sha256:v.sha256,published_at:v.published_at})}catch(_){return null}}))).filter(Boolean);
+  return CATALOG;
 }
-
-async function detail(slug){
-  const view=document.getElementById('view');
-  const ds=await loadDrivers();
-  const d=ds.find(x=>x.slug===slug);
-  if(!d){ view.innerHTML=`<a class="back" href="#">&larr; All drivers</a><div class="empty">No published driver called <b>${esc(slug)}</b>.</div>`; return; }
-  let rel=null, cl=null;
-  try{ rel=await j(d.releases_url||`${CHANNEL}/${slug}/releases.json`); }catch(_){}
-  try{ cl=await t(d.changelog_url||`${CHANNEL}/${slug}/CHANGELOG.md`); }catch(_){}
-  const docUrl=d.doc_url||null;
-  view.innerHTML=`
-    <a class="back" href="#">&larr; All drivers</a>
-    <div class="dhead">
-      <h2>${esc(d.name||d.slug)}</h2>
-      <div class="slug">${esc(d.slug)}</div>
-      <div class="ver">v${esc(d.version||'?')}${d.xml_version?` <small>· xml ${esc(d.xml_version)}</small>`:''}
-        ${d.published_at?` <small>· published ${esc(day(d.published_at))}</small>`:''}</div>
-      <div class="notes">${esc(d.summary||'')}</div>
-      <div class="acts">
-        <a class="ib pri" href="${esc(c4zUrl(d.slug))}" download>Download v${esc(d.version)} .c4z</a>
-        ${docUrl?`<a class="ib" href="${esc(docUrl)}" target="_blank" rel="noopener">Documentation</a>`:''}
-        <a class="ib" href="${CHANNEL}/${encodeURIComponent(d.slug)}/version.json" target="_blank" rel="noopener">manifest</a>
-      </div>
-    </div>
-    <section class="panel">
-      <h3>Install</h3>
-      <ol class="steps">
-        <li>Download the .c4z above.</li>
-        <li>ComposerPro &gt; <b>Driver &gt; Add or Update Driver or Agent</b>, pick the file.</li>
-        <li>First install: add the driver to a room, then set <b>License Key</b> and <b>License Server URL</b> in driver properties.</li>
-      </ol>
-      <h3 style="margin-top:16px">Over-the-air updates</h3>
-      <ol class="steps">
-        <li>Installed drivers poll this channel and raise <b>Update Available</b> when a newer version publishes.</li>
-        <li>Run the driver action <b>Download &amp; Stage Update</b> (or wait; it stages on its own).</li>
-        <li>In ComposerPro, right-click the driver and choose <b>Update Driver</b>. No re-adding, settings survive.</li>
-      </ol>
-    </section>
-    ${d.sha256?`<section class="panel">
-      <h3>Integrity</h3>
-      <div class="hash"><code>sha256 ${esc(d.sha256)}</code>${copyBtn(d.sha256)}</div>
-      <div class="hint">verify: shasum -a 256 ${esc(d.slug)}.c4z</div>
-    </section>`:''}
-    ${rel&&Array.isArray(rel.history)&&rel.history.length?`<section class="panel">
-      <h3>Version history</h3>
-      <div class="tblwrap"><table>
-        <thead><tr><th>Version</th><th>Date</th><th>Size</th><th>sha256</th><th>Notes</th><th></th></tr></thead>
-        <tbody>${rel.history.map(h=>historyRow(d,h)).join('')}</tbody>
-      </table></div>
-    </section>`:''}
-    ${cl?`<section class="panel"><h3>Changelog</h3><div class="cl">${mdToHtml(cl)}</div></section>`:''}
-  `;
+function badge(d){const s=statusMeta(d);return`<span class="badge ${s.tone}">${esc(s.label)}</span>`}
+function downloadAction(d){
+  if(d.release_status==='internal')return'';
+  const stable=d.release_status==='stable';
+  const prefix=d.release_status==='release-candidate'?'Download RC':d.release_status==='deprecated'?'Download deprecated':'Download';
+  return`<a class="btn ${stable?'primary':''}" href="${esc(c4z(d))}" download>${prefix} v${esc(d.version)}</a>`;
 }
-
-async function grid(){
-  const view=document.getElementById('view');
-  try{
-    const ds=await loadDrivers();
-    view.innerHTML=ds.length?`<div class="grid">${ds.map(card).join('')}</div>`
-      :'<div class="empty">No drivers published yet.</div>';
-  }catch(_){ view.innerHTML='<div class="empty">Could not reach the driver channel.</div>'; }
+function row(d){
+  const feat=d.features.slice(0,2).map(x=>`<span>${esc(x)}</span>`).join('');
+  return`<a class="driver-row" href="#/driver/${encodeURIComponent(d.slug)}/overview">
+    <div class="identity"><div><h2>${esc(d.name||d.slug)}</h2><div class="slug">${esc(d.slug)}</div></div></div>
+    <div class="promise"><p>${esc(d.summary||'Published IntegrateIT Control4 driver.')}</p>${feat?`<div class="mini-features">${feat}</div>`:''}</div>
+    <div class="release"><div>${badge(d)}<div class="ver">v${esc(d.version||'?')} <span style="color:var(--mut2);font-weight:600">· xml ${esc(d.xml_version||'?')}</span></div><small>${esc(hardwareLabel(d.hardware_status))} · ${esc(d.min_os||'?')}+ · ${kb(d.size_bytes)}</small></div><span class="chev" aria-hidden="true">›</span></div>
+  </a>`;
 }
-
-// hash routing: '' = catalog grid, '#/driver/<slug>' = detail
-async function route(){
-  const m=location.hash.match(/^#\/driver\/([A-Za-z0-9_%-]+)/);
-  try{ m?await detail(decodeURIComponent(m[1])):await grid(); }
-  catch(_){ document.getElementById('view').innerHTML='<div class="empty">Could not reach the driver channel.</div>'; }
+async function catalogView(){
+  const ds=await loadCatalog();
+  const stable=ds.filter(d=>d.release_status==='stable').length,checks=ds.reduce((n,d)=>n+qaChecks(d.qa),0);
+  $('#view').innerHTML=`
+    <section class="hero"><div><div class="eyebrow">IntegrateIT Driver Engine</div><h1>Commission, verify, and update with confidence.</h1><p>The live register for original IntegrateIT Control4 drivers. Every release exposes its compatibility, exact checksum, QA evidence, hardware-test boundary, documentation, and immutable history.</p></div>
+      <div class="snapshot" aria-label="Catalog summary"><div><b>${ds.length}</b><span>Published</span></div><div><b>${stable}</b><span>Stable</span></div><div><b>${checks}</b><span>QA checks</span></div></div></section>
+    <div class="toolbar"><label><span style="position:absolute;left:-9999px">Search drivers</span><input id="search" class="search" type="search" placeholder="Search name, capability, or model…"></label>
+      <select id="stage" class="filter" aria-label="Filter by release stage"><option value="all">All release stages</option><option value="stable">Stable</option><option value="release-candidate">Release candidates</option><option value="deprecated">Deprecated</option></select>
+      <div id="result-count" class="result-count" aria-live="polite"></div></div><div id="catalog" class="catalog"></div>`;
+  const render=()=>{const q=$('#search').value.trim().toLowerCase(),stage=$('#stage').value;const shown=ds.filter(d=>(stage==='all'||d.release_status===stage)&&[d.name,d.slug,d.summary,...d.features].join(' ').toLowerCase().includes(q));$('#catalog').innerHTML=shown.length?shown.map(row).join(''):'<div class="empty"><b>No matching drivers</b>Clear the search or choose another release stage.</div>';$('#result-count').textContent=`${shown.length} of ${ds.length} drivers`};
+  $('#search').addEventListener('input',render);$('#stage').addEventListener('change',render);render();
 }
-addEventListener('hashchange',route);
-route();
+function facts(items){return(items||[]).map(i=>`<div class="fact"><span>${esc(i.label)}</span><b>${esc(i.value)}</b></div>`).join('')}
+function list(items,cls='plain-list'){return`<ul class="${cls}">${(items||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`}
+function qaPanel(d){
+  const q=d.qa;
+  if(!q)return`<div class="qa-verdict"><div class="mark" style="color:var(--warn);background:rgba(251,191,36,.1)">!</div><div><b>QA evidence not published</b><span>This legacy catalog entry predates generated QA reports.</span></div></div>`;
+  const passed=q.status==='pass',channel=q.channel_verification?.status||'pending';
+  const channelTone=channel==='pass'?'var(--good)':channel==='fail'?'var(--bad)':'var(--warn)';
+  return`<div class="qa-verdict"><div class="mark" style="color:${passed?'var(--good)':'var(--bad)'};background:${passed?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)'}">${passed?'✓':'!'}</div><div><b>${passed?'Package gate passed':'Package gate failed'}</b><span>${esc(q.environment||'Automated validation')} · ${date(q.generated_at)}</span></div></div>
+    <div class="qa-stage"><b>Live channel</b><span style="color:${channelTone}">${esc(channel.toUpperCase())}</span><small>${channel==='pass'?'Published bytes and manifests verified':channel==='fail'?'Published channel verification failed':'Verification runs immediately after publication'}</small></div>
+    ${(q.stages||[]).map(s=>{const ok=s.status==='pass';return`<div class="qa-stage"><b>${esc(s.name[0].toUpperCase()+s.name.slice(1))}</b><span style="color:${ok?'var(--good)':'var(--bad)'}">${esc(s.status.toUpperCase())}</span><small>${s.checks!=null?`${s.checks} checks · `:''}${s.files!=null?`${s.files} golden files · `:''}${s.warnings!=null?`${s.warnings} warnings · `:''}${Math.round((s.duration_ms||0))} ms</small></div>`}).join('')}`;
+}
+function overview(d){return`<div class="overview-grid"><div class="stack"><section class="section"><h2>What this driver delivers</h2>${list(d.features,'checklist')}</section><section class="section"><h2>Before you install</h2><h3>Requirements</h3>${list(d.requirements)}<h3>Known boundaries</h3>${list(d.limitations,'plain-list warning-list')}</section></div><aside class="stack"><section class="section"><h2>Compatibility</h2><div class="facts">${facts(d.compatibility)}</div></section><section class="section"><h2>Release evidence</h2>${qaPanel(d)}</section><section class="section"><h2>Driver surface</h2><div class="facts">${facts([{label:'Properties',value:d.stats.properties??'—'},{label:'Connections',value:d.stats.connections??'—'},{label:'Programming',value:(d.stats.commands||0)+(d.stats.actions||0)+' commands/actions'},{label:'Events',value:d.stats.events??'—'}])}</div></section></aside></div>`}
+function screenshotPanel(d){if(!d.screenshots.length)return`<div class="empty"><b>Screenshots are being prepared</b>The packaged documentation remains available in the Documentation tab.</div>`;return`<div class="shots">${d.screenshots.map((s,i)=>`<figure class="shot"><button data-shot="${i}" aria-label="Open ${esc(s.title)}"><img src="${esc(s.url)}" alt="${esc(s.alt)}" loading="lazy"><figcaption><b>${esc(s.title)}</b><span>${esc(s.caption||'')}</span></figcaption></button></figure>`).join('')}</div>`}
+function documentationPanel(d){return`<section class="section"><div class="doc-tools"><p>This is the exact self-contained Documentation tab packaged in v${esc(d.version)}.</p>${d.doc_url?`<a class="btn" href="${esc(d.doc_url)}" target="_blank" rel="noopener">Open separately ↗</a>`:''}</div><div id="doc-host"><div class="empty"><b>Loading packaged documentation…</b></div></div></section>`}
+function installPanel(d){
+  const manifest=d.manifest_url||`${CHANNEL}/${d.slug}/version.json`,updateOs=d.update_min_os||'3.3.1';
+  return`<div class="overview-grid"><section class="section"><h2>First installation</h2><ol class="steps"><li><div>Download <b>${esc(d.slug)}.c4z</b> and add or update the driver in Composer Pro.</div></li><li><div>Add the driver to the project, then complete the properties and bindings described in Documentation.</div></li><li><div>Enter the IntegrateIT license settings, activate, and run the driver’s validation/test actions before handoff.</div></li></ol><div class="head-actions" style="justify-content:flex-start;margin-top:18px">${downloadAction(d)}<a class="btn" href="${esc(manifest)}" target="_blank" rel="noopener">View update manifest</a></div></section><aside class="stack"><section class="section"><h2>Future versions: keep every connection</h2><ol class="steps"><li><div>The installed driver checks the same release channel for a newer version.</div></li><li><div>On Control4 OS <b>${esc(updateOs)}+</b>, run <b>Download &amp; Stage Update</b>. On older supported OS versions, download the new C4Z here instead.</div></li><li><div>In Composer Pro, right-click the existing driver and choose <b>Update Driver</b>. Do not delete or re-add it; properties, bindings, and programming remain attached.</div></li></ol></section><section class="section"><h2>Integrity</h2><p>Compare the downloaded package before installation.</p><div class="code-row"><code>sha256 ${esc(d.sha256||'not published')}</code>${d.sha256?'<button class="btn quiet copy" data-copy="hash">Copy</button>':''}</div><div style="margin-top:9px;font:11.5px var(--mono);color:var(--mut2)">shasum -a 256 ${esc(d.slug)}.c4z</div></section></aside></div>`;
+}
+async function releasesPanel(d){let rel=null,cl='';try{rel=await getJson(d.releases_url||`${CHANNEL}/${d.slug}/releases.json`)}catch(_){ }try{cl=await getText(d.changelog_url||`${CHANNEL}/${d.slug}/CHANGELOG.md`)}catch(_){ }const rows=(rel?.history||[]).map(h=>{const tone=h.qa_status==='pass'?'good':h.qa_status==='legacy-unverified'?'muted':'bad';return`<tr><td><b>v${esc(h.version)}</b><div class="mono">xml ${esc(h.xml_version||'?')}</div></td><td>${date(h.published_at)}</td><td>${kb(h.size_bytes)}</td><td>${h.qa_status?`<span class="badge ${tone}">QA ${esc(h.qa_status)}</span>`:''}<div style="margin-top:5px;color:var(--mut2);font-size:11.5px">${esc(hardwareLabel(h.hardware_status))}</div></td><td>${esc(h.notes||'')}</td><td><a class="btn quiet" href="${CHANNEL}/${encodeURIComponent(d.slug)}/releases/${encodeURIComponent(h.version)}/${encodeURIComponent(d.slug)}.c4z" download>Download</a></td></tr>`}).join('');return`<section class="section"><h2>Immutable release history</h2>${rows?`<div style="overflow:auto"><table class="history"><thead><tr><th>Version</th><th>Published</th><th>Size</th><th>Evidence</th><th>Notes</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`:'<p>No version history is published yet.</p>'}${cl?`<details style="margin-top:16px"><summary style="cursor:pointer;font-weight:750">Raw changelog</summary><pre style="white-space:pre-wrap;color:var(--mut);font:11.5px/1.6 var(--mono)">${esc(cl)}</pre></details>`:''}</section>`}
+const TAB_LABELS={overview:'Overview',screenshots:'Screenshots',documentation:'Documentation',releases:'Release history',install:'Install & update'};
+async function driverView(slug,active='overview'){
+  const ds=await loadCatalog(),d=ds.find(x=>x.slug===slug);if(!d){$('#view').innerHTML=`<a class="back" href="#">← Driver Engine</a><div class="empty"><b>Driver not found</b>${esc(slug)} is not in the live release channel.</div>`;return}
+  if(!TAB_LABELS[active])active='overview';const s=statusMeta(d);
+  $('#view').innerHTML=`<a class="back" href="#">← All drivers</a><section class="product-head"><div><div class="eyebrow">${esc(d.category||'Control4 driver')}</div><h1>${esc(d.name||d.slug)}</h1><p>${esc(d.summary||'')}</p></div><div class="head-actions">${downloadAction(d)}${d.doc_url?`<a class="btn" href="#/driver/${encodeURIComponent(d.slug)}/documentation">Documentation</a>`:''}</div></section>
+    <div class="status-strip"><div class="status-item"><span>Release</span><b style="color:${s.tone==='good'?'var(--good)':s.tone==='warn'?'var(--warn)':'var(--mut)'}">${esc(s.label)}</b></div><div class="status-item"><span>Version</span><b>v${esc(d.version)} · xml ${esc(d.xml_version)}</b></div><div class="status-item"><span>Control4</span><b>OS ${esc(d.min_os)}+</b></div><div class="status-item"><span>Hardware</span><b>${esc(hardwareLabel(d.hardware_status))}</b></div><div class="status-item"><span>License</span><b>${esc(d.license||'IntegrateIT license')}</b></div><div class="status-item"><span>Published</span><b>${date(d.published_at)}</b></div></div>
+    <div class="tabs" role="tablist" aria-label="Driver information">${Object.entries(TAB_LABELS).map(([id,label])=>`<button id="tab-${id}" class="tab" role="tab" aria-controls="tab-panel" aria-selected="${id===active}" tabindex="${id===active?'0':'-1'}" data-tab="${id}">${label}${id==='screenshots'&&d.screenshots.length?` (${d.screenshots.length})`:''}</button>`).join('')}</div><div id="tab-panel" class="tab-panel" role="tabpanel" aria-labelledby="tab-${active}"></div>`;
+  const show=async id=>{
+    const request=++PANEL_REQUEST;
+    history.replaceState(null,'',`${location.pathname}${location.search}#/driver/${encodeURIComponent(d.slug)}/${id}`);
+    document.querySelectorAll('.tab').forEach(t=>{const on=t.dataset.tab===id;t.setAttribute('aria-selected',String(on));t.setAttribute('tabindex',on?'0':'-1')});
+    const p=$('#tab-panel');p.setAttribute('aria-labelledby',`tab-${id}`);
+    p.innerHTML=id==='overview'?overview(d):id==='screenshots'?screenshotPanel(d):id==='documentation'?documentationPanel(d):id==='install'?installPanel(d):'<div class="empty"><b>Loading release history…</b></div>';
+    if(id==='documentation')await loadDoc(d,request);
+    if(id==='releases'){const html=await releasesPanel(d);if(request!==PANEL_REQUEST)return;p.innerHTML=html}
+    if(request!==PANEL_REQUEST)return;
+    bindPanel(d);
+  };
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click',()=>show(t.dataset.tab));
+    t.addEventListener('keydown',e=>{
+      const tabs=[...document.querySelectorAll('.tab')];let n=null,i=tabs.indexOf(t);
+      if(e.key==='ArrowRight')n=(i+1)%tabs.length;
+      else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+      else if(e.key==='Home')n=0;
+      else if(e.key==='End')n=tabs.length-1;
+      if(n!=null){e.preventDefault();tabs[n].focus();show(tabs[n].dataset.tab)}
+    });
+  });
+  await show(active);
+}
+async function loadDoc(d,request){const host=$('#doc-host');if(!d.doc_url){host.innerHTML='<div class="empty"><b>Documentation not published</b></div>';return}try{const html=await getText(d.doc_url);if(request!==PANEL_REQUEST)return;const frame=document.createElement('iframe');frame.className='doc-frame';frame.title=`${d.name} packaged documentation`;frame.setAttribute('sandbox','');frame.referrerPolicy='no-referrer';frame.srcdoc=html;host.replaceChildren(frame)}catch(_){if(request===PANEL_REQUEST)host.innerHTML='<div class="empty"><b>Could not load documentation</b>Use “Open separately” or try again.</div>'}}
+function bindPanel(d){document.querySelectorAll('[data-shot]').forEach(b=>b.addEventListener('click',()=>{const s=d.screenshots[Number(b.dataset.shot)],dlg=$('#lightbox');$('#lightbox-title').textContent=s.title;$('#lightbox-image').src=s.url;$('#lightbox-image').alt=s.alt;dlg.showModal()}));const copy=document.querySelector('[data-copy="hash"]');if(copy)copy.addEventListener('click',async()=>{let ok=false;try{if(!navigator.clipboard)throw new Error('clipboard unavailable');await navigator.clipboard.writeText(d.sha256);ok=true}catch(_){try{const ta=document.createElement('textarea');ta.value=d.sha256;document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove()}catch(_){ }}copy.textContent=ok?'Copied':'Copy failed';setTimeout(()=>copy.textContent='Copy',1400)})}
+$('#lightbox-close').addEventListener('click',()=>$('#lightbox').close());$('#lightbox').addEventListener('click',e=>{if(e.target===$('#lightbox'))$('#lightbox').close()});
+async function route(){const m=location.hash.match(/^#?\/driver\/([^/]+)(?:\/([^/]+))?/);try{m?await driverView(decodeURIComponent(m[1]),m[2]||'overview'):await catalogView()}catch(e){$('#view').innerHTML=`<div class="empty"><b>Could not reach the driver release channel</b>Check the connection and reload this page.<div style="margin-top:14px"><a class="btn" href="${esc(location.href)}">Try again</a></div></div>`}}
+addEventListener('hashchange',route);route();
 </script>
 </body>
 </html>

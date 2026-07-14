@@ -1,22 +1,421 @@
 {
-  "schema": 2,
-  "generated_at": "2026-07-05T15:38:59.273Z",
+  "schema": 3,
+  "generated_at": "2026-07-14T07:47:19.447Z",
   "drivers": [
+    {
+      "slug": "integrateit_garage",
+      "name": "IntegrateIT Garage",
+      "summary": "Universal relay garage-door control with contact feedback, travel supervision, left-open alerts, close warnings, safe simulation, and resilient state handling.",
+      "category": "others",
+      "device_type": "Garage Door",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": true,
+      "features": [
+        "One-, two-, or three-relay garage control",
+        "Closed and opened contact supervision with debounce",
+        "Travel timeout, sensor-conflict, and left-open events",
+        "Configurable close warning and safe unknown-state behavior",
+        "Test Mode blocks physical outputs while simulating every major state",
+        "In-place Composer updates preserve bindings and programming"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "Control4 relay bindings"
+        },
+        {
+          "label": "Feedback",
+          "value": "0, 1, or 2 contact-sensor bindings"
+        },
+        {
+          "label": "Navigator",
+          "value": "UI Button garage experience"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A compatible Control4 relay or relay-capable controller output",
+        "A position contact is strongly recommended for supervised operation",
+        "Composer Pro access for initial bindings and future in-place updates"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative opener hardware acceptance is still pending.",
+        "The driver does not bypass an opener's own photo-eye, obstruction, or entrapment protection.",
+        "With no contact sensors, state is inferred from commands and travel timers rather than measured position."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/release-overview.png",
+          "title": "Release overview",
+          "caption": "Compatibility, limitations, driver surface, and generated QA evidence in one dealer-ready view.",
+          "alt": "IntegrateIT Garage Ops Portal overview showing release candidate status, compatibility, QA passes, and known boundaries.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/catalog/release-overview.png"
+        },
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Garage commissioning guide showing version, readiness badges, navigation, and the Start here section.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_garage",
+        "generated_at": "2026-07-14T07:47:12.142Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "83e99ca61eaab03545a43f6bbfd6ada70adf86843735ff77e3c5774193aeb036",
+        "artifact_sha256": "c86891f131985a5cb2eb01e97d15d17a314ea67fd4db20afe28486bd0fdea754",
+        "artifact_size_bytes": 153786,
+        "build_version_manifest_sha256": "b832cf8a43f3a84e9ffdf896d899adbda67b1b5b2a94a726a3f46bc9c57ddc48",
+        "version_manifest_sha256": "1788de77f820abe6f69aa732180cf969da290a31b44bbf6c7fa686ff084d8446",
+        "version": "0.9.0",
+        "xml_version": 2,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 161
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 78,
+            "checks": 20,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 97,
+            "checks": 304,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 53,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 8,
+        "properties": 25,
+        "commands": 6,
+        "actions": 11,
+        "events": 13
+      },
+      "version": "0.9.0",
+      "xml_version": 2,
+      "min_os": "3.0.0",
+      "size_bytes": 153786,
+      "sha256": "c86891f131985a5cb2eb01e97d15d17a314ea67fd4db20afe28486bd0fdea754",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/integrateit_garage.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT runtime license required",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-14T07:47:19.435Z"
+    },
+    {
+      "slug": "integrateit_hebcal",
+      "name": "IntegrateIT Hebcal",
+      "summary": "Production-grade Jewish calendar automation with candle lighting, Havdalah, sunset, holidays, Hebrew date, Omer, resilient caching, and safe simulation.",
+      "category": "others",
+      "device_type": "Hebcal Calendar Service",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": true,
+      "features": [
+        "Candle lighting, sunset, Havdalah, and configurable early/late events",
+        "Hebrew date, holidays, Shabbat, Yom Tov, Omer, and weekly parsha status",
+        "US ZIP Code or worldwide GeoNames location selection",
+        "Diaspora and Israel calendar modes",
+        "Resilient cache, retry, recovery event, and safe Test Date simulation",
+        "In-place Composer updates preserve properties and programming"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Calendar service",
+          "value": "Hebcal public API"
+        },
+        {
+          "label": "Locations",
+          "value": "US ZIP Code or GeoNames ID"
+        },
+        {
+          "label": "Calendar modes",
+          "value": "Diaspora and Israel"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Controller internet access to Hebcal over HTTPS",
+        "A valid five-digit US ZIP Code or numeric GeoNames city ID",
+        "Composer Pro access for initial configuration and future in-place updates"
+      ],
+      "limitations": [
+        "Release Candidate: API contract and simulator verified; a release-bound live-service check and representative Control4 controller acceptance are still pending.",
+        "Scheduled religious times depend on the configured location and Hebcal service data.",
+        "Test Mode is for inspection and simulation; it intentionally disables real timed event firing."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/release-overview.png",
+          "title": "Release overview",
+          "caption": "Calendar capabilities, requirements, test boundary, driver surface, and generated QA evidence.",
+          "alt": "IntegrateIT Hebcal Ops Portal overview showing release candidate status, compatibility, QA passes, and known boundaries.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/catalog/release-overview.png"
+        },
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained calendar commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Hebcal commissioning guide showing version, readiness badges, navigation, and the Start here section.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_hebcal",
+        "generated_at": "2026-07-14T07:47:12.554Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "1787ab487df0c95c05a0bb9aff3d9286a5eb91fc6e881c82aaa8821d7bbf7da9",
+        "artifact_sha256": "63a8c676e81b5e13c66ffebab75830748904c7ec83d76f591e83de94e3f93565",
+        "artifact_size_bytes": 44681,
+        "build_version_manifest_sha256": "f31d136d51816dfdd14045b0c3f612108d3a52d82d18bea1e697ae9248bb2ce7",
+        "version_manifest_sha256": "17e451c71e3d03835853e6942e63da3ef2ad9dc27e2f1e382034f65867d939a2",
+        "version": "0.9.0",
+        "xml_version": 2,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 112
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 17,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 102,
+            "checks": 246,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 56,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 30,
+        "commands": 0,
+        "actions": 7,
+        "events": 8
+      },
+      "version": "0.9.0",
+      "xml_version": 2,
+      "min_os": "3.0.0",
+      "size_bytes": 44681,
+      "sha256": "63a8c676e81b5e13c66ffebab75830748904c7ec83d76f591e83de94e3f93565",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/integrateit_hebcal.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT runtime license required",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-14T07:47:19.439Z"
+    },
     {
       "slug": "integrateit_mm815_bond",
       "name": "MantelMount MM815 (Bond Bridge) by IntegrateIT",
       "summary": "PTZ-style control of a MantelMount MM815 motorized TV mount over Bond Bridge — nudge, drive-to-limit, true hold-to-move, six favorites, and TV-follow (auto Deploy/Stow with TV power). Bond auto-discovery + health, position state variables/events, per-controller licensing, and over-the-air updates.",
       "category": "others",
       "device_type": "MM815",
-      "version": "1.5.2",
-      "xml_version": 16,
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "PTZ-style nudge, drive-to-limit, stop, and true hold-to-move control",
+        "Six programmable MantelMount memory positions",
+        "TV-follow automation for automatic Deploy and Stow",
+        "Bond Bridge discovery, connection testing, and health polling",
+        "Position variables and movement lifecycle events for programming",
+        "In-place Composer updates preserve properties, bindings, and programming"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Mount",
+          "value": "MantelMount MM815 learned by Bond"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge local API"
+        },
+        {
+          "label": "Navigator",
+          "value": "Nine UI Button controls"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Bond Bridge IP address, local API token, and learned mount device ID",
+        "The MM815 command mapping discovered or entered during commissioning",
+        "Reliable LAN reachability between the Control4 controller and Bond Bridge",
+        "Composer Pro access for bindings, testing, and future in-place updates"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative MM815 and Bond Bridge acceptance evidence is not yet attached to this release.",
+        "Movement position is inferred from commands and configured settle time rather than measured absolute mount telemetry.",
+        "Availability and naming of learned actions depend on the Bond device configuration."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/release-overview.png",
+          "title": "Ops Portal release overview",
+          "caption": "Release readiness, compatibility, requirements, known boundaries, and deterministic QA evidence in one commissioning-focused view.",
+          "alt": "IntegrateIT Ops Portal product page for the MantelMount MM815 Bond Bridge driver showing release candidate status, compatibility, and release evidence.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/catalog/release-overview.png"
+        },
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained MM815 and Bond Bridge commissioning guide included inside the C4Z package.",
+          "alt": "MantelMount MM815 Bond Bridge commissioning guide showing version, readiness badges, navigation, and the overview section.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_mm815_bond",
+        "generated_at": "2026-07-14T07:47:13.033Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "d13895ee511f046e1d91ea1e11cd9515948c088e9dd0d16e22dfcee85d43c25e",
+        "artifact_sha256": "325de13864e0e2f14a20062c2dfe786dd5bc0859e504c0d7c8c58ee6576ec539",
+        "artifact_size_bytes": 737724,
+        "build_version_manifest_sha256": "dd05c3558589b20edfe92ce06534d6519931a75cc784884af72379945171070e",
+        "version_manifest_sha256": "09af9347e2ed10183d695e3def8dfb58ae9cb5756b06b7e7ad3e45df7eda9120",
+        "version": "1.5.3",
+        "xml_version": 17,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 173
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 80,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 91,
+            "checks": 220,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 68,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 9,
+        "connections": 0,
+        "properties": 22,
+        "commands": 24,
+        "actions": 6,
+        "events": 4
+      },
+      "version": "1.5.3",
+      "xml_version": 17,
       "min_os": "3.0.0",
-      "size_bytes": 792554,
-      "sha256": "0c5cc8f6131511ad0cfaa6834157257dbcf58a30ab4078c175f7e00704ce7c1a",
+      "size_bytes": 737724,
+      "sha256": "325de13864e0e2f14a20062c2dfe786dd5bc0859e504c0d7c8c58ee6576ec539",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/integrateit_mm815_bond.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/CHANGELOG.md",
       "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/documentation.html",
       "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/releases.json",
-      "published_at": "2026-07-05T15:37:12.136Z"
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT runtime license required",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-14T07:47:19.442Z"
     },
     {
       "slug": "integrateit_optimus",
@@ -24,15 +423,138 @@
       "summary": "The AI assistant, Service Requests, and My System experience inside Control4 Navigator. The assistant drives lights, scenes, thermostat, shades, fans, locks, and announcements; optional driver-hosted quick-control panel; resilient relay link with backoff and optional two-way device state. Per-controller licensing + over-the-air updates.",
       "category": "others",
       "device_type": "Optimus AI",
-      "version": "2.3.3",
-      "xml_version": 20260635,
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "AI assistant, Service Requests, and My System inside Navigator",
+        "Control surfaces for lighting, scenes, climate, shades, fans, locks, and announcements",
+        "Optional quick-control WebView for direct project actions",
+        "Resilient relay polling with backoff and optional two-way state publishing",
+        "Confirmation boundary for sensitive actions",
+        "In-place Composer updates preserve properties, bindings, and programming"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Navigator",
+          "value": "HTML WebView and mobile WebView"
+        },
+        {
+          "label": "Relay",
+          "value": "IntegrateIT relay service"
+        },
+        {
+          "label": "Programming",
+          "value": "Events and optional direct device intents"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "An IntegrateIT relay Site ID and Site Token",
+        "Controller internet access to the configured relay URL",
+        "Composer Pro programming for any project-specific events and device IDs",
+        "Explicit review of sensitive-action and announcement behavior before handoff"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative controller and Navigator acceptance evidence is not yet attached to this release.",
+        "AI responses and direct controls depend on relay availability, project mapping, and the selected AI provider.",
+        "Unlocking, garage, and other sensitive actions require deliberate dealer configuration and confirmation policy review."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/release-overview.png",
+          "title": "Ops Portal release overview",
+          "caption": "Release readiness, compatibility, requirements, known boundaries, and deterministic QA evidence in one commissioning-focused view.",
+          "alt": "IntegrateIT Ops Portal product page for Optimus AI showing release candidate status, compatibility, and release evidence.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/catalog/release-overview.png"
+        },
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained Optimus AI commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Optimus AI commissioning guide showing version, readiness badges, navigation, and the overview section.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_optimus",
+        "generated_at": "2026-07-14T07:47:13.448Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "ee154986b99ae4aab91277bb4793802e76673709639750f82b8cd64f2f10f1c9",
+        "artifact_sha256": "5068e1574f3234938ed47bf060aa9a9a93cc42f10c09d2433f9d800b23ffd302",
+        "artifact_size_bytes": 110920,
+        "build_version_manifest_sha256": "c2e47f712e9407f55efeb033c0408b2676c525fa6e2950e65e277f7f8ff6c83a",
+        "version_manifest_sha256": "3a7cb717158bab68bf78c6d6d73434605cb27416e489e4dbe6803270690891b6",
+        "version": "2.3.4",
+        "xml_version": 20260636,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 124
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 82,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 82,
+            "checks": 162,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 55,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 13,
+        "commands": 0,
+        "actions": 5,
+        "events": 30
+      },
+      "version": "2.3.4",
+      "xml_version": 20260636,
       "min_os": "3.0.0",
-      "size_bytes": 165756,
-      "sha256": "2da5907083161662fc75d5efcd7b56fef51a697332a7eaa163d5ef85914b7db5",
+      "size_bytes": 110920,
+      "sha256": "5068e1574f3234938ed47bf060aa9a9a93cc42f10c09d2433f9d800b23ffd302",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/integrateit_optimus.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/CHANGELOG.md",
       "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/documentation.html",
       "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/releases.json",
-      "published_at": "2026-07-05T15:38:59.267Z"
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT runtime license required",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-14T07:47:19.445Z"
     }
   ]
 }

@@ -1,13 +1,25 @@
 {
-  "latest": "1.5.2",
+  "latest": "1.5.3",
   "history": [
+    {
+      "version": "1.5.3",
+      "xml_version": 17,
+      "sha256": "325de13864e0e2f14a20062c2dfe786dd5bc0859e504c0d7c8c58ee6576ec539",
+      "size_bytes": 737724,
+      "published_at": "2026-07-14T07:47:19.442Z",
+      "notes": "Adds schema v3 release evidence, compatibility, limitations, and a packaged documentation screenshot. · Refreshes the shared IntegrateIT commissioning guide and release pipeline without changing bindings.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "1.5.2",
       "xml_version": 16,
       "sha256": "0c5cc8f6131511ad0cfaa6834157257dbcf58a30ab4078c175f7e00704ce7c1a",
       "size_bytes": 792554,
       "published_at": "2026-07-05T15:37:12.136Z",
-      "notes": "resync channel bytes after iit_update.lua channel-comment fix"
+      "notes": "resync channel bytes after iit_update.lua channel-comment fix",
+      "qa_status": "legacy-unverified",
+      "hardware_status": "not-recorded"
     },
     {
       "version": "1.5.1",
@@ -15,7 +27,9 @@
       "sha256": "902d611c5a20dee81ccfb74f4be24456eea5c15791b3ecbc98de93663979020c",
       "size_bytes": 792415,
       "published_at": "2026-07-03T14:48:17.038Z",
-      "notes": "OTA self-update validation build. Identical code to 1.5.0."
+      "notes": "OTA self-update validation build. Identical code to 1.5.0.",
+      "qa_status": "legacy-unverified",
+      "hardware_status": "not-recorded"
     }
   ]
 }

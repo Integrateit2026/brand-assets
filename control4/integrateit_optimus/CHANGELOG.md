@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Optimus AI
 
+## [2.3.4] - 2026-07-14
+- Adds schema v3 release evidence, compatibility, limitations, and a packaged documentation screenshot.
+- Refreshes the shared IntegrateIT commissioning guide and release pipeline without changing bindings.
+
 ## [2.3.3] - 2026-07-05
 - resync channel bytes after iit_update.lua channel-comment fix
 

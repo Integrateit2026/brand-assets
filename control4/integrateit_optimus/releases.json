@@ -1,13 +1,25 @@
 {
-  "latest": "2.3.3",
+  "latest": "2.3.4",
   "history": [
+    {
+      "version": "2.3.4",
+      "xml_version": 20260636,
+      "sha256": "5068e1574f3234938ed47bf060aa9a9a93cc42f10c09d2433f9d800b23ffd302",
+      "size_bytes": 110920,
+      "published_at": "2026-07-14T07:47:19.445Z",
+      "notes": "Adds schema v3 release evidence, compatibility, limitations, and a packaged documentation screenshot. · Refreshes the shared IntegrateIT commissioning guide and release pipeline without changing bindings.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "2.3.3",
       "xml_version": 20260635,
       "sha256": "2da5907083161662fc75d5efcd7b56fef51a697332a7eaa163d5ef85914b7db5",
       "size_bytes": 165756,
       "published_at": "2026-07-05T15:38:59.267Z",
-      "notes": "resync channel bytes after iit_update.lua channel-comment fix"
+      "notes": "resync channel bytes after iit_update.lua channel-comment fix",
+      "qa_status": "legacy-unverified",
+      "hardware_status": "not-recorded"
     },
     {
       "version": "2.3.2",
@@ -15,7 +27,9 @@
       "sha256": "4a42b94f2819005dabba88251027866cf8743e53a64084075c5255d13daed7b1",
       "size_bytes": 165625,
       "published_at": "2026-07-03T15:02:33.929Z",
-      "notes": "Navigator button press (SELECT) now re-pushes the current app URL and refreshes the in-app snapshot — a stale Navigator heals on tap (a declared uibutton proxy previously had no ReceivedFromProxy handler). · Test Event / Test Announcement actions are now license-gated like every other control path (Strict + unlicensed fires no device events)."
+      "notes": "Navigator button press (SELECT) now re-pushes the current app URL and refreshes the in-app snapshot — a stale Navigator heals on tap (a declared uibutton proxy previously had no ReceivedFromProxy handler). · Test Event / Test Announcement actions are now license-gated like every other control path (Strict + unlicensed fires no device events).",
+      "qa_status": "legacy-unverified",
+      "hardware_status": "not-recorded"
     },
     {
       "version": "2.3.1",
@@ -23,7 +37,9 @@
       "sha256": "bebf14467e67b0e2f8d71da66e08add84d7701f3021ea1af8cf4c7b46fbd3e91",
       "size_bytes": 165034,
       "published_at": "2026-07-03T14:48:17.042Z",
-      "notes": "OTA self-update validation build. Identical code to 2.3.0."
+      "notes": "OTA self-update validation build. Identical code to 2.3.0.",
+      "qa_status": "legacy-unverified",
+      "hardware_status": "not-recorded"
     }
   ]
 }
