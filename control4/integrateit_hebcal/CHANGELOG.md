@@ -1,5 +1,10 @@
 # Changelog: IntegrateIT Hebcal
 
+## [0.9.1] - 2026-07-16
+- Calendar data now commits even when the zmanim endpoint fails; Sunset degrades to Unavailable instead of discarding the whole refresh
+- JSON null handling preserves array positions (no more silently skipped calendar items)
+- Icons packed at both c4z roots; init errors surface in the Status property
+
 ## [0.9.0] - 2026-07-14
 - Rebuilt the calendar engine around Hebcal's full 15-day Jewish Calendar API plus exact-date Zmanim API.
 - Added timezone-offset-safe event scheduling, DST-safe civil-date arithmetic, and strict date validation.
