@@ -1,6 +1,16 @@
 {
-  "latest": "2.3.4",
+  "latest": "2.3.5",
   "history": [
+    {
+      "version": "2.3.5",
+      "xml_version": 20260637,
+      "sha256": "3e805d048700ba9d075c9bad5a215bdcc888c334d713cdee6a2ec61852b9ddce",
+      "size_bytes": 161169,
+      "published_at": "2026-07-16T19:21:48.172Z",
+      "notes": "Startup no longer depends on the optional urlSetTimeout API — polling and the Navigator web view always start · Navigator presses accept DO_CLICK as well as SELECT; icons packed at both c4z roots · Init errors surface in the Status property instead of failing silently",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "2.3.4",
       "xml_version": 20260636,

@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Optimus AI
 
+## [2.3.5] - 2026-07-16
+- Startup no longer depends on the optional urlSetTimeout API — polling and the Navigator web view always start
+- Navigator presses accept DO_CLICK as well as SELECT; icons packed at both c4z roots
+- Init errors surface in the Status property instead of failing silently
+
 ## [2.3.4] - 2026-07-14
 - Adds schema v3 release evidence, compatibility, limitations, and a packaged documentation screenshot.
 - Refreshes the shared IntegrateIT commissioning guide and release pipeline without changing bindings.
