@@ -1,5 +1,10 @@
 # Changelog: IntegrateIT Garage
 
+## [0.9.1] - 2026-07-16
+- Navigator tap now always pulses a one-relay momentary opener when the door state is unknown (new default: Pulse Relay); relay-only installs are the assumed baseline (contacts default 0)
+- Icons packed at both c4z roots so Composer device icons and Navigator buttons render; packaging gate verifies every XML asset reference resolves
+- Init errors surface in the Status property instead of failing silently
+
 ## [0.9.0] - 2026-07-14
 
 - Added an original IntegrateIT clean-room garage-door runtime for documented Control4 relay, contact-sensor, button-link, and UI-button contracts.

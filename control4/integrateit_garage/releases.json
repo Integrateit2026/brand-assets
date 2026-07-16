@@ -1,6 +1,16 @@
 {
-  "latest": "0.9.0",
+  "latest": "0.9.1",
   "history": [
+    {
+      "version": "0.9.1",
+      "xml_version": 3,
+      "sha256": "ec804e3104e81139012d2964ca5f6dcab67924db0b85454a563f0d5e1ee4b8b9",
+      "size_bytes": 280736,
+      "published_at": "2026-07-16T19:17:55.443Z",
+      "notes": "Navigator tap now always pulses a one-relay momentary opener when the door state is unknown (new default: Pulse Relay); relay-only installs are the assumed baseline (contacts default 0) · Icons packed at both c4z roots so Composer device icons and Navigator buttons render; packaging gate verifies every XML asset reference resolves · Init errors surface in the Status property instead of failing silently",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.9.0",
       "xml_version": 2,
