@@ -1,6 +1,16 @@
 {
-  "latest": "1.5.3",
+  "latest": "1.5.4",
   "history": [
+    {
+      "version": "1.5.4",
+      "xml_version": 18,
+      "sha256": "032e8208119df8e2de7c7bd9d44780405d724eb0144713a3168ba00c7aef3138",
+      "size_bytes": 1417250,
+      "published_at": "2026-07-16T19:20:01.534Z",
+      "notes": "Navigator presses accept DO_CLICK as well as SELECT so the PTZ buttons respond on every OS build · Icons packed at both c4z roots so the PTZ buttons and device icon render; discovery probe fan-out capped at 8 · Init errors surface in the Status property instead of failing silently",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "1.5.3",
       "xml_version": 17,

@@ -1,47 +1,47 @@
 {
   "schema": 1,
   "slug": "integrateit_mm815_bond",
-  "generated_at": "2026-07-14T07:47:13.033Z",
+  "generated_at": "2026-07-16T19:20:01.069Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "d13895ee511f046e1d91ea1e11cd9515948c088e9dd0d16e22dfcee85d43c25e",
-  "artifact_sha256": "325de13864e0e2f14a20062c2dfe786dd5bc0859e504c0d7c8c58ee6576ec539",
-  "artifact_size_bytes": 737724,
-  "build_version_manifest_sha256": "dd05c3558589b20edfe92ce06534d6519931a75cc784884af72379945171070e",
-  "version_manifest_sha256": "09af9347e2ed10183d695e3def8dfb58ae9cb5756b06b7e7ad3e45df7eda9120",
-  "version": "1.5.3",
-  "xml_version": 17,
+  "build_inputs_sha256": "1099b5d68515d87e9c70b5179287c88391f6f7783ab89f9040bb5184149d259d",
+  "artifact_sha256": "032e8208119df8e2de7c7bd9d44780405d724eb0144713a3168ba00c7aef3138",
+  "artifact_size_bytes": 1417250,
+  "build_version_manifest_sha256": "7d8a386624ce0696d4d7e08609f0aba1f29ad598fee4c4c43a729e79bb41097f",
+  "version_manifest_sha256": "ebd5ed79b7994a940ee525e8e557f4e2b62a1d59980727d50a93f09a64245798",
+  "version": "1.5.4",
+  "xml_version": 18,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
-    "status": "pass",
-    "checked_at": "2026-07-14T07:49:04.240Z",
-    "note": "Published bytes, manifest, catalog, and immutable release pointer verified."
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
   },
   "stages": [
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 173
+      "duration_ms": 232
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 80,
-      "checks": 18,
+      "duration_ms": 89,
+      "checks": 19,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 91,
-      "checks": 220,
+      "duration_ms": 107,
+      "checks": 222,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 68,
+      "duration_ms": 74,
       "files": 2
     }
   ]

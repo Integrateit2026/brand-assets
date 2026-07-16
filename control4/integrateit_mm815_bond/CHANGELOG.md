@@ -1,5 +1,10 @@
 # Changelog — MantelMount MM815 (Bond Bridge)
 
+## [1.5.4] - 2026-07-16
+- Navigator presses accept DO_CLICK as well as SELECT so the PTZ buttons respond on every OS build
+- Icons packed at both c4z roots so the PTZ buttons and device icon render; discovery probe fan-out capped at 8
+- Init errors surface in the Status property instead of failing silently
+
 ## [1.5.3] - 2026-07-14
 - Adds schema v3 release evidence, compatibility, limitations, and a packaged documentation screenshot.
 - Refreshes the shared IntegrateIT commissioning guide and release pipeline without changing bindings.
