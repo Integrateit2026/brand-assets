@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-16T19:21:48.178Z",
+  "generated_at": "2026-07-16T21:02:18.082Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -555,6 +555,145 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:21:48.172Z"
+    },
+    {
+      "slug": "integrateit_tcp_toolkit",
+      "name": "IntegrateIT Generic TCP Toolkit",
+      "summary": "Dealer-configurable raw TCP/IP control for any LAN device: four labeled command slots plus a raw send, ASCII or hex payloads, selectable line endings, persistent or on-demand sockets, and response events — with destination, payload-size, and buffer safeguards. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "TCP Toolkit",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Raw TCP client to any host and port on the LAN",
+        "Four labeled command slots plus a raw-payload send, all fireable from Composer programming",
+        "ASCII/UTF-8 or hex-byte payloads with selectable CR / LF / CR+LF line endings",
+        "Persistent socket with auto-reconnect, or on-demand connect-per-send",
+        "Connected, Disconnected, Response Received, and Connection Failed events",
+        "LAN-only destination safeguard, payload-size cap, bounded response buffer, and audit logging",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "Raw TCP to any LAN host and port"
+        },
+        {
+          "label": "Payloads",
+          "value": "ASCII/UTF-8 or hex, with optional line endings"
+        },
+        {
+          "label": "Programming",
+          "value": "4 command slots + raw send, connect/disconnect"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "The target device must accept a raw TCP connection on a known port",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative device acceptance on a controller is still pending.",
+        "Outbound raw TCP only, with no TLS: this is not a server and payloads are sent in the clear, so use it on trusted LAN segments.",
+        "WAN destinations are refused unless Allow WAN Destinations is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/release-overview.png",
+          "title": "Release overview",
+          "caption": "Compatibility, safety boundaries, driver surface, and generated QA evidence in one dealer-ready view.",
+          "alt": "IntegrateIT Generic TCP Toolkit Ops Portal overview showing release-candidate status, compatibility, features, and passing QA gates.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/catalog/release-overview.png"
+        },
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Generic TCP Toolkit commissioning guide showing overview, install steps, command reference, and safety limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_tcp_toolkit",
+        "generated_at": "2026-07-16T21:02:17.679Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "017f664a727f06c6211598c6e03112bfc4b4fb423059916199a7fdd12927fce0",
+        "artifact_sha256": "73afdb7664b1c520bd8254235328b2800d3464f27e924585820d5835be056291",
+        "artifact_size_bytes": 80987,
+        "build_version_manifest_sha256": "8432ddef5362fdbee024d147de003211c6180a2e0cb8243e5b93516859cbf0f5",
+        "version_manifest_sha256": "bc1fa21dd231217eaeb25b28ac81e5acbbc7de4db83598cc35fb4d177723f5b4",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 133
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 85,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 80,
+            "checks": 182,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 71,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 20,
+        "commands": 0,
+        "actions": 8,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 80987,
+      "sha256": "73afdb7664b1c520bd8254235328b2800d3464f27e924585820d5835be056291",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/integrateit_tcp_toolkit.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-16T21:02:18.076Z"
     }
   ]
 }
