@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-17T03:32:21.231Z",
+  "generated_at": "2026-07-17T03:32:25.133Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -416,6 +416,138 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:20:01.534Z"
+    },
+    {
+      "slug": "integrateit_mode_integration",
+      "name": "IntegrateIT Mode Integration",
+      "summary": "A dealer-configurable house-mode state machine for Control4: Home, Away, Night, Vacation, Guest, or any modes you name, exposed as variables plus a generic Mode Changed event so Composer programming keys off the current experience. Atomic transitions, recursion prevention, and mode persistence across controller restart. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "House Mode State Machine",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Dealer-defined house modes (Home, Away, Night, Vacation, Guest, or any names) from one comma-separated list",
+        "Current mode exposed as MODE_NAME, MODE_INDEX, and PREVIOUS_MODE variables for Composer programming",
+        "A generic Mode Changed event plus a Mode Change Blocked event so one set of programming keys off every transition",
+        "Discrete Set Mode 1-4 actions, Advance to Next Mode (wrap-around), and Set to Default",
+        "Atomic transitions with recursion prevention: setting the current mode is a no-op that never re-fires",
+        "Selected mode persists across controller restart, with a configurable restore-or-default boot policy",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "Composer programming, keypad, and scheduler events"
+        },
+        {
+          "label": "State surface",
+          "value": "MODE_NAME / MODE_INDEX / PREVIOUS_MODE variables + Current Mode property"
+        },
+        {
+          "label": "Programming",
+          "value": "Set Mode 1-4, Advance to Next, Set to Default; Mode Changed / Mode Change Blocked events"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "Composer Pro access to bind mode changes to keypads, schedules, or automation",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; controller acceptance across a full project is still pending.",
+        "This driver owns experience state only. It does not itself change lights, locks, or thermostats; project programming reacts to its Mode Changed event.",
+        "Up to twelve modes are parsed from the list; additional entries are ignored."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Mode Integration commissioning guide showing mode configuration, the atomic-transition FSM, variables, and programming events.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_mode_integration",
+        "generated_at": "2026-07-17T03:32:24.826Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "aa8bc3f984130d538ae50b57c667c45d00da20c321dd991a07f1bf4c190e0906",
+        "artifact_sha256": "1d74f3b94c8dae097c4c805d68151258befd0180cace03dfc498b7264c43b22e",
+        "artifact_size_bytes": 78951,
+        "build_version_manifest_sha256": "14d9e803a23f7abcfc43df966a745caab1c560fb8f5ecc192f75f4dfdf07cb4c",
+        "version_manifest_sha256": "ab4910db6bdaa43287db2befb169b136796a9e57787b4b14f7e98397a1b52267",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 101
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 70,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 73,
+            "checks": 186,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 56,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 8,
+        "commands": 0,
+        "actions": 7,
+        "events": 2
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 78951,
+      "sha256": "1d74f3b94c8dae097c4c805d68151258befd0180cace03dfc498b7264c43b22e",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/integrateit_mode_integration.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-17T03:32:25.128Z"
     },
     {
       "slug": "integrateit_optimus",
