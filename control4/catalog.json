@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-16T21:02:18.082Z",
+  "generated_at": "2026-07-17T03:32:21.231Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -555,6 +555,133 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:21:48.172Z"
+    },
+    {
+      "slug": "integrateit_safe_power_cycle",
+      "name": "IntegrateIT Safe Power Cycle",
+      "summary": "Dealer tool that safely power-cycles bound relays: turn OFF, wait a configurable delay, turn ON — with a two-step confirmation guard, an hourly rate limit, and full audit events for rebooting AV racks, network gear, and headless appliances from Control4.",
+      "category": "others",
+      "device_type": "Safe Power Cycle Relay Controller",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "One-to-four relay outputs power-cycled together (off, wait, on)",
+        "Two-step arm-then-cycle confirmation blocks accidental reboots",
+        "Configurable off duration from 1 to 300 seconds",
+        "Hourly rate limit caps how often a rack can be cycled",
+        "Latching or momentary relay behavior for held or pulsed loads",
+        "Cycle Started / Completed / Blocked / Powered Off / Powered On events for full audit programming"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "1 to 4 Control4 relay bindings"
+        },
+        {
+          "label": "Navigator",
+          "value": "Headless — driven by programming and Actions"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "One to four Control4 relay or relay-capable controller outputs wired to the load's power",
+        "A relay contact rated for the switched load, or a contactor the relay drives",
+        "Composer Pro access for initial relay bindings and future in-place updates"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative relay-hardware acceptance is still pending.",
+        "The driver switches relays only — it does not verify that the downstream load actually lost and regained power.",
+        "Momentary mode assumes the load latches its own power state from a button-style pulse."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Safe Power Cycle commissioning guide showing setup, the confirmation and rate-limit guards, command reference, and safety notes.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_safe_power_cycle",
+        "generated_at": "2026-07-17T03:32:20.884Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "e14bc9e0025f0ee69d8e91981253610f0bd9059fb36f1260bc178e3387bf6a8b",
+        "artifact_sha256": "d282deec1f5d1fa458c745da97c086f5c5dde1cb8f93a434b3b37642104a0afa",
+        "artifact_size_bytes": 79269,
+        "build_version_manifest_sha256": "7ad95e9acf6d5808d03f5997bf23a42e9f5398a077a9e6b23f11aa8794f1a063",
+        "version_manifest_sha256": "82df3047e1f09ed34731c431173c4c0c88fdbce2a83a22eab7214cdc704f55c1",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 101
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 75,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 70,
+            "checks": 206,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 53,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 4,
+        "properties": 13,
+        "commands": 5,
+        "actions": 5,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 79269,
+      "sha256": "d282deec1f5d1fa458c745da97c086f5c5dde1cb8f93a434b3b37642104a0afa",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/integrateit_safe_power_cycle.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-17T03:32:21.226Z"
     },
     {
       "slug": "integrateit_tcp_toolkit",
