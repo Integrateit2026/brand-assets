@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-17T03:32:25.133Z",
+  "generated_at": "2026-07-17T03:32:27.807Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -687,6 +687,135 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:21:48.172Z"
+    },
+    {
+      "slug": "integrateit_push_pushover",
+      "name": "IntegrateIT Pushover Notifier",
+      "summary": "Send Pushover push notifications from Control4 programming — dealer and homeowner alerts, four saved messages, a test button, and an emergency (priority 2) escalation with retry and expire.",
+      "category": "others",
+      "device_type": "Pushover Push Notifications",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Send Pushover push notifications from any Control4 programming event",
+        "Four saved message slots with independent title and body",
+        "One-tap Send Test Notification action for commissioning",
+        "Emergency (priority 2) escalation with configurable retry and expire",
+        "Per-send priority and sound with sensible property defaults",
+        "Notification Sent and Notification Failed events for programming feedback"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Notification service",
+          "value": "Pushover public Messages API"
+        },
+        {
+          "label": "Credentials",
+          "value": "Dealer-supplied application API token and user or group key"
+        },
+        {
+          "label": "Transport",
+          "value": "Outbound HTTPS to api.pushover.net"
+        }
+      ],
+      "requirements": [
+        "Controller internet access to api.pushover.net over HTTPS",
+        "A Pushover account with an application API token (30 characters)",
+        "A Pushover user key or delivery group key (30 characters)",
+        "Composer Pro access for initial configuration"
+      ],
+      "limitations": [
+        "Release Candidate: API contract and simulator verified; a release-bound live-service check and representative Control4 controller acceptance are still pending.",
+        "IntegrateIT embeds no Pushover token — the dealer supplies their own application and user or group credentials.",
+        "Message body is capped at 1024 characters as required by the Pushover API.",
+        "Delivery depends on Pushover's free monthly quota of 10,000 messages per user."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Pushover Notifier commissioning guide showing credential setup, message slots, priority levels, and safety notes.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_push_pushover",
+        "generated_at": "2026-07-17T03:32:27.481Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "1fe4e0b6ac5ec49d4819a3eaba4be07d776a93f22906ac161e43b81234d20714",
+        "artifact_sha256": "a69660948808cda2484a6d577e65c650c940f8fdfa5f725b96c28e402bf7f668",
+        "artifact_size_bytes": 77632,
+        "build_version_manifest_sha256": "a5501f292bf369fd2a41d6721e9338b615b405bafe797d7c6dec1fdeaf9b56d3",
+        "version_manifest_sha256": "ef9b577f088760367eac1be8834a7d34eeff76c1603fd457560150aeedd2b866",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 104
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 71,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 64,
+            "checks": 117,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 17,
+        "commands": 0,
+        "actions": 6,
+        "events": 2
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 77632,
+      "sha256": "a69660948808cda2484a6d577e65c650c940f8fdfa5f725b96c28e402bf7f668",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/integrateit_push_pushover.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-17T03:32:27.803Z"
     },
     {
       "slug": "integrateit_safe_power_cycle",
