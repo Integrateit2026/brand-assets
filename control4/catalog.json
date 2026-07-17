@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-17T03:32:27.807Z",
+  "generated_at": "2026-07-17T03:47:04.309Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -548,6 +548,137 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-17T03:32:25.128Z"
+    },
+    {
+      "slug": "integrateit_occupancy",
+      "name": "IntegrateIT Occupancy",
+      "summary": "Aggregates up to six motion or contact sensors into one clean Occupied/Vacant state with a configurable vacancy timeout, retrigger, and manual override — exposed as variables and events for Composer programming. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Occupancy Aggregator",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Aggregates 1-6 bound motion or contact sensors into one Occupied/Vacant state",
+        "Configurable vacancy timeout with optional retrigger-extends behavior",
+        "Per-wiring sensor polarity (active on contact open or closed)",
+        "Became Occupied / Became Vacant / Countdown Started events + IS_OCCUPIED, OCCUPANCY_STATE, SENSORS_ACTIVE, LAST_ACTIVITY variables",
+        "Manual Force Occupied / Force Vacant override with Clear Override",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Inputs",
+          "value": "1-6 CONTACT_SENSOR bindings (motion or contact)"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Timeout",
+          "value": "1-240 minutes, retrigger-extendable"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "One or more motion or contact sensors bindable in Composer",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative sensor acceptance on a controller is still pending.",
+        "State is derived from bound sensor reports; it is only as accurate as the sensors and their polarity setting.",
+        "Headless aggregator: it publishes occupancy for programming and dashboards, it does not itself control loads."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Occupancy commissioning guide showing sensor binding, timeout configuration, variables, and programming events.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_occupancy",
+        "generated_at": "2026-07-17T03:47:03.948Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "7616114d9fc5e5621c1dd53a129a86cf1993140e9646cd4937e257f158aaf451",
+        "artifact_sha256": "d125edef9100d652c485d526262d83163f3c7aeb1c512d8ca568a4e6db301696",
+        "artifact_size_bytes": 77591,
+        "build_version_manifest_sha256": "b36a8d8f20c832ddcc1d5ddca5acab6ebb6105a606deceab4ac76df65ac41849",
+        "version_manifest_sha256": "68fa613533255f0d15ef3d08193b88defcdcc302cffdba5bf40ce6cd7f96bc6f",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 103
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 71,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 65,
+            "checks": 153,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 6,
+        "properties": 12,
+        "commands": 0,
+        "actions": 5,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 77591,
+      "sha256": "d125edef9100d652c485d526262d83163f3c7aeb1c512d8ca568a4e6db301696",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/integrateit_occupancy.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-17T03:47:04.304Z"
     },
     {
       "slug": "integrateit_optimus",
