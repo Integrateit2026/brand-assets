@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T04:28:47.270Z",
+  "generated_at": "2026-07-18T04:28:53.543Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -405,6 +405,134 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:17:55.443Z"
+    },
+    {
+      "slug": "integrateit_gate_integration",
+      "name": "IntegrateIT Gate Integration",
+      "summary": "Supervised driveway and access gate control over Control4 relays: open, close, and stop outputs, open/closed position contacts, an auto-close timer, and a safety-loop input that halts and reverses a closing gate.",
+      "category": "others",
+      "device_type": "Gate Controller",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Open, close, and optional stop relay outputs",
+        "Momentary pulse or latching output modes",
+        "Open and closed position-contact supervision with configurable polarity",
+        "Auto-close timer that secures the gate after a set open interval",
+        "Safety-loop input that halts and reverses a gate that is closing",
+        "Travel-time estimation and jam timeout when position contacts are absent"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "Control4 relay bindings"
+        },
+        {
+          "label": "Feedback",
+          "value": "Open, closed, and safety-loop contact bindings"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A gate operator with a dry-contact open/close/stop control interface",
+        "Control4 relay or relay-capable controller outputs for each configured function",
+        "A photo-eye or safety-loop dry contact wired to the safety-loop input for reversing protection",
+        "Composer Pro access for initial bindings and future in-place updates"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative gate-operator hardware acceptance is still pending.",
+        "The driver does not replace the operator's own entrapment, photo-eye, or reversing safety devices.",
+        "Without position contacts, gate state is estimated from travel time rather than measured."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Gate Integration commissioning guide showing relay/position binding, auto-close, safety-loop reverse, and open/close/stop actions.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_gate_integration",
+        "generated_at": "2026-07-18T04:28:52.737Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "fed1c229e2870aa59897030d6ef0defc2f5fceb9bdc450ff4bb16a414cf65430",
+        "artifact_sha256": "70038869cdb4396163251c33c6b89e1d7a0fb93934aa18ee2deaeb7163a43c77",
+        "artifact_size_bytes": 90749,
+        "build_version_manifest_sha256": "f22df0c078e28d371a631142997359700b488d1b1f392940da8de1465dc01fba",
+        "version_manifest_sha256": "a688b0e87a6ba584f19d18d896a8551901301db06930b3df0e445ebbd580035d",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 101
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 72,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 68,
+            "checks": 211,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 50,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 6,
+        "properties": 9,
+        "commands": 4,
+        "actions": 6,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 90749,
+      "sha256": "70038869cdb4396163251c33c6b89e1d7a0fb93934aa18ee2deaeb7163a43c77",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/integrateit_gate_integration.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T04:28:53.538Z"
     },
     {
       "slug": "integrateit_hebcal",
