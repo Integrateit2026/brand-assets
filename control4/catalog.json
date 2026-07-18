@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-17T03:47:04.309Z",
+  "generated_at": "2026-07-18T03:56:50.879Z",
   "drivers": [
     {
       "slug": "integrateit_garage",
@@ -277,6 +277,141 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:18:16.066Z"
+    },
+    {
+      "slug": "integrateit_leak_detection",
+      "name": "IntegrateIT Leak Detection",
+      "summary": "Aggregates up to six leak/flood sensors into one latching leak alarm that trips the instant any zone gets wet, fires a Shutoff Requested event programming can bind to a water valve, and stays latched until a person acknowledges and clears it. Per-wiring polarity, optional re-alert nagging, MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Leak Aggregator",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Aggregates 1-6 bound leak/flood sensors into one latching leak alarm",
+        "Latches on the first wet zone and stays alarmed until a person acknowledges + clears it — never auto-clears on a timeout",
+        "Shutoff Requested event fires on a leak so programming can close a water valve (optional per install)",
+        "Per-wiring sensor polarity (wet on contact closed or open) — most flood probes close when wet",
+        "Optional re-alert interval re-fires Leak Detected every N minutes while a zone stays wet and unacknowledged",
+        "Leak Detected / Leak Cleared / Shutoff Requested / Alarm Acknowledged events + IS_LEAKING, LEAK_STATE, WET_ZONE_COUNT, LAST_LEAK variables",
+        "Acknowledge silences the nag while the leak stays latched; Clear only succeeds once every zone is dry; Test fires a drill",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Inputs",
+          "value": "1-6 CONTACT_SENSOR bindings (leak/flood probes)"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Shutoff",
+          "value": "Shutoff Requested event — bind to a motorized water valve in Programming"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "One or more leak/flood sensors bindable in Composer",
+        "A motorized water shutoff valve or valve driver to react to the Shutoff Requested event (recommended)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative sensor + valve acceptance on a controller is still pending.",
+        "State is derived from bound sensor reports; it is only as accurate as the sensors and their polarity setting.",
+        "Headless aggregator: it raises the alarm and requests a shutoff via an event — it does not itself drive the valve.",
+        "Latching by design: a leak stays alarmed until a person clears it, and Clear refuses while any zone is still wet."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Leak Detection commissioning guide showing sensor binding, latching alarm, shutoff request, and clear/acknowledge actions.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_leak_detection",
+        "generated_at": "2026-07-18T03:56:50.319Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "323cd17ede6cc49a958ea16f083664ea24eb001b1b721dce2c1a00d1dc92a813",
+        "artifact_sha256": "5562ec3343f2d6f0992e14713328c1984fb8bf22eaf1e3c228aed86371e95b14",
+        "artifact_size_bytes": 78927,
+        "build_version_manifest_sha256": "b8db1529d637601e13b4b8da5dc1b1deec52e1636e9aee6601965f811b2f634d",
+        "version_manifest_sha256": "ea5da58e1fe08685fa81e390122aa1c505757ee67ffffdd0b1edb0fb48731de0",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 92
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 66,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 62,
+            "checks": 176,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 47,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 6,
+        "properties": 12,
+        "commands": 0,
+        "actions": 4,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 78927,
+      "sha256": "5562ec3343f2d6f0992e14713328c1984fb8bf22eaf1e3c228aed86371e95b14",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/integrateit_leak_detection.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T03:56:50.875Z"
     },
     {
       "slug": "integrateit_mm815_bond",
