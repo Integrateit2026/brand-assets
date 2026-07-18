@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T04:28:53.543Z",
+  "generated_at": "2026-07-18T04:28:56.986Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -134,6 +134,142 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-18T03:57:00.517Z"
+    },
+    {
+      "slug": "integrateit_assistance_button",
+      "name": "IntegrateIT Assistance Button",
+      "summary": "Turns 1-4 wired help/panic buttons into one latching, per-station assistance call for elderly-care, accessibility, pool-alarm, or staff-call use. A press latches an assistance alarm, records which station called, and can re-alert on an interval until a caregiver acknowledges and clears it. Per-wiring press polarity, optional re-alert nagging, MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Assistance Button",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Aggregates 1-4 wired help/panic buttons into one latching assistance alarm",
+        "Latches on the first press and stays alarmed until a caregiver acknowledges and clears it — never auto-clears on a timeout",
+        "Records which station called: Active Station property plus a per-press timestamp in LAST_REQUEST",
+        "Station 1 gets its own Station 1 Pressed event; stations 2-4 route to the shared Assistance Requested event",
+        "Optional re-alert interval re-fires Assistance Requested every N seconds while latched and unacknowledged",
+        "Acknowledge silences the re-alert nag while keeping the latch and the record so a caregiver is still en route",
+        "Test fires a drill Assistance Requested from station 1 without latching, to prove the notification programming",
+        "Per-wiring press polarity (press on contact closed or open) and MAC-locked IntegrateIT licensing"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Inputs",
+          "value": "1-4 CONTACT_SENSOR bindings (wired help/panic buttons)"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Notification",
+          "value": "Assistance Requested event — bind to push, announce, or a call chain in Programming"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "One or more wired momentary/latching help buttons bindable in Composer",
+        "A notification path (push, announcement, or call chain) bound to the Assistance Requested event in Programming",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative call-button hardware acceptance on a controller is still pending.",
+        "State is derived from bound button reports; it is only as accurate as the buttons and their polarity setting.",
+        "Headless aggregator: it raises the assistance call and requests attention via an event — it does not itself place a call.",
+        "Latching by design: an assistance call stays alarmed until a caregiver clears it, and Acknowledge only silences the re-alert nag.",
+        "Stations 2-4 share the generic Assistance Requested event (differentiated by the Active Station property); only station 1 has a dedicated event."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Assistance Button commissioning guide showing station binding, latching alarm, re-alert, and acknowledge/clear actions.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_assistance_button",
+        "generated_at": "2026-07-18T04:28:56.586Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "7d4e6108d833897f201c9a18a3704acb2fd3674eaca234aae467e474b22bacbc",
+        "artifact_sha256": "a74b314919b187be99a0cacbbf0db4dbd26e6965b56d819457cccd3ed335e442",
+        "artifact_size_bytes": 78929,
+        "build_version_manifest_sha256": "62519c2ca2b47e56f67ff461708a0b0f5eb7e5cc07f91eeefd9ad5208a694897",
+        "version_manifest_sha256": "e210815c704af783e396a273eb5f3d672f67e6dc11140ee003db87eeec66db0f",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 98
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 71,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 66,
+            "checks": 175,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 50,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 4,
+        "properties": 9,
+        "commands": 0,
+        "actions": 4,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 78929,
+      "sha256": "a74b314919b187be99a0cacbbf0db4dbd26e6965b56d819457cccd3ed335e442",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/integrateit_assistance_button.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T04:28:56.980Z"
     },
     {
       "slug": "integrateit_doorbell",
