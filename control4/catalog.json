@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T15:36:49.996Z",
+  "generated_at": "2026-07-18T15:36:53.591Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -940,6 +940,139 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-16T19:18:16.066Z"
+    },
+    {
+      "slug": "integrateit_holiday_integration",
+      "name": "IntegrateIT Holiday Integration",
+      "summary": "Detects US federal (and optional common) holidays plus dealer-defined custom dates using pure on-device date math, and publishes them as variables and events so Composer programming can run holiday scenes — lighting, music, away behavior — with no cloud dependency. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Holiday Calendar",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Computes US federal holidays on the controller with integer civil-date math — no internet, no API, no subscription",
+        "Optional common-holiday set adds Valentine's Day, St. Patrick's Day, Easter, Halloween, Christmas Eve, and New Year's Eve",
+        "Dealer custom dates: recurring MM-DD or one-off YYYY-MM-DD entries with your own labels, custom labels win on a collision",
+        "Holiday Started / Holiday Ended events fire at local midnight as each holiday day begins and ends",
+        "Holiday Approaching event fires a configurable number of days ahead so scenes can pre-stage",
+        "IS_HOLIDAY, TODAY_HOLIDAY, NEXT_HOLIDAY, and DAYS_TO_NEXT variables for programming and dashboards",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Calendar",
+          "value": "US federal holidays, optional common set, plus dealer custom dates"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Time source",
+          "value": "Controller local clock — all math is on-device"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "The controller clock set to the correct local date and time zone",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative controller acceptance is still pending.",
+        "Holiday dates are only as correct as the controller's local date and time zone — a wrong clock yields wrong holidays.",
+        "Covers US civil/federal and the listed common holidays plus your custom dates; it is not a general religious or international calendar (see the IntegrateIT Hebcal driver for the Jewish calendar).",
+        "Headless: it publishes holiday state for programming and dashboards, it does not itself control loads."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Holiday Integration commissioning guide showing holiday set, custom dates, variables, and started/ended/approaching events.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_holiday_integration",
+        "generated_at": "2026-07-18T15:36:53.145Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "fd7a1ac49a0e22408d074e6a57f32cb3db8fdb2b5ae8b86bee824f648c5bd6ff",
+        "artifact_sha256": "80889e09d5988da32d9ca13406bbffaf478e6fa5383a86834845a3c52f69b587",
+        "artifact_size_bytes": 81367,
+        "build_version_manifest_sha256": "bced92331d29a769014e552a3b90da0f33d00f21f7608f0835a367a819873991",
+        "version_manifest_sha256": "0dbc8ac1a9bd62c4f6fe500073f1c1d91decf217d86638e973f9334964396437",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 93
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 65,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 64,
+            "checks": 160,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 46,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 5,
+        "commands": 0,
+        "actions": 2,
+        "events": 3
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 81367,
+      "sha256": "80889e09d5988da32d9ca13406bbffaf478e6fa5383a86834845a3c52f69b587",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/integrateit_holiday_integration.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T15:36:53.584Z"
     },
     {
       "slug": "integrateit_leak_detection",
