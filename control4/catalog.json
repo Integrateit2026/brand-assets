@@ -1,7 +1,140 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T03:56:55.823Z",
+  "generated_at": "2026-07-18T03:57:00.522Z",
   "drivers": [
+    {
+      "slug": "integrateit_appliance_status",
+      "name": "IntegrateIT Appliance Status",
+      "summary": "Watches a bound status sensor (current, flow, or dry contact) on an appliance and derives a clean On/Off state with debounced blip rejection, then accumulates a runtime-hours meter with an optional maintenance threshold — the value-add for filter, pump, and UV-lamp service reminders. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Appliance Monitor",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Derives a clean On/Off appliance state from one bound current, flow, or dry-contact status sensor",
+        "Configurable sensor polarity (running on contact closed or open) to match any wiring",
+        "Minimum-run debounce rejects short on/off blips so brief surges never toggle the state",
+        "Accumulating runtime-hours meter published as RUNTIME_HOURS and a human-readable Runtime Display",
+        "Optional maintenance threshold fires Maintenance Due for filter, pump, or UV-lamp service reminders",
+        "Reset Runtime and Acknowledge Maintenance actions, plus Turned On / Turned Off / Maintenance Due / Runtime Reset events",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Input",
+          "value": "1 CONTACT_SENSOR binding (current, flow, or dry-contact run-status sense)"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Runtime meter",
+          "value": "Accumulating hours, one-minute resolution, dealer-resettable"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "A run-status sensor (current-sensing switch, flow switch, or dry contact) bindable in Composer",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative sensor acceptance on a controller is still pending.",
+        "On/Off is derived from the bound sensor and its polarity setting; a mis-set polarity reads the appliance inverted.",
+        "The runtime meter accrues at one-minute resolution while On, so a single on-cycle can under-count by up to a minute.",
+        "Headless monitor: it publishes state, runtime, and service reminders for programming — it does not itself switch the appliance."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Appliance Status commissioning guide showing sensor binding, runtime meter, maintenance threshold, and events.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_appliance_status",
+        "generated_at": "2026-07-18T03:56:59.756Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "fc1f567c503f9ac70d8b7b4d6beda41dd7ea3a6d13ac6d6506e351ac0a486b18",
+        "artifact_sha256": "94054871fa39e41bfe740d91a956dfb7f7c9a703151d86ed70a8f9b5a798f265",
+        "artifact_size_bytes": 78298,
+        "build_version_manifest_sha256": "5fc59113388fec519c58e8d20961d6fd0d770007f7caa6800eace90285e23cc4",
+        "version_manifest_sha256": "9bf79f9ea44396f018cbca592dac775f1663a6100305e16a2580c6d371d68517",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 93
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 64,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 59,
+            "checks": 155,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 47,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 6,
+        "commands": 0,
+        "actions": 3,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 78298,
+      "sha256": "94054871fa39e41bfe740d91a956dfb7f7c9a703151d86ed70a8f9b5a798f265",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/integrateit_appliance_status.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T03:57:00.517Z"
+    },
     {
       "slug": "integrateit_doorbell",
       "name": "IntegrateIT Doorbell Bridge",

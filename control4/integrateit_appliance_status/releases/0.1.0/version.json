@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Appliance Status",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/releases/0.1.0/integrateit_appliance_status.c4z",
+  "notes": "Watches a bound status sensor (current, flow, or dry contact) on an appliance and derives a clean On/Off state with debounced blip rejection, then accumulates a runtime-hours meter with an optional maintenance threshold — the value-add for filter, pump, and UV-lamp service reminders. MAC-locked IntegrateIT licensing.",
+  "sha256": "94054871fa39e41bfe740d91a956dfb7f7c9a703151d86ed70a8f9b5a798f265",
+  "size_bytes": 78298,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-18T03:57:00.517Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/qa-report.json"
+}

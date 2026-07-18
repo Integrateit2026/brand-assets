@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "94054871fa39e41bfe740d91a956dfb7f7c9a703151d86ed70a8f9b5a798f265",
+      "size_bytes": 78298,
+      "published_at": "2026-07-18T03:57:00.517Z",
+      "notes": "Initial scaffold (template: contact-relay).",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}
