@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T03:57:00.522Z",
+  "generated_at": "2026-07-18T04:28:47.270Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -678,6 +678,133 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-18T03:56:50.875Z"
+    },
+    {
+      "slug": "integrateit_lock_integration",
+      "name": "IntegrateIT Lock Integration",
+      "summary": "Relay-driven electric strike, maglock, or deadbolt control with contact-confirmed lock status, an auto-relock timer, and a fire/egress safety interlock that refuses to lock and forces release.",
+      "category": "others",
+      "device_type": "Lock Controller",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Drives an electric strike, maglock, or motorized deadbolt from Control4 relay outputs",
+        "Single momentary output or separate lock and unlock outputs",
+        "Authoritative locked/unlocked status from a position contact with dealer-set polarity",
+        "Auto-relock timer re-secures the opening a configurable interval after an unlock",
+        "Fire/egress safety interlock refuses to lock and forces release while the safety input is active",
+        "Lock Jammed supervision when the status contact never confirms a commanded state"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "One or two Control4 relay bindings"
+        },
+        {
+          "label": "Feedback",
+          "value": "Optional lock-status and egress/safety contact bindings"
+        },
+        {
+          "label": "Lock types",
+          "value": "Electric strike, maglock, or motorized deadbolt"
+        }
+      ],
+      "requirements": [
+        "A Control4 relay or relay-capable output wired to the lock hardware",
+        "A position contact is strongly recommended so lock status is measured, not assumed",
+        "Composer Pro access for the relay, contact, and safety-input bindings"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative lock and fire-panel hardware acceptance is still pending.",
+        "The driver supervises relay control and contact feedback; it does not replace a listed access-control panel or a fire-alarm relay interlock.",
+        "With no status contact, lock state is inferred from the last command rather than measured, and jam supervision is unavailable."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Lock Integration commissioning guide showing relay/contact binding, auto-relock, safety interlock, and lock/unlock actions.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_lock_integration",
+        "generated_at": "2026-07-18T04:28:46.787Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "c2112f642efaf35ce9df34384ab01d54036e8972f6f16b31e0e015b80b65af6c",
+        "artifact_sha256": "7cd657e6c99cce4397cf4c10148f9783bdd90510859835b987b8b92ebcbd00e6",
+        "artifact_size_bytes": 79820,
+        "build_version_manifest_sha256": "b10b22acb41882786dfd7fa9baf58ce9527998692358e3aaf18b366a8cc56373",
+        "version_manifest_sha256": "0e726aa2f6b8f182a26ceb16455029130a4c22cbb13887d83fd7d1970b38c926",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 100
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 69,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 65,
+            "checks": 199,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 49,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 4,
+        "properties": 7,
+        "commands": 4,
+        "actions": 5,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 79820,
+      "sha256": "7cd657e6c99cce4397cf4c10148f9783bdd90510859835b987b8b92ebcbd00e6",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/integrateit_lock_integration.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T04:28:47.261Z"
     },
     {
       "slug": "integrateit_mm815_bond",
