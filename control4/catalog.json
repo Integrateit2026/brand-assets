@@ -1,7 +1,140 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T03:56:50.879Z",
+  "generated_at": "2026-07-18T03:56:55.823Z",
   "drivers": [
+    {
+      "slug": "integrateit_doorbell",
+      "name": "IntegrateIT Doorbell Bridge",
+      "summary": "Brings 1-4 wired doorbell buttons or dry-contact chimes into Control4 as clean press events programming can react to — chime, announcement, camera snapshot, or light flash — with per-button debounce and a do-not-disturb window. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Doorbell Bridge",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Turns 1-4 wired doorbell buttons or dry-contact chime relays into clean Control4 press events",
+        "Per-button debounce (0-5000 ms) suppresses double-rings and contact chatter",
+        "Do-Not-Disturb window suppresses the generic chime event while still recording and still firing per-door events (snapshots keep working)",
+        "Generic Doorbell Pressed event plus dedicated Door 1 / Door 2 Pressed events for room-specific programming",
+        "Per-wiring press polarity (press = contact closed or contact open) and optional per-door labels",
+        "Trigger Chime test action, DND on/off actions, LAST_DOORBELL / LAST_PRESS_ZONE / DND_ACTIVE variables",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Inputs",
+          "value": "1-4 CONTACT_SENSOR bindings (doorbell buttons or dry-contact chime relays)"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Debounce",
+          "value": "0-5000 ms per accepted press, per door"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "One to four doorbell buttons or dry-contact chime relays bindable as contacts in Composer",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative doorbell acceptance on a controller is still pending.",
+        "Presses are derived from bound contact reports; accuracy depends on the wiring and the chosen press polarity.",
+        "Headless bridge: it raises press events for programming, it does not itself sound a chime or capture a snapshot — pair it with lighting, announcement, or camera programming.",
+        "Doors 3 and 4 route only to the generic Doorbell Pressed event; only Doors 1 and 2 carry their own dedicated event."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Doorbell commissioning guide showing door binding, debounce, do-not-disturb, and press events.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_doorbell",
+        "generated_at": "2026-07-18T03:56:54.915Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "a4b6c6256693702890476f760581db8acc3f277e9687911b258d171d0809d507",
+        "artifact_sha256": "a9b87a0cbe014d5c290f675f4da2dbe29884a72b90ea47c0f4f26aab559808bf",
+        "artifact_size_bytes": 78191,
+        "build_version_manifest_sha256": "32ec2b6a8c6445abcd8443445bdd15d7fa1fd20e897fe9e566508f40dadb983a",
+        "version_manifest_sha256": "fac979adc5b3c9a368c44a32805bdf246545465718cf19efda4ac40096053259",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 99
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 67,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 62,
+            "checks": 155,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 50,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 4,
+        "properties": 9,
+        "commands": 0,
+        "actions": 4,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 78191,
+      "sha256": "a9b87a0cbe014d5c290f675f4da2dbe29884a72b90ea47c0f4f26aab559808bf",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/integrateit_doorbell.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-18T03:56:55.818Z"
+    },
     {
       "slug": "integrateit_garage",
       "name": "IntegrateIT Garage",
