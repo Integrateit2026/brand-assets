@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "80bb6aafb53d09b8324dc8c223f1002dc14f2d04b67d6b01ca7863a7a133c2d5",
+      "size_bytes": 79067,
+      "published_at": "2026-07-18T15:36:56.274Z",
+      "notes": "Initial scaffold (template: blank).",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

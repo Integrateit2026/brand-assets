@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_circadian_lighting",
+  "generated_at": "2026-07-18T15:36:55.814Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "25f693daf4161dddf17c53e2345780ca9b79a1ab110a510f2a79ed861276c28f",
+  "artifact_sha256": "80bb6aafb53d09b8324dc8c223f1002dc14f2d04b67d6b01ca7863a7a133c2d5",
+  "artifact_size_bytes": 79067,
+  "build_version_manifest_sha256": "e3a6e685a40f5057caebff8f6fe47967f9e3d4a311153a844313a46715a1d7ed",
+  "version_manifest_sha256": "b963fd2581c8d73bf41d2c5d1cce8c25e1265444109f05c2346347b627927905",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 94
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 70,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 60,
+      "checks": 166,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 46,
+      "files": 2
+    }
+  ]
+}
