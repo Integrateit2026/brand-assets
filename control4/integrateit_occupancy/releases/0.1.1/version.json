@@ -2,7 +2,7 @@
   "name": "IntegrateIT Occupancy",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/integrateit_occupancy.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_occupancy/releases/0.1.1/integrateit_occupancy.c4z",
   "notes": "Aggregates up to six motion or contact sensors into one clean Occupied/Vacant state with a configurable vacancy timeout, retrigger, and manual override — exposed as variables and events for Composer programming. MAC-locked IntegrateIT licensing.",
   "sha256": "c142ab0cf5c4dc2c1215832e7146c6979f2a5bbd06587f1a865d29b0691e813d",
   "size_bytes": 79700,
