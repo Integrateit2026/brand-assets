@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Optimus AI
 
+## [2.3.6] - 2026-07-19
+- Hardware-test-worthy polish: correctness, edge-case, timer-hygiene and hardware-readiness fixes with a regression test added per fix
+- Shared runtime: a transient license-server error no longer de-licenses a paying controller; repeating-timer callbacks are crash-guarded
+
 ## [2.3.5] - 2026-07-16
 - Startup no longer depends on the optional urlSetTimeout API — polling and the Navigator web view always start
 - Navigator presses accept DO_CLICK as well as SELECT; icons packed at both c4z roots

@@ -2,7 +2,7 @@
   "name": "IntegrateIT Optimus AI",
   "version": "2.3.6",
   "xml_version": 20260638,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/integrateit_optimus.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/releases/2.3.6/integrateit_optimus.c4z",
   "notes": "The AI assistant, Service Requests, and My System experience inside Control4 Navigator. The assistant drives lights, scenes, thermostat, shades, fans, locks, and announcements; optional driver-hosted quick-control panel; resilient relay link with backoff and optional two-way device state. Per-controller licensing + over-the-air updates.",
   "sha256": "3aab1305e440e1782004b1cb0e0084d13bfdaffb7023e745559e505a7696a5a4",
   "size_bytes": 162802,
