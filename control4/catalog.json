@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-19T22:04:43.229Z",
+  "generated_at": "2026-07-19T22:06:28.284Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1134,16 +1134,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_holiday_integration",
-        "generated_at": "2026-07-18T15:36:53.145Z",
+        "generated_at": "2026-07-19T22:06:27.848Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "fd7a1ac49a0e22408d074e6a57f32cb3db8fdb2b5ae8b86bee824f648c5bd6ff",
-        "artifact_sha256": "80889e09d5988da32d9ca13406bbffaf478e6fa5383a86834845a3c52f69b587",
-        "artifact_size_bytes": 81367,
-        "build_version_manifest_sha256": "bced92331d29a769014e552a3b90da0f33d00f21f7608f0835a367a819873991",
-        "version_manifest_sha256": "0dbc8ac1a9bd62c4f6fe500073f1c1d91decf217d86638e973f9334964396437",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "40b208ce63614f5b70538484c62e79e28395c39230fc26e493a68d005f86cbdf",
+        "artifact_sha256": "cd6028152cc8f4684b2fa893165167c46798a78f6be49ce4b30a23d60436f9fd",
+        "artifact_size_bytes": 83520,
+        "build_version_manifest_sha256": "ce733834aa83728ec8f14d2d7acd221e5ed39f10044850d3ff17aebad4b8f88d",
+        "version_manifest_sha256": "f390d59363f297fb13f5d026c21ce647da54d2c2c4b4b45431d204c19a29f1f9",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -1155,26 +1155,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 93
+            "duration_ms": 191
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 65,
+            "duration_ms": 142,
             "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 64,
-            "checks": 160,
+            "duration_ms": 134,
+            "checks": 176,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 46,
+            "duration_ms": 87,
             "files": 2
           }
         ]
@@ -1187,11 +1187,11 @@
         "actions": 2,
         "events": 3
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 81367,
-      "sha256": "80889e09d5988da32d9ca13406bbffaf478e6fa5383a86834845a3c52f69b587",
+      "size_bytes": 83520,
+      "sha256": "cd6028152cc8f4684b2fa893165167c46798a78f6be49ce4b30a23d60436f9fd",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/integrateit_holiday_integration.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/CHANGELOG.md",
@@ -1202,7 +1202,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-18T15:36:53.584Z"
+      "published_at": "2026-07-19T22:06:28.274Z"
     },
     {
       "slug": "integrateit_leak_detection",
