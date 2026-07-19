@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-18T15:36:56.280Z",
+  "generated_at": "2026-07-19T21:54:12.197Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -65,16 +65,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_appliance_status",
-        "generated_at": "2026-07-18T03:56:59.756Z",
+        "generated_at": "2026-07-19T21:54:11.812Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "fc1f567c503f9ac70d8b7b4d6beda41dd7ea3a6d13ac6d6506e351ac0a486b18",
-        "artifact_sha256": "94054871fa39e41bfe740d91a956dfb7f7c9a703151d86ed70a8f9b5a798f265",
-        "artifact_size_bytes": 78298,
-        "build_version_manifest_sha256": "5fc59113388fec519c58e8d20961d6fd0d770007f7caa6800eace90285e23cc4",
-        "version_manifest_sha256": "9bf79f9ea44396f018cbca592dac775f1663a6100305e16a2580c6d371d68517",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "e5f599759ee080c97331bb70f195058478552fc8b8b15075a872888ee78cace7",
+        "artifact_sha256": "b305f49f3f6d86d40a849c211e3a3a19c01eeffd4f23e7185b1738a88eaa855d",
+        "artifact_size_bytes": 79838,
+        "build_version_manifest_sha256": "35525ba0f0175727ec95de74bf9925a2bc6928627aeaf189c1ca345a0560791e",
+        "version_manifest_sha256": "e693ee864ea9f380572e5bc173bbc59591b84e6fd7a78230bf4d7f22b69e2ffa",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -86,26 +86,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 93
+            "duration_ms": 114
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 64,
+            "duration_ms": 83,
             "checks": 19,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 59,
-            "checks": 155,
+            "duration_ms": 74,
+            "checks": 168,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 55,
             "files": 2
           }
         ]
@@ -118,11 +118,11 @@
         "actions": 3,
         "events": 4
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 78298,
-      "sha256": "94054871fa39e41bfe740d91a956dfb7f7c9a703151d86ed70a8f9b5a798f265",
+      "size_bytes": 79838,
+      "sha256": "b305f49f3f6d86d40a849c211e3a3a19c01eeffd4f23e7185b1738a88eaa855d",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/integrateit_appliance_status.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/CHANGELOG.md",
@@ -133,7 +133,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-18T03:57:00.517Z"
+      "published_at": "2026-07-19T21:54:12.191Z"
     },
     {
       "slug": "integrateit_assistance_button",
@@ -415,7 +415,7 @@
         "Turns 1-4 wired doorbell buttons or dry-contact chime relays into clean Control4 press events",
         "Per-button debounce (0-5000 ms) suppresses double-rings and contact chatter",
         "Do-Not-Disturb window suppresses the generic chime event while still recording and still firing per-door events (snapshots keep working)",
-        "Generic Doorbell Pressed event plus dedicated Door 1 / Door 2 Pressed events for room-specific programming",
+        "Generic Doorbell Pressed event plus a dedicated Door 1-4 Pressed event on every door for room-specific programming (each per-door event keeps firing during Do Not Disturb)",
         "Per-wiring press polarity (press = contact closed or contact open) and optional per-door labels",
         "Trigger Chime test action, DND on/off actions, LAST_DOORBELL / LAST_PRESS_ZONE / DND_ACTIVE variables",
         "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
@@ -450,8 +450,7 @@
       "limitations": [
         "Release Candidate: simulator verified; representative doorbell acceptance on a controller is still pending.",
         "Presses are derived from bound contact reports; accuracy depends on the wiring and the chosen press polarity.",
-        "Headless bridge: it raises press events for programming, it does not itself sound a chime or capture a snapshot — pair it with lighting, announcement, or camera programming.",
-        "Doors 3 and 4 route only to the generic Doorbell Pressed event; only Doors 1 and 2 carry their own dedicated event."
+        "Headless bridge: it raises press events for programming, it does not itself sound a chime or capture a snapshot — pair it with lighting, announcement, or camera programming."
       ],
       "screenshots": [
         {
@@ -516,7 +515,7 @@
         "properties": 9,
         "commands": 0,
         "actions": 4,
-        "events": 5
+        "events": 7
       },
       "version": "0.1.0",
       "xml_version": 1,
@@ -1445,7 +1444,7 @@
       "stats": {
         "proxies": 0,
         "connections": 4,
-        "properties": 7,
+        "properties": 9,
         "commands": 4,
         "actions": 5,
         "events": 5
@@ -1654,7 +1653,8 @@
       "limitations": [
         "Release Candidate: simulator verified; controller acceptance across a full project is still pending.",
         "This driver owns experience state only. It does not itself change lights, locks, or thermostats; project programming reacts to its Mode Changed event.",
-        "Up to twelve modes are parsed from the list; additional entries are ignored."
+        "Up to twelve modes are parsed from the list; additional entries are ignored.",
+        "Discrete Set Mode 1-4 actions address only the first four modes (or Mode Slot 1-4 overrides); modes 5-12 are reached with Advance to Next Mode, Set to Default, or programming that requests the mode by name."
       ],
       "screenshots": [
         {
