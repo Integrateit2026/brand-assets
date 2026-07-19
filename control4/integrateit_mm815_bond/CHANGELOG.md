@@ -1,5 +1,9 @@
 # Changelog — MantelMount MM815 (Bond Bridge)
 
+## [1.5.5] - 2026-07-19
+- Hardware-test-worthy polish: correctness, edge-case, timer-hygiene and hardware-readiness fixes with a regression test added per fix
+- Shared runtime: a transient license-server error no longer de-licenses a paying controller; repeating-timer callbacks are crash-guarded
+
 ## [1.5.4] - 2026-07-16
 - Navigator presses accept DO_CLICK as well as SELECT so the PTZ buttons respond on every OS build
 - Icons packed at both c4z roots so the PTZ buttons and device icon render; discovery probe fan-out capped at 8
