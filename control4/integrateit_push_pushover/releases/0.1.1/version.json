@@ -2,7 +2,7 @@
   "name": "IntegrateIT Pushover Notifier",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/integrateit_push_pushover.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_push_pushover/releases/0.1.1/integrateit_push_pushover.c4z",
   "notes": "Send Pushover push notifications from Control4 programming — dealer and homeowner alerts, four saved messages, a test button, and an emergency (priority 2) escalation with retry and expire.",
   "sha256": "d24eb143c9ae2f276cd75a6c540b10543eb0fcee7ddcd08d65fe2c98ecc1b0ea",
   "size_bytes": 79977,
