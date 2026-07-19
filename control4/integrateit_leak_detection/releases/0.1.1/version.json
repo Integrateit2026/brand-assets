@@ -2,7 +2,7 @@
   "name": "IntegrateIT Leak Detection",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/integrateit_leak_detection.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_leak_detection/releases/0.1.1/integrateit_leak_detection.c4z",
   "notes": "Aggregates up to six leak/flood sensors into one latching leak alarm that trips the instant any zone gets wet, fires a Shutoff Requested event programming can bind to a water valve, and stays latched until a person acknowledges and clears it. Per-wiring polarity, optional re-alert nagging, MAC-locked IntegrateIT licensing.",
   "sha256": "c2d6e0e09ec680c23ce6ea131c8b94a552fc2c8cd04793ff15ca6727a0fbb5e9",
   "size_bytes": 81582,
