@@ -2,7 +2,7 @@
   "name": "IntegrateIT Doorbell Bridge",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/integrateit_doorbell.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_doorbell/releases/0.1.1/integrateit_doorbell.c4z",
   "notes": "Brings 1-4 wired doorbell buttons or dry-contact chimes into Control4 as clean press events programming can react to — chime, announcement, camera snapshot, or light flash — with per-button debounce and a do-not-disturb window. MAC-locked IntegrateIT licensing.",
   "sha256": "4ae42e609d082612efe53f241f548379783d33bf960f2d201c775cbd7e83bba7",
   "size_bytes": 79919,
