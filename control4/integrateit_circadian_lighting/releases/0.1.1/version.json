@@ -2,7 +2,7 @@
   "name": "IntegrateIT Circadian Lighting",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_circadian_lighting/integrateit_circadian_lighting.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_circadian_lighting/releases/0.1.1/integrateit_circadian_lighting.c4z",
   "notes": "A headless circadian engine that computes the ideal warm-to-cool color temperature and brightness curve across the day and publishes it as Composer variables plus events, so your lighting programming reads the values and applies them. Hardware-agnostic — it is the brain, not the driver of the lights. MAC-locked IntegrateIT licensing.",
   "sha256": "ab7a8f51551a1e99dca04fce119c4d9b9af10696e20d962fb011900dd8341c28",
   "size_bytes": 80815,
