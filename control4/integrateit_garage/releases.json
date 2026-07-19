@@ -1,6 +1,16 @@
 {
-  "latest": "0.9.1",
+  "latest": "0.9.2",
   "history": [
+    {
+      "version": "0.9.2",
+      "xml_version": 4,
+      "sha256": "87d44d9f31f81daf9b0bb0f983e36652d1435ad2a37a9b998573efc4e244f0a0",
+      "size_bytes": 282855,
+      "published_at": "2026-07-19T22:01:13.499Z",
+      "notes": "Hardware-test-worthy polish: correctness, edge-case, timer-hygiene and hardware-readiness fixes with a regression test added per fix · Shared runtime: a transient license-server error no longer de-licenses a paying controller; repeating-timer callbacks are crash-guarded",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.9.1",
       "xml_version": 3,

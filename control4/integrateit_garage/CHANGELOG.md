@@ -1,5 +1,9 @@
 # Changelog: IntegrateIT Garage
 
+## [0.9.2] - 2026-07-19
+- Hardware-test-worthy polish: correctness, edge-case, timer-hygiene and hardware-readiness fixes with a regression test added per fix
+- Shared runtime: a transient license-server error no longer de-licenses a paying controller; repeating-timer callbacks are crash-guarded
+
 ## [0.9.1] - 2026-07-16
 - Navigator tap now always pulses a one-relay momentary opener when the door state is unknown (new default: Pulse Relay); relay-only installs are the assumed baseline (contacts default 0)
 - Icons packed at both c4z roots so Composer device icons and Navigator buttons render; packaging gate verifies every XML asset reference resolves
