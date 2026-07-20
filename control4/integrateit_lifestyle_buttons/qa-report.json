@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_lifestyle_buttons",
+  "generated_at": "2026-07-20T20:41:32.231Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "10d677b45fee26cfa3886bd1e9e3d8a0db93608bb9d78694752b62d58748d245",
+  "artifact_sha256": "0eab36ef087bde861d13d139d804beee8fd7ef937da88c28afc3005253192af2",
+  "artifact_size_bytes": 336119,
+  "build_version_manifest_sha256": "c1f053752805ea36ca47e09b2b53d4dda3b55d4fa551e3c4c42cd5ddecf9fea3",
+  "version_manifest_sha256": "2e31182354d62f0e330a4ad30931df3ce112212140b5dc1dab23f1707a5e3e9f",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 134
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 74,
+      "checks": 20,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 73,
+      "checks": 308,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 50,
+      "files": 2
+    }
+  ]
+}

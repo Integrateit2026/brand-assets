@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:29.873Z",
+  "generated_at": "2026-07-20T20:41:32.734Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -2327,6 +2327,147 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:08:12.802Z"
+    },
+    {
+      "slug": "integrateit_lifestyle_buttons",
+      "name": "IntegrateIT Lifestyle Buttons",
+      "summary": "A six-slot lifestyle mode selector with its own Navigator control pad: one mode active at a time, a Reset button that clears back to normal, per-mode programming events, debounced presses, explicit repeat-press semantics, and a loop guard that stops runaway programming. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Lifestyle Mode Selector",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Navigator control pad with six lifestyle mode buttons plus a Reset button, each with its own idle and active icon art",
+        "Mutually exclusive modes: activating one deactivates the other five, and the active button lights up in Navigator",
+        "Explicit activation and reset semantics with a configurable Repeat Press policy (Ignore, Re-activate, or Toggle Off)",
+        "Idempotent by default: pressing the mode that is already active changes nothing and fires no duplicate event",
+        "Per-button debounce that collapses the SELECT + DO_CLICK pair Navigator can send for a single tap",
+        "Programming-loop guard: more activations than the limit inside a counting window are refused and raise Activation Blocked",
+        "Generic Mode Activated / Mode Deactivated / All Modes Reset events plus discrete Mode 1-6 Activated events",
+        "ACTIVE_MODE, ACTIVE_MODE_INDEX, PREVIOUS_MODE, MODE_ACTIVE, and LAST_CHANGE variables for Composer programming",
+        "Active mode persists across a controller restart, with a Boot Mode policy of None, Restore Last, or a fixed slot",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Navigator",
+          "value": "Seven uibutton experience buttons (six modes + Reset) with idle/active icon states"
+        },
+        {
+          "label": "Control",
+          "value": "Navigator press, Composer programming actions, keypad or scheduler events"
+        },
+        {
+          "label": "State surface",
+          "value": "ACTIVE_MODE / ACTIVE_MODE_INDEX / PREVIOUS_MODE / MODE_ACTIVE / LAST_CHANGE variables plus the Active Mode property"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "Composer Pro access to write the programming each mode should perform",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; Navigator acceptance and icon rendering on a physical controller are still pending.",
+        "This driver owns lifestyle state only. It does not itself change lights, shades, audio, or thermostats - the dealer writes that programming against its events, and that programming can have broad, whole-house effects.",
+        "Six mode slots, fixed. Modes Enabled hides nothing in Navigator: a button above the enabled count still renders, and a press on it is refused with a Status note, because Navigator button captions and visibility are fixed in the driver package.",
+        "The Mode N Label properties rename the mode in Status, variables, and events. They do NOT rename the Navigator button caption, which Control4 takes from the driver package at install time.",
+        "The loop guard counts activations from every source (Navigator, programming, keypad). A legitimately busy sequence can trip it; raise Loop Guard Limit or set it to 0 to disable.",
+        "Reset is a state change plus an All Modes Reset event. It does not restore any load to a prior level on its own - the dealer's Reset programming does that.",
+        "Advance to Next Mode cycles through the enabled mode slots only. It never lands on the resting state, so it cannot be used to reach Reset - program Reset All Modes for that.",
+        "Repeat Press Toggle Off applies to the mode buttons. A Reset press while the house is already at rest is always ignored, whatever the policy.",
+        "Fire Events on Boot = Yes re-fires only a restored MODE. A restart that lands at rest - Boot Mode None, nothing persisted, or a persisted slot now above Modes Enabled - is silent by design, so the dealer's Reset programming does not run on every reboot."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Lifestyle Buttons commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_lifestyle_buttons",
+        "generated_at": "2026-07-20T20:41:32.231Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "10d677b45fee26cfa3886bd1e9e3d8a0db93608bb9d78694752b62d58748d245",
+        "artifact_sha256": "0eab36ef087bde861d13d139d804beee8fd7ef937da88c28afc3005253192af2",
+        "artifact_size_bytes": 336119,
+        "build_version_manifest_sha256": "c1f053752805ea36ca47e09b2b53d4dda3b55d4fa551e3c4c42cd5ddecf9fea3",
+        "version_manifest_sha256": "2e31182354d62f0e330a4ad30931df3ce112212140b5dc1dab23f1707a5e3e9f",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 134
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 74,
+            "checks": 20,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 73,
+            "checks": 308,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 50,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 7,
+        "connections": 0,
+        "properties": 16,
+        "commands": 0,
+        "actions": 9,
+        "events": 11
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 336119,
+      "sha256": "0eab36ef087bde861d13d139d804beee8fd7ef937da88c28afc3005253192af2",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/integrateit_lifestyle_buttons.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:32.727Z"
     },
     {
       "slug": "integrateit_lock_integration",
