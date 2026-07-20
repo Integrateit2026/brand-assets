@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T21:14:43.250Z",
+  "generated_at": "2026-07-20T21:14:47.548Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3813,6 +3813,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:20:21.594Z"
+    },
+    {
+      "slug": "integrateit_shelly",
+      "name": "IntegrateIT Shelly",
+      "summary": "Local-LAN control for a single Shelly component (relay/switch or roller/cover) over the on-device HTTP API — Gen2+ JSON-RPC or Gen1 REST, auto-detected. Turn On/Off/Toggle a switch or Open/Close/Stop/Go-To-Position a cover, with polled state published as variables and events. No Shelly Cloud account required. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Shelly Local API",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Local Shelly control over the on-device HTTP API — Shelly Cloud is not required or contacted",
+        "Auto-detects generation and model via Shelly.GetDeviceInfo (Gen2+) or /shelly (Gen1); or force Gen1 / Gen2+",
+        "Switch / Relay component: Turn On, Turn Off, Toggle — with confirmed RELAY_STATE and Turned On/Off events",
+        "Cover / Roller component: Open, Close, Stop, and Go To Position (0-100) — with COVER_POSITION and Cover Opened/Closed/Stopped events",
+        "Configurable status poll publishes DEVICE_ONLINE, GENERATION, MODEL, and component state for Composer programming",
+        "Gen1 HTTP Basic auth (base64) when a password is set; Gen2+ SHA-256 digest is gated to on-hardware crypto",
+        "LAN-only destination safeguard; passwords are never written to the Control4 log",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Devices",
+          "value": "Shelly Gen1 (REST) and Gen2+ (JSON-RPC 2.0) on the local LAN"
+        },
+        {
+          "label": "Components",
+          "value": "One Switch/Relay or one Cover/Roller channel (id 0-3) per driver instance"
+        },
+        {
+          "label": "Transport",
+          "value": "HTTP on port 80 — POST /rpc or GET /rpc/<Method> (Gen2+), GET /relay|/roller (Gen1)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "A Shelly device reachable on the same LAN with its local HTTP API enabled (default)",
+        "The device's IP address (reserve it in the router's DHCP table)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified in the IntegrateIT driver simulator; representative Shelly hardware acceptance on a controller is still pending.",
+        "One component per driver instance (one relay/switch or one roller/cover channel). Bind a second driver for a second component; the device allows up to six simultaneous RPC channels.",
+        "State is refreshed by polling, not the Gen2 WebSocket push (NotifyStatus/NotifyEvent) — cover events reflect the polled state, so a very short poll interval tightens latency at the cost of traffic.",
+        "Gen1 HTTP Basic auth is exercised in simulation; Gen2+ SHA-256 digest auth requires the controller's OS crypto (C4:Hash) and header access and is verified on hardware — until then the driver talks to Gen2 devices with auth disabled (the Shelly default).",
+        "Shelly Cloud and the Integrator/Cloud APIs are intentionally unsupported (they require issued credentials); this driver is same-LAN, local-API only.",
+        "IPv6 device literals are not supported in this version; use the device's dotted-quad LAN IPv4 address."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Shelly commissioning guide showing IP setup, generation detection, component actions, variables, and programming events.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_shelly",
+        "generated_at": "2026-07-20T21:14:47.171Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "6027b62cc03fe81ee8b77b64a92253b0ca7c433aca46d27925a0c8e76546e346",
+        "artifact_sha256": "9c21508f2e450497c4bd40978a3d9303c15bb41302c23f85bcf805a8e753679a",
+        "artifact_size_bytes": 83893,
+        "build_version_manifest_sha256": "9d4b9e2b0b052ad0110a9235a45b891f5999850d69bd9204fd0510052b2b66e3",
+        "version_manifest_sha256": "6be0cff34af662a97a457ffaa483db438ecf52bbb652cefb8b90b5ef5a904fac",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 136
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 102,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 88,
+            "checks": 192,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 55,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 12,
+        "commands": 0,
+        "actions": 10,
+        "events": 7
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 83893,
+      "sha256": "9c21508f2e450497c4bd40978a3d9303c15bb41302c23f85bcf805a8e753679a",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/integrateit_shelly.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T21:14:47.540Z"
     },
     {
       "slug": "integrateit_soundfx",

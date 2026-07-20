@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "9c21508f2e450497c4bd40978a3d9303c15bb41302c23f85bcf805a8e753679a",
+      "size_bytes": 83893,
+      "published_at": "2026-07-20T21:14:47.540Z",
+      "notes": "Initial release candidate. Local-LAN control of a single Shelly component over the on-device HTTP API — no Shelly Cloud, no issued credentials. · Dual transport: Gen2+ JSON-RPC 2.0 (`POST /rpc`: Switch.Set/Toggle/GetStatus, Cover.Open/Close/Stop/GoToPosition/GetStatus, Shelly.GetDeviceInfo) and Gen1 REST (`/shelly`, `/relay/<ch>?turn=…`, `/roller/<ch>?go=…`). · Generation + model auto-detection (GetDeviceInfo, then /shelly fallback), or forced Gen1 / Gen2+. · Switch/Relay actions (Turn On/Off/Toggle) with confirmed RELAY_STATE and Turned On/Off events; Cover/Roller actions (Open/Close/Stop/Go To Position 0–100) with COVER_POSITION and Cover Opened/Closed/Stopped events. · Polled status publishes DEVICE_ONLINE, GENERATION, MODEL, and component state; Went Online/Offline on reachability changes. · Gen1 HTTP Basic auth via C4:Base64Encode (sim-verified); Gen2+ SHA-256 digest gated behind an OS-crypto capability check and verified on hardware — no unexercised hash path ships. · LAN-only destination safeguard (private/link-local/*.local, with an explicit Allow Non-LAN Address override); passwords never written to the log. · MAC-locked IntegrateIT licensing gates every control action. · Simulation-verified via the driver factory QA gate; representative Shelly hardware acceptance pending.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}
