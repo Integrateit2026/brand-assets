@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Code Agent",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_code_agent/integrateit_code_agent.c4z",
+  "notes": "Runs a short dealer-authored automation script from a closed, allowlisted verb vocabulary - SET, ADD, IF, GOTO, WAIT, FIRE, LOG, STOP - with a hard step budget, single-flight execution, an audit log, and register rollback on abort. No eval, no remote code, no network trigger. MAC-locked IntegrateIT licensing.",
+  "sha256": "8808da93d151a2ae914c922e0dfd33bf36c9f27ba5533c8c3cd1ba50519e07c9",
+  "size_bytes": 96344,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-20T20:41:11.775Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_code_agent/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_code_agent/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_code_agent/qa-report.json"
+}

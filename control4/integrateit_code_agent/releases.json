@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "8808da93d151a2ae914c922e0dfd33bf36c9f27ba5533c8c3cd1ba50519e07c9",
+      "size_bytes": 96344,
+      "published_at": "2026-07-20T20:41:11.775Z",
+      "notes": "Initial release candidate. A bounded scripted-action runner: eight Composer-authored steps over a closed verb vocabulary (SET, ADD, IF, GOTO, WAIT, FIRE, LOG, STOP), compiled by an interpreter that never evaluates dealer text. · Safety rails, each with a regression test: fail-closed all-or-nothing parsing, a hard per-run step budget that terminates GOTO loops, single-flight execution, a stale-WAIT-timer identity check, a mid-run plan snapshot so a live script edit cannot mutate a running program, and register rollback on every abort path. · Outputs are events and variables only — Run Started / Completed / Aborted / Script Rejected plus four Agent Events, with a rolling audit log in AGENT_LOG. The agent drives no devices, opens no sockets, and has no network trigger surface. · Registers optionally persist across a Director restart; a run in flight never does.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}
