@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Remote Detection",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/integrateit_remote_detection.c4z",
+  "notes": "Reports which handheld remote class is driving a room. Six explicitly bounded classes are detected from button-link bindings or from Composer programming, with duplicate-press suppression, a stale-activity timeout, offline and reconnect tracking, low-battery reporting, and a privacy mode that limits what is published. MAC-locked IntegrateIT licensing.",
+  "sha256": "76761d55304bc50ddaaff00e6535ff313b8522f474eeca00ab1d5b745960dd89",
+  "size_bytes": 93017,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-20T20:41:38.324Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/qa-report.json"
+}

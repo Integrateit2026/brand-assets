@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:35.626Z",
+  "generated_at": "2026-07-20T20:41:38.331Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3407,6 +3407,150 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:18:50.749Z"
+    },
+    {
+      "slug": "integrateit_remote_detection",
+      "name": "IntegrateIT Remote Detection",
+      "summary": "Reports which handheld remote class is driving a room. Six explicitly bounded classes are detected from button-link bindings or from Composer programming, with duplicate-press suppression, a stale-activity timeout, offline and reconnect tracking, low-battery reporting, and a privacy mode that limits what is published. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Remote Detection",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Six explicitly bounded remote classes: SR-250, SR-260, Halo, Halo Touch, Neeo, and Other Remote",
+        "Two detection sources: one BUTTON_LINK binding per class, and a Report Remote Activity programming command",
+        "Duplicate-press suppression so one physical press delivered twice is counted once",
+        "Stale-activity timeout returns the room to Unknown and raises an event when the remote goes quiet",
+        "Per-class offline / reconnect tracking, with Remote Reconnected on the first report after a gap or a reboot",
+        "Low-battery reporting against a dealer-set threshold, published as LAST_REMOTE_BATTERY",
+        "Privacy Mode: Full Detail, Class Only (no button text published), or Off (detection suspended)",
+        "Detection survives a Director restart via PersistData and re-confirms on the next real press",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Detected classes",
+          "value": "SR-250, SR-260, Halo, Halo Touch, Neeo, Other Remote — nothing outside this set"
+        },
+        {
+          "label": "Inputs",
+          "value": "6 BUTTON_LINK bindings and/or the Report Remote Activity programming command"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Stale timeout",
+          "value": "1-240 minutes"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "For binding detection, a remote or keypad button that can be linked to a BUTTON_LINK connection in Composer",
+        "For programming detection, a Control4 programming event that calls Report Remote Activity with a CLASS parameter",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative remote acceptance on a controller is still pending.",
+        "The driver does not enumerate, probe, or interrogate remotes. It classifies only the activity Composer bindings or programming hand it, so a remote that is never linked and never programmed is never detected.",
+        "Battery level is reported in, not read out: the driver publishes and thresholds whatever LEVEL a programming step supplies. It does not poll a remote battery variable.",
+        "Offline state is likewise reported in via Report Remote Offline. The driver cannot observe a remote leaving the mesh on its own.",
+        "The class set is fixed at six. An unrecognized CLASS token raises Unrecognized Remote Reported and is deliberately not mapped onto a known class.",
+        "The class is asserted by the installer, not measured. A press on connection 502 is published as Halo because the dealer wired that button to 502 — the driver has no way to verify the handheld really is a Halo, so a mis-linked binding produces a confidently wrong answer.",
+        "Button text depends entirely on what the source supplies. Most BUTTON_LINK presses carry no button name, so Full Detail commonly reads \"(button not reported)\" for binding detections; button text is reliable only from the Report Remote Activity command's BUTTON parameter.",
+        "Headless: it publishes who is driving the room, it does not itself control any load."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Remote Detection commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_remote_detection",
+        "generated_at": "2026-07-20T20:41:37.986Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "3a2c742871001397512badb3fd8eaa5489fcdef443dd997d85aab69d6600f364",
+        "artifact_sha256": "76761d55304bc50ddaaff00e6535ff313b8522f474eeca00ab1d5b745960dd89",
+        "artifact_size_bytes": 93017,
+        "build_version_manifest_sha256": "18463f1132083333fe4e82632ad117f7ade0adcc47316e83dd071f0134db0b74",
+        "version_manifest_sha256": "1457139b9de3bee417ee59e6a28c46cac8658ca52a7ca21a30de71b890941283",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 108
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 69,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 80,
+            "checks": 323,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 49,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 6,
+        "properties": 15,
+        "commands": 3,
+        "actions": 3,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 93017,
+      "sha256": "76761d55304bc50ddaaff00e6535ff313b8522f474eeca00ab1d5b745960dd89",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/integrateit_remote_detection.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:38.324Z"
     },
     {
       "slug": "integrateit_safe_power_cycle",

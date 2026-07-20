@@ -24,6 +24,7 @@
   "integrateit_occupancy",
   "integrateit_optimus",
   "integrateit_push_pushover",
+  "integrateit_remote_detection",
   "integrateit_safe_power_cycle",
   "integrateit_tcp_toolkit"
 ]
