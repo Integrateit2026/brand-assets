@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "58031e7e3f6b726673c406d7239b37eba60a07ee7cc450bb4cd93065ffed4c48",
+      "size_bytes": 260339,
+      "published_at": "2026-07-20T20:41:23.977Z",
+      "notes": "First cut: one Navigator UI button holding 2-6 dealer-named, mutually-exclusive states. · Press behavior is configurable (Advance with or without wrap, Select Default State, Disabled); programming can select any state, step Next/Previous, or reset to the default. · Persistence: the state is written on every accepted change and restored silently at boot; a state stranded above a lowered `Number of States` clamps into range. · Debounce: the duplicate SELECT/DO_CLICK delivery of one Navigator press collapses into one state change. · Mutual exclusion: `IS_STATE_1`..`IS_STATE_6` are rewritten as a block on every publish, so exactly one is ever true and it always matches `STATE_INDEX`. · Loop protection in three layers: re-selecting the held state is silent, a re-entrant change fired from inside the driver's own event dispatch is refused, and a change storm trips a rate guard that fires `Loop Guard Tripped` once and re-arms after its window. · Accessibility: the Navigator icon description and `STATE_TEXT` always carry position, label, and what a press will do. · MAC-locked IntegrateIT licensing on every control path; Lenient by default, Strict blocks presses and programming alike.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

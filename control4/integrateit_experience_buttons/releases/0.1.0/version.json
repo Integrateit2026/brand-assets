@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Experience State Button",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_experience_buttons/releases/0.1.0/integrateit_experience_buttons.c4z",
+  "notes": "A Navigator button that holds one of up to six mutually-exclusive named states. A press advances the state, programming can select any state directly, the choice survives a reboot, duplicate press deliveries are debounced, and a loop guard stops programming that reacts to its own state change from running away. MAC-locked IntegrateIT licensing.",
+  "sha256": "58031e7e3f6b726673c406d7239b37eba60a07ee7cc450bb4cd93065ffed4c48",
+  "size_bytes": 260339,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-20T20:41:23.977Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_experience_buttons/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_experience_buttons/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_experience_buttons/qa-report.json"
+}

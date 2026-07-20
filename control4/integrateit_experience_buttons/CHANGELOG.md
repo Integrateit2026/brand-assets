@@ -1,0 +1,17 @@
+# Changelog — IntegrateIT Experience State Button
+
+## [Unreleased]
+### Fixed (adversarial review, 2026-07-20)
+- A tripped loop guard could refuse the clamp that runs when a dealer lowers `Number of States`, stranding the button on a state that no longer exists — `IS_STATE_6` stayed true with the count set to 2, and nothing published afterwards to correct it. Structural clamps are now forced through the guard and the re-entrancy refusal.
+- The loop guard re-armed at the end of the *counting* window rather than a window after it tripped, so a storm starting late in the window bought only the remainder as protection (trip at 9.9s of a 10s window, re-arm 100ms later). Tripping now restarts the window, matching what `Loop Guard Window (s)` documents.
+- A press on a `Disabled` button armed the debounce timer before Press Action was read, leaving a live timer on a read-only indicator and swallowing the first real press if the dealer re-enabled the button inside that window.
+
+## [0.1.0] - 2026-07-20
+- First cut: one Navigator UI button holding 2-6 dealer-named, mutually-exclusive states.
+- Press behavior is configurable (Advance with or without wrap, Select Default State, Disabled); programming can select any state, step Next/Previous, or reset to the default.
+- Persistence: the state is written on every accepted change and restored silently at boot; a state stranded above a lowered `Number of States` clamps into range.
+- Debounce: the duplicate SELECT/DO_CLICK delivery of one Navigator press collapses into one state change.
+- Mutual exclusion: `IS_STATE_1`..`IS_STATE_6` are rewritten as a block on every publish, so exactly one is ever true and it always matches `STATE_INDEX`.
+- Loop protection in three layers: re-selecting the held state is silent, a re-entrant change fired from inside the driver's own event dispatch is refused, and a change storm trips a rate guard that fires `Loop Guard Tripped` once and re-arms after its window.
+- Accessibility: the Navigator icon description and `STATE_TEXT` always carry position, label, and what a press will do.
+- MAC-locked IntegrateIT licensing on every control path; Lenient by default, Strict blocks presses and programming alike.
