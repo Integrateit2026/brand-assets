@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:15.736Z",
+  "generated_at": "2026-07-20T20:41:18.445Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -677,6 +677,146 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-20T20:41:15.729Z"
+    },
+    {
+      "slug": "integrateit_colour_wheel",
+      "name": "IntegrateIT Colour Wheel",
+      "summary": "An accessible colour picker for Control4 colour-capable lights. Twelve named hue stops you can step with a single button, a colour-vision-safe subset, a full sRGB/HSV/CCT conversion engine, and four recallable presets, pushed to up to six bound lights over the Control4 colour proxy contract. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Accessible Colour Engine",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Twelve named hue stops on an original perceptually-spaced ring, steppable with single Next Hue / Previous Hue buttons — no two-dimensional wheel to aim at",
+        "Colour-Vision-Safe 6 palette that restricts stepping to six hues spread along the blue-yellow axis, which survives red-green colour deficiency far better than the full ring",
+        "Every colour is published by NAME as well as by value (COLOUR_NAME), so an announcement, keypad label, or voice scene never has to rely on colour alone",
+        "Full conversion engine: HSV hue and saturation, sRGB hex, CIE 1931 xy chromaticity, and 2000-6500 K colour temperature on the Planckian locus",
+        "Custom Colour (Hex) accepts #RRGGBB and #RGB, raises an Invalid Custom Colour event on bad input, and falls back cleanly to the selected hue stop",
+        "Drives up to six bound colour-capable lights with SET_COLOR_TARGET plus an optional level ramp, at a configurable transition rate",
+        "Four presets stored in PersistData that survive a controller reboot",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Outputs",
+          "value": "1-6 LIGHT_V2 bindings to colour-capable lights"
+        },
+        {
+          "label": "Colour modes",
+          "value": "Full Colour (CIE xy) and Colour Temperature (2000-6500 K)"
+        },
+        {
+          "label": "Also published as",
+          "value": "COLOUR_NAME, COLOUR_HEX, COLOUR_HUE, COLOUR_SATURATION, COLOUR_BRIGHTNESS, COLOUR_KELVIN, COLOUR_CIE_X, COLOUR_CIE_Y, COLOUR_MODE variables"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "One or more colour-capable or tunable-white lights bindable in Composer",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified against the published Control4 colour proxy contract. Acceptance on a controller with representative colour fixtures is still pending, and SET_COLOR_TARGET handling can differ between fixture vendors.",
+        "A light that is not colour-capable ignores SET_COLOR_TARGET. Bind only colour or tunable-white loads; a plain dimmer responds to the optional level ramp only.",
+        "Colour Temperature mode sends the Kelvin value in the target X parameter with colour mode 1, per the proxy contract. Fixtures that only accept CIE xy should be driven in Full Colour mode instead.",
+        "Colour Hex is the sRGB rendering of the selected chromaticity at full value. Chromaticities outside the sRGB gamut (reachable at the Kelvin extremes) are clipped for that readout only — the xy sent to the light is never clipped.",
+        "Custom Colour (Hex) contributes hue and saturation only. Its value component is ignored on purpose so that Brightness (%) owns level and a colour can be dimmed without shifting hue.",
+        "Reported Colour is a passive readout of what a bound light last reported. The driver never re-applies from a report, so it does not detect or correct a light that has drifted.",
+        "Colour-Vision-Safe 6 improves separation, it does not guarantee it. Under dichromacy Amber and Yellow — and Cyan, Azure and Blue — differ mainly in lightness and can still be confused. The guarantee this driver actually makes is the published name: COLOUR_NAME is always correct, so no decision has to rest on the colour being seen.",
+        "Next Hue and Previous Hue clear Custom Colour (Hex). The hex outranks the hue stop, so a step underneath one would move the selection and change nothing in the room; a step is treated as an explicit request for a named stop.",
+        "Brighter and Dimmer only reach a fixture when Set Light Level is Yes. With it set to No the level is recorded and published but never sent, and Status says so.",
+        "Presets live in PersistData, which is not exported with a Composer project. Restoring a project onto a different controller starts with four empty slots."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Colour Wheel commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_colour_wheel",
+        "generated_at": "2026-07-20T20:41:18.116Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "1e99c8f5c7ee163b2ec5c36c87978fc7aa2adb90a08f68e48318cbd1b4a4f944",
+        "artifact_sha256": "e5a43f74df8d705149324f9590efcb6e7049eced5546ea404048d9a1fd75af96",
+        "artifact_size_bytes": 98689,
+        "build_version_manifest_sha256": "095b1c2302ec69bbcccad8ad672b55d4fada4a79b7972fcfae30aa308bc9a244",
+        "version_manifest_sha256": "3ccdb7bd93529376f76ac82d5d07baacf14f005b7aa8aceb34f1ba1bf5bede6b",
+        "version": "0.1.1",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 100
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 69,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 94,
+            "checks": 362,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 52,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 6,
+        "properties": 16,
+        "commands": 0,
+        "actions": 11,
+        "events": 6
+      },
+      "version": "0.1.1",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 98689,
+      "sha256": "e5a43f74df8d705149324f9590efcb6e7049eced5546ea404048d9a1fd75af96",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/integrateit_colour_wheel.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:18.439Z"
     },
     {
       "slug": "integrateit_doorbell",

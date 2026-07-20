@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.1",
+  "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 1,
+      "sha256": "e5a43f74df8d705149324f9590efcb6e7049eced5546ea404048d9a1fd75af96",
+      "size_bytes": 98689,
+      "published_at": "2026-07-20T20:41:18.439Z",
+      "notes": "**Next Hue / Previous Hue were dead buttons under a custom hex.** `Custom Colour (Hex)` outranks the hue stop in the resolve spine, so a step moved the property, fired *Hue Stop Changed*, and pushed the same colour — the picker announced a stop the room did not show. A step now retires the override and says so; pressing a hue button is an explicit request for a named stop. · **Property echoes applied a second time.** `C4:UpdateProperty` calls back into `OnPropertyChanged` on a controller, which the simulator's stub does not model. A preset recall writes six watched properties before its own deliberate apply — seven colour pushes and seven *Colour Applied* events for one press, 42 proxy commands across six lights. Internal writes now run under a re-entrancy guard that `OnDevicePropertyChanged` honours. · **A recall of a legacy or truncated preset could error mid-restore.** `PersistData` outlives the code that wrote it; stored fields went straight to `UpdateProperty`, where a nil throws and a `tostring(nil)` leaves the literal string \"nil\" in a dealer's property. Every field is now coerced and clamped, and a non-table slot reads as empty. · **A custom hex named itself with its hex code.** \"Custom #4488CC\" is a value, not a name, and a speakable name is this driver's entire accessibility premise. Custom colours now name themselves by nearest named stop (\"Custom Azure\"); the exact value stays in `COLOUR_HEX`. · **Brighter / Dimmer were silently invisible with `Set Light Level` = No.** Brightness only reaches a fixture through the level ramp. The step is still recorded and published, but `Status` now admits no level was sent instead of reporting a colour push. · **The Colour-Vision-Safe 6 claim overclaimed.** Six hues on the blue-yellow axis survive red-green deficiency far better than the full ring, but they are not mutually distinguishable under dichromacy — Amber/Yellow and Cyan/Azure/Blue differ mainly in lightness. Catalog copy, limitations, and documentation now say what is true, and name the published `COLOUR_NAME` as the guarantee that actually holds. Two further real limitations documented: the hue-step/hex interaction, and that presets are controller-local because `PersistData` is not carried in a project export.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}
