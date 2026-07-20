@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "90e97f8160091099e78de2d1edd8b6ade6b499b283faa55d9b726790d27f2716",
+      "size_bytes": 93094,
+      "published_at": "2026-07-20T21:41:49.865Z",
+      "notes": "Initial release: one-way Somfy URTSI II serial bridge per Somfy's published protocol - up/down/stop and 10-step tilt on channels 1-16, paced command queue, RS-232/RS-485 framing, validated raw-line sender, honest assumed-state events and variables (no position feedback exists on this hardware).",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

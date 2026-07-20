@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T21:14:47.548Z",
+  "generated_at": "2026-07-20T21:41:49.873Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3950,6 +3950,139 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-20T21:14:47.540Z"
+    },
+    {
+      "slug": "integrateit_somfy_urtsii",
+      "name": "IntegrateIT Somfy URTSI II",
+      "summary": "Drives Somfy RTS shades, awnings, and tilt blinds through a Somfy URTSI II serial interface: per-channel up/down/stop, 10-step tilt in both directions, a paced command queue, and honest assumed-state tracking over a strictly one-way RS-232/RS-485 link.",
+      "category": "others",
+      "device_type": "Somfy URTSI II Interface",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Up, down, and stop control for all 16 URTSI II motor channels",
+        "10-step tilt up and tilt down for RTS tilt blinds, per Somfy's documented tilt characters",
+        "Paced command queue with configurable inter-command spacing so RTS radio transmissions never pile up",
+        "RS-232 and RS-485 framing: configurable unit address and CR line termination",
+        "Advanced raw-line sender that validates Somfy's documented per-line limits before transmitting",
+        "Honest assumed-state tracking per channel: Command Sent plus Shade Assumed Up / Down / Stopped events and programming variables"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "One RS-232 serial binding (9600 baud 8N1) to the URTSI II"
+        },
+        {
+          "label": "Motors",
+          "value": "Somfy RTS motors paired to URTSI II channels 1-16"
+        },
+        {
+          "label": "Feedback",
+          "value": "None - the URTSI II link is strictly one-way (assumed state only)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Somfy Universal RTS Interface II (URTSI II) with its RTS channels paired to the target motors on the unit itself",
+        "A Control4 controller or IO extender RS-232 port wired to the URTSI II at 9600 baud 8N1, no flow control",
+        "On an RS-485 segment, the unit's rotary address switch set to match the Unit Address property and Line Termination set to CR",
+        "Composer Pro access for the serial binding and future in-place updates"
+      ],
+      "limitations": [
+        "ONE-WAY LINK: the URTSI II returns nothing over serial - no acknowledgement, no status, no position. Every state this driver shows is assumed from the last command it sent; position feedback does not exist and cannot be added in software.",
+        "Because state is assumed, a handheld Telis remote or wall switch moving a shade is invisible to the driver - the assumed state goes stale until the next driver command.",
+        "Release Candidate: simulator verified; representative URTSI II hardware acceptance is still pending.",
+        "Channel-to-motor pairing is done physically on the URTSI II per Somfy's instructions; the driver cannot discover or pair channels."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Somfy URTSI II commissioning guide showing serial wiring, channel control, tilt characters, raw-line limits, and the one-way assumed-state model.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_somfy_urtsii",
+        "generated_at": "2026-07-20T21:41:49.271Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "e530cf7b0dfdde14ef87d7f8c712e9014420f989aaa86ab6717cea8f8ce7cc6f",
+        "artifact_sha256": "90e97f8160091099e78de2d1edd8b6ade6b499b283faa55d9b726790d27f2716",
+        "artifact_size_bytes": 93094,
+        "build_version_manifest_sha256": "f50e3328d51a1f7a5d01f17dc19866f6293d0a96dbcdae6a09c0d235656901b6",
+        "version_manifest_sha256": "94c79aa9685ecf5048bf2b4a9347f5c5e1e4660e1863beced97609cda245e0c0",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 124
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 84,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 88,
+            "checks": 276,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 63,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 26,
+        "commands": 6,
+        "actions": 7,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 93094,
+      "sha256": "90e97f8160091099e78de2d1edd8b6ade6b499b283faa55d9b726790d27f2716",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/integrateit_somfy_urtsii.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T21:41:49.865Z"
     },
     {
       "slug": "integrateit_soundfx",
