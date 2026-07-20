@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>IntegrateIT Metrics &amp; Insights</title>
+<style>
+/* IntegrateIT driver documentation tokens. These are intentionally self-contained
+   and use sRGB values for compatibility with Control4's embedded browser. */
+:root{
+  --bg:#0A0D13;
+  --bg-deep:#070A0F;
+  --surface:#141A26;
+  --surface-raised:#1A2332;
+  --surface-strong:#222D3D;
+  --line:#2B3749;
+  --line-strong:#3B4B63;
+  --text:#EDF2F9;
+  --text-soft:#A7B2C3;
+  --text-faint:#77859A;
+  --blue:#0157FF;
+  --blue-light:#7FB2FF;
+  --blue-tint:rgba(1,87,255,.13);
+  --brass:#B89968;
+  --good:#34D399;
+  --good-tint:rgba(52,211,153,.11);
+  --warn:#FBBF24;
+  --warn-tint:rgba(251,191,36,.10);
+  --bad:#F87171;
+  --bad-tint:rgba(248,113,113,.10);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:18px;
+  --ease:cubic-bezier(.25,1,.5,1);
+}
+
+/* IntegrateIT Documentation tab: The Commissioning Book */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--blue-light);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--text)}
+a:focus-visible{outline:2px solid var(--blue-light);outline-offset:3px;border-radius:4px}
+.shell{min-height:100vh;background:
+  radial-gradient(900px 420px at 86% -10%,rgba(1,87,255,.14),transparent 68%),
+  linear-gradient(180deg,var(--bg-deep) 0,var(--bg) 360px)}
+.wrap{width:min(1040px,100%);margin:0 auto;padding:0 28px}
+
+/* masthead */
+.mast{padding:30px 0 34px;border-bottom:1px solid var(--line)}
+.brandbar{display:flex;align-items:center;gap:18px;min-height:42px}
+.brandbar img{display:block;width:auto;height:30px;max-width:210px;object-fit:contain}
+.version{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line-strong);
+  border-radius:999px;background:var(--surface);color:var(--text-soft);font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.version::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-tint)}
+.eyebrow{margin:32px 0 12px;color:var(--brass);font-size:11px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+h1{max-width:760px;margin:0;font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.035em;font-weight:780;text-wrap:balance}
+.sub{max-width:68ch;margin:16px 0 0;color:var(--text-soft);font-size:16px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;color:var(--text-faint);font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+.meta span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--brass)}
+.readiness{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ready{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(20,26,38,.76);color:var(--text-soft);font-size:12px;font-weight:700}
+.ready b{color:var(--good);font-size:13px}
+
+/* task navigation */
+.toc-wrap{position:sticky;top:0;z-index:10;background:rgba(10,13,19,.97);border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px rgba(0,0,0,.20)}
+.toc{display:flex;gap:7px;overflow-x:auto;padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.toc a{flex:none;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text-soft);
+  font-size:12px;font-weight:720;text-decoration:none;transition:color 180ms var(--ease),border-color 180ms var(--ease),background 180ms var(--ease)}
+.toc a:hover{color:var(--text);border-color:var(--blue);background:var(--blue-tint)}
+
+/* document */
+main{padding:34px 0 24px}
+.card{scroll-margin-top:80px;margin:0 0 18px;padding:26px 28px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface)}
+.card h2{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:20px;line-height:1.2;letter-spacing:-.018em;font-weight:760}
+.card h2 .n{display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--blue);
+  color:var(--text);font-size:12px;font-weight:820;font-variant-numeric:tabular-nums}
+.card h3{margin:24px 0 10px;color:var(--text);font-size:15px;line-height:1.35;font-weight:760}
+.card p{max-width:74ch;margin:10px 0;color:#D7DFEA}
+.card ul,.card ol{max-width:76ch;margin:12px 0;padding-left:23px}
+.card li{margin:7px 0;color:#D7DFEA}
+.card li::marker{color:var(--blue-light);font-weight:800}
+.card b{color:var(--text);font-weight:750}
+
+/* operational callouts */
+.note{margin:16px 0;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--surface-raised);
+  color:#D7DFEA;font-size:14px}
+.note::before{content:"INFO";display:block;margin-bottom:4px;color:var(--blue-light);font-size:10px;font-weight:800;letter-spacing:.12em}
+.note.good{border-color:rgba(52,211,153,.36);background:var(--good-tint)}
+.note.good::before{content:"READY";color:var(--good)}
+.note.warn{border-color:rgba(251,191,36,.38);background:var(--warn-tint)}
+.note.warn::before{content:"CHECK";color:var(--warn)}
+.pill{display:inline-flex;align-items:center;margin-left:6px;padding:3px 8px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--surface-raised);color:var(--text-soft);font-size:10px;font-weight:800;letter-spacing:.04em;vertical-align:middle}
+.pill.blue{border-color:rgba(127,178,255,.34);background:var(--blue-tint);color:var(--blue-light)}
+.pill.green{border-color:rgba(52,211,153,.34);background:var(--good-tint);color:var(--good)}
+.pill.amber{border-color:rgba(251,191,36,.34);background:var(--warn-tint);color:var(--warn)}
+.pill.red{border-color:rgba(248,113,113,.34);background:var(--bad-tint);color:var(--bad)}
+
+/* steps, code, and reference data */
+.steps{counter-reset:step;list-style:none!important;padding:0!important}
+.steps li{counter-increment:step;position:relative;padding:11px 0 11px 46px;margin:0!important;border-top:1px solid var(--line)}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(step);position:absolute;left:0;top:9px;display:grid;place-items:center;width:30px;height:30px;
+  border:1px solid var(--line-strong);border-radius:9px;background:var(--surface-raised);color:var(--blue-light);font-size:12px;font-weight:820}
+code{padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface-raised);color:#8DE2D6;
+  font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere}
+pre{max-width:100%;overflow:auto;margin:14px 0;padding:15px 17px;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:var(--bg-deep);color:#BCEDE6;font-family:var(--mono);font-size:12.5px;line-height:1.6}
+pre code{padding:0;border:0;background:transparent;color:inherit}
+table{display:block;width:100%;max-width:100%;overflow-x:auto;border-spacing:0;border-collapse:separate;margin:14px 0 20px;
+  border:1px solid var(--line);border-radius:var(--radius-md);font-size:13px}
+tbody{display:table;width:100%;border-collapse:collapse}
+th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-raised);color:var(--text-soft);font-size:11px;font-weight:780;letter-spacing:.035em;white-space:nowrap}
+td{color:#D7DFEA}
+td:first-child{color:var(--text)}
+td code{white-space:normal}
+
+/* release history */
+.chg{margin-top:4px}
+.chg .rel{padding:15px 0;border-top:1px solid var(--line)}
+.chg .rel:first-child{padding-top:0;border-top:0}
+.chg .rel b{font-variant-numeric:tabular-nums}
+.chg .rel .d{margin-left:8px;color:var(--text-faint);font-size:12px}
+.chg .rel ul{margin:7px 0 0}
+
+/* brand sign-off */
+.powered{margin-top:22px;padding:42px 24px 46px;border-top:1px solid var(--line);text-align:center;background:var(--bg-deep)}
+.powered .hairline{width:40px;height:1px;margin:0 auto 18px;background:var(--brass)}
+.powered .pb{margin:0 0 14px;padding-left:.32em;color:var(--text-soft);font-size:10px;font-weight:650;letter-spacing:.32em;text-transform:uppercase}
+.powered img{display:block;width:auto;height:28px;max-width:min(270px,80vw);margin:0 auto;object-fit:contain}
+.powered .places{margin:22px 0 0;color:var(--text-faint);font-size:10px;font-weight:650;letter-spacing:.22em;text-transform:uppercase}
+.powered .places b{padding:0 8px;color:var(--brass);font-weight:700}
+.powered .support{margin:18px 0 0;color:var(--text-soft);font-size:12px}
+
+@media(max-width:700px){
+  .wrap{padding:0 18px}
+  .mast{padding:22px 0 28px}
+  .brandbar img{height:24px;max-width:170px}
+  .eyebrow{margin-top:26px}
+  h1{font-size:32px}
+  .sub{font-size:15px}
+  main{padding-top:24px}
+  .card{padding:21px 19px;border-radius:var(--radius-md)}
+  .card h2{font-size:18px}
+  th,td{min-width:130px;padding:10px 11px}
+}
+@media(max-width:420px){
+  .wrap{padding:0 14px}
+  .version{padding:5px 8px}
+  .version .word{display:none}
+  h1{font-size:29px}
+  .ready{font-size:11px}
+  .card{padding:18px 15px}
+  .card h2{align-items:flex-start}
+  .powered{padding-left:14px;padding-right:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc a{transition:none}}
+@media print{
+  :root{--bg:#F7F8FA;--bg-deep:#FFFFFF;--surface:#FFFFFF;--surface-raised:#F0F3F7;--line:#CCD3DD;--line-strong:#AEB8C6;
+    --text:#101722;--text-soft:#3D4A5E;--text-faint:#59677B;--blue-light:#0049D8}
+  .shell{background:#F7F8FA}.toc-wrap{position:static;box-shadow:none}.card{break-inside:avoid}.powered img{filter:invert(1)}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <div class="wrap">
+      <div class="brandbar">
+        <img src="data:image/png;base64,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" alt="IntegrateIT">
+        <span class="version"><span class="word">Driver</span> v0.1.0</span>
+      </div>
+      <p class="eyebrow">Control4 commissioning guide</p>
+      <h1>IntegrateIT Metrics & Insights</h1>
+      <p class="sub">Bounded metric capture and insights for Control4 — built and licensed by IntegrateIT.</p>
+      <div class="meta">
+        <span>Updated 2026-07-20</span>
+        <span>Supported by IntegrateIT</span>
+      </div>
+      <div class="readiness" aria-label="Driver capabilities">
+        <span class="ready"><b aria-hidden="true">✓</b> Control4 DriverWorks</span>
+        <span class="ready"><b aria-hidden="true">✓</b> OS 3.0.0+</span>
+        <span class="ready"><b aria-hidden="true">✓</b> License framework</span>
+        <span class="ready"><b aria-hidden="true">✓</b> Self-update ready</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toc-wrap">
+    <nav class="toc wrap" aria-label="Documentation sections"><a href="#overview">1 Overview</a><a href="#install">2 Install &amp; setup</a><a href="#commands">3 Command reference</a><a href="#notes">4 Notes &amp; limits</a><a href="#reference">R Reference</a><a href="#troubleshooting">5 Troubleshooting</a><a href="#licensing">L Licensing</a><a href="#updates">U Automatic updates</a><a href="#changelog">V Version history</a></nav>
+  </div>
+
+  <main class="wrap">
+    <section class="card" id="overview" data-card="overview">
+  <h2><span class="n">1</span> Overview</h2>
+  <p>IntegrateIT Metrics &amp; Insights turns one numeric value in a Control4 project — a temperature, a power draw, a humidity reading, a tank level, anything exposed as a device variable — into a bounded historical ledger with insights you can program against and an export you can chart anywhere.</p>
+  <p>The driver samples the value on a fixed interval (or on demand from programming) and keeps it in three fixed-capacity tiers that cascade into one another: raw samples land in the <b>recent</b> ring, the recent samples accumulate into an <b>hourly</b> bucket, and each sealed hour folds into a <b>daily</b> bucket. Every tier is a ring with a capacity you set, so the driver's memory — and the bytes it contributes to a project backup — are bounded by configuration rather than by how long the system has been running. Nothing grows without a ceiling and nothing rescans history; the cost of a sample never changes.</p>
+  <p>Bucket boundaries come from the controller's <b>local calendar</b>, not from epoch arithmetic. That is what keeps a daylight-saving day a single day, whether it ran 23, 24, or 25 hours.</p>
+  <p>The driver publishes current / minimum / maximum / average / trend / one-hour-delta as Control4 variables and raises events on new extremes, significant moves, hour and day rollovers, source loss, and retention wrap. It renders no charts: it produces the numbers and the CSV or JSON export, and the picture belongs to whatever you feed it to.</p>
+</section>
+
+<section class="card" id="install" data-card="install">
+  <h2><span class="n">2</span> Install &amp; setup</h2>
+  <ol class="steps">
+    <li>Add the driver to a room. It is headless — it has no Navigator tile and no bindings.</li>
+    <li>Set <code>Metric Name</code> (and optionally <code>Metric Units</code>) so exports and Status read like the thing being measured.</li>
+    <li>Point it at a source. In Composer, find the device you want to track and note its <b>device id</b> and the <b>variable name</b> you want; put them in <code>Source Device ID</code> and <code>Source Variable</code>. Leave both blank for a push-only series driven entirely from programming.</li>
+    <li>Choose a <code>Sample Interval</code>. Shorter intervals fill the recent ring faster — at 30 seconds a 240-sample ring covers two hours; at 15 minutes it covers 2.5 days.</li>
+    <li>Size the three rings: <code>Recent Samples Kept</code>, <code>Hourly Buckets Kept</code>, <code>Daily Buckets Kept</code>. Watch the <code>Storage Estimate</code> property while you do — it reports the <b>ceiling</b> this configuration can ever reach in a project backup.</li>
+    <li>Decide <code>Privacy Mode</code> and <code>Persist Across Reboot</code> (see Notes &amp; limits). The defaults keep raw samples in memory and persist only the aggregates.</li>
+    <li>In Programming, react to <b>Sample Recorded</b>, <b>New Maximum</b>, <b>New Minimum</b>, <b>Significant Change</b>, <b>Hour Rolled Over</b>, <b>Day Rolled Over</b>, or <b>Source Unavailable</b>, or compare the <code>METRIC_VALUE</code> / <code>METRIC_TREND</code> / <code>METRIC_AVG</code> variables.</li>
+    <li>Enter a <code>License Key</code> for production. Without one the driver runs in Lenient mode and nags in <code>License Status</code>.</li>
+  </ol>
+  <p>For a push-only series, call <b>Record Sample Now</b> from programming at the moments that matter. With a source configured that action reads the source immediately; with no source configured it re-stamps the last known value so you can mark an event on the series.</p>
+</section>
+
+<section class="card" id="commands" data-card="commands">
+  <h2><span class="n">3</span> Command reference</h2>
+  <table>
+    <tr><th>Action</th><th>What it does</th></tr>
+    <tr><td>Record Sample Now</td><td>Reads the configured source immediately, or re-stamps the last known value on a push-only series.</td></tr>
+    <tr><td>Seal Open Buckets</td><td>Closes the hour and day currently in progress so they appear as sealed rows in an export or a backup.</td></tr>
+    <tr><td>Export to Lua Output</td><td>Prints the export payload to the Lua output window in the configured format.</td></tr>
+    <tr><td>Export to Endpoint</td><td>POSTs the same payload to <code>Export Endpoint URL</code>.</td></tr>
+    <tr><td>Clear History</td><td>Purges every tier <b>and</b> the persisted copy. Not undoable.</td></tr>
+    <tr><td>Print Configuration</td><td>Prints the source, retention, privacy, persistence, and current holdings to the Lua output window.</td></tr>
+  </table>
+  <p><b>Events:</b> *Sample Recorded*, *New Maximum*, *New Minimum*, *Significant Change*, *Hour Rolled Over*, *Day Rolled Over*, *Source Unavailable*, *History Cleared*, *Export Complete*, *Retention Limit Reached*.</p>
+  <p><b>Variables:</b> <code>METRIC_VALUE</code>, <code>METRIC_MIN</code>, <code>METRIC_MAX</code>, <code>METRIC_AVG</code>, <code>METRIC_TREND</code>, <code>METRIC_DELTA_1H</code>, <code>SAMPLE_COUNT</code>, <code>LAST_SAMPLE_AT</code>.</p>
+  <p><b>Export columns</b> (CSV and JSON carry the same fields): <code>tier</code>, <code>key</code>, <code>count</code>, <code>min</code>, <code>avg</code>, <code>max</code>, <code>first</code>, <code>last</code>. <code>tier</code> is one of <code>day</code>, <code>day-open</code>, <code>hour</code>, <code>hour-open</code>, or <code>sample</code>; <code>key</code> is the local calendar key (<code>2026-03-08</code>, <code>2026-03-08 14</code>) or the sample timestamp.</p>
+</section>
+
+<section class="card" id="notes" data-card="notes">
+  <h2><span class="n">4</span> Notes &amp; limits</h2>
+  <ul>
+    <li><b>Storage is bounded by configuration.</b> Each tier is a ring: once it is full the oldest row is overwritten. The first time a tier starts evicting, *Retention Limit Reached* fires once — not once per evicted row. <code>Samples Stored</code> shows what is held right now; <code>Storage Estimate</code> shows the worst case.</li>
+    <li><b>Project-backup safety.</b> Persisted data travels inside the project backup, so <code>Persist Across Reboot</code> is an explicit choice: <b>Off</b> writes nothing at all, <b>Aggregates Only</b> writes the bounded bucket rings, <b>Full</b> adds the raw sample ring. <code>Storage Estimate</code> is the number to check before you turn on Full with a 1440-sample ring.</li>
+    <li><b>Privacy Mode outranks persistence.</b> <b>Full History</b> keeps raw samples. <b>Aggregates Only</b> keeps no per-sample rows at all — they are not stored, not persisted, and not exported. <b>Paused</b> stops capture entirely and disarms the sampler. Switching *to* Aggregates Only is retroactive: the raw samples already held are discarded on the spot rather than left to ride along in the next backup.</li>
+    <li><b>Timezone and DST.</b> Hour and day identity is a local calendar key from the controller's own clock. Spring-forward simply skips an hour key. Fall-back re-enters the hour key it just used, so the repeated local hour merges into a single hourly bucket covering two real hours — its count and sum stay correct, the bucket is just wider. Either way a local day produces exactly one *Day Rolled Over*.</li>
+    <li><b>The daily tier is folded from sealed hours</b>, never from raw samples, so nothing is counted twice. The consequence is that the hour in progress is not yet reflected in the day total; run <b>Seal Open Buckets</b> first if you need it to be.</li>
+    <li><b>Sampling is polling, not subscription.</b> A spike between two samples is not seen. Shorten <code>Sample Interval</code> if that matters, and accept the faster ring turnover that comes with it.</li>
+    <li><b>Only numbers are recorded.</b> A source variable that does not parse as a number is treated as unavailable, and *Source Unavailable* fires once per outage rather than once per poll.</li>
+    <li><b>Exports are capped at 500 rows</b> and truncate from the oldest coarse rows first, so an export always keeps the freshest detail. A failed endpoint POST is reported and dropped — the driver never retries a whole-ledger send on its own.</li>
+    <li><b>Clearing is total.</b> *Clear History* wipes memory and the persisted copy together, and the next sample re-establishes the extremes silently (it does not claim a record).</li>
+  </ul>
+<section class="card" id="reference" data-card="reference">
+  <h2><span class="n">R</span> Reference</h2>
+  <p>Generated from the driver manifest at build time — always matches this build (v0.1.0).</p>
+  <h3>Properties</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Metric Name</code></td><td>STRING</td><td><code>Metric</code></td><td>Label for this series in Status, exports, and the Lua output window.</td></tr>
+    <tr><td><code>Metric Units</code></td><td>STRING</td><td><code></code></td><td>Optional unit suffix shown alongside values (for example F, W, %).</td></tr>
+    <tr><td><code>Source Device ID</code></td><td>STRING</td><td><code></code></td><td>Control4 device id whose variable is sampled. Leave blank for a push-only series driven by Record Sample Now.</td></tr>
+    <tr><td><code>Source Variable</code></td><td>STRING</td><td><code></code></td><td>Variable name on that device, exactly as Composer shows it (for example CURRENT_TEMPERATURE).</td></tr>
+    <tr><td><code>Sample Interval</code></td><td>LIST</td><td><code>5 minutes</code></td><td>How often the source variable is polled. Shorter intervals fill the recent ring faster. One of: 30 seconds · 1 minute · 5 minutes · 15 minutes · 1 hour</td></tr>
+    <tr><td><code>Decimal Places</code></td><td>INTEGER 0–4</td><td><code>2</code></td><td>Rounding applied to every published value and exported row.</td></tr>
+    <tr><td><code>Change Event Threshold (%)</code></td><td>INTEGER 0–100</td><td><code>0</code></td><td>Percent move from the previous sample that raises Significant Change. 0 disables the event.</td></tr>
+    <tr><td><code>Recent Samples Kept</code></td><td>INTEGER 12–1440</td><td><code>240</code></td><td>Capacity of the raw sample ring. The oldest sample is evicted once it is full.</td></tr>
+    <tr><td><code>Hourly Buckets Kept</code></td><td>INTEGER 6–168</td><td><code>48</code></td><td>Capacity of the sealed hourly bucket ring (168 is one week).</td></tr>
+    <tr><td><code>Daily Buckets Kept</code></td><td>INTEGER 1–90</td><td><code>31</code></td><td>Capacity of the sealed daily bucket ring (90 is one quarter).</td></tr>
+    <tr><td><code>Privacy Mode</code></td><td>LIST</td><td><code>Full History</code></td><td>Full History keeps raw samples. Aggregates Only discards them and keeps hourly and daily totals. Paused stops capture entirely. One of: Full History · Aggregates Only · Paused</td></tr>
+    <tr><td><code>Persist Across Reboot</code></td><td>LIST</td><td><code>Aggregates Only</code></td><td>What survives a Director restart. Persisted data also lands in the project backup - see Storage Estimate. One of: Off · Aggregates Only · Full</td></tr>
+    <tr><td><code>Export Format</code></td><td>LIST</td><td><code>CSV</code></td><td>Format used by both Export to Lua Output and Export to Endpoint. One of: CSV · JSON</td></tr>
+    <tr><td><code>Export Endpoint URL</code></td><td>STRING</td><td><code></code></td><td>Optional HTTP endpoint that Export to Endpoint POSTs the export body to.</td></tr>
+    <tr><td><code>Current Value</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>Most recent recorded value with its units.</td></tr>
+    <tr><td><code>Window Summary</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>No data</code></td><td>Minimum, average, and maximum across the retained recent window.</td></tr>
+    <tr><td><code>Samples Stored</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>0</code></td><td>Rows currently held in each tier: recent, hourly, daily.</td></tr>
+    <tr><td><code>Storage Estimate</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>0 bytes</code></td><td>Approximate bytes this driver contributes to a project backup at the current retention and persistence settings.</td></tr>
+  </table>
+  <p><b>Standard IntegrateIT properties</b> — licensing, self-update, and diagnostics, auto-injected into every IntegrateIT driver:</p>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Driver Version</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>Debug Mode</code></td><td>LIST</td><td><code>Off</code></td><td>One of: Off · Print</td></tr>
+    <tr><td><code>Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Idle</code></td><td></td></tr>
+    <tr><td><code>License Key</code></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>License Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not activated - Lenient mode (control enabled)</code></td><td></td></tr>
+    <tr><td><code>License Enforcement</code></td><td>LIST</td><td><code>Lenient (recommended)</code></td><td>One of: Lenient (recommended) · Strict</td></tr>
+    <tr><td><code>License Server URL</code></td><td>STRING</td><td><code>https://relay.integrateit.dev</code></td><td></td></tr>
+    <tr><td><code>Update Manifest URL</code></td><td>STRING</td><td><code>https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/version.json</code></td><td></td></tr>
+    <tr><td><code>Automatic Update Check</code></td><td>LIST</td><td><code>Daily</code></td><td>One of: Daily · Off</td></tr>
+    <tr><td><code>Update Available</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td></td></tr>
+    <tr><td><code>About</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Powered by IntegrateIT - integrateit.tech</code></td><td></td></tr>
+  </table>
+  <h3>Actions (Composer Actions tab)</h3>
+  <table>
+    <tr><th>Action</th><th>Command</th></tr>
+    <tr><td>Record Sample Now</td><td><code>RECORD_SAMPLE</code></td></tr>
+    <tr><td>Seal Open Buckets</td><td><code>SEAL_BUCKETS</code></td></tr>
+    <tr><td>Export to Lua Output</td><td><code>EXPORT_LOG</code></td></tr>
+    <tr><td>Export to Endpoint</td><td><code>EXPORT_ENDPOINT</code></td></tr>
+    <tr><td>Clear History</td><td><code>CLEAR_HISTORY</code></td></tr>
+    <tr><td>Print Configuration</td><td><code>PRINT_CONFIG</code></td></tr>
+    <tr><td>Activate License Now <span class="pill blue">shared</span></td><td><code>ACTIVATE_LICENSE</code></td></tr>
+    <tr><td>Check for Update Now <span class="pill blue">shared</span></td><td><code>CHECK_UPDATE</code></td></tr>
+    <tr><td>Download &amp; Stage Update <span class="pill blue">shared</span></td><td><code>DOWNLOAD_UPDATE</code></td></tr>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tr><th>ID</th><th>Event</th><th>Fires when</th></tr>
+    <tr><td>12</td><td>Sample Recorded</td><td>A value was appended to the ledger.</td></tr>
+    <tr><td>13</td><td>New Maximum</td><td>The sample exceeded every previously recorded value.</td></tr>
+    <tr><td>14</td><td>New Minimum</td><td>The sample fell below every previously recorded value.</td></tr>
+    <tr><td>15</td><td>Significant Change</td><td>The sample moved from the previous one by at least Change Event Threshold percent.</td></tr>
+    <tr><td>16</td><td>Hour Rolled Over</td><td>A local hour ended and its bucket was sealed into the ledger.</td></tr>
+    <tr><td>17</td><td>Day Rolled Over</td><td>A local day ended and its bucket was sealed into the ledger.</td></tr>
+    <tr><td>18</td><td>Source Unavailable</td><td>A scheduled poll could not read a numeric value from the configured source.</td></tr>
+    <tr><td>19</td><td>History Cleared</td><td>Every tier, and any persisted copy, was purged.</td></tr>
+    <tr><td>20</td><td>Export Complete</td><td>An export was written to the Lua output window or accepted by the endpoint.</td></tr>
+    <tr><td>21</td><td>Retention Limit Reached</td><td>A ring reached capacity and began evicting its oldest rows.</td></tr>
+    <tr><td>1001</td><td>Update Available <span class="pill blue">shared</span></td><td>A newer driver version is available from IntegrateIT</td></tr>
+    <tr><td>1002</td><td>License Problem <span class="pill blue">shared</span></td><td>License key invalid, revoked, or bound to a different controller</td></tr>
+  </table>
+</section>
+</section>
+
+<section class="card" id="troubleshooting" data-card="troubleshooting">
+  <h2><span class="n">5</span> Troubleshooting</h2>
+  <table>
+    <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+    <tr><td><code>Samples Stored</code> stays at 0</td><td><code>Privacy Mode</code> is <b>Paused</b>, or no source is configured</td><td>Set Privacy Mode back to Full History / Aggregates Only; check <code>Source Device ID</code> and <code>Source Variable</code>.</td></tr>
+    <tr><td>Status reads *Source unavailable*</td><td>Wrong device id or variable name, or the variable is not numeric</td><td>Confirm both in Composer; a text variable such as a mode name cannot be graphed.</td></tr>
+    <tr><td><code>Current Value</code> never changes</td><td>The source updates more slowly than you expect, or the interval is long</td><td>Shorten <code>Sample Interval</code>, or call <b>Record Sample Now</b> from programming.</td></tr>
+    <tr><td>No <code>sample</code> rows in the export</td><td><code>Privacy Mode</code> is <b>Aggregates Only</b></td><td>That is by design — raw rows are never kept in that mode. Switch to Full History to retain them.</td></tr>
+    <tr><td>History is empty after a reboot</td><td><code>Persist Across Reboot</code> is <b>Off</b></td><td>Set it to Aggregates Only or Full, and check <code>Storage Estimate</code> for the backup cost.</td></tr>
+    <tr><td>Today's total looks low</td><td>The hour in progress has not been folded into the day yet</td><td>Run <b>Seal Open Buckets</b>, or read the <code>hour-open</code> row in the export.</td></tr>
+    <tr><td>Export to Endpoint does nothing</td><td><code>Export Endpoint URL</code> is blank</td><td>Set the URL; Status names the failure and the HTTP code when a send is rejected.</td></tr>
+    <tr><td>Nothing responds at all</td><td>Strict enforcement + unlicensed</td><td>Check <code>License Status</code>; Lenient mode keeps everything enabled without a key.</td></tr>
+  </table>
+  <div class="note">Turn on <code>Debug Mode → Print</code> to watch each sample, seal, and eviction in the Lua output window.</div>
+</section>
+<section class="card" id="licensing" data-card="licensing">
+  <h2><span class="n">L</span> Licensing</h2>
+  <p>This driver is licensed <b>per controller</b>. Each license key locks to one controller's
+  MAC address the first time it activates, exactly like other professional Control4 vendors.</p>
+  <ol>
+    <li>Generate a key for the customer in the IntegrateIT Ops Portal → <b>Licenses</b>.</li>
+    <li>Paste it into the driver's <code>License Key</code> property in Composer.</li>
+    <li>On activation the key binds to this controller; the <code>License Status</code> property
+      shows <span class="pill green">Licensed</span>.</li>
+  </ol>
+  <p><b>Enforcement.</b> <code>License Enforcement</code> defaults to
+  <span class="pill blue">Lenient (recommended)</span>: the driver works the moment it is wired,
+  so you can stage and verify a job before a key is minted, and a paid site keeps running if the
+  license server is ever unreachable. <code>License Status</code> still nags until a key activates.
+  Set it to <span class="pill amber">Strict</span> to disable all control until a valid key binds.</p>
+  <table>
+    <tr><th>License Status</th><th>What it means</th></tr>
+    <tr><td><span class="pill green">Licensed</span></td><td>Bound to this controller and activated.</td></tr>
+    <tr><td>Not activated, Lenient mode</td><td>No valid key yet. Control still works in Lenient mode; enter a key for production.</td></tr>
+    <tr><td><span class="pill amber">Bound elsewhere</span></td><td>The key is active on another controller. Unbind it in the Ops Portal to move it here.</td></tr>
+    <tr><td><span class="pill red">Revoked / Invalid</span></td><td>Contact IntegrateIT. Under Strict enforcement control stays disabled until a valid key is entered.</td></tr>
+  </table>
+  <div class="note">Replaced the controller? Click <b>Unbind</b> in the Ops Portal. The next controller
+  to activate with the key becomes its new home. The driver re-checks on boot and every 12 hours, and
+  keeps working through brief internet outages (it re-validates when the relay is reachable again).</div>
+</section>
+
+<section class="card" id="updates" data-card="updates">
+  <h2><span class="n">U</span> Automatic updates</h2>
+  <p>The driver checks IntegrateIT for a newer version on boot and once a day. There is <b>no need to
+  re-add the driver</b>. When an update is available the <code>Update Available</code> property
+  shows the new version and the driver fires its <span class="pill blue">Update Available</span> event.</p>
+  <ol class="steps">
+    <li>The driver flags <code>Update Available: vX.Y.Z</code> in its properties (or run the
+      <b>Check for Update Now</b> action).</li>
+    <li>Run the <b>Download &amp; Stage Update</b> action. The new <code>.c4z</code> is fetched
+      onto the controller.</li>
+    <li>In Composer, right-click the device, then choose <b>Update Driver</b>. Your settings, bindings,
+      and programming are preserved.</li>
+  </ol>
+  <div class="note good">Tip: wire the <b>Update Available</b> event to a notification so you know the
+  moment a new build ships.</div>
+</section>
+
+    <section class="card" id="changelog" data-card="changelog">
+  <h2><span class="n">V</span> Version history</h2>
+  <div class="chg">
+    <div class="rel"><b>v0.1.0</b> <span class="pill green">current</span><span class="d">2026-07-20</span>
+      <ul><li>First cut of the bounded metric ledger: a three-tier cascade (raw samples into an open hourly bucket, sealed hours folded into an open daily bucket) with a fixed-capacity ring behind each tier, so both memory and project-backup footprint are capped by configuration.</li><li>Local-calendar bucket keys rather than epoch arithmetic, so a daylight-saving day is still exactly one day; a repeated fall-back hour merges into its open bucket instead of duplicating or resurrecting a sealed one.</li><li>Insight surface: `METRIC_VALUE` / `METRIC_MIN` / `METRIC_MAX` / `METRIC_AVG` / `METRIC_TREND` / `METRIC_DELTA_1H` / `SAMPLE_COUNT` / `LAST_SAMPLE_AT`, plus events for new extremes, significant change, hour and day rollover, source loss, retention wrap, clear, and export.</li><li>Privacy Mode (Full History / Aggregates Only / Paused) outranks Persist Across Reboot (Off / Aggregates Only / Full); tightening privacy retroactively discards raw rows already held. `Storage Estimate` reports the ceiling a configuration can reach in a project backup.</li><li>CSV and JSON export, capped at 500 rows and truncated oldest-coarse-first, to the Lua output window or an HTTP endpoint; a rejected send is reported and dropped rather than retried.</li><li>Licensing: every control path (record, seal, export, clear) is behind `LicenseGate()`.</li><li>Release Candidate, simulation-verified. No representative hardware acceptance yet.</li></ul></div>
+  </div>
+</section>
+  </main>
+
+  <footer class="powered">
+    <div class="hairline" aria-hidden="true"></div>
+    <div class="pb">Powered by</div>
+    <img src="data:image/png;base64,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" alt="IntegrateIT">
+    <p class="places">Kansas City <b>·</b> South Florida</p>
+    <p class="support">support@integrateit.tech · (913) 804-7575</p>
+  </footer>
+</div>
+</body>
+</html>

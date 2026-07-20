@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:23.985Z",
+  "generated_at": "2026-07-20T20:41:27.058Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1627,6 +1627,153 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:02:58.228Z"
+    },
+    {
+      "slug": "integrateit_graphing_insights",
+      "name": "IntegrateIT Metrics & Insights",
+      "summary": "Samples any Control4 device variable into a bounded three-tier ledger (recent samples, hourly buckets, daily buckets), publishes min/max/average/trend insight variables and threshold events, and exports CSV or JSON for external charting. Local-calendar bucketing, an explicit privacy mode, and a capped project-backup footprint. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Metric Ledger",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Samples any Control4 device variable on a fixed interval, or on demand from programming",
+        "Three-tier bounded ledger: raw samples cascade into hourly buckets, sealed hours cascade into daily buckets",
+        "Every tier is a fixed-capacity ring, so storage is capped by configuration rather than by luck",
+        "Bucket boundaries come from the controller local calendar, so a DST day is still one day",
+        "Insight variables: current, min, max, average, trend, one-hour delta, and sample count",
+        "Events for new maximum, new minimum, significant change, hour rollover, day rollover, source loss, and retention wrap",
+        "Privacy Mode drops raw samples entirely (Aggregates Only) or stops capture (Paused)",
+        "Persist Across Reboot is Off, Aggregates Only, or Full, with a live estimate of the project-backup footprint",
+        "CSV or JSON export to the Lua output window or to an HTTP endpoint, redacted to match Privacy Mode",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Source",
+          "value": "Any device variable readable by device id and variable name, or programming calling Record Sample Now"
+        },
+        {
+          "label": "Output",
+          "value": "Variables plus events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Retention",
+          "value": "12-1440 recent samples, 6-168 hourly buckets, 1-90 daily buckets"
+        },
+        {
+          "label": "Export",
+          "value": "CSV or JSON, capped at 500 rows per export"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "A numeric device variable to sample, or Composer programming that calls Record Sample Now",
+        "For an HTTP export, a reachable endpoint that accepts a POST body",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative acceptance on a controller is still pending.",
+        "One metric per driver instance. Add another instance for a second series — the ledger is deliberately single-series so its storage ceiling stays predictable.",
+        "Only numeric values are recorded. A source variable that does not parse as a number is treated as unavailable.",
+        "Sampling is interval polling, not change subscription, so a spike between two samples is not seen.",
+        "Bucket keys come from the controller local calendar. On the fall-back DST day the repeated local hour merges into one hourly bucket, so that bucket covers two real hours; its count and sum stay correct but the bucket is wider.",
+        "Daily buckets are folded from sealed hourly buckets, so the open hour is not yet reflected in the current day total.",
+        "The ledger is append-only. A sample stamped earlier than the newest hour the ledger already holds is refused rather than back-filed, because only the open bucket can still absorb a value. In practice this only bites if the controller clock is stepped backwards across an hour boundary (a large NTP correction), after which sampling resumes once the clock passes the previous frontier.",
+        "Under Aggregates Only and Paused there are no raw rows, so Window Summary and the min/max/average/trend variables describe the most recent hourly bucket rather than a rolling window of the last N samples.",
+        "This driver renders no charts. It produces the numbers and the export; the picture belongs to whatever you feed it to.",
+        "Export is capped at 500 rows, so a longer history must be pulled in successive exports as it ages through the rings."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Metrics & Insights commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_graphing_insights",
+        "generated_at": "2026-07-20T20:41:26.581Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "24425aada2e47ea616877b5a972d9677de06036def111904a275467897ca34c5",
+        "artifact_sha256": "618133234acd351959afaba543426788624ce9e9e6325d7b23b50bd486916a2b",
+        "artifact_size_bytes": 98021,
+        "build_version_manifest_sha256": "59ec90efe1803a4f67ae10cee65cac8dc7b7501650cd0df1580bead0d79f96bf",
+        "version_manifest_sha256": "39b1b578e1c155fa361899a5ed2de9c45e0ca27f26b78e2d94c20b6b49446358",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 101
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 73,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 109,
+            "checks": 348,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 52,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 18,
+        "commands": 0,
+        "actions": 6,
+        "events": 10
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 98021,
+      "sha256": "618133234acd351959afaba543426788624ce9e9e6325d7b23b50bd486916a2b",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/integrateit_graphing_insights.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:27.051Z"
     },
     {
       "slug": "integrateit_hebcal",
