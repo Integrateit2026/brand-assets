@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:18.445Z",
+  "generated_at": "2026-07-20T20:41:21.145Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -949,6 +949,147 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T21:57:44.465Z"
+    },
+    {
+      "slug": "integrateit_enhanced_lighting",
+      "name": "IntegrateIT Enhanced Lighting",
+      "summary": "An enhanced lighting interface for up to eight bound loads with an original ladder-and-glide interaction model, live external-change tracking, and Control4 version-capability detection that picks a native-ramp or emulated-fade transition path. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Enhanced Lighting Interface",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Drives 1-8 bound light loads as one coordinated group from a single set of programming commands",
+        "Original ladder interaction: each Tap walks a dealer-defined level ladder, then wraps to Off or holds at the top",
+        "Original glide interaction: Hold Up / Hold Down move the level continuously at a configurable rate until Release pins it",
+        "Control4 version-capability detection picks a native-ramp transition path on OS 3.3.0+ and an emulated stepped fade below it",
+        "Level reports from the loads re-anchor the ladder, so a keypad, app, or scene change does not desync the interface",
+        "Turned On / Turned Off / Level Changed / Ladder Wrapped / Favorite Recalled / External Change Detected / Capability Tier Changed events plus LIGHT_LEVEL, IS_ON, LADDER_STEP, CAPABILITY_TIER and LAST_INTERACTION variables",
+        "The group level survives a controller reboot and is re-anchored by the first report from the loads",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Enhanced tier",
+          "value": "OS 3.3.0 or newer — native ramp transitions"
+        },
+        {
+          "label": "Legacy tier",
+          "value": "OS below 3.3.0, or any controller whose version cannot be read — emulated stepped fade"
+        },
+        {
+          "label": "Loads",
+          "value": "1-8 LIGHT_V2 bindings (dimmers or switches)"
+        },
+        {
+          "label": "Interface",
+          "value": "Composer programming commands and variables (headless, no Navigator tile)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "One to eight dimmer or switch loads bindable in Composer",
+        "A keypad, remote, or programming event to send the interaction commands",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified in the Control4 API simulator only; acceptance against real dimmers on a controller is still pending.",
+        "The load bindings use the light_v2 proxy vocabulary (OFF, SET_LEVEL and RAMP_TO_LEVEL outbound; LIGHT_LEVEL inbound). A load that does not implement RAMP_TO_LEVEL should be run on the Legacy tier, which only ever sends OFF and SET_LEVEL.",
+        "Auto detection falls back to the Legacy tier when the controller exposes no readable OS version. Pin Capability Mode if Detected OS Version reads Undetected on a 3.3+ system.",
+        "Switch-only (non-dimming) loads snap between Off and On rather than following the ladder or the glide.",
+        "Headless interface: there is no Navigator tile. Every interaction arrives as a Composer programming command.",
+        "The loads are driven as one group. Per-load levels, colour temperature, and scene sequencing are out of scope for this version."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Enhanced Lighting commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_enhanced_lighting",
+        "generated_at": "2026-07-20T20:41:20.798Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "5589a7c034b1cc2299a7f396898d8ad613147801525fc7de3e34e5991264ff1f",
+        "artifact_sha256": "245e1b6e6d21d2f15e28a26ef47b5bc220bc744276cd03dfb265d6b3ccb803ff",
+        "artifact_size_bytes": 94954,
+        "build_version_manifest_sha256": "97d9564e953e6a69fec3ed62d29184d2b4b476d4987c869348026c3892cced5b",
+        "version_manifest_sha256": "74c33569dcddfee10bf678c5e019ccc0b8fc185ad6dc1f4933e78a4587b94682",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 99
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 71,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 78,
+            "checks": 326,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 52,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 8,
+        "properties": 13,
+        "commands": 9,
+        "actions": 3,
+        "events": 7
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 94954,
+      "sha256": "245e1b6e6d21d2f15e28a26ef47b5bc220bc744276cd03dfb265d6b3ccb803ff",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/integrateit_enhanced_lighting.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:21.138Z"
     },
     {
       "slug": "integrateit_enhanced_scheduler",

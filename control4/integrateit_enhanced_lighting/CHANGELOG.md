@@ -1,0 +1,11 @@
+# Changelog — IntegrateIT Enhanced Lighting
+
+## [0.1.0] - 2026-07-20
+- First cut of the enhanced lighting interface: 1-8 LIGHT_V2 loads driven as one group.
+- Original ladder interaction — each Tap moves to the first rung above the group's real level, then wraps to Off or holds at the top.
+- Original glide interaction — Hold Up / Hold Down ramp at a configurable rate, Release pins the level, and the glide stays quiet so exactly one event settles the group.
+- Control4 version-capability detection: OS 3.3.0+ resolves to the Enhanced tier (one native RAMP_TO_LEVEL per load), everything below — and any controller with no readable version — resolves to the Legacy tier (driver-emulated stepped fade). Capability Mode pins either tier.
+- External-change tracking: a level a load reports that the driver did not command is adopted, published, and announced, so the ladder anchors to reality instead of desyncing. Echo suppression is bounded in time, so a load that never echoes cannot blind detection at that level.
+- Bind-time snapshots are absorbed silently: the first level a load reports after a driver load or Director restart establishes the baseline without firing Turned On / Level Changed / External Change Detected, so dealer programming does not re-run on every reboot.
+- The group level survives a controller reboot and is corrected quietly by the first load report that disagrees.
+- MAC-locked IntegrateIT licensing on every interaction AND on the load-report feedback path; under Strict enforcement an unlicensed controller drives no loads and fires no events at all.

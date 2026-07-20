@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_enhanced_lighting",
+  "generated_at": "2026-07-20T20:41:20.798Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "5589a7c034b1cc2299a7f396898d8ad613147801525fc7de3e34e5991264ff1f",
+  "artifact_sha256": "245e1b6e6d21d2f15e28a26ef47b5bc220bc744276cd03dfb265d6b3ccb803ff",
+  "artifact_size_bytes": 94954,
+  "build_version_manifest_sha256": "97d9564e953e6a69fec3ed62d29184d2b4b476d4987c869348026c3892cced5b",
+  "version_manifest_sha256": "74c33569dcddfee10bf678c5e019ccc0b8fc185ad6dc1f4933e78a4587b94682",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 99
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 71,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 78,
+      "checks": 326,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 52,
+      "files": 2
+    }
+  ]
+}
