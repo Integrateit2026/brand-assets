@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Bond",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/integrateit_bond.c4z",
+  "notes": "Control a single Bond Home device (Smart by Bond ceiling fan, light, shade, or generic remote) over the local, unencrypted Bond v2 HTTP API — power, fan speed, light, brightness, summer/winter direction, and open/close/hold — with a configurable state poll that publishes POWER, SPEED, LIGHT, BRIGHTNESS, DIRECTION, and DEVICE_ONLINE variables plus on/off/light/online events. LAN-only destination safeguard, the Bond token never logged, and MAC-locked IntegrateIT licensing.",
+  "sha256": "42df3a3b59b65a7f2977566d69859e9a5770a66e368221c594fcbc0d251ffce7",
+  "size_bytes": 83224,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-20T21:14:43.242Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/qa-report.json"
+}

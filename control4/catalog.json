@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:44.986Z",
+  "generated_at": "2026-07-20T21:14:43.250Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -270,6 +270,141 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T21:54:15.922Z"
+    },
+    {
+      "slug": "integrateit_bond",
+      "name": "IntegrateIT Bond",
+      "summary": "Control a single Bond Home device (Smart by Bond ceiling fan, light, shade, or generic remote) over the local, unencrypted Bond v2 HTTP API — power, fan speed, light, brightness, summer/winter direction, and open/close/hold — with a configurable state poll that publishes POWER, SPEED, LIGHT, BRIGHTNESS, DIRECTION, and DEVICE_ONLINE variables plus on/off/light/online events. LAN-only destination safeguard, the Bond token never logged, and MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Bond",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Local Bond v2 HTTP control of one device — no cloud dependency",
+        "Ceiling fan: power, ranged speed, increase/decrease, light, brightness, and summer/winter direction",
+        "Shade / blind: open, close, and hold",
+        "Generic remote: toggle power and toggle light",
+        "Configurable state poll publishes POWER, SPEED, LIGHT, BRIGHTNESS, DIRECTION, and DEVICE_ONLINE",
+        "Turned On/Off, Light On/Off, and Went Online/Offline events for Composer programming",
+        "LAN-only destination safeguard, the Bond token is never written to the log, and MAC-locked IntegrateIT licensing"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge or Smart by Bond device, local API v2 enabled"
+        },
+        {
+          "label": "Devices",
+          "value": "One ceiling fan, light, shade, or generic remote per driver instance"
+        },
+        {
+          "label": "State feedback",
+          "value": "Polled (default 5s); BPUP push and mDNS discovery are future work"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Bond Bridge or Smart by Bond device reachable on the same LAN as the controller",
+        "The Bond's IP address and its local API token (Bond Home app, device Settings, Advanced Settings, Local Token)",
+        "The target device id (use the List Bond Devices action to enumerate them)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond and controller is not yet attached to this release.",
+        "One Bond device per driver instance — add another instance for each fan, light, or shade you want to control.",
+        "State feedback is by polling, not push: a change made from a Bond remote or the Bond app is reflected on the next poll (default 5s), not instantly. BPUP UDP push (port 30007) and mDNS (_bond._tcp) discovery are documented by Bond but out of scope for v0.1.0.",
+        "The Bond local API is plain, unencrypted HTTP on port 80 — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes.",
+        "Which actions a device accepts depends on how it was learned by Bond; an action the device does not support returns a Bond error that the driver surfaces in Status."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained Bond commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Bond commissioning guide showing overview, install steps, command reference, and safety limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_bond",
+        "generated_at": "2026-07-20T21:14:42.766Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "dda89a3413fc8bc569e08559eda405e16845df769a2f5ffa8e33576acb6ab644",
+        "artifact_sha256": "42df3a3b59b65a7f2977566d69859e9a5770a66e368221c594fcbc0d251ffce7",
+        "artifact_size_bytes": 83224,
+        "build_version_manifest_sha256": "cda5992def93a6f0bccdedd1c0fc7fa244691e9a4d90f0ae39411f06d765698e",
+        "version_manifest_sha256": "8088db2e7a4cd195e7b4b4686bce69d043f699cb1581a1cc757b4f797fe8522e",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 139
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 92,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 96,
+            "checks": 225,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 70,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 10,
+        "commands": 16,
+        "actions": 4,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 83224,
+      "sha256": "42df3a3b59b65a7f2977566d69859e9a5770a66e368221c594fcbc0d251ffce7",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/integrateit_bond.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T21:14:43.242Z"
     },
     {
       "slug": "integrateit_circadian_lighting",
