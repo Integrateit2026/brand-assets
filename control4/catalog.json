@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:41.713Z",
+  "generated_at": "2026-07-20T20:41:44.986Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3817,6 +3817,142 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-20T20:41:41.706Z"
+    },
+    {
+      "slug": "integrateit_support_surface",
+      "name": "IntegrateIT Support Surface",
+      "summary": "An in-project Navigator support button that opens a dealer-configured HTTPS support or contact page on touchscreens and mobile. HTTPS-only with strict URL validation, an on-driver privacy disclosure, no hidden tracking, no inbound WebView command bridge, and graceful offline messaging when the page cannot be reached. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Support Surface",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "One Navigator experience button that opens a dealer-configured support or contact page on touchscreens and in the mobile apps",
+        "HTTPS-only destination with strict validation: scheme, host shape, embedded-credential, control-character and length checks, with the rejection reason named in Destination Status",
+        "Controller identity is NEVER sent unless the dealer explicitly opts in via Send Controller Identity; the default opens the URL exactly as entered, and driver-made reachability probes never carry it even when the opt-in is on",
+        "A read-only Privacy Disclosure property stating, in plain language, every request this driver makes and every field it can attach",
+        "No inbound WebView command bridge: a page loaded in this surface cannot execute Control4 commands through this driver",
+        "Optional reachability check (on open, or hourly) with Destination Unreachable / Destination Restored events and a dealer-authored offline message for programming",
+        "Support Contact Name / Phone / Email published as the SUPPORT_CONTACT variable so announcements and dashboards can read the fallback path",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Navigator",
+          "value": "Experience (uibutton) with an HTML WebView; mobile WebView enabled"
+        },
+        {
+          "label": "Destination",
+          "value": "HTTPS URLs only; http, javascript, data, and file schemes are refused"
+        },
+        {
+          "label": "Reachability check",
+          "value": "Off, On Open, or Hourly - a single GET of the configured page, nothing else"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer with a Navigator touchscreen or mobile app",
+        "An HTTPS support or contact page reachable from the controller's network",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; acceptance on physical touchscreens and the mobile apps is still pending.",
+        "Rendering, scrolling, form input, and accessibility inside the page are the Control4 WebView's behavior and the page's own responsibility - this driver only supplies a validated URL.",
+        "The reachability check is a single GET of the configured page. It proves the server answered; it cannot prove the page rendered correctly.",
+        "Hourly checks probe once shortly after boot and then once an hour, so an outage that starts and ends between two checks is never observed and raises no event.",
+        "Opting in to Send Controller Identity adds the controller MAC as a query parameter, which the destination operator then sees. That is a deliberate, disclosed choice.",
+        "Navigator caches the WebView URL. After changing Support URL the button re-pushes on its next press; refreshing Navigators makes it immediate."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Support Surface commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_support_surface",
+        "generated_at": "2026-07-20T20:41:44.646Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "0e912018c576ee8e69bdc2784be6b2dbd09aeb02faac28b1390aea0221859cf4",
+        "artifact_sha256": "2a112615bb1a1b07c1c850d0cc36d5dee2b252941a69275085c4fbca7355d6f5",
+        "artifact_size_bytes": 93140,
+        "build_version_manifest_sha256": "337f5990fa952a66d5f3ade0c4b4ad6035ff6a2632db7670c6a444333b737714",
+        "version_manifest_sha256": "ca276761568ecb96a86075e5040ad835f8f45e99d48a0f21df741cddde0959f8",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 101
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 69,
+            "checks": 20,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 75,
+            "checks": 263,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 11,
+        "commands": 0,
+        "actions": 5,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 93140,
+      "sha256": "2a112615bb1a1b07c1c850d0cc36d5dee2b252941a69275085c4fbca7355d6f5",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/integrateit_support_surface.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:44.979Z"
     },
     {
       "slug": "integrateit_tcp_toolkit",
