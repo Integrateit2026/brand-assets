@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:27.058Z",
+  "generated_at": "2026-07-20T20:41:29.873Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -2045,6 +2045,153 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:06:28.274Z"
+    },
+    {
+      "slug": "integrateit_integrator_tools",
+      "name": "IntegrateIT Integrator Tools",
+      "summary": "A dealer utility surface that puts three labelled privileged maintenance tasks behind an explicit confirmation step and writes every request, authorization, denial and lock change to a persistent on-controller audit log with an optional webhook. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Integrator Tools",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Three dealer-labelled privileged maintenance tasks, each authorized as a Control4 event your own programming acts on",
+        "Three confirmation regimes: Two-Step Confirm, Code Confirm (one-time code printed to the Lua output window), or Immediate for unattended automation - and clearing the audit log always takes a confirmation step, even under Immediate",
+        "A confirmation window that expires on its own schedule, so an armed request never sits waiting indefinitely",
+        "Maintenance Lock refuses every privileged request until a dealer explicitly releases it",
+        "Persistent ring-buffer audit log — requests, authorizations, denials, expiries, lock changes — that survives controller reboots",
+        "Optional audit webhook: every entry POSTs as JSON to your own endpoint, plus an on-demand full-log export",
+        "Authorization Requested / Cleared / Denied, per-task Authorized, Audit Log Cleared and Maintenance Lock Changed events for programming",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bindings",
+          "value": "None - headless utility driver, no Navigator tile"
+        },
+        {
+          "label": "Output",
+          "value": "Events + variables for programming, plus a printed audit log"
+        },
+        {
+          "label": "Confirmation window",
+          "value": "10-900 seconds"
+        },
+        {
+          "label": "Audit log depth",
+          "value": "5-200 entries, persisted on the controller"
+        },
+        {
+          "label": "Audit webhook",
+          "value": "Optional HTTPS endpoint accepting a JSON POST"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "Composer programming that performs the actual maintenance work when a task is authorized",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; acceptance on a physical controller is still pending.",
+        "This driver authorizes and records maintenance tasks, it does not perform them. The destructive work belongs to the Composer programming bound to each Authorized event - the driver cannot restart services, reset rooms, or erase credentials by itself.",
+        "The confirmation step is operational friction, not an authentication system. Anyone who can reach ComposerPro on this project can run the Actions; the value is that the second step is deliberate and the log records who claimed it.",
+        "Operator Name is dealer-entered free text recorded verbatim - an attribution field, not a verified identity.",
+        "Code Confirm prints the one-time code to the Lua output window, so the confirming dealer must have the driver's Lua tab open. It is not delivered out-of-band.",
+        "Immediate mode removes the confirmation step for the three task slots entirely - a single Action authorizes and fires. Use it only where the Actions are driven by trusted programming, not by a person. Clearing the audit log is exempt and always confirms.",
+        "The audit log names the confirmation-mode changes, webhook retargeting, lock changes and every request outcome, but it is written by this driver on this controller: anyone with project-level access to remove or re-add the driver discards it. The webhook is the off-controller copy.",
+        "The audit log is a ring buffer in driver PersistData: it survives reboots and driver updates, but it is bounded by Audit Log Size and is lost if the driver is removed from the project. Configure the audit webhook when you need durable off-controller retention.",
+        "Audit webhook delivery is fire-and-forget: a failed POST is reported in Audit Delivery and the entry stays in the local log, but it is not queued or retried."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Integrator Tools commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_integrator_tools",
+        "generated_at": "2026-07-20T20:41:29.405Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "aa9305aa9f1f52870f9a755dd5f6733959181858e5efca9aa02284c5920fe00a",
+        "artifact_sha256": "0bbce8aa5340887e6e47d7d623663d56ee64e1bf9b621f600ed9cff02ecdcc2f",
+        "artifact_size_bytes": 92974,
+        "build_version_manifest_sha256": "d187e8f796f0b4195c8d123d827fd10d2611466beb50ed82694b1b520bbefb85",
+        "version_manifest_sha256": "05bd682eb3223d507eb2f146cdca6808a9409817965de4979c50cd444dcb64d1",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 96
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 67,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 74,
+            "checks": 277,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 50,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 14,
+        "commands": 0,
+        "actions": 11,
+        "events": 9
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 92974,
+      "sha256": "0bbce8aa5340887e6e47d7d623663d56ee64e1bf9b621f600ed9cff02ecdcc2f",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/integrateit_integrator_tools.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:29.866Z"
     },
     {
       "slug": "integrateit_leak_detection",

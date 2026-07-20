@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "0bbce8aa5340887e6e47d7d623663d56ee64e1bf9b621f600ed9cff02ecdcc2f",
+      "size_bytes": 92974,
+      "published_at": "2026-07-20T20:41:29.866Z",
+      "notes": "Initial release candidate: a dealer utility surface that authorizes and records privileged maintenance work · Three project-labelled privileged tasks, each authorized as its own Control4 event; the driver performs no maintenance itself · Three confirmation regimes (Two-Step Confirm, Code Confirm with a printed one-time code, Immediate) behind a bounded confirmation window that keeps its original schedule once armed · Maintenance Lock that refuses every privileged request and clears anything pending; persisted across reboots · Persistent ring-buffer audit log with an optional JSON webhook per entry plus a full-log export; clearing the log is itself confirmed and leaves a tombstone · MAC-locked IntegrateIT licensing on every privileged path; read-only diagnostics stay available unlicensed",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

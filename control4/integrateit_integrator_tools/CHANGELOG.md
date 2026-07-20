@@ -1,0 +1,16 @@
+# Changelog — IntegrateIT Integrator Tools
+
+## [Unreleased] - 2026-07-20 — adversarial review fixes
+- **Confirmation codes are now seeded per driver load.** Lua 5.1 starts `math.random` from a fixed sequence unless seeded, so the "one-time" code was identical on every controller and every reload — guessable without ever seeing one. Seeded from wall clock + process clock + controller MAC + a persisted nonce that bumps each boot, so two reloads inside the same second still diverge.
+- **Immediate mode can no longer clear the audit log unconfirmed.** Immediate applies to the three task slots only; `Request Audit Log Clear` always arms a Two-Step confirmation. A one-Action unconfirmed wipe of the accountability record was the worst thing this driver could do.
+- **Discarding a request after three wrong codes now fires `Authorization Cleared`.** It previously fired only `Authorization Denied`, leaving programming that latches pending on Requested/Cleared stuck on the one path that discards a live request.
+- **Confirmation-mode and audit-webhook changes are now audited.** Weakening the confirmation regime, or retargeting the audit egress off this controller, are exactly what the trail exists to name. The webhook URL itself is not logged — it can carry a token — only that it was set, changed, or cleared.
+- Catalog honesty: Immediate mode's removal of the confirmation step for task slots, and the fact that the local log dies with the driver, are now stated in `limitations`.
+
+## [0.1.0] - 2026-07-20
+- Initial release candidate: a dealer utility surface that authorizes and records privileged maintenance work
+- Three project-labelled privileged tasks, each authorized as its own Control4 event; the driver performs no maintenance itself
+- Three confirmation regimes (Two-Step Confirm, Code Confirm with a printed one-time code, Immediate) behind a bounded confirmation window that keeps its original schedule once armed
+- Maintenance Lock that refuses every privileged request and clears anything pending; persisted across reboots
+- Persistent ring-buffer audit log with an optional JSON webhook per entry plus a full-log export; clearing the log is itself confirmed and leaves a tombstone
+- MAC-locked IntegrateIT licensing on every privileged path; read-only diagnostics stay available unlicensed
