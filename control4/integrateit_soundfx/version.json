@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT SoundFX",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/integrateit_soundfx.c4z",
+  "notes": "Plays short audio cues into Control4 rooms with a FIFO queue, three concurrency modes, automatic room-volume snapshot and restore, mid-cue zone-removal handling, and restore-after-controller-restart. Ships no audio - you supply IntegrateIT-owned or licensed media. MAC-locked IntegrateIT licensing.",
+  "sha256": "fea548dd240382db037d73666d04aa86b3278d6cdbb8ab8f0f7c5ea72b20eeb6",
+  "size_bytes": 94320,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-20T20:41:41.706Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/qa-report.json"
+}

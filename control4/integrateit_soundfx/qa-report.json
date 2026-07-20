@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_soundfx",
+  "generated_at": "2026-07-20T20:41:41.372Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "a2799267ef31dcb047fb4330cb7b7a539fdecdca77f9237ba0ab6bbf843f39d4",
+  "artifact_sha256": "fea548dd240382db037d73666d04aa86b3278d6cdbb8ab8f0f7c5ea72b20eeb6",
+  "artifact_size_bytes": 94320,
+  "build_version_manifest_sha256": "fc6adb19ae61c6b919d8ca9184c0aba1b83681b5d3d506b58cf5ceeb6ad51de9",
+  "version_manifest_sha256": "20ff126bef8aa3174c5e5a315f78799458992bfc0593e1d893cb106433288c97",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 100
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 70,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 71,
+      "checks": 300,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 49,
+      "files": 2
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:38.331Z",
+  "generated_at": "2026-07-20T20:41:41.713Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3678,6 +3678,145 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:20:21.594Z"
+    },
+    {
+      "slug": "integrateit_soundfx",
+      "name": "IntegrateIT SoundFX",
+      "summary": "Plays short audio cues into Control4 rooms with a FIFO queue, three concurrency modes, automatic room-volume snapshot and restore, mid-cue zone-removal handling, and restore-after-controller-restart. Ships no audio - you supply IntegrateIT-owned or licensed media. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Audio Cue Engine",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Six cue slots, each with its own name, media reference, and zone list",
+        "FIFO cue queue with a configurable depth and a Drop Newest / Drop Oldest overflow policy",
+        "Three concurrency modes: One At A Time, Per Zone, and Unlimited",
+        "Snapshots each room's volume and power selection before a cue and restores both when it ends",
+        "Owed levels are persisted, so a controller restart mid-cue still puts the rooms back",
+        "A zone removed from configuration mid-cue is still restored from the running cue's own snapshot",
+        "Cue Started / Finished / Queued / Dropped, Queue Empty, Volumes Restored, and Zone Unavailable events plus SOUNDFX_STATE, NOW_PLAYING, CUE_MEDIA, CUE_ZONES, QUEUE_DEPTH, ACTIVE_ZONES, LAST_CUE variables",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Zones",
+          "value": "Any Control4 room, addressed by room device ID"
+        },
+        {
+          "label": "Media source",
+          "value": "Any audio device already in the project; the driver routes and levels the room, your programming starts the file"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "The room device ID of every zone that should receive cues",
+        "An audio source already in the project that can play your cue media",
+        "Cue media you own or are licensed to use - IntegrateIT ships no audio files with this driver",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified only. No controller or room acceptance test has been run against this build.",
+        "The driver does not stream or bundle audio. It routes the room to your chosen source, sets the cue level, and publishes the cue's media reference; your Composer programming (or an always-on source) starts the actual file.",
+        "A room reports no end-of-media callback, so cue length is the fixed Cue Hold Seconds timer rather than the true file duration. Set it slightly longer than your longest cue.",
+        "The room commands used (SELECT_AUDIO_DEVICE, SET_VOLUME_LEVEL, ROOM_OFF) and the CURRENT_VOLUME / CURRENT_SELECTION room variables are the Control4 room-proxy surface; they have not yet been confirmed on a physical controller for this driver.",
+        "If a room's CURRENT_VOLUME cannot be read the cue still plays, but that zone is neither volume- nor power-restored - an unreadable room is treated as unknown, never as 'was off' - and a Zone Unavailable event fires.",
+        "Under Unlimited concurrency two cues may share a room. The second inherits the first's pre-cue snapshot and only the last cue to finish restores the room, so the room holds the cue level until every overlapping cue has ended.",
+        "Restore-after-restart replays the persisted levels once at driver init. A room changed by hand between the restart and that replay is overwritten."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT SoundFX commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_soundfx",
+        "generated_at": "2026-07-20T20:41:41.372Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "a2799267ef31dcb047fb4330cb7b7a539fdecdca77f9237ba0ab6bbf843f39d4",
+        "artifact_sha256": "fea548dd240382db037d73666d04aa86b3278d6cdbb8ab8f0f7c5ea72b20eeb6",
+        "artifact_size_bytes": 94320,
+        "build_version_manifest_sha256": "fc6adb19ae61c6b919d8ca9184c0aba1b83681b5d3d506b58cf5ceeb6ad51de9",
+        "version_manifest_sha256": "20ff126bef8aa3174c5e5a315f78799458992bfc0593e1d893cb106433288c97",
+        "version": "0.1.1",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 100
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 70,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 71,
+            "checks": 300,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 49,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 30,
+        "commands": 9,
+        "actions": 10,
+        "events": 7
+      },
+      "version": "0.1.1",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 94320,
+      "sha256": "fea548dd240382db037d73666d04aa86b3278d6cdbb8ab8f0f7c5ea72b20eeb6",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/integrateit_soundfx.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:41.706Z"
     },
     {
       "slug": "integrateit_tcp_toolkit",
