@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T20:41:32.734Z",
+  "generated_at": "2026-07-20T20:41:35.626Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -2867,6 +2867,147 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:13:34.745Z"
+    },
+    {
+      "slug": "integrateit_network_agents",
+      "name": "IntegrateIT Network Agent",
+      "summary": "Bounded LAN reachability diagnostics for up to six allowlisted peers over an original authenticated probe protocol: one fixed PING frame, a shared-secret token, a per-minute rate limit, a LAN-only guard, and redacted logging. No shell, no scanning, no remote command channel. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Network Agent",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Reachability and responsiveness for 1-6 explicitly allowlisted peers, on demand or on a timer",
+        "IIT-NA/1: an original single-frame probe protocol - the driver can only ever emit PING, so there is no remote command channel",
+        "Shared-secret token on every probe; a reply counts only when the protocol tag and the probe sequence both match",
+        "LAN-only destination guard with canonical-IPv4 parsing; WAN peers are refused unless the dealer explicitly opts in",
+        "Per-minute probe budget with a Probe Rate Limited event, so a sweep can never turn into a scan",
+        "Redacted address logging by default, and the shared secret is never printed or read back into a property",
+        "Peer Reachable / Unreachable / Degraded / Rejected, All Peers Reachable, and Probe Sweep Complete events plus NA_ variables",
+        "Cumulative probe statistics that survive a controller reboot, clearable from the Actions tab",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Peers",
+          "value": "1-6 allowlisted hosts on one shared agent port"
+        },
+        {
+          "label": "Transport",
+          "value": "Outbound TCP only, one fixed IIT-NA/1 PING frame per probe"
+        },
+        {
+          "label": "Output",
+          "value": "Variables + events for programming (headless, no Navigator tile)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "Each peer must accept an inbound TCP connection on the configured agent port",
+        "A peer that should confirm the handshake must answer IIT-NA/1; a peer that does not still yields a connect-only reachability result",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative peer acceptance on a controller is still pending.",
+        "Diagnostics only: the driver reports reachability and responsiveness, it does not remediate, restart, or control anything on a peer.",
+        "Probing is limited to the addresses typed into the Peer Address properties. There is no discovery, no subnet enumeration, and no way to reach a host that is not in that list.",
+        "Outbound TCP with no TLS: the shared secret is base64-framed, not encrypted, so treat it as a tamper hint on a trusted LAN segment rather than a cryptographic credential.",
+        "A peer that accepts the connection but never speaks IIT-NA/1 is reported Reachable on the connect alone; the handshake only confirms that result or downgrades it to Degraded.",
+        "Responsiveness is judged against the Slow Response Threshold, not reported as a millisecond latency figure, because the driver has no monotonic clock accessor.",
+        "IPv6 peers are refused in this version.",
+        "Only the cumulative statistics survive a reboot, not the verdicts. After a controller restart or driver reload every peer is Unknown and NA_ALL_REACHABLE reads false until the next sweep, so programming should key off the sweep events rather than the boot-time variable state.",
+        "Reconfiguring a peer's address, agent port, or the WAN guard while a probe is in flight withdraws that probe silently: it reports no verdict, because nothing was learned about the host under the new configuration."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Network Agent commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_network_agents",
+        "generated_at": "2026-07-20T20:41:35.170Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "ff06616bcfb265ae013ae49b3679747a841942689e7b909a91aa2e12cc283f54",
+        "artifact_sha256": "0a23961cfae743eb4df1fc56e51d758a6160f7e31c9ab82e384f4bc5a64ae6d0",
+        "artifact_size_bytes": 96853,
+        "build_version_manifest_sha256": "17f96a7509959aec8e7e8a7b945a71b59a379b5cb4b38b62e15b1be9e14e3829",
+        "version_manifest_sha256": "590b66bf200d6bc01e75187693864281470fe2009d1a5126e6a2a92ddec5b27d",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 99
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 69,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 77,
+            "checks": 266,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 25,
+        "commands": 0,
+        "actions": 9,
+        "events": 7
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 96853,
+      "sha256": "0a23961cfae743eb4df1fc56e51d758a6160f7e31c9ab82e384f4bc5a64ae6d0",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/integrateit_network_agents.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-20T20:41:35.617Z"
     },
     {
       "slug": "integrateit_occupancy",
