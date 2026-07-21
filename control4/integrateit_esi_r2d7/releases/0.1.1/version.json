@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT ESI R2D7 Shades",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/releases/0.1.1/integrateit_esi_r2d7.c4z",
+  "notes": "Drives ESI / Draper R2D7 shade and screen systems over the published R2D7 V4.1 serial protocol: open/close/stop per system address and channel, configurable travel duration, a paced transmit queue that honors the unit's XON/XOFF flow control, and honest assumed-state tracking - the R2D7 acknowledges commands but never reports position.",
+  "sha256": "109c1d5b0fa507125ece62861db195b0893947851a89b2516d7fe5e9432fb918",
+  "size_bytes": 96731,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:45:56.449Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/qa-report.json"
+}

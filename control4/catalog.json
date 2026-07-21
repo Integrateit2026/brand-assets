@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:45:53.293Z",
+  "generated_at": "2026-07-21T19:45:56.456Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1358,6 +1358,142 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T21:59:28.968Z"
+    },
+    {
+      "slug": "integrateit_esi_r2d7",
+      "name": "IntegrateIT ESI R2D7 Shades",
+      "summary": "Drives ESI / Draper R2D7 shade and screen systems over the published R2D7 V4.1 serial protocol: open/close/stop per system address and channel, configurable travel duration, a paced transmit queue that honors the unit's XON/XOFF flow control, and honest assumed-state tracking - the R2D7 acknowledges commands but never reports position.",
+      "category": "others",
+      "device_type": "ESI / Draper R2D7 Interface",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Open, close, and stop for any R2D7 system address (0-99) and channel (1-60, or ALL)",
+        "Configurable travel duration: run to the motor limits or an explicit 1-50 second burst, per the documented 20ths-of-a-second duration field",
+        "Paced command queue with configurable spacing that also honors the R2D7's documented XON/XOFF flow control, with a lost-XON recovery guard",
+        "Acknowledgement diagnostics: good-command acks counted, unparseable-command (U) rejections surfaced as events, buffer purges (O) reported",
+        "Semicolon or carriage-return terminator to match the installation",
+        "Advanced raw-command sender that validates the documented frame grammar - and refuses the motor-programming and port-mode letters outright",
+        "Honest assumed-state tracking per channel: Command Sent plus Shade Assumed Open / Closed / Stopped events and programming variables"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "One RS-232 serial binding (9600 baud 8N1) to the R2D7's RJ14 jack via a DB9-to-RJ14 adapter"
+        },
+        {
+          "label": "Motors",
+          "value": "RP60-series motor controllers on the R2D7's RP bus, channels 1-60 per system port"
+        },
+        {
+          "label": "Feedback",
+          "value": "Command acknowledgements only - the R2D7 has no position query or status report (assumed state only)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "An ESI R2D7 serial interface (or the identical Draper-badged R2D7 / IntelliFlex RS232 unit) with RP60 motor controllers wired to its RP bus",
+        "A Control4 controller or IO extender RS-232 port wired to the R2D7 at 9600 baud 8N1 (DB9F-to-RJ14 adapter: Yellow=Rx, Green=Tx, Black=GND)",
+        "Motor limits calibrated at the RP60 controllers - the driver's run-to-limits default relies on them",
+        "Composer Pro access for the serial binding and future in-place updates"
+      ],
+      "limitations": [
+        "NO POSITION FEEDBACK: the R2D7 acknowledges commands (LF/CR/U/O bytes) but has no position query and no status report. Every state this driver shows is assumed from the last command it sent; position feedback does not exist and cannot be added in software.",
+        "Because state is assumed, a wall switch or handheld radio control moving a shade is invisible to the driver - the assumed state goes stale until the next driver command.",
+        "NO AUTHENTICATION on the R2D7 itself: it is an open serial control port. If you front it with an IP-to-serial bridge, that bridge exposes unauthenticated shade control to the LAN - secure the bridge.",
+        "Radio addresses (7-99) require an ESI RFTM transmitter module in the R2D7's port 7 jack; the driver sends the frames but cannot verify the module is present.",
+        "Motor programming (p/a) and port-mode (R/B) protocol letters are deliberately refused, including in the raw sender - programming is done at the hardware per ESI's instructions.",
+        "Release Candidate: simulator verified; representative R2D7 + RP60 hardware acceptance is still pending."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT ESI R2D7 Shades commissioning guide showing serial wiring, addressing, duration model, flow control, and the assumed-state model.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_esi_r2d7",
+        "generated_at": "2026-07-21T19:45:55.939Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "d273b277e6233a860ecb0fa07dda267b5d2c42d2bb6493d5b9f46914e5fe7bc8",
+        "artifact_sha256": "109c1d5b0fa507125ece62861db195b0893947851a89b2516d7fe5e9432fb918",
+        "artifact_size_bytes": 96731,
+        "build_version_manifest_sha256": "a90be1587719363e78058a18c48d72683ae23f06efbb62bb8e0c79ecf7a22525",
+        "version_manifest_sha256": "0e58b3170d0c39d2d5b61e5fd53093194222274e7736da73589ce6c10ad55e55",
+        "version": "0.1.1",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 118
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 80,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 80,
+            "checks": 279,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 54,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 12,
+        "commands": 6,
+        "actions": 7,
+        "events": 5
+      },
+      "version": "0.1.1",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 96731,
+      "sha256": "109c1d5b0fa507125ece62861db195b0893947851a89b2516d7fe5e9432fb918",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/integrateit_esi_r2d7.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_r2d7/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:45:56.449Z"
     },
     {
       "slug": "integrateit_experience_buttons",
