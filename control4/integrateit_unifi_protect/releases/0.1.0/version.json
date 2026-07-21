@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT UniFi Protect",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/releases/0.1.0/integrateit_unifi_protect.c4z",
+  "notes": "Surfaces UniFi Protect camera activity to Control4 programming over the official Protect Integration API (local HTTPS, X-API-KEY): camera inventory and per-camera reachability from GET /v1/cameras, plus motion, smart-detection (person / vehicle / package / animal), and doorbell-ring events read by polling the console's event feed. Events only — no video, no streams. LAN-only destination safeguard, the API key never logged, and MAC-locked IntegrateIT licensing.",
+  "sha256": "f63028a500f958189912bd4a56a0104675d451efcfce8f609fc0c919fb2ca71d",
+  "size_bytes": 94179,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:45:44.638Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/qa-report.json"
+}

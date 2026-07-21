@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:25:05.976Z",
+  "generated_at": "2026-07-21T19:45:44.650Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4634,6 +4634,144 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:22:06.354Z"
+    },
+    {
+      "slug": "integrateit_unifi_protect",
+      "name": "IntegrateIT UniFi Protect",
+      "summary": "Surfaces UniFi Protect camera activity to Control4 programming over the official Protect Integration API (local HTTPS, X-API-KEY): camera inventory and per-camera reachability from GET /v1/cameras, plus motion, smart-detection (person / vehicle / package / animal), and doorbell-ring events read by polling the console's event feed. Events only — no video, no streams. LAN-only destination safeguard, the API key never logged, and MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "UniFi Protect",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Official Protect Integration API — local HTTPS with a customer-minted API key, no cloud dependency",
+        "Camera inventory: id, name, and connection state polled from the console and printed on demand",
+        "Motion Detected / Motion Ended events per camera for Composer programming",
+        "Smart detections: Person, Vehicle, Package, and Animal events, plus a generic Smart Detection event with LAST_SMART_TYPE",
+        "Doorbell Ring events from G4/G5 Doorbells",
+        "Camera Online / Camera Offline events on per-camera connection-state changes",
+        "Console Online / Console Offline reachability events and a CONSOLE_ONLINE variable",
+        "Watched Cameras filter to scope event firing to specific camera ids",
+        "LAN-only destination safeguard, the API key is never written to the log, and MAC-locked IntegrateIT licensing"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer (self-update staging 3.3.1+)"
+        },
+        {
+          "label": "Console",
+          "value": "UniFi OS console running UniFi Protect with the Integration API (UNVR, UDM-Pro/SE, UCG, Cloud Key G2+)"
+        },
+        {
+          "label": "Protect version",
+          "value": "Protect releases publishing the Integration API v1 (spec v7.1.x); probed via GET /v1/meta/info"
+        },
+        {
+          "label": "Auth",
+          "value": "Console-scoped API key minted by the customer (UniFi OS → Control Plane → Integrations)"
+        },
+        {
+          "label": "Event feed",
+          "value": "Polled over HTTPS (default 3s); realtime WebSocket push is not implemented in v0.1.0"
+        }
+      ],
+      "requirements": [
+        "A UniFi OS console running UniFi Protect, reachable on the same LAN as the controller",
+        "The console's IP address (reserve it in DHCP) and an API key created in UniFi OS → Settings → Control Plane → Integrations",
+        "At least one adopted Protect camera; a G4/G5 Doorbell for ring events",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical UniFi console and cameras is not yet attached to this release.",
+        "Events only — this driver surfaces Protect activity to Control4 programming. It does not show video, provision RTSPS streams, take snapshots, or control cameras/PTZ. Navigator camera viewing is out of scope.",
+        "Event feed is POLLED, not pushed: Protect publishes motion/smart/ring events on a WebSocket subscription (GET /v1/subscribe/events); this version polls that endpoint over plain HTTPS on the configured interval instead of holding a WebSocket. Event latency is up to one poll interval, and consoles that answer the event path only after a WebSocket upgrade will reject the poll — the driver then reports it in Event Feed status, and camera-online/offline events (from GET /v1/cameras) keep working. Realtime WebSocket push is planned, not in v0.1.0.",
+        "Camera-offline detection derives from the console's reported per-camera connection state on the camera poll (default 30s), so it trails reality by up to one camera-poll interval.",
+        "The console's HTTPS certificate is self-signed; the driver skips TLS certificate verification by default (set Verify TLS Certificate = Yes only for consoles with a valid certificate). On very old OS builds without the modern URL API the legacy HTTP fallback cannot relax TLS verification and may fail against self-signed consoles.",
+        "The Site Manager cloud proxy path (api.ui.com) is not used — this driver is local-console only. Non-LAN console addresses are refused unless Allow WAN Console is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained UniFi Protect commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT UniFi Protect commissioning guide showing overview, install steps, event reference, and limitations.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_unifi_protect",
+        "generated_at": "2026-07-21T19:45:44.123Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "4f512d8f95236dce7871cbd6dee6d58f570a60cb41d3bad34d22ce9a0e5a244c",
+        "artifact_sha256": "f63028a500f958189912bd4a56a0104675d451efcfce8f609fc0c919fb2ca71d",
+        "artifact_size_bytes": 94179,
+        "build_version_manifest_sha256": "65a12a6f635a94eb1ba30a51c30dae834eed03f4e25914c50db9835cb1da6b3e",
+        "version_manifest_sha256": "f754e97d92acccef8f0bc9aa7c009381417a8fa52f07118cf084f940cda8ce7c",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 102
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 74,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 226,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 58,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 11,
+        "commands": 2,
+        "actions": 3,
+        "events": 12
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 94179,
+      "sha256": "f63028a500f958189912bd4a56a0104675d451efcfce8f609fc0c919fb2ca71d",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/integrateit_unifi_protect.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:45:44.638Z"
     }
   ]
 }

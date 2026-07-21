@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_unifi_protect",
+  "generated_at": "2026-07-21T19:45:44.123Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "4f512d8f95236dce7871cbd6dee6d58f570a60cb41d3bad34d22ce9a0e5a244c",
+  "artifact_sha256": "f63028a500f958189912bd4a56a0104675d451efcfce8f609fc0c919fb2ca71d",
+  "artifact_size_bytes": 94179,
+  "build_version_manifest_sha256": "65a12a6f635a94eb1ba30a51c30dae834eed03f4e25914c50db9835cb1da6b3e",
+  "version_manifest_sha256": "f754e97d92acccef8f0bc9aa7c009381417a8fa52f07118cf084f940cda8ce7c",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 102
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 74,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 76,
+      "checks": 226,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 58,
+      "files": 2
+    }
+  ]
+}
