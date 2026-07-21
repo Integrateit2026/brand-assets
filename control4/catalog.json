@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:45:50.166Z",
+  "generated_at": "2026-07-21T19:45:53.293Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -2730,6 +2730,142 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:10:03.426Z"
+    },
+    {
+      "slug": "integrateit_lutron_radiora",
+      "name": "IntegrateIT Lutron RadioRA Classic",
+      "summary": "Drives a legacy Lutron RadioRA Classic (RadioRA 1) system through its RS232 Interface or Chronos System Bridge: dimmer levels, switch on/off, GRAFIK Eye scenes, phantom button presses including ALL ON / ALL OFF, and live two-way feedback parsing (zone changes, zone map, LED map, master control presses) into per-zone variables and events.",
+      "category": "others",
+      "device_type": "RadioRA Classic RS232 Interface / Chronos Bridge",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Set any of the 32 RadioRA zones: dimmer level 0-100% with optional 0-240s fade, switch on/off with optional delay, GRAFIK Eye / Sivoia scene select",
+        "Phantom button presses 1-17 with ON/OFF/TOGGLE, optional fade, and the documented DS delayed-switch flag - including one-touch ALL ON (button 16) and ALL OFF (button 17)",
+        "Live feedback parsing per Lutron's published protocol: LZC zone changes, ZMP 32-zone map, LMP phantom LED map, MBP master control button presses, RSM system modes",
+        "Per-zone state variables (ZONE_01_STATE through ZONE_32_STATE) plus Zone On / Zone Off / Zone Changed / Zone Map Updated events for programming",
+        "Chronos bridged-pair aware: a Bridged System property adds the documented ,S1/,S2 suffix and filters feedback to the selected system",
+        "Programming-mode aware: the transmit queue holds automatically while the RadioRA system is in programming mode (the interface ignores commands there) and resumes on exit",
+        "Paced transmit queue with configurable spacing so the interface's single-command input buffer is never flooded"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "One RS-232 serial binding (9600 baud 8N1) to the RA-RS232 / RB-RS232 Interface or Chronos System Bridge"
+        },
+        {
+          "label": "System",
+          "value": "Lutron RadioRA Classic (RadioRA 1) - up to 32 zones, 12 master controls per system; two systems via a Chronos bridge"
+        },
+        {
+          "label": "Feedback",
+          "value": "Two-way - local zone changes, zone map, LED map, master control presses, and system modes are parsed live"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Lutron RadioRA Classic RS232 Interface (RA-RS232 / RB-RS232) or Chronos System Bridge and Timeclock (RA-SBT-CHR / RB-SBT-CHR), powered by its supplied transformer",
+        "A Control4 controller or IO extender RS-232 port wired to the interface's female DB9 at 9600 baud 8N1 (TX/RX/GND minimum; hardware handshaking optional)",
+        "Zone numbers, phantom buttons, and master control numbers programmed into the RadioRA system by the installer - the RS232 protocol cannot create or discover them",
+        "Composer Pro access for the serial binding and future in-place updates"
+      ],
+      "limitations": [
+        "LEGACY DISCONTINUED PRODUCT: RadioRA Classic (RadioRA 1) is long discontinued by Lutron. This driver implements the final published protocol (P/N 044-038 Rev. A, 2004); no new firmware, features, or Lutron support will ever appear for this hardware.",
+        "The interface ignores all commands while the RadioRA system is in programming mode - the driver holds its queue when it sees the mode change and resumes on exit.",
+        "Feedback reports on/off states only: the protocol's LZC and zone map never carry dimmer LEVELS, so exact brightness cannot be shown, and RS232-initiated changes are reflected via the zone map rather than LZC (which covers locally initiated changes).",
+        "Fade, delay, and DS support require interfaces Lutron shipped after August 1, 2001 and dimmers/switches after February 1, 2001; older units silently ignore those parameters.",
+        "No discovery, no authentication: the protocol has no login and no way to enumerate zones - physical serial access is the entire security model, and zone numbering must be copied from the installer's RadioRA programming records.",
+        "Release Candidate: simulator verified against the published protocol; representative RadioRA Classic hardware acceptance is still pending."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Lutron RadioRA Classic commissioning guide showing serial wiring, zone control commands, phantom buttons, feedback parsing, and the bridged-system model.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_lutron_radiora",
+        "generated_at": "2026-07-21T19:45:52.932Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "d320eb62a191ed4c802854e29a4c7a942f62b2ad87cd600907668e7c19541d6a",
+        "artifact_sha256": "c358cb1562cae0b07bd8c14bc50625c2b733ac6ac176e729b9cb95d587d6d330",
+        "artifact_size_bytes": 98369,
+        "build_version_manifest_sha256": "a83be08d449a80bcfb68550a9175b4378f1f854a239e204108125e3f6eefe759",
+        "version_manifest_sha256": "5bed8cfca78c308fc0f3e8aba873bd0a41328690b6f48ac797fc32f1d4fda0a0",
+        "version": "0.1.1",
+        "xml_version": 2,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 104
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 70,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 77,
+            "checks": 314,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 65,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 20,
+        "commands": 10,
+        "actions": 11,
+        "events": 8
+      },
+      "version": "0.1.1",
+      "xml_version": 2,
+      "min_os": "3.0.0",
+      "size_bytes": 98369,
+      "sha256": "c358cb1562cae0b07bd8c14bc50625c2b733ac6ac176e729b9cb95d587d6d330",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/integrateit_lutron_radiora.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:45:53.284Z"
     },
     {
       "slug": "integrateit_mm815_bond",

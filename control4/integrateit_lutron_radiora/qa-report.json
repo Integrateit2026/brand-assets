@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_lutron_radiora",
+  "generated_at": "2026-07-21T19:45:52.932Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "d320eb62a191ed4c802854e29a4c7a942f62b2ad87cd600907668e7c19541d6a",
+  "artifact_sha256": "c358cb1562cae0b07bd8c14bc50625c2b733ac6ac176e729b9cb95d587d6d330",
+  "artifact_size_bytes": 98369,
+  "build_version_manifest_sha256": "a83be08d449a80bcfb68550a9175b4378f1f854a239e204108125e3f6eefe759",
+  "version_manifest_sha256": "5bed8cfca78c308fc0f3e8aba873bd0a41328690b6f48ac797fc32f1d4fda0a0",
+  "version": "0.1.1",
+  "xml_version": 2,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 104
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 70,
+      "checks": 19,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 77,
+      "checks": 314,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 65,
+      "files": 2
+    }
+  ]
+}
