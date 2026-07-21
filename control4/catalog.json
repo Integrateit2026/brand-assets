@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:45:56.456Z",
+  "generated_at": "2026-07-21T19:46:05.007Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1494,6 +1494,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-21T19:45:56.449Z"
+    },
+    {
+      "slug": "integrateit_esi_rq",
+      "name": "IntegrateIT ESI RQ Shades",
+      "summary": "Drives one ESI RQ shade motor (M40Q/M50Q, Hunter Douglas Platinum 2.0 hardwired) through the RQ Bridge serial interface with REAL two-way feedback: go-to-position 0-99%, open/close/stop, live position query, and moving/stopped/error events parsed from the motor's own uplink messages.",
+      "category": "others",
+      "device_type": "ESI RQ Bus Interface",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Real two-way feedback: position reports, moving-direction messages, and motor errors parsed from the RQ uplink",
+        "Go To Position 0-99% using ESI's published m command, with the motor's own position reports closing the loop",
+        "Open, close, and stop with live POSITION and MOTION variables driven by unsolicited uplink messages",
+        "Position query on demand, on boot re-sync, and on an optional poll timer — this bus answers when asked",
+        "Global bus query (!000r?;) to make every motor on the bus report in one action",
+        "Paced transmit queue so back-to-back commands never collide on the RQ bus",
+        "Motor error surfacing: busy, limits-not-set, and message-lost errors raised as a Control4 event with the decoded reason"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "One RS-232 serial binding (9600 8N1, Xon/Xoff) to the RQ Bridge"
+        },
+        {
+          "label": "Motors",
+          "value": "ESI M40Q/M50Q series RQ embedded motors (Hunter Douglas Platinum Technology 2.0 hardwired / Whisper Q) on the RQ Bus"
+        },
+        {
+          "label": "Feedback",
+          "value": "Two-way: position reports, moving-direction, and error uplinks per the published RQ protocol"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "An ESI RQ Bridge wired into the RQ Bus (6-conductor daisy chain, ESI Bus Splitter for multi-motor) with its serial interface at 9600 8N1",
+        "A Control4 controller or IO extender RS-232 port wired to the RQ Bridge (ESI DB9 adapter), or an IP-to-serial bridge such as a Global Cache iTach IP2SL",
+        "The motor's 3-character RQ address (0-9, A-Z; motors ship randomly addressed C00-ZZZ — use the global query to find them)",
+        "Motor limits set: an RQ motor with unset limits refuses moves and answers position queries with the Enc error",
+        "One driver instance per RQ motor; add more instances for more shades on the same bus",
+        "Composer Pro access for the serial binding and future in-place updates"
+      ],
+      "limitations": [
+        "Release Candidate: simulation-verified against the published RQ protocol; representative RQ Bridge + M40Q/M50Q hardware acceptance is still pending.",
+        "Position semantics follow the motor: 00 = reference (factory default open), 99 = limit away from reference (closed). Motors programmed with the CLOS parameter (reference is close limit) report inverted; this driver reports the wire truth and does not remap.",
+        "Address management (re-address @ and randomize ~) is deliberately NOT exposed: both are destructive bus operations that belong in commissioning tools, not an installed driver.",
+        "The RQ bus has no authentication. Anyone with serial access to the RQ Bridge (including LAN access to an IP-to-serial bridge fronting it) has full control of every motor. Secure the serial path accordingly.",
+        "Scene define/parameter programming is out of scope for v0.1; the driver executes existing scenes only."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT ESI RQ Shades commissioning guide showing RQ Bridge wiring, addressing, position feedback model, uplink message tables, and troubleshooting.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_esi_rq",
+        "generated_at": "2026-07-21T19:46:04.662Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "6e425a28fd741d17a91315676a2443adbda0af0d76e35b393d464a5aac6cd5b4",
+        "artifact_sha256": "af17ed0145141710aad27f29b79773e550045653692a37c38556e9ce1221be42",
+        "artifact_size_bytes": 94274,
+        "build_version_manifest_sha256": "ee84ac4eb1a919f6332d4b96d2c404924263e057a3527c58daa50952e5d54866",
+        "version_manifest_sha256": "18993738271abb960194922f364b9e48681582308219764fcf5478a0e7b69b6a",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 106
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 72,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 73,
+            "checks": 285,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 48,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 10,
+        "commands": 7,
+        "actions": 8,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 94274,
+      "sha256": "af17ed0145141710aad27f29b79773e550045653692a37c38556e9ce1221be42",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/integrateit_esi_rq.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:46:04.999Z"
     },
     {
       "slug": "integrateit_experience_buttons",
