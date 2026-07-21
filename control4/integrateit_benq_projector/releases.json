@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "bf3f958c63828a03d1df360d2647d47dfc36b062e62aefca201529e43d40e0bd",
+      "size_bytes": 95572,
+      "published_at": "2026-07-21T19:46:07.921Z",
+      "notes": "Initial release: RS-232 control per BenQ's published *command=value# protocol - power on/off with warmup/cooldown lockout modeling (held power intents released when the window closes), source selection across BenQ's documented codes, volume/mute with read-back queries, lamp-hours into a persisted LAMP_HOURS variable, continuous power-state polling with Responding/Lost communication events, and full response parsing (echo suppression plus the Block item / Unsupported item / Illegal format error replies). · Fix (pre-ship review): recognize BenQ's error replies when they arrive as BARE, UNFRAMED text. The guide's command-table preamble says the projector \"will echo Illegal format / Unsupported item / Block item\" - CR-terminated, with no *...# framing. The receive parser only matched *...# frames and its buffer trim actively discarded any non-* residue, so a real projector's unframed error echo was dropped and Last Error never lit. The RX path now tokenizes both shapes (framed *...# and bare CR-delimited text), split or merged across serial chunk boundaries, so honest error surfacing works against hardware. Added tests: a bare Block item echo, and a bare Unsupported item echo split across two serial deliveries. · Fix (pre-ship review): honor \"latest press wins\" during a power-toggle race. A Power On pressed during warmup (or a Power Off during cooldown) short-circuited on the \"already in this state\" branch WITHOUT clearing a previously held opposite intent, so an earlier held Power Off would still fire when warmup completed and drive the projector down against the user's last action (symmetric on cooldown). The redundant-press branches now clear the stale held intent. Added tests: On->Off->On during warmup settles On with no pow=off written; the symmetric cooldown case.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

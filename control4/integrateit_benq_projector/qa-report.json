@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_benq_projector",
+  "generated_at": "2026-07-21T19:46:07.578Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "9452d5c6a298859c665ce5feb2921e1b728686a71d92d747598cecbfa4882d54",
+  "artifact_sha256": "bf3f958c63828a03d1df360d2647d47dfc36b062e62aefca201529e43d40e0bd",
+  "artifact_size_bytes": 95572,
+  "build_version_manifest_sha256": "755924d61b9f999cbb050f34f02b80dafaf8bd62f2f41d0747b93cdea805985e",
+  "version_manifest_sha256": "1dc3e3a465ca4d25babf10d62f6f23dcab4c2b1214cdc2453f82c52a59c234bc",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 106
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 73,
+      "checks": 19,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 70,
+      "checks": 284,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 49,
+      "files": 2
+    }
+  ]
+}
