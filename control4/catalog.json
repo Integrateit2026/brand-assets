@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:46:07.930Z",
+  "generated_at": "2026-07-21T19:46:10.969Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1903,6 +1903,146 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-20T20:41:23.977Z"
+    },
+    {
+      "slug": "integrateit_future_automation",
+      "name": "IntegrateIT Future Automation",
+      "summary": "Drives Future Automation TV lifts, ceiling hinges, swivel and articulated mounts, picture lifts, and under-bed lifts over the published RS-232 mechanism protocol: in/out/stop, home, swivel, preset and memory-position recall, a paced command queue, and honest assumed-position tracking over a strictly one-way link. Serial direct or through a serial-over-IP gateway.",
+      "category": "others",
+      "device_type": "Future Automation Mechanism Interface",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Move In / Move Out / Stop for every Future Automation mechanism range (CME, CHR, CHRS, CHS, LSM, FSE90, PL, UBL, PIC, PICSPLIT)",
+        "Home, Swivel Left / Right, preset recall, and memory positions A / B / C for articulated and swivel models",
+        "Store Position guarded behind an explicit enable so a stray action can never overwrite a memory position",
+        "Two transports, property-selected: a direct Control4 RS-232 serial binding, or a raw-TCP serial-over-IP gateway on the LAN",
+        "Paced command queue with configurable inter-command spacing so mechanism commands never pile up",
+        "Command-set selector so simple lifts (in/out/stop only) refuse swivel and preset tokens honestly instead of sending dead commands",
+        "Honest assumed-position tracking: Command Sent plus Mechanism Assumed In / Out / Stopped and Preset Recalled events over a write-only protocol"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control (serial)",
+          "value": "One RS-232 serial binding (9600 baud 8N1) to the mechanism control box RJ11/RJ25 port"
+        },
+        {
+          "label": "Control (TCP)",
+          "value": "A LAN serial-over-IP gateway bridging to the control box (raw TCP, e.g. port 4999)"
+        },
+        {
+          "label": "Mechanisms",
+          "value": "Future Automation CME, CHR, CHRS, CHS, LSM, FSE90, PL, UBL, PIC, PICSPLIT ranges"
+        },
+        {
+          "label": "Feedback",
+          "value": "None - the published protocol is write-only (assumed position only)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Future Automation mechanism with its control box RS232 port exposed (6-pin RJ11/RJ25: pin 1 RX, pin 6 TX, pins 3/4/5 ground; or the DE-9 variant)",
+        "Serial transport: a Control4 controller or IO extender RS-232 port wired to the control box at 9600 baud 8N1, no flow control",
+        "TCP transport: a serial-over-IP gateway on the LAN wired to the control box, presenting a raw TCP port (Future Automation publishes no network interface of its own)",
+        "Composer Pro access for the serial binding or gateway address and future in-place updates"
+      ],
+      "limitations": [
+        "WRITE-ONLY PROTOCOL: Future Automation's published serial protocol has no status, query, or acknowledgement commands - the mechanism returns nothing. Every position this driver shows is assumed from the last command it sent; position feedback does not exist and cannot be added in software.",
+        "Because state is assumed, a wall switch, IR remote, or manual movement is invisible to the driver - the assumed position goes stale until the next driver command.",
+        "The TCP transport is a third-party serial-over-IP bridge, not a vendor network interface: the gateway must be configured for 9600 8N1 raw TCP separately, and the driver cannot see whether the serial leg behind the gateway is actually wired.",
+        "Simple lift ranges (e.g. PL, LSM) implement only in/out/stop; swivel, home, preset, and memory tokens exist on articulated/swivel ranges. Set Command Set accordingly - the driver refuses out-of-tier commands rather than sending tokens the mechanism ignores.",
+        "Release Candidate: simulator verified; representative Future Automation hardware acceptance is still pending.",
+        "TCP destinations are restricted to private LAN addresses - a serial gateway belongs on the LAN and there is no WAN override."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Future Automation commissioning guide showing serial and gateway wiring, the token protocol, preset handling, the store guard, and the one-way assumed-position model.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_future_automation",
+        "generated_at": "2026-07-21T19:46:10.465Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "edfeaaabfdee2c2ad7574e905ba983412597a49a12b46665464a66f20eaaeba8",
+        "artifact_sha256": "8f8f2b64f22635975db1af7b77a0e19e600a7ef155fb3f4a1454b2acaeff40aa",
+        "artifact_size_bytes": 97282,
+        "build_version_manifest_sha256": "2022a91bfe2400cd4b478f10f9f3197865f86490daff07840c963133dff12257",
+        "version_manifest_sha256": "98aebb51db5590f734fe8300111eeacd12f47dc8d96eef27ce5f63f730712233",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 107
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 107,
+            "checks": 317,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 60,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 12,
+        "commands": 13,
+        "actions": 14,
+        "events": 8
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 97282,
+      "sha256": "8f8f2b64f22635975db1af7b77a0e19e600a7ef155fb3f4a1454b2acaeff40aa",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/integrateit_future_automation.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:46:10.962Z"
     },
     {
       "slug": "integrateit_garage",

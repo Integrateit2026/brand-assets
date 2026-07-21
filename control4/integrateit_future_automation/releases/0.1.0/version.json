@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Future Automation",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/releases/0.1.0/integrateit_future_automation.c4z",
+  "notes": "Drives Future Automation TV lifts, ceiling hinges, swivel and articulated mounts, picture lifts, and under-bed lifts over the published RS-232 mechanism protocol: in/out/stop, home, swivel, preset and memory-position recall, a paced command queue, and honest assumed-position tracking over a strictly one-way link. Serial direct or through a serial-over-IP gateway.",
+  "sha256": "8f8f2b64f22635975db1af7b77a0e19e600a7ef155fb3f4a1454b2acaeff40aa",
+  "size_bytes": 97282,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:46:10.962Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_future_automation/qa-report.json"
+}
