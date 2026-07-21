@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-20T21:41:49.873Z",
+  "generated_at": "2026-07-21T19:25:05.976Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3002,6 +3002,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:13:34.745Z"
+    },
+    {
+      "slug": "integrateit_nanoleaf",
+      "name": "IntegrateIT Nanoleaf",
+      "summary": "Control a Nanoleaf light (Light Panels, Canvas, Shapes, Elements, Lines) over the vendor's local Open API — on/off, brightness, hue/saturation color, color temperature, and effect selection by name — with documented power-button pairing that claims and stores the auth token for you, plus a configurable reachability poll that publishes POWER, BRIGHTNESS, HUE, SAT, CT, EFFECT, and DEVICE_ONLINE variables and fires on/off, effect, and online/offline events. LAN-only destination safeguard, the auth token never logged, and MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Nanoleaf Open API",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Local Nanoleaf Open API control — no cloud dependency, works when the internet is down",
+        "Documented pairing built in: hold the power button, run Pair, and the driver claims and stores the auth token itself",
+        "Power on/off/toggle, brightness (1-100), hue/saturation color, and color temperature (1200-6500 K)",
+        "Effect selection by name, with a List Effects action that enumerates every effect on the device",
+        "Configurable state poll publishes POWER, BRIGHTNESS, HUE, SAT, CT, EFFECT, and DEVICE_ONLINE",
+        "Turned On/Off, Effect Changed, and Went Online/Offline events for Composer programming",
+        "LAN-only destination safeguard, the auth token is never written to the log, and MAC-locked IntegrateIT licensing"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Devices",
+          "value": "Nanoleaf Light Panels, Canvas, Shapes, Elements, and Lines (Open API on port 16021)"
+        },
+        {
+          "label": "Essentials line",
+          "value": "Untested — the Matter WiFi Essentials doc shares the API path shape but the port and pairing flow differ (see limitations)"
+        },
+        {
+          "label": "State feedback",
+          "value": "Polled (default 5s); mDNS/SSDP discovery and external-control streaming are future work"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Nanoleaf device reachable on the same LAN as the controller, with a DHCP-reserved IP address",
+        "Physical access to the device once, to hold the power button (~5-7s) and open the pairing window",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on physical Nanoleaf hardware and a physical controller is not yet attached to this release.",
+        "Manual IP entry only — mDNS (_nanoleafapi._tcp) and SSDP discovery are documented by Nanoleaf but out of scope for v0.1.0. Reserve the device's IP in your router's DHCP table.",
+        "Built against the legacy panel line (Light Panels / Canvas / Shapes / Elements / Lines) on port 16021. Matter WiFi Essentials products share the /api/v1/<token>/ path shape but open the pairing window from the Nanoleaf app and may use a different port — the Port property is editable, but Essentials is untested in this version.",
+        "State feedback is by polling, not push: a change made from the Nanoleaf app appears on the next poll (default 5s), not instantly.",
+        "One Nanoleaf device per driver instance — add another instance for each device.",
+        "Forget Token clears the stored token locally only; the token remains valid on the device until revoked via the vendor's Delete User endpoint or a device reset (not sent by v0.1.0).",
+        "The Open API is plain, unencrypted HTTP — use it only on a trusted LAN segment. Non-LAN addresses are refused unless Allow WAN Nanoleaf is explicitly set to Yes.",
+        "Per-panel external-control streaming, panel layout, rhythm, and identify endpoints are documented by Nanoleaf but out of scope for v0.1.0."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained Nanoleaf pairing and commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Nanoleaf commissioning guide showing overview, power-button pairing steps, command reference, and safety limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_nanoleaf",
+        "generated_at": "2026-07-21T19:25:05.371Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "c09e5fa39d3933824d17d0760de9924f530b394d1572388685b7df5c63d05f6a",
+        "artifact_sha256": "cf6bc77d4ed014f3f7f1772bbf0e6ebee33b61a8c139c67a3822a39125a37b5f",
+        "artifact_size_bytes": 85137,
+        "build_version_manifest_sha256": "b7672b1b221f620884ab0d26bad3812018d1362c5760b387cee5fe794b32f572",
+        "version_manifest_sha256": "8576605e1c33a6fbd3ea5b6d140f87a2e7a7731b86dcc6bf2343c174b24c2909",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 115
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 70,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 269,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 52,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 12,
+        "commands": 8,
+        "actions": 6,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 85137,
+      "sha256": "cf6bc77d4ed014f3f7f1772bbf0e6ebee33b61a8c139c67a3822a39125a37b5f",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/integrateit_nanoleaf.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:25:05.967Z"
     },
     {
       "slug": "integrateit_network_agents",

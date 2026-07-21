@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "cf6bc77d4ed014f3f7f1772bbf0e6ebee33b61a8c139c67a3822a39125a37b5f",
+      "size_bytes": 85137,
+      "published_at": "2026-07-21T19:25:05.967Z",
+      "notes": "Fix: every body-carrying write now declares `Content-Type: application/json` (house pattern; the frame was previously sent with no media type). · Fix: state parsing no longer requires `\"value\"` to be the first key of each attribute object — a firmware serializing min/max first would have silently blanked POWER/BRIGHTNESS/HUE/SAT/CT. · Fix: control-write and Test Connection responses now update reachability (DEVICE_ONLINE / Went Online/Offline) — a device dying mid-command previously stayed \"online\" until the next poll. · Three regression cases added; runtime suite now 269 checks.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

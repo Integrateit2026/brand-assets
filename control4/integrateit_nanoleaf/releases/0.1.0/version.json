@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Nanoleaf",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/releases/0.1.0/integrateit_nanoleaf.c4z",
+  "notes": "Control a Nanoleaf light (Light Panels, Canvas, Shapes, Elements, Lines) over the vendor's local Open API — on/off, brightness, hue/saturation color, color temperature, and effect selection by name — with documented power-button pairing that claims and stores the auth token for you, plus a configurable reachability poll that publishes POWER, BRIGHTNESS, HUE, SAT, CT, EFFECT, and DEVICE_ONLINE variables and fires on/off, effect, and online/offline events. LAN-only destination safeguard, the auth token never logged, and MAC-locked IntegrateIT licensing.",
+  "sha256": "cf6bc77d4ed014f3f7f1772bbf0e6ebee33b61a8c139c67a3822a39125a37b5f",
+  "size_bytes": 85137,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:25:05.967Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/qa-report.json"
+}
