@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.1",
+  "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 1,
+      "sha256": "0c3e570536a8a93196d7dec4e4742c14bdf043a9ccae3356439b4ae3d04e98bd",
+      "size_bytes": 83181,
+      "published_at": "2026-07-21T19:46:26.491Z",
+      "notes": "Honest empty-answer handling: an output-side safety/policy block (a candidate returned with finishReason SAFETY / RECITATION / BLOCKLIST / PROHIBITED_CONTENT / SPII / IMAGE_SAFETY and no text parts) now surfaces as \"blocked by safety filter (<reason>)\" instead of a generic \"empty response\". Previously only a prompt-level block (promptFeedback.blockReason) was named; a censored *answer* read as a bland empty response and looked like a network fault. · A thinking model that spends its whole token budget before emitting any text (finishReason MAX_TOKENS with no parts) now reports \"hit the Max Response Tokens cap; raise it\" rather than \"empty response\", so the fix is obvious. All of these still fail closed with a Request Failed event and never land text in RESPONSE.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

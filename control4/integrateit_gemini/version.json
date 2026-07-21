@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Gemini Assistant",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gemini/integrateit_gemini.c4z",
+  "notes": "Ask Google Gemini a question from Control4 programming — a bring-your-own-key cloud driver for the official Gemini API (generativelanguage.googleapis.com). One Ask action sends the Prompt with an optional system instruction and a max-token cap; the bounded answer lands in a Control4 variable with Response Received, Response Truncated, and Request Failed events, a request timeout with a stale-response guard, and a busy/min-interval rate guard. The customer's API key travels only in the x-goog-api-key request header and is never logged.",
+  "sha256": "0c3e570536a8a93196d7dec4e4742c14bdf043a9ccae3356439b4ae3d04e98bd",
+  "size_bytes": 83181,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:46:26.491Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gemini/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gemini/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gemini/qa-report.json"
+}
