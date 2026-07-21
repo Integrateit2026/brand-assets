@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:45:44.650Z",
+  "generated_at": "2026-07-21T19:45:50.166Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4634,6 +4634,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:22:06.354Z"
+    },
+    {
+      "slug": "integrateit_unifi_access",
+      "name": "IntegrateIT UniFi Access",
+      "summary": "Monitor one UniFi Access door and unlock it deliberately from Control4, over Ubiquiti's official local Developer API (HTTPS port 12445, customer-minted Bearer token). A configurable poll publishes DOOR_LOCKED, DOOR_POSITION, DOOR_NAME, and DEVICE_ONLINE variables and fires Door Opened/Closed, Door Locked/Unlocked, and Went Online/Offline events; remote unlock is double-gated behind the IntegrateIT license AND an explicit Allow Remote Unlock property. An access-convenience surface — not a life-safety system.",
+      "category": "others",
+      "device_type": "UniFi Access",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Official Ubiquiti local Developer API — HTTPS on the console, no cloud dependency",
+        "Door lock relay + door position (DPS) state polled and published as DOOR_LOCKED, DOOR_POSITION, DOOR_NAME, DEVICE_ONLINE",
+        "Door Opened/Closed, Door Locked/Unlocked, Went Online/Offline, and Remote Unlock Sent events for Composer programming",
+        "Remote unlock double-gated: IntegrateIT license AND the dealer-set Allow Remote Unlock switch — monitor-only out of the box",
+        "Unlocks are logged on the console under the API token's name (the documented default actor) — a truthful audit trail",
+        "List Doors action enumerates every door the token can see, flagging doors that cannot be remotely unlocked",
+        "LAN-only destination safeguard, self-signed-aware TLS with an opt-in strict mode, and the API token never written to the log"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Console",
+          "value": "UniFi console/gateway running the Access application, v1.9.1 or newer (not upgraded to Identity Enterprise — that removes the Developer API)"
+        },
+        {
+          "label": "Doors",
+          "value": "One door per driver instance; remote unlock needs the door bound to an Access hub"
+        },
+        {
+          "label": "State feedback",
+          "value": "Polled (default 5s); the documented WebSocket / webhook push channels are future work"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A UniFi console running the Access application, reachable from the controller on port 12445",
+        "An API token minted by the console owner (Access > Settings > General > Advanced > API Token) with at least the view:space scope — plus edit:space if remote unlock will be used",
+        "The target door id (use the List Doors action to enumerate them)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical UniFi console, Access hub, and door hardware is not yet attached to this release.",
+        "NOT A LIFE-SAFETY SYSTEM. This driver is an access-convenience surface — status, programming events, and a deliberate remote unlock. It must not be the sole control for any door where a failed, delayed, or replayed command has safety or security consequences; egress hardware and Access's own policies remain authoritative.",
+        "State feedback is by polling, not push: a badge-in, a manual unlock, or a door swing appears on the next poll (default 5s), not instantly. Ubiquiti's WebSocket notifications and webhooks are documented but out of scope for v0.1.0.",
+        "Remote unlock ships disabled. The Unlock Door command refuses until the dealer sets Allow Remote Unlock = Yes, and always requires a valid IntegrateIT license. Doors not bound to an Access hub cannot be remotely unlocked at all (a UniFi platform rule).",
+        "Doors without a wired position sensor (DPS) report position Unknown — Door Opened/Closed events never fire for them; lock relay state still works.",
+        "UniFi consoles serve a self-signed certificate on port 12445, so certificate verification is relaxed by default; set TLS Certificate Check = Require Valid Certificate after installing a real certificate on the console. Non-LAN console addresses are refused unless Allow WAN Console is explicitly set to Yes.",
+        "The Developer API is unavailable on consoles migrated to UniFi Identity Enterprise; one driver instance monitors exactly one door."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained UniFi Access commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT UniFi Access commissioning guide showing overview, install steps, command reference, and safety limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_unifi_access",
+        "generated_at": "2026-07-21T19:45:49.814Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "3702a64b5fc1b82c3ca9855b5bcf3a37295519d6928b9d0c95c8448b175b9653",
+        "artifact_sha256": "bcee721d719ffe4e4f519e492e9324043abe559dca598ccf73eb0690e175a39d",
+        "artifact_size_bytes": 84445,
+        "build_version_manifest_sha256": "ad70d6b81d47940c88724c06143095e5ae85ef905a86a03ab313028567907aee",
+        "version_manifest_sha256": "b7ef4f0ebf3c8b675b4025d15873774b8a06a5e6d32037155c36698c9101cd2b",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 103
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 73,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 72,
+            "checks": 206,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 55,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 10,
+        "commands": 2,
+        "actions": 4,
+        "events": 7
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 84445,
+      "sha256": "bcee721d719ffe4e4f519e492e9324043abe559dca598ccf73eb0690e175a39d",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/integrateit_unifi_access.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:45:50.159Z"
     },
     {
       "slug": "integrateit_unifi_protect",

@@ -1,0 +1,10 @@
+# Changelog — IntegrateIT UniFi Access
+
+## [0.1.0] - 2026-07-21
+- Initial release candidate against Ubiquiti's official local Access Developer API (HTTPS :12445, customer-minted Bearer token).
+- One door per instance: polled lock relay + door position (DPS) published as DOOR_LOCKED / DOOR_POSITION / DOOR_NAME / DEVICE_ONLINE with Door Opened/Closed, Door Locked/Unlocked, and Went Online/Offline events.
+- Remote unlock (PUT /doors/:id/unlock) double-gated: IntegrateIT license AND the dealer-set Allow Remote Unlock switch — monitor-only out of the box; the console logs unlocks under the API token's name.
+- List Doors / Test Connection / Print Configuration commissioning actions; hubless doors flagged as not remotely unlockable.
+- LAN-only destination safeguard, self-signed-aware TLS (opt-in strict verification), API token never logged.
+- Access-convenience surface, not a life-safety system. Simulation-verified; hardware acceptance pending.
+- Hardened the door parser against the two forms Ubiquiti's own reference documents beyond the response samples: a JSON `null` `door_position_status` (the reference's "no device is connected" signal) now reads as Unknown instead of pinning the last Open/Closed reading, and a quoted-string `is_bind_hub` (the reference declares the field type String though the sample emits a boolean) is now parsed so the hub-bind unlock guard and the List Doors flag stay correct on spec-conforming firmware.
