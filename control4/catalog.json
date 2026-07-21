@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:46:26.499Z",
+  "generated_at": "2026-07-21T19:46:29.374Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3414,6 +3414,144 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:10:03.426Z"
+    },
+    {
+      "slug": "integrateit_lutron_homeworks",
+      "name": "IntegrateIT Lutron HomeWorks QS",
+      "summary": "Telnet (LIP) integration with a Lutron HomeWorks QS processor: prompt-based login, control and live monitoring of up to 8 mapped integration IDs — dimmer level set with fade, raise / lower / stop for Sivoia QS shades — with per-zone level variables, level-change events, and reconnect with exponential backoff. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "HomeWorks QS (LIP telnet)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Speaks the published Lutron Integration Protocol (LIP) over telnet to a HomeWorks QS processor",
+        "Prompt-based login with installer-provisioned credentials from Lutron Designer (Telnet Logins)",
+        "Up to 8 mapped integration IDs: dimmer level 0-100 with fade, raise / lower / stop for shades",
+        "Live level feedback via zone monitoring: per-zone variables plus a Zone Level Changed event",
+        "Programming commands take ZONE / LEVEL parameters; a guarded raw LIP line for power users",
+        "Reconnect with exponential backoff; a failed login latches instead of hammering the processor",
+        "Passwords are never written to the Control4 log; system-level LIP commands are refused",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Lutron system",
+          "value": "HomeWorks QS processor (HQP6-1 / HQP6-2 / HQP7) with telnet integration enabled"
+        },
+        {
+          "label": "Protocol",
+          "value": "Lutron Integration Protocol (telnet, port 23) — Lutron P/N 040249"
+        },
+        {
+          "label": "Devices",
+          "value": "Any OUTPUT integration ID: dimmers, Sivoia QS / QS Wireless shades, CCOs"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "HomeWorks QS processor reachable on the LAN at a static IP",
+        "A telnet login created in Lutron Designer (Tools > Configure Integration > Telnet Logins)",
+        "Integration IDs assigned and enabled per device in Lutron Designer (see the Integration Report)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified against the published protocol; acceptance on a physical HomeWorks QS processor is still pending.",
+        "Classic HomeWorks QS (LIP) only — HomeWorks QSX / Athena / RadioRA 3 use the LEAP API and are NOT supported by this driver.",
+        "Telnet is plaintext with no TLS: credentials and commands cross the wire in the clear, so keep the processor on a trusted LAN segment.",
+        "v0.1.0 covers OUTPUT level / raise / lower / stop for up to 8 integration IDs. Venetian tilt (actions 9-16), SHADEGRP, keypads (DEVICE), HVAC, and scenes are not yet exposed.",
+        "No Navigator UI: control is via Composer programming commands and variables (combo driver).",
+        "Fade / delay parameters have no effect on shades — Lutron runs shades at fixed speeds."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Lutron HomeWorks QS commissioning guide showing overview, install steps, zone mapping, command reference, and safety limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_lutron_homeworks",
+        "generated_at": "2026-07-21T19:46:29.005Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "6d53ab5fc4cf37a226769b76adf021edce89dae98db9162cc1b561bed9ba0536",
+        "artifact_sha256": "9098109594ddf5565a4820bfda18c446c9e90a1f00950fe620444379d8b0e4ac",
+        "artifact_size_bytes": 94533,
+        "build_version_manifest_sha256": "169db135849d3910de45801bfe4fdefc324eb434ae34080ac700da5199ba1d14",
+        "version_manifest_sha256": "b8feb6ffed89e43cc7bc1887384d35bff5ceccc7d33533f07c12860ca6896954",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 107
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 75,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 88,
+            "checks": 258,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 57,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 24,
+        "commands": 6,
+        "actions": 4,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 94533,
+      "sha256": "9098109594ddf5565a4820bfda18c446c9e90a1f00950fe620444379d8b0e4ac",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/integrateit_lutron_homeworks.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:46:29.366Z"
     },
     {
       "slug": "integrateit_lutron_radiora",

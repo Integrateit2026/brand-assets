@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_lutron_homeworks",
+  "generated_at": "2026-07-21T19:46:29.005Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "6d53ab5fc4cf37a226769b76adf021edce89dae98db9162cc1b561bed9ba0536",
+  "artifact_sha256": "9098109594ddf5565a4820bfda18c446c9e90a1f00950fe620444379d8b0e4ac",
+  "artifact_size_bytes": 94533,
+  "build_version_manifest_sha256": "169db135849d3910de45801bfe4fdefc324eb434ae34080ac700da5199ba1d14",
+  "version_manifest_sha256": "b8feb6ffed89e43cc7bc1887384d35bff5ceccc7d33533f07c12860ca6896954",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 107
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 75,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 88,
+      "checks": 258,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 57,
+      "files": 2
+    }
+  ]
+}

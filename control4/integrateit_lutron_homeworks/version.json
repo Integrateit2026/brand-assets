@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Lutron HomeWorks QS",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/integrateit_lutron_homeworks.c4z",
+  "notes": "Telnet (LIP) integration with a Lutron HomeWorks QS processor: prompt-based login, control and live monitoring of up to 8 mapped integration IDs — dimmer level set with fade, raise / lower / stop for Sivoia QS shades — with per-zone level variables, level-change events, and reconnect with exponential backoff. MAC-locked IntegrateIT licensing.",
+  "sha256": "9098109594ddf5565a4820bfda18c446c9e90a1f00950fe620444379d8b0e4ac",
+  "size_bytes": 94533,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:46:29.366Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/qa-report.json"
+}
