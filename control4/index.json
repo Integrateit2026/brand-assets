@@ -29,6 +29,7 @@
   "integrateit_nanoleaf",
   "integrateit_network_agents",
   "integrateit_occupancy",
+  "integrateit_openai",
   "integrateit_optimus",
   "integrateit_push_pushover",
   "integrateit_remote_detection",

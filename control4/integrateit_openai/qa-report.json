@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_openai",
+  "generated_at": "2026-07-21T19:46:13.352Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "85d16d19bdf4cdbcc8b85a5e659595870b27542bb69472ca0b2dfae666d9f8dd",
+  "artifact_sha256": "9f27f8a18462d10d346635a48441b90bffd10eb2a736230b98e384e3cc1268f1",
+  "artifact_size_bytes": 92441,
+  "build_version_manifest_sha256": "87caf7d168735fa0b7c01297d1a3168bac72c6e934556f608ae513b654a58e78",
+  "version_manifest_sha256": "6f9cf9dabd5425d9d2047ab34b96843e8249850be27d22d19a9aaa1aca021369",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 102
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 69,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 76,
+      "checks": 229,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 56,
+      "files": 2
+    }
+  ]
+}

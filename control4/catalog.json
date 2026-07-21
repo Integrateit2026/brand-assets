@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:46:10.969Z",
+  "generated_at": "2026-07-21T19:46:13.860Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4094,6 +4094,146 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:15:20.043Z"
+    },
+    {
+      "slug": "integrateit_openai",
+      "name": "IntegrateIT OpenAI Assistant",
+      "summary": "Ask the OpenAI Platform API from Control4 programming: an Ask command sends a prompt (parameter or property) to chat completions with a configurable model, system prompt, and max-token cap, publishes the answer to a bounded RESPONSE variable, and fires Response Ready / Request Failed / Rate Limit Reached events. Strict per-request timeout with stale-response discard, a per-hour request cap enforced before any network call, and a BYO-key design: the customer enters their own OpenAI API key, sent only in the request header and never logged.",
+      "category": "others",
+      "device_type": "OpenAI Platform API",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Ask command sends a prompt to POST /v1/chat/completions — prompt from the PROMPT programming parameter or the Prompt property",
+        "Configurable model id, system prompt, and max-completion-token cap on every request",
+        "Answer published to a bounded RESPONSE variable (configurable character limit) plus a Response Ready event",
+        "Strict per-request timeout: a late answer is discarded, Request Failed fires, and the driver returns to Idle",
+        "Spend guard: a per-hour request cap enforced BEFORE any network call, with a Rate Limit Reached event on block and on HTTP 429",
+        "Input spend guard: a per-prompt character cap fails an over-long Ask before any billable call — the max-completion-token cap bounds the answer, not the request",
+        "One request in flight at a time — a second Ask while busy is refused instead of stacking API spend",
+        "BYO-key design: the end customer's own OpenAI API key, sent only in the Authorization header, never written to the log or any variable",
+        "MAC-locked IntegrateIT licensing"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Service",
+          "value": "OpenAI Platform API — HTTPS to api.openai.com:443 (cloud; controller needs outbound internet)"
+        },
+        {
+          "label": "Endpoint",
+          "value": "POST /v1/chat/completions (non-streaming); GET /v1/models for the key test"
+        },
+        {
+          "label": "Models",
+          "value": "Any chat-completions model id the customer's account can access (default gpt-4o-mini)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Control4 controller with outbound internet access (HTTPS to api.openai.com on port 443)",
+        "The END CUSTOMER's own OpenAI platform account with an active billing method and a self-issued API key — this driver never embeds, proxies, or shares an IntegrateIT key",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance against the live OpenAI API from a physical controller is not yet attached to this release.",
+        "Cloud service, not a device: every Ask is a billable OpenAI API call charged to the customer's own account. The Hourly Request Cap is a spend guard, not a billing control — actual cost depends on the model and token usage.",
+        "One request in flight at a time; an Ask issued while another is pending is refused (Status says Busy) rather than queued.",
+        "Non-streaming: the driver waits for the complete answer (up to Request Timeout), so long generations take seconds before Response Ready fires.",
+        "When the model stops at Max Response Tokens (finish_reason \"length\") the answer is truncated server-side; the driver still fires Response Ready but Status says \"truncated at token cap\" so a cut-off answer is never presented as complete.",
+        "The prompt is capped at Max Prompt Characters (default 8000): an Ask whose prompt exceeds the cap is failed before any billable call rather than sent — raise the cap for long-context prompts.",
+        "Response parsing is anchored extraction, not a full JSON parser — an unrecognized response shape is surfaced as Request Failed, never half-parsed.",
+        "The API endpoint is fixed to api.openai.com so the customer's key can only ever be sent to OpenAI — Azure OpenAI and proxy endpoints are out of scope for this version.",
+        "The RESPONSE variable is truncated at the configured character limit; truncation may split a multi-byte character at the exact boundary."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT OpenAI Assistant commissioning guide showing overview, BYO-key setup steps, command reference, and spend-guard limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_openai",
+        "generated_at": "2026-07-21T19:46:13.352Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "85d16d19bdf4cdbcc8b85a5e659595870b27542bb69472ca0b2dfae666d9f8dd",
+        "artifact_sha256": "9f27f8a18462d10d346635a48441b90bffd10eb2a736230b98e384e3cc1268f1",
+        "artifact_size_bytes": 92441,
+        "build_version_manifest_sha256": "87caf7d168735fa0b7c01297d1a3168bac72c6e934556f608ae513b654a58e78",
+        "version_manifest_sha256": "6f9cf9dabd5425d9d2047ab34b96843e8249850be27d22d19a9aaa1aca021369",
+        "version": "0.1.1",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 102
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 69,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 229,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 56,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 11,
+        "commands": 2,
+        "actions": 4,
+        "events": 3
+      },
+      "version": "0.1.1",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 92441,
+      "sha256": "9f27f8a18462d10d346635a48441b90bffd10eb2a736230b98e384e3cc1268f1",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/integrateit_openai.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:46:13.852Z"
     },
     {
       "slug": "integrateit_optimus",

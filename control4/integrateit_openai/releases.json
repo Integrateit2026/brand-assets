@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.1",
+  "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 1,
+      "sha256": "9f27f8a18462d10d346635a48441b90bffd10eb2a736230b98e384e3cc1268f1",
+      "size_bytes": 92441,
+      "published_at": "2026-07-21T19:46:13.852Z",
+      "notes": "Input spend guard: added a per-prompt character cap (Max Prompt Characters, default 8000, 100–100000). An Ask whose prompt exceeds the cap is failed with Request Failed BEFORE the spend-window count and any network call. The max_completion_tokens cap only ever bounded the answer, so a runaway scene that concatenated a huge variable could have shipped a large input-token charge to the customer's account on every Ask — this bounds the request too. · Honest server-side truncation: when OpenAI stops at max_completion_tokens (finish_reason \"length\") the answer is cut off mid-thought. The driver still fires Response Ready and publishes what came back, but Status now reads \"truncated at token cap — raise Max Response Tokens\" instead of presenting a partial answer as if it were complete. With the 256-token default this is a common case, not an edge one.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

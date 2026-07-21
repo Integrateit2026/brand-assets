@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT OpenAI Assistant",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/integrateit_openai.c4z",
+  "notes": "Ask the OpenAI Platform API from Control4 programming: an Ask command sends a prompt (parameter or property) to chat completions with a configurable model, system prompt, and max-token cap, publishes the answer to a bounded RESPONSE variable, and fires Response Ready / Request Failed / Rate Limit Reached events. Strict per-request timeout with stale-response discard, a per-hour request cap enforced before any network call, and a BYO-key design: the customer enters their own OpenAI API key, sent only in the request header and never logged.",
+  "sha256": "9f27f8a18462d10d346635a48441b90bffd10eb2a736230b98e384e3cc1268f1",
+  "size_bytes": 92441,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:46:13.852Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/qa-report.json"
+}
