@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:46:29.374Z",
+  "generated_at": "2026-07-21T19:46:32.196Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4648,6 +4648,150 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-19T22:17:05.266Z"
+    },
+    {
+      "slug": "integrateit_paradox_evo",
+      "name": "IntegrateIT Paradox EVO",
+      "summary": "Two-way RS-232 integration for Paradox Digiplex/EVO panels through the APR3-PRT3 Printer Module ASCII protocol: license-gated area arm/disarm, live zone open/close events, per-area status variables, trouble events, and honest panel-link supervision. A convenience integration - never a listed alarm path.",
+      "category": "others",
+      "device_type": "Paradox Digiplex/EVO via APR3-PRT3",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Area arm (Regular / Force / Stay / Instant) and disarm for areas 1-8, gated by the IntegrateIT license on every serial write",
+        "Quick arm without a code for panels with One-Touch arming enabled",
+        "Live zone open / close events pushed by the panel through the PRT3 - no polling required for zone activity",
+        "Per-area status variables (AREA_1_STATUS ... AREA_8_STATUS) plus a parsed Area Status readout with alarm, trouble, memory, and strobe flags",
+        "Trouble Started / Trouble Restored events with the documented trouble descriptors (AC failure, battery failure, bell, clock, TLM, fire loop)",
+        "Panel-link supervision from the PRT3's COMM&ok / COMM&fail heartbeat, surfaced as events and a variable",
+        "On-demand area and zone status sweeps over a paced transmit queue that honors the PRT3's buffer-full backpressure signal",
+        "The panel user code is write-only: never logged, never echoed, never placed in a variable, and masked in every status readout"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Panels",
+          "value": "Paradox Digiplex EVO48, EVO96, EVO192; DGP-848 v4.11+; DGP-NE96 v1.60+"
+        },
+        {
+          "label": "Interface",
+          "value": "Paradox APR3-PRT3 Printer Module in Home Automation / ASCII mode"
+        },
+        {
+          "label": "Control",
+          "value": "One RS-232 serial binding, 8N1, at the baud programmed in PRT3 section [016] (2400 / 9600 / 19200 / 57600)"
+        },
+        {
+          "label": "Areas / zones",
+          "value": "Areas 1-8 and zones 1-96 (areas 5-8 and zones 49-96 require EVO96 / EVO192)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "An APR3-PRT3 Printer Module on the panel combus with its serial port enabled (section [016] option [1]), Home Automation usage selected (option [4]), and the ASCII protocol selected (options [5] and [6] OFF)",
+        "A Control4 controller or IO extender RS-232 port wired to the PRT3's 9-pin serial port at the PRT3's programmed baud rate, 8N1, no flow control",
+        "A programmed panel user code with arming rights for the target areas, entered in the User Code property",
+        "One-Touch arming enabled on the panel if the Quick Arm Area command will be used",
+        "Composer Pro access for the serial binding and future in-place updates"
+      ],
+      "limitations": [
+        "CONVENIENCE INTEGRATION ONLY - NOT AN ALARM PATH: this driver is a convenience integration and is NOT a listed alarm-signaling, monitoring, or life-safety path. It must never replace the panel's keypads, listed communicators, or central-station monitoring.",
+        "The driver NEVER disarms on its own: no event, schedule, or state change can trigger a disarm. A disarm frame is sent only when the Disarm Area command is explicitly invoked by a user or by project programming the dealer wrote.",
+        "The PRT3 ASCII protocol has no session authentication and no encryption: arm/disarm frames carry the panel user code in plaintext over the RS-232 line. Treat the serial run as a trusted physical segment.",
+        "Arm and disarm confirmations are the PRT3's echo (&OK / &fail) plus the panel's own pushed events - an &fail echo usually means an invalid user code or a not-ready area.",
+        "Zone status is event-driven plus on-demand sweeps; the driver does not maintain a per-zone variable for all 96 zones.",
+        "Quick Arm requires the panel's One-Touch feature; panic, smoke-reset, utility-key, virtual-input, and label commands are out of scope for v0.1.x.",
+        "Areas 5-8 and zones 49-96 exist only on EVO96 / EVO192 panels.",
+        "Release Candidate: simulator verified against the published PRT3 ASCII protocol; acceptance on a physical EVO panel + PRT3 is still pending."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Paradox EVO commissioning guide showing PRT3 wiring and programming sections, arm and disarm commands, the system-event format, and the convenience-integration safety statement.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_paradox_evo",
+        "generated_at": "2026-07-21T19:46:31.855Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "445fe0584f43b89644f1a106fdfdaec81071da66284b62d8bb8df714c8d63613",
+        "artifact_sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
+        "artifact_size_bytes": 97928,
+        "build_version_manifest_sha256": "64cd95c6129d4a1a03afcb1151b480d37c299e4e108c9ab9fa1ccd16c9919724",
+        "version_manifest_sha256": "50871eaecf84b0620b6d28dcf67c2e0638a5b986788d610747b8b12f064c9d01",
+        "version": "0.1.1",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 121
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 79,
+            "checks": 19,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 87,
+            "checks": 325,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 55,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 1,
+        "properties": 13,
+        "commands": 5,
+        "actions": 6,
+        "events": 11
+      },
+      "version": "0.1.1",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 97928,
+      "sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/integrateit_paradox_evo.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-21T19:46:32.187Z"
     },
     {
       "slug": "integrateit_push_pushover",

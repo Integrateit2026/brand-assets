@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_paradox_evo",
+  "generated_at": "2026-07-21T19:46:31.855Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "445fe0584f43b89644f1a106fdfdaec81071da66284b62d8bb8df714c8d63613",
+  "artifact_sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
+  "artifact_size_bytes": 97928,
+  "build_version_manifest_sha256": "64cd95c6129d4a1a03afcb1151b480d37c299e4e108c9ab9fa1ccd16c9919724",
+  "version_manifest_sha256": "50871eaecf84b0620b6d28dcf67c2e0638a5b986788d610747b8b12f064c9d01",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 121
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 79,
+      "checks": 19,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 87,
+      "checks": 325,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 55,
+      "files": 2
+    }
+  ]
+}

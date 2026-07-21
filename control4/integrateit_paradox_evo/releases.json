@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.1",
+  "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 1,
+      "sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
+      "size_bytes": 97928,
+      "published_at": "2026-07-21T19:46:32.187Z",
+      "notes": "Pre-ship adversarial review hardening (state fidelity + the never-suppress-an-alarm contract), no protocol changes: · Special disarm events (system-event group G022 - WinLoad disarm, one-touch stay/instant disarm, voice-module disarm, auto-arm cancelled) now report the area as Disarmed and fire `Area Disarmed`. These paths emit no G013-018 disarm event, so G022 is their only signal; previously the area read a stale `Armed` until the next status poll. The G022 cancel-alarm sub-event (N004) still only clears the alarm and never fabricates a disarm. · A zone/fire/panic alarm whose area field is 000 (all-areas / global) is no longer silently dropped: it still fires `Area In Alarm` and surfaces status, upholding the driver's standing contract that an alarm is never suppressed even when it has no single area to pin it to. · Added regression tests: G022 special disarm (and the N004 non-disarm guard), global-area alarm never suppressed, an RA reply reassembled from byte-at-a-time serial chunks, and a NACKed (&fail) arm that must never fabricate an armed state.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

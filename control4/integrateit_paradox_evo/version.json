@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Paradox EVO",
+  "version": "0.1.1",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/integrateit_paradox_evo.c4z",
+  "notes": "Two-way RS-232 integration for Paradox Digiplex/EVO panels through the APR3-PRT3 Printer Module ASCII protocol: license-gated area arm/disarm, live zone open/close events, per-area status variables, trouble events, and honest panel-link supervision. A convenience integration - never a listed alarm path.",
+  "sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
+  "size_bytes": 97928,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-21T19:46:32.187Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/qa-report.json"
+}
