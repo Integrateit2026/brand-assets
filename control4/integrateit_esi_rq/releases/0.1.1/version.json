@@ -2,7 +2,7 @@
   "name": "IntegrateIT ESI RQ Shades",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/integrateit_esi_rq.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esi_rq/releases/0.1.1/integrateit_esi_rq.c4z",
   "notes": "Drives one ESI RQ shade motor (M40Q/M50Q, Hunter Douglas Platinum 2.0 hardwired) through the RQ Bridge serial interface with REAL two-way feedback: go-to-position 0-99%, open/close/stop, live position query, and moving/stopped/error events parsed from the motor's own uplink messages.",
   "sha256": "00d3ea1f7263e4277a43006898abe9d4006b65b1606f55e2de5bcca7d234590b",
   "size_bytes": 95256,
