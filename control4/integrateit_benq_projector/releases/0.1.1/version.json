@@ -2,7 +2,7 @@
   "name": "IntegrateIT BenQ Projector",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_benq_projector/integrateit_benq_projector.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_benq_projector/releases/0.1.1/integrateit_benq_projector.c4z",
   "notes": "Drives BenQ projectors over RS-232 using BenQ's published *command=value# control protocol: power on/off with honest warmup/cooldown lockout modeling, source selection, volume and mute, lamp-hours tracking, and continuous power-state polling with communication-health events.",
   "sha256": "e2715ec2fc46e23d775aa2fc5428300ff8fa943adbdbbd41fde23a07ffabff4b",
   "size_bytes": 97123,
