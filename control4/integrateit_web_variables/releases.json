@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "e84f70f64416d42221a08153d952ad197bd9183c9cbcc069f0db8629ca9eab44",
+      "size_bytes": 65857,
+      "published_at": "2026-07-26T14:33:00.027Z",
+      "notes": "First release candidate. Original IntegrateIT HTTP-poll-to-variable driver for Control4 — the second artifact of the generic-tcp-toolkit family. · Polls a dealer-configured HTTP/HTTPS endpoint on a bounded interval and publishes extracted values as Control4 variables, so any web/JSON/plain-text source is programmable in Composer with no custom code. · Four extraction slots, each a JSON path (a.b[0].c) or a Lua text-capture pattern; response type auto-detected by content, overridable to JSON or Text. · Publishes a STRING variable per slot, a NUMBER variable when the value parses numeric, a per-slot SLOT_n_OK flag, plus LAST_POLL, HTTP_STATUS, and POLL_OK. · Per-slot Changed events fire on value transitions only — the first population after boot stays silent (house rule). Poll Failed / Poll Recovered track reachability. · Honesty and safety: http/https-only destination gate, per-slot state kept honest on a miss (value stays last-known, OK drops), response-size cap with truncation reporting, and a request header that is sent but never logged. Debug logs method + path only; bodies only when Debug Response Bodies = Bodies. · Polling is gated on the license: under Strict enforcement an unlicensed controller opens no request and fires no events. · MAC-locked IntegrateIT licensing with lenient (default) or strict enforcement; self-update and diagnostics inherited from the shared runtime. · Simulation verified; representative endpoint acceptance on a controller is still pending.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

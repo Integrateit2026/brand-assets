@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Web Variables",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/releases/0.1.0/integrateit_web_variables.c4z",
+  "notes": "Turn any HTTP/HTTPS endpoint into Control4 variables: poll a dealer-configured URL on an interval and publish up to four extracted values (JSON path or text pattern) as STRING and NUMBER variables, each with a per-slot Changed event and honest OK state. MAC-locked IntegrateIT licensing.",
+  "sha256": "e84f70f64416d42221a08153d952ad197bd9183c9cbcc069f0db8629ca9eab44",
+  "size_bytes": 65857,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-26T14:33:00.027Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/qa-report.json"
+}

@@ -44,5 +44,6 @@
   "integrateit_tcp_toolkit",
   "integrateit_unifi_access",
   "integrateit_unifi_network",
-  "integrateit_unifi_protect"
+  "integrateit_unifi_protect",
+  "integrateit_web_variables"
 ]

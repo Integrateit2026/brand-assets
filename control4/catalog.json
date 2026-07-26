@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T03:37:25.508Z",
+  "generated_at": "2026-07-26T14:33:00.035Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -6289,6 +6289,139 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T03:37:25.497Z"
+    },
+    {
+      "slug": "integrateit_web_variables",
+      "name": "IntegrateIT Web Variables",
+      "summary": "Turn any HTTP/HTTPS endpoint into Control4 variables: poll a dealer-configured URL on an interval and publish up to four extracted values (JSON path or text pattern) as STRING and NUMBER variables, each with a per-slot Changed event and honest OK state. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Web Variables",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Polls any HTTP/HTTPS endpoint on a dealer-set interval and publishes the results as Control4 variables",
+        "Up to four extraction slots, each a JSON path (a.b[0].c) or a Lua text-capture pattern",
+        "Auto-detects JSON vs plain-text responses by content, with a manual override",
+        "Every numeric value is also published as a NUMBER variable for direct comparison in programming",
+        "Per-slot Changed events fire on value transitions only — the first population stays silent",
+        "Poll Failed / Poll Recovered events and a per-slot OK flag report reachability and extraction honestly",
+        "http/https-only destination gate, response-size cap with honest truncation, and a never-logged request header",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Data source",
+          "value": "Any HTTP/HTTPS endpoint (LAN or WAN)"
+        },
+        {
+          "label": "Extraction",
+          "value": "JSON path or Lua text pattern, auto-detected"
+        },
+        {
+          "label": "Published",
+          "value": "STRING + NUMBER variables per slot, plus poll health"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "Controller network access to the endpoint over HTTP or HTTPS",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative endpoint acceptance on a controller is still pending.",
+        "Read-only: the driver polls and extracts — it never writes to the endpoint. It reports the HTTP result, not that a value is correct.",
+        "This is a generic web reader: it can reach WAN endpoints. Point it only at sources you trust, and mind who sees the response data as Control4 variables."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Web Variables commissioning guide showing the overview, extraction rules, programming recipes, and safety boundaries.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_web_variables",
+        "generated_at": "2026-07-26T14:32:59.476Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "441bf1c307fe7abcbdb95d7c4c153421011096e625d6564437b1f15e871db267",
+        "artifact_sha256": "e84f70f64416d42221a08153d952ad197bd9183c9cbcc069f0db8629ca9eab44",
+        "artifact_size_bytes": 65857,
+        "build_version_manifest_sha256": "cc5daa08a8e1a96f15312ab380c14ae7d3a03153d04a91acae4d1f51b1788e2c",
+        "version_manifest_sha256": "9d35d46d3565f6d8ff0122aeae8a5048a454fa5bd33e00b3c1f9f41b70b06315",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 110
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 76,
+            "checks": 250,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 53,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 22,
+        "commands": 0,
+        "actions": 3,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 65857,
+      "sha256": "e84f70f64416d42221a08153d952ad197bd9183c9cbcc069f0db8629ca9eab44",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/integrateit_web_variables.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_web_variables/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T14:33:00.027Z"
     }
   ]
 }
