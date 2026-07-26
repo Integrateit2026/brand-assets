@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>IntegrateIT Shelly Cover</title>
+<style>
+/* IntegrateIT driver documentation tokens. These are intentionally self-contained
+   and use sRGB values for compatibility with Control4's embedded browser. */
+:root{
+  --bg:#0A0D13;
+  --bg-deep:#070A0F;
+  --surface:#141A26;
+  --surface-raised:#1A2332;
+  --surface-strong:#222D3D;
+  --line:#2B3749;
+  --line-strong:#3B4B63;
+  --text:#EDF2F9;
+  --text-soft:#A7B2C3;
+  --text-faint:#77859A;
+  --blue:#0157FF;
+  --blue-light:#7FB2FF;
+  --blue-tint:rgba(1,87,255,.13);
+  --brass:#B89968;
+  --good:#34D399;
+  --good-tint:rgba(52,211,153,.11);
+  --warn:#FBBF24;
+  --warn-tint:rgba(251,191,36,.10);
+  --bad:#F87171;
+  --bad-tint:rgba(248,113,113,.10);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:18px;
+  --ease:cubic-bezier(.25,1,.5,1);
+}
+
+/* IntegrateIT Documentation tab: The Commissioning Book */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--blue-light);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--text)}
+a:focus-visible{outline:2px solid var(--blue-light);outline-offset:3px;border-radius:4px}
+.shell{min-height:100vh;background:
+  radial-gradient(900px 420px at 86% -10%,rgba(1,87,255,.14),transparent 68%),
+  linear-gradient(180deg,var(--bg-deep) 0,var(--bg) 360px)}
+.wrap{width:min(1040px,100%);margin:0 auto;padding:0 28px}
+
+/* masthead */
+.mast{padding:30px 0 34px;border-bottom:1px solid var(--line)}
+.brandbar{display:flex;align-items:center;gap:18px;min-height:42px}
+.brandbar img{display:block;width:auto;height:30px;max-width:210px;object-fit:contain}
+.version{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line-strong);
+  border-radius:999px;background:var(--surface);color:var(--text-soft);font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.version::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-tint)}
+.eyebrow{margin:32px 0 12px;color:var(--brass);font-size:11px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+h1{max-width:760px;margin:0;font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.035em;font-weight:780;text-wrap:balance}
+.sub{max-width:68ch;margin:16px 0 0;color:var(--text-soft);font-size:16px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;color:var(--text-faint);font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+.meta span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--brass)}
+.readiness{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ready{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(20,26,38,.76);color:var(--text-soft);font-size:12px;font-weight:700}
+.ready b{color:var(--good);font-size:13px}
+
+/* task navigation */
+.toc-wrap{position:sticky;top:0;z-index:10;background:rgba(10,13,19,.97);border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px rgba(0,0,0,.20)}
+.toc{display:flex;gap:7px;overflow-x:auto;padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.toc a{flex:none;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text-soft);
+  font-size:12px;font-weight:720;text-decoration:none;transition:color 180ms var(--ease),border-color 180ms var(--ease),background 180ms var(--ease)}
+.toc a:hover{color:var(--text);border-color:var(--blue);background:var(--blue-tint)}
+
+/* document */
+main{padding:34px 0 24px}
+.card{scroll-margin-top:80px;margin:0 0 18px;padding:26px 28px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface)}
+.card h2{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:20px;line-height:1.2;letter-spacing:-.018em;font-weight:760}
+.card h2 .n{display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--blue);
+  color:var(--text);font-size:12px;font-weight:820;font-variant-numeric:tabular-nums}
+.card h3{margin:24px 0 10px;color:var(--text);font-size:15px;line-height:1.35;font-weight:760}
+.card p{max-width:74ch;margin:10px 0;color:#D7DFEA}
+.card ul,.card ol{max-width:76ch;margin:12px 0;padding-left:23px}
+.card li{margin:7px 0;color:#D7DFEA}
+.card li::marker{color:var(--blue-light);font-weight:800}
+.card b{color:var(--text);font-weight:750}
+
+/* operational callouts */
+.note{margin:16px 0;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--surface-raised);
+  color:#D7DFEA;font-size:14px}
+.note::before{content:"INFO";display:block;margin-bottom:4px;color:var(--blue-light);font-size:10px;font-weight:800;letter-spacing:.12em}
+.note.good{border-color:rgba(52,211,153,.36);background:var(--good-tint)}
+.note.good::before{content:"READY";color:var(--good)}
+.note.warn{border-color:rgba(251,191,36,.38);background:var(--warn-tint)}
+.note.warn::before{content:"CHECK";color:var(--warn)}
+.pill{display:inline-flex;align-items:center;margin-left:6px;padding:3px 8px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--surface-raised);color:var(--text-soft);font-size:10px;font-weight:800;letter-spacing:.04em;vertical-align:middle}
+.pill.blue{border-color:rgba(127,178,255,.34);background:var(--blue-tint);color:var(--blue-light)}
+.pill.green{border-color:rgba(52,211,153,.34);background:var(--good-tint);color:var(--good)}
+.pill.amber{border-color:rgba(251,191,36,.34);background:var(--warn-tint);color:var(--warn)}
+.pill.red{border-color:rgba(248,113,113,.34);background:var(--bad-tint);color:var(--bad)}
+
+/* steps, code, and reference data */
+.steps{counter-reset:step;list-style:none!important;padding:0!important}
+.steps li{counter-increment:step;position:relative;padding:11px 0 11px 46px;margin:0!important;border-top:1px solid var(--line)}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(step);position:absolute;left:0;top:9px;display:grid;place-items:center;width:30px;height:30px;
+  border:1px solid var(--line-strong);border-radius:9px;background:var(--surface-raised);color:var(--blue-light);font-size:12px;font-weight:820}
+code{padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface-raised);color:#8DE2D6;
+  font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere}
+pre{max-width:100%;overflow:auto;margin:14px 0;padding:15px 17px;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:var(--bg-deep);color:#BCEDE6;font-family:var(--mono);font-size:12.5px;line-height:1.6}
+pre code{padding:0;border:0;background:transparent;color:inherit}
+table{display:block;width:100%;max-width:100%;overflow-x:auto;border-spacing:0;border-collapse:separate;margin:14px 0 20px;
+  border:1px solid var(--line);border-radius:var(--radius-md);font-size:13px}
+tbody{display:table;width:100%;border-collapse:collapse}
+th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-raised);color:var(--text-soft);font-size:11px;font-weight:780;letter-spacing:.035em;white-space:nowrap}
+td{color:#D7DFEA}
+td:first-child{color:var(--text)}
+td code{white-space:normal}
+
+/* release history */
+.chg{margin-top:4px}
+.chg .rel{padding:15px 0;border-top:1px solid var(--line)}
+.chg .rel:first-child{padding-top:0;border-top:0}
+.chg .rel b{font-variant-numeric:tabular-nums}
+.chg .rel .d{margin-left:8px;color:var(--text-faint);font-size:12px}
+.chg .rel ul{margin:7px 0 0}
+
+/* brand sign-off */
+.powered{margin-top:22px;padding:42px 24px 46px;border-top:1px solid var(--line);text-align:center;background:var(--bg-deep)}
+.powered .hairline{width:40px;height:1px;margin:0 auto 18px;background:var(--brass)}
+.powered .pb{margin:0 0 14px;padding-left:.32em;color:var(--text-soft);font-size:10px;font-weight:650;letter-spacing:.32em;text-transform:uppercase}
+.powered img{display:block;width:auto;height:28px;max-width:min(270px,80vw);margin:0 auto;object-fit:contain}
+.powered .places{margin:22px 0 0;color:var(--text-faint);font-size:10px;font-weight:650;letter-spacing:.22em;text-transform:uppercase}
+.powered .places b{padding:0 8px;color:var(--brass);font-weight:700}
+.powered .support{margin:18px 0 0;color:var(--text-soft);font-size:12px}
+
+@media(max-width:700px){
+  .wrap{padding:0 18px}
+  .mast{padding:22px 0 28px}
+  .brandbar img{height:24px;max-width:170px}
+  .eyebrow{margin-top:26px}
+  h1{font-size:32px}
+  .sub{font-size:15px}
+  main{padding-top:24px}
+  .card{padding:21px 19px;border-radius:var(--radius-md)}
+  .card h2{font-size:18px}
+  th,td{min-width:130px;padding:10px 11px}
+}
+@media(max-width:420px){
+  .wrap{padding:0 14px}
+  .version{padding:5px 8px}
+  .version .word{display:none}
+  h1{font-size:29px}
+  .ready{font-size:11px}
+  .card{padding:18px 15px}
+  .card h2{align-items:flex-start}
+  .powered{padding-left:14px;padding-right:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc a{transition:none}}
+@media print{
+  :root{--bg:#F7F8FA;--bg-deep:#FFFFFF;--surface:#FFFFFF;--surface-raised:#F0F3F7;--line:#CCD3DD;--line-strong:#AEB8C6;
+    --text:#101722;--text-soft:#3D4A5E;--text-faint:#59677B;--blue-light:#0049D8}
+  .shell{background:#F7F8FA}.toc-wrap{position:static;box-shadow:none}.card{break-inside:avoid}.powered img{filter:invert(1)}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <div class="wrap">
+      <div class="brandbar">
+        <img src="data:image/png;base64,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" alt="IntegrateIT">
+        <span class="version"><span class="word">Driver</span> v0.1.0</span>
+      </div>
+      <p class="eyebrow">Control4 commissioning guide</p>
+      <h1>IntegrateIT Shelly Cover</h1>
+      <p class="sub">Full Gen2+ Shelly roller/cover control with real reported position — the queryable device, honestly driven. Powered by IntegrateIT.</p>
+      <div class="meta">
+        <span>Updated 2026-07-26</span>
+        <span>Supported by IntegrateIT</span>
+      </div>
+      <div class="readiness" aria-label="Driver capabilities">
+        <span class="ready"><b aria-hidden="true">✓</b> Control4 DriverWorks</span>
+        <span class="ready"><b aria-hidden="true">✓</b> OS 3.0.0+</span>
+        <span class="ready"><b aria-hidden="true">✓</b> License framework</span>
+        <span class="ready"><b aria-hidden="true">✓</b> Self-update ready</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toc-wrap">
+    <nav class="toc wrap" aria-label="Documentation sections"><a href="#overview">1 Start here</a><a href="#feedback">2 The feedback contract</a><a href="#setup">3 Wire and commission</a><a href="#protocol">4 On the wire</a><a href="#programming">5 Program the project</a><a href="#status">6 Read status at a glance</a><a href="#troubleshooting">7 Troubleshoot methodically</a><a href="#trust">8 Ownership, privacy, and licensing</a><a href="#reference">R Reference</a><a href="#licensing">L Licensing</a><a href="#updates">U Automatic updates</a><a href="#changelog">V Version history</a></nav>
+  </div>
+
+  <main class="wrap">
+    <section class="card" id="overview" data-card="overview">
+  <h2><span class="n">1</span> Start here</h2>
+  <p>IntegrateIT Shelly Cover gives Control4 full control of a single <b>Gen2+ Shelly Cover</b> component — one roller, shade, awning, or gate motor — over the device's own <b>local JSON-RPC 2.0 API</b> (<code>POST /rpc</code>), with no Shelly Cloud account and no issued credentials. It is the dedicated cover driver the generic IntegrateIT Shelly driver deliberately does not try to be: Open, Close, Stop, <b>Go To Position</b> (0–100), and <b>Calibrate</b>, with real two-way position feedback read straight from the device. The protocol is Shelly's published Cover component (documented at shelly-api-docs.shelly.cloud); the driver reads <code>Cover.GetStatus</code> back after every action and on a poll timer, and publishes position, state, and faults as Control4 variables and events so programming reacts to what the hardware actually did.</p>
+  <div class="note warn">Shelly hardware ships with its local authentication <b>off</b> by default, so on that default anyone on the LAN can drive the cover. Keep these devices on a trusted, segmented network, and treat the cover as switching a real motor on a physical load. Enable the device's own auth before exposing it to an untrusted network — but note Gen2+ digest is <b>not implemented in this version</b> (see On the wire), so an auth-enabled device is unreachable by this driver until it ships.</div>
+  <div class="note good">Ready for controlled commissioning — <code>simulation-verified</code>, not yet hardware bench-tested. Gen2+ detection, the full cover control surface, two-way position/state feedback, exactly-once movement events, calibration honesty, obstruction reporting, the LAN-only safeguard, 429 backoff, the digest capability gate, and the license gate all pass the IntegrateIT driver-factory QA simulation. A qualified dealer must still commission against a real Shelly Cover on the target controller and confirm each action moves the hardware.</div>
+  <p><b>What you get</b></p>
+  <ul>
+    <li>Cover control: <b>Open</b>, <b>Close</b>, <b>Stop</b>, <b>Go To Position</b> (0–100 via <code>Target Position (%)</code>), and <b>Calibrate</b></li>
+    <li>Real reported position in <code>POSITION</code> (0–100) and <code>Position (%)</code>, updated only from <code>Cover.GetStatus</code> — never a value the driver invented</li>
+    <li>Movement events with exactly-once semantics: <b>Motion Started</b> / <b>Motion Stopped</b>, plus <b>Fully Open</b> / <b>Fully Closed</b> and <b>Position Changed</b></li>
+    <li>Honest calibration: an uncalibrated device shows position <b>Unknown</b>, and a Go To Position the device refuses raises <b>Calibration Needed</b></li>
+    <li>Safety reporting: obstruction / overpower / overtemp / safety-switch faults published to <code>LAST_ERROR</code> with an <b>Obstruction Detected</b> event</li>
+    <li>Reachability tracking (<code>DEVICE_ONLINE</code>) with <b>Went Online</b> / <b>Went Offline</b></li>
+    <li>LAN-only destination safeguard; the device password is password-typed and never written to the Control4 log</li>
+    <li>MAC-locked IntegrateIT licensing with Lenient or Strict enforcement</li>
+  </ul>
+</section>
+
+<section class="card" id="feedback" data-card="feedback">
+  <h2><span class="n">2</span> The feedback contract</h2>
+  <p>This is a <b>real-position device</b>, and the driver treats it like one: every value it publishes was reported by the cover, never assumed.</p>
+  <ul>
+    <li><b>Position and state are read back, not guessed.</b> After an Open/Close/Stop/Go To Position the driver reads <code>Cover.GetStatus</code> and publishes the device's own <code>state</code> and <code>current_pos</code>. <code>POSITION</code> is what the device reports, not the target you sent.</li>
+    <li><b>The first observed value is absorbed silently.</b> When a poll or detect discovers the cover's current position and state at boot, the driver adopts them without firing an event — no phantom <b>Motion Started</b> or <b>Fully Open</b> for a change the device did not just make. Events fire only on a genuine transition after that.</li>
+    <li><b>Movement events are exactly-once.</b> <b>Motion Started</b> fires once when the cover enters a moving state (<code>opening</code>, <code>closing</code>, <code>calibrating</code>); <b>Motion Stopped</b> fires once when it leaves one — no matter how many repeated or coalesced status frames report the same state in between.</li>
+    <li><b>Uncalibrated means Unknown, honestly.</b> A Shelly Cover only reports a position once it has been calibrated. When the device reports <code>pos_control:false</code> (or omits <code>current_pos</code>), <code>POSITION</code> reads <b>Unknown</b> and <code>CALIBRATED</code> is <code>0</code>. A calibrated position simply does not exist yet — anything claiming otherwise would be faking it.</li>
+    <li><b>After a controller reboot the driver knows nothing until the first read.</b> <code>POSITION</code> sits at <code>-1</code> (Unknown) and <code>COVER_STATE</code> at <code>Unknown</code>; those defaults are not a reading of the hardware, so do not drive automation off them before the first successful <code>Cover.GetStatus</code>.</li>
+  </ul>
+</section>
+
+<section class="card" id="setup" data-card="setup">
+  <h2><span class="n">3</span> Wire and commission</h2>
+  <ol class="steps">
+    <li>Put the Shelly in <b>Cover profile</b> in its own web UI and run its <b>calibration</b> routine, so it can report and target a position. Give it a <b>static IP</b> (reserve it in DHCP) and confirm <code>http://&lt;ip&gt;/rpc/Shelly.GetDeviceInfo</code> answers a small JSON identity blob in a browser.</li>
+    <li>Add <b>IntegrateIT Shelly Cover</b> to the room and enter the <code>Shelly IP Address</code> — a bare dotted-quad IPv4, not a URL and not an IPv6 literal. Leave <code>Allow Non-LAN Address</code> at <b>No</b> unless the device is on a deliberately routed segment.</li>
+    <li>Set the <code>Cover ID</code> (0 for a single-cover device; 0–3 on a multi-channel model). Bind a second driver instance for a second cover.</li>
+    <li>If the device has authentication enabled, enter the <code>Username</code> (Gen2+ is always <code>admin</code>) and <code>Password</code>. Gen2+ digest is not implemented in this version — an auth-enabled device answers 401 and the driver reports the hardware gate (see On the wire). Leave both at their defaults when auth is off (the Shelly factory default).</li>
+    <li>Run <b>Detect Device</b>. <code>Detected Model</code> should populate and <code>Device Status</code> should show the live cover state. A Gen1 device is refused here — use the generic IntegrateIT Shelly driver for Gen1 rollers.</li>
+    <li>From the Actions tab, run <b>Open</b> / <b>Close</b> and <b>watch the cover move</b> — <code>COVER_STATE</code> follows through <code>opening</code>/<code>closing</code> to <code>stopped</code>/<code>open</code>/<code>closed</code>, and <code>POSITION</code> tracks the reported position. Optionally enter a <code>License Key</code> (Lenient mode runs without one).</li>
+  </ol>
+</section>
+
+<section class="card" id="protocol" data-card="protocol">
+  <h2><span class="n">4</span> On the wire</h2>
+  <p>One transport: Gen2+ JSON-RPC 2.0 over HTTP on port 80. Turn on <code>Debug Mode → Print</code> to watch each call in the Lua output window (the method and path only — never the body, never the password):</p>
+  <table>
+    <tr><th>Purpose</th><th>RPC</th></tr>
+    <tr><td>Detect</td><td><code>GET /rpc/Shelly.GetDeviceInfo</code></td></tr>
+    <tr><td>Control</td><td><code>POST /rpc</code> — <code>Cover.Open</code> / <code>Cover.Close</code> / <code>Cover.Stop</code> / <code>Cover.GoToPosition{pos}</code> / <code>Cover.Calibrate</code></td></tr>
+    <tr><td>Status</td><td><code>POST /rpc</code> — <code>Cover.GetStatus</code> → <code>state</code>, <code>current_pos</code>, <code>pos_control</code>, <code>errors[]</code></td></tr>
+  </table>
+  <p>State is refreshed by <b>polling</b> (<code>Poll Interval (s)</code>) and after every action — the same proven transport the generic IntegrateIT Shelly driver uses. The Gen2 outbound-WebSocket <code>NotifyStatus</code> push is a deliberate non-goal in this version; a shorter poll interval is the latency knob. Any response marks the device online; a transport failure (no response) marks it offline and fires <b>Went Offline</b>. A JSON-RPC <code>error</code> object in a control reply (for example, a Go To Position on an uncalibrated cover) is surfaced on the <code>Status</code> line and in <code>Last Error</code> rather than silently dropped. If a device ever answers <b>HTTP 429</b> with a <code>Retry-After</code>, the driver waits out that window before issuing another request — it never hammers a rate-limited device.</p>
+  <p><b>Authentication.</b> Shelly ships with auth off — the fully exercised default. Gen2+ uses RFC7616 SHA-256 digest, which needs the controller's OS crypto (<code>C4:Hash</code>) and the 401-challenge headers; that primitive is not present in the offline simulator, so the driver does <b>not</b> synthesize a digest header in this version. A 401 therefore reports <code>Auth required: Gen2+ digest needs controller OS crypto (verified on hardware)</code> — unconditionally, even where the controller does expose crypto — rather than faking an unexercised hash path or wrongly blaming your credentials. Until digest ships, leave an auth-enabled device's auth off on a trusted LAN.</p>
+</section>
+
+<section class="card" id="programming" data-card="programming">
+  <h2><span class="n">5</span> Program the project</h2>
+  <table>
+    <tr><th>Action</th><th>Effect</th></tr>
+    <tr><td>Open / Close / Stop</td><td>Drives the cover; confirmed <code>state</code> + <code>POSITION</code> published from <code>Cover.GetStatus</code></td></tr>
+    <tr><td>Go To Position</td><td>Moves the cover to <code>Target Position (%)</code> (0 = closed, 100 = open); refused honestly if uncalibrated</td></tr>
+    <tr><td>Calibrate</td><td>Runs the device's calibration routine (the cover enters <code>calibrating</code>)</td></tr>
+    <tr><td>Detect Device</td><td>Resolves the model and refreshes status</td></tr>
+    <tr><td>Refresh Status</td><td>Reads <code>Cover.GetStatus</code> now and republishes variables</td></tr>
+    <tr><td>Print Configuration</td><td>Prints IP, cover id, reported position/state, and auth state to the Lua output — never the password</td></tr>
+  </table>
+  <table>
+    <tr><th>Variable</th><th>Type</th><th>Meaning</th></tr>
+    <tr><td><code>DEVICE_ONLINE</code></td><td>BOOL</td><td>Device is responding on the LAN</td></tr>
+    <tr><td><code>POSITION</code></td><td>NUMBER</td><td>Last reported position 0–100, or <code>-1</code> when Unknown</td></tr>
+    <tr><td><code>COVER_STATE</code></td><td>STRING</td><td>Last reported state: open / closed / opening / closing / stopped / calibrating</td></tr>
+    <tr><td><code>MOVING</code></td><td>BOOL</td><td>The cover is currently moving</td></tr>
+    <tr><td><code>CALIBRATED</code></td><td>BOOL</td><td>The device reports it can target/report a position</td></tr>
+    <tr><td><code>LAST_ERROR</code></td><td>STRING</td><td>Most recent fault or refused-command reason</td></tr>
+    <tr><td><code>MODEL</code></td><td>STRING</td><td>Model reported by detection</td></tr>
+  </table>
+  <p>Three ways these wire into Composer programming:</p>
+  <ul>
+    <li>**When *Motion Stopped* fires → read <code>POSITION</code>.** Because the event follows a confirmed status read and lands after the final position, the next program step sees where the cover actually came to rest.</li>
+    <li>**When *Obstruction Detected* fires → notify and hold.** The device raised a safety fault (<code>LAST_ERROR</code> carries the token) — surface it rather than re-driving into an obstruction.</li>
+    <li><b>On a Good Night event → Go To Position 0 (or Close).</b> One Control4 event closes the cover; <code>POSITION</code> / <code>COVER_STATE</code> confirm the result. If the cover is uncalibrated, <b>Calibration Needed</b> fires instead of a silent no-op.</li>
+  </ul>
+  <p>Control actions are gated by the license: under <b>Strict</b> enforcement an unlicensed controller issues no control request at all, while status polling keeps running (watching your own cover is not a licensed feature). The default <b>Lenient</b> mode allows commissioning while <code>License Status</code> carries the nag.</p>
+</section>
+
+<section class="card" id="status" data-card="status">
+  <h2><span class="n">6</span> Read status at a glance</h2>
+  <table>
+    <tr><th>Property / variable</th><th>Healthy result</th><th>What to do otherwise</th></tr>
+    <tr><td><code>Device Status</code></td><td><code>Detected &lt;model&gt;</code>, a cover state, or a sent/confirming line</td><td>Read the exact <code>Blocked:</code> / <code>Auth required:</code> / <code>Unsupported: Gen1</code> / <code>Detection failed</code> text it shows</td></tr>
+    <tr><td><code>Position (%)</code></td><td><code>0</code>–<code>100</code> on a calibrated cover</td><td><code>Unknown</code> = uncalibrated or nothing reported yet; run <b>Calibrate</b>, then <b>Refresh Status</b></td></tr>
+    <tr><td><code>COVER_STATE</code></td><td>Matches the physical cover</td><td><code>Unknown</code> until the first status read</td></tr>
+    <tr><td><code>CALIBRATED</code></td><td><code>1</code></td><td><code>0</code> = the device cannot target a position; run <b>Calibrate</b></td></tr>
+    <tr><td><code>DEVICE_ONLINE</code></td><td><code>1</code></td><td><code>0</code> = device off the LAN or on a new IP; reserve it in DHCP</td></tr>
+    <tr><td><code>LAST_ERROR</code></td><td><code>None</code></td><td>A fault token (e.g. <code>obstruction</code>) or a refusal reason — clear the physical condition</td></tr>
+    <tr><td><code>License Status</code></td><td>Activated, or Lenient during commissioning</td><td>Enter a key before selecting Strict enforcement</td></tr>
+  </table>
+  <p><b>Print Configuration</b> writes the device IP, cover id, reported position/state, calibration flag, and auth state (password length only) to the Lua output window. It never prints the password or the license key.</p>
+</section>
+
+<section class="card" id="troubleshooting" data-card="troubleshooting">
+  <h2><span class="n">7</span> Troubleshoot methodically</h2>
+  <table>
+    <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+    <tr><td>Nothing responds; <code>Device Status</code> reads <code>Blocked: …</code></td><td>Address is outside the LAN ranges, an IPv6 literal, a URL, or blank</td><td>Enter the device's dotted-quad LAN IPv4; set <code>Allow Non-LAN Address</code> = Yes only for a routed setup</td></tr>
+    <tr><td><code>Device Status</code> reads <code>Unsupported: Gen1</code></td><td>The device is a Gen1 roller</td><td>Use the generic <b>IntegrateIT Shelly</b> driver for Gen1 rollers</td></tr>
+    <tr><td><code>Position (%)</code> stays <code>Unknown</code></td><td>The cover is not calibrated</td><td>Run <b>Calibrate</b> (or calibrate in the Shelly web UI), then <b>Refresh Status</b></td></tr>
+    <tr><td>Go To Position does nothing; <b>Calibration Needed</b> fired</td><td>The device refused positioning while uncalibrated</td><td>Calibrate the cover; the driver refuses positioning it knows the device can't honor</td></tr>
+    <tr><td><code>DEVICE_ONLINE</code> stuck <code>0</code></td><td>Device rebooted onto a new IP, is off the LAN, or is unpowered</td><td>Reserve the IP in DHCP; confirm <code>http://&lt;ip&gt;/rpc/Shelly.GetDeviceInfo</code> answers</td></tr>
+    <tr><td><code>Auth required: … digest needs controller OS crypto</code></td><td>The device has authentication enabled</td><td>Digest is not synthesized in this version — disable the Shelly's auth on a trusted LAN until it ships</td></tr>
+    <tr><td><code>Device rate-limited (HTTP 429)</code></td><td>The device throttled the driver</td><td>The driver is already waiting out <code>Retry-After</code>; lengthen <code>Poll Interval (s)</code> if it recurs</td></tr>
+    <tr><td>Control does nothing, no request in Debug; <code>Status</code> reads <code>Unlicensed - control disabled</code></td><td>Strict enforcement with no activated key</td><td>Enter a valid <code>License Key</code>, or set <code>License Enforcement</code> back to Lenient for commissioning</td></tr>
+  </table>
+  <div class="note"><code>Debug Mode → Print</code> shows every HTTP method and path in the Lua output window; the request body and the password are never included.</div>
+  <p>If a symptom survives every check above, run <b>Print Configuration</b>, capture the Lua output window, and send it to support@integrateit.tech · (913) 804-7575.</p>
+</section>
+
+<section class="card" id="trust" data-card="trust">
+  <h2><span class="n">8</span> Ownership, privacy, and licensing</h2>
+  <p>This package is an original IntegrateIT implementation of Shelly's published local Cover API (Gen2 JSON-RPC, documented at shelly-api-docs.shelly.cloud). It does not bundle another vendor's runtime, source code, brand assets, trial system, or license. Shelly is a trademark of Allterco Robotics; IntegrateIT is not affiliated with Shelly or Allterco, and this driver is not a Shelly product.</p>
+  <p>The driver talks only to the Shelly device on your LAN — it never contacts Shelly Cloud, and the Integrator/Cloud APIs (which require issued credentials) are intentionally unsupported. Nothing about your project leaves the controller. The device <code>Password</code> lives only in the driver's property store, is sent only to the local device, and is never written to the Control4 log or the Print Configuration output. The <code>Allow Non-LAN Address</code> gate defaults to <b>No</b>, so the driver cannot be pointed at an arbitrary internet host by accident.</p>
+  <p>Lenient mode allows commissioning without an activated key and keeps <code>License Status</code> visible. Strict mode blocks all cover control until the Ops Portal has minted and validated a key for that controller; status polling continues either way. Installing this package does not itself mint or activate a controller license. The shared IntegrateIT license and update services use the controller identity, driver slug, version, configured license key, and update channel as documented in the reference below.</p>
+<section class="card" id="reference" data-card="reference">
+  <h2><span class="n">R</span> Reference</h2>
+  <p>Generated from the driver manifest at build time — always matches this build (v0.1.0).</p>
+  <h3>Properties</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Shelly IP Address</code></td><td>STRING</td><td><code></code></td><td>LAN IP address of the Shelly Gen2+ device (reserve it in DHCP). Local API only — never a Shelly Cloud address.</td></tr>
+    <tr><td><code>Cover ID</code></td><td>INTEGER 0–3</td><td><code>0</code></td><td>The Cover component id. Most single-cover devices are 0.</td></tr>
+    <tr><td><code>Username</code></td><td>STRING</td><td><code>admin</code></td><td>Auth username. Shelly Gen2+ fixes this to admin; it applies only when the device has authentication enabled.</td></tr>
+    <tr><td><code>Password</code> <span class="pill blue">secret</span></td><td>STRING</td><td><code></code></td><td>Auth password if the device has authentication enabled. Leave blank for the default (auth off). Never written to the Control4 log.</td></tr>
+    <tr><td><code>Poll Interval (s)</code></td><td>INTEGER 0–600</td><td><code>5</code></td><td>How often to read Cover.GetStatus (publishes position, state, and reachability). 0 disables polling; state then updates only after an action.</td></tr>
+    <tr><td><code>Target Position (%)</code></td><td>INTEGER 0–100</td><td><code>50</code></td><td>Target position used by Go To Position (0 = fully closed, 100 = fully open).</td></tr>
+    <tr><td><code>Allow Non-LAN Address</code></td><td>LIST</td><td><code>No</code></td><td>Safety gate. When No, the driver only talks to private LAN / link-local / *.local addresses. Shelly local control is same-LAN; set Yes only for an intentionally routed setup. One of: No · Yes</td></tr>
+    <tr><td><code>Position (%)</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Last position REPORTED by the device (0-100), or Unknown until the device reports (and while uncalibrated).</td></tr>
+    <tr><td><code>Cover State</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Last state reported by the device: open, closed, opening, closing, stopped, or calibrating.</td></tr>
+    <tr><td><code>Last Error</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>Most recent safety/obstruction fault or refused-command reason reported by the device.</td></tr>
+    <tr><td><code>Detected Model</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The model reported by Shelly.GetDeviceInfo on Detect Device.</td></tr>
+    <tr><td><code>Device Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Live reachability and the most recent cover state or gate reason.</td></tr>
+  </table>
+  <p><b>Standard IntegrateIT properties</b> — licensing, self-update, and diagnostics, auto-injected into every IntegrateIT driver:</p>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Driver Version</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>Debug Mode</code></td><td>LIST</td><td><code>Off</code></td><td>One of: Off · Print</td></tr>
+    <tr><td><code>Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Idle</code></td><td></td></tr>
+    <tr><td><code>License Key</code></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>License Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not activated - Lenient mode (control enabled)</code></td><td></td></tr>
+    <tr><td><code>License Enforcement</code></td><td>LIST</td><td><code>Lenient (recommended)</code></td><td>One of: Lenient (recommended) · Strict</td></tr>
+    <tr><td><code>License Server URL</code></td><td>STRING</td><td><code>https://relay.integrateit.dev</code></td><td></td></tr>
+    <tr><td><code>Update Manifest URL</code></td><td>STRING</td><td><code>https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_cover/version.json</code></td><td></td></tr>
+    <tr><td><code>Automatic Update Check</code></td><td>LIST</td><td><code>Daily</code></td><td>One of: Daily · Off</td></tr>
+    <tr><td><code>Update Available</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td></td></tr>
+    <tr><td><code>About</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Powered by IntegrateIT - integrateit.tech</code></td><td></td></tr>
+  </table>
+  <h3>Actions (Composer Actions tab)</h3>
+  <table>
+    <tr><th>Action</th><th>Command</th></tr>
+    <tr><td>Open</td><td><code>COVER_OPEN</code></td></tr>
+    <tr><td>Close</td><td><code>COVER_CLOSE</code></td></tr>
+    <tr><td>Stop</td><td><code>COVER_STOP</code></td></tr>
+    <tr><td>Go To Position</td><td><code>COVER_GOTO</code></td></tr>
+    <tr><td>Calibrate</td><td><code>COVER_CALIBRATE</code></td></tr>
+    <tr><td>Refresh Status</td><td><code>REFRESH</code></td></tr>
+    <tr><td>Detect Device</td><td><code>DETECT</code></td></tr>
+    <tr><td>Print Configuration</td><td><code>PRINT_CONFIG</code></td></tr>
+    <tr><td>Activate License Now <span class="pill blue">shared</span></td><td><code>ACTIVATE_LICENSE</code></td></tr>
+    <tr><td>Check for Update Now <span class="pill blue">shared</span></td><td><code>CHECK_UPDATE</code></td></tr>
+    <tr><td>Download &amp; Stage Update <span class="pill blue">shared</span></td><td><code>DOWNLOAD_UPDATE</code></td></tr>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tr><th>ID</th><th>Event</th><th>Fires when</th></tr>
+    <tr><td>20</td><td>Motion Started</td><td>The cover began moving (opening, closing, or calibrating).</td></tr>
+    <tr><td>21</td><td>Motion Stopped</td><td>The cover stopped moving.</td></tr>
+    <tr><td>22</td><td>Fully Open</td><td>The cover reached the fully open state.</td></tr>
+    <tr><td>23</td><td>Fully Closed</td><td>The cover reached the fully closed state.</td></tr>
+    <tr><td>24</td><td>Position Changed</td><td>The device reported a new position.</td></tr>
+    <tr><td>25</td><td>Obstruction Detected</td><td>The device reported an obstruction or safety fault (obstruction, overpower, overtemp, safety switch).</td></tr>
+    <tr><td>26</td><td>Calibration Needed</td><td>Go To Position was refused because the cover is not calibrated.</td></tr>
+    <tr><td>27</td><td>Went Online</td><td>The device started responding on the LAN.</td></tr>
+    <tr><td>28</td><td>Went Offline</td><td>The device stopped responding on the LAN.</td></tr>
+    <tr><td>1001</td><td>Update Available <span class="pill blue">shared</span></td><td>A newer driver version is available from IntegrateIT</td></tr>
+    <tr><td>1002</td><td>License Problem <span class="pill blue">shared</span></td><td>License key invalid, revoked, or bound to a different controller</td></tr>
+  </table>
+</section>
+</section>
+<section class="card" id="licensing" data-card="licensing">
+  <h2><span class="n">L</span> Licensing</h2>
+  <p>This driver is licensed <b>per controller</b>. Each license key locks to one controller's
+  MAC address the first time it activates, exactly like other professional Control4 vendors.</p>
+  <ol>
+    <li>Generate a key for the customer in the IntegrateIT Ops Portal → <b>Licenses</b>.</li>
+    <li>Paste it into the driver's <code>License Key</code> property in Composer.</li>
+    <li>On activation the key binds to this controller; the <code>License Status</code> property
+      shows <span class="pill green">Licensed</span>.</li>
+  </ol>
+  <p><b>Enforcement.</b> <code>License Enforcement</code> defaults to
+  <span class="pill blue">Lenient (recommended)</span>: the driver works the moment it is wired,
+  so you can stage and verify a job before a key is minted, and a paid site keeps running if the
+  license server is ever unreachable. <code>License Status</code> still nags until a key activates.
+  Set it to <span class="pill amber">Strict</span> to disable all control until a valid key binds.</p>
+  <table>
+    <tr><th>License Status</th><th>What it means</th></tr>
+    <tr><td><span class="pill green">Licensed</span></td><td>Bound to this controller and activated.</td></tr>
+    <tr><td>Not activated, Lenient mode</td><td>No valid key yet. Control still works in Lenient mode; enter a key for production.</td></tr>
+    <tr><td><span class="pill amber">Bound elsewhere</span></td><td>The key is active on another controller. Unbind it in the Ops Portal to move it here.</td></tr>
+    <tr><td><span class="pill red">Revoked / Invalid</span></td><td>Contact IntegrateIT. Under Strict enforcement control stays disabled until a valid key is entered.</td></tr>
+  </table>
+  <div class="note">Replaced the controller? Click <b>Unbind</b> in the Ops Portal. The next controller
+  to activate with the key becomes its new home. The driver re-checks on boot and every 12 hours, and
+  keeps working through brief internet outages (it re-validates when the relay is reachable again).</div>
+</section>
+
+<section class="card" id="updates" data-card="updates">
+  <h2><span class="n">U</span> Automatic updates</h2>
+  <p>The driver checks IntegrateIT for a newer version on boot and once a day. There is <b>no need to
+  re-add the driver</b>. When an update is available the <code>Update Available</code> property
+  shows the new version and the driver fires its <span class="pill blue">Update Available</span> event.</p>
+  <ol class="steps">
+    <li>The driver flags <code>Update Available: vX.Y.Z</code> in its properties (or run the
+      <b>Check for Update Now</b> action).</li>
+    <li>Run the <b>Download &amp; Stage Update</b> action. The new <code>.c4z</code> is fetched
+      onto the controller.</li>
+    <li>In Composer, right-click the device, then choose <b>Update Driver</b>. Your settings, bindings,
+      and programming are preserved.</li>
+  </ol>
+  <div class="note good">Tip: wire the <b>Update Available</b> event to a notification so you know the
+  moment a new build ships.</div>
+</section>
+
+    <section class="card" id="changelog" data-card="changelog">
+  <h2><span class="n">V</span> Version history</h2>
+  <div class="chg">
+    <div class="rel"><b>v0.1.0</b> <span class="pill green">current</span><span class="d">2026-07-26</span>
+      <ul><li>Initial release candidate. Dedicated Gen2+ Shelly Cover control over the on-device JSON-RPC 2.0 API (`POST /rpc`) — no Shelly Cloud, no issued credentials.</li><li>Full roller/cover control the generic IntegrateIT Shelly driver cannot model: Open, Close, Stop, Go To Position (0-100), and Calibrate via Cover.Open/Close/Stop/GoToPosition/Calibrate.</li><li>Real two-way position feedback read back from Cover.GetStatus: POSITION (0-100), COVER_STATE (open/closed/opening/closing/stopped/calibrating), MOVING, and CALIBRATED — reported by the device, never assumed. The first observed value is absorbed silently (unknown to known fires no events).</li><li>Movement events with exactly-once semantics across duplicate/merged status frames: Motion Started / Motion Stopped, plus Fully Open / Fully Closed and Position Changed.</li><li>Calibration honesty: an uncalibrated device (no pos_control / no current_pos) reports position as Unknown; a Go To Position the device refuses surfaces the device's own reason and raises Calibration Needed.</li><li>Obstruction / overpower / overtemp / safety-switch faults published from the component's errors[] to LAST_ERROR, with an Obstruction Detected event on a fault transition. Safety tokens are matched on their prefix, so compound forms with a colon-delimited detail (bad_feedback:rotating_in_wrong_direction, bad_feedback:failed_to_halt) fire the event too, with LAST_ERROR carrying the full detail string.</li><li>Polled status transport (consistent with the shipped IntegrateIT Shelly driver — the Gen2 outbound-WebSocket push is a deliberate v1 non-goal); reachability drives Went Online / Went Offline.</li><li>Gen2+ SHA-256 digest auth gated behind an OS-crypto capability check and verified on hardware — no unexercised hash path ships; a 401 surfaces the hardware gate and the password is never logged.</li><li>LAN-only destination safeguard (private / link-local / *.local, with an explicit Allow Non-LAN Address override); bounded backoff that honors a 429 Retry-After so the driver never hammers a rate-limited device.</li><li>MAC-locked IntegrateIT licensing gates every actuating path, re-checked at issue time; polling continues under Strict enforcement.</li><li>Simulation-verified via the IntegrateIT driver-factory QA gate; representative Shelly Cover hardware acceptance is pending.</li></ul></div>
+  </div>
+</section>
+  </main>
+
+  <footer class="powered">
+    <div class="hairline" aria-hidden="true"></div>
+    <div class="pb">Powered by</div>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDoAAAC+CAYAAADUQ29kAAAgIElEQVR4nO3d0XVUR7YG4MNdPJ9hIjCO4MoRGCIwPM2jIQJQBEAE4AjAj34CRwBEYN0I0ERwdSuBuWvLJVvYAnW3umvXOfV9a2mBZ8CnrVZ3n/pr197TBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALu7dYO/CwB/KKUcTdN0p/7jvS/8sdN5nt9MnSulPM9+DAtyWr/Ofz/P88XvAQBSCDoA2Fgp5e40TUf165tpmi7++SLguM6HeZ7vT50rpfwn+zGsJPw4mabp/+J5j9/P83yW/cAAgPUTdABwpVLKnRpiRHXG91sGGl8i6BjbRfjxsf4sxO+5pJTypWqo6zQLki69NwBtnXnfhM3c3nD37tF0eHHD82GDx/Ngnud3O5RTP7jRowPWbhFHKhotsn6o4YaFDPt2t36dfyaXUmJhHp/9v9b7AMdepun9jn/vxTRNrY5cHd3gcQK7i/fLm20W/Os/zdZ20y+3rl3bTf/6TzyWeEywnV9uPb9R0FF/8J5NbVz/YpimJxG+zPP8atN/aSSfpZSXXzkzDhDvP0MGHREg13DjwR4qNmAbd+rP3UXwETuVP0/T9E7osbUnDYMOYLl6W9v9aI3GDq4tfPivaZle1iqNbTy81CwNYGgRbpRSXpdS/neaprd1d0fIQbb4bI+NiU+llPellBa7jmtxx/cLgEH8utagI7ytZ0Q3Us+tRtihERowpKiGi+o24QYLETt852Fc/blV2rxZVQcArN1qKzpC3PC83uYv1OY9x4d7SADdVm/EefpP0zQ9FW6wMHfqz21UeUTwIfD4sqMbNDMFgCWI/i9naw46Qty8b3UetTYb3Li/B8BSRRl7KeVTrd6w+GENogpJ4HH9eXcAGPbYyhqCjvBs292LeZ6PN2yOA7AocaQvAuB6PCWq3iwGWXvgoULpcxFwet0DsFbvRgk6tu7XUWlOCqxKrXD7VLupW/wxUuARR1v4k6akAKzRyfTLrdORgo47tTR72qE5KcBajqgIOBhR/MxHs9LfdpjItlaakgKwRhufylhL0BHu7dCvI5qTPj7cQwI4nDi2V5uMOqICv4+m/W3be4GVMmoWgDX6ecSgY9d+HdGcNL4AltSHI8KNCDk0GYW/3wu817tDVQcAq3I6/XIrChWGDDp26tcxz3NUdWz8TQPIUndp45iK3Vr4snu1d8fIQaBRswCsyVbDRNYYdGzdr6O6P03TtfN4ATLEFIVLx1RG36mGTcTrJCo7Rg4FjZoFYKixsmsOOkKcW3+5Q3PSCDsAulIXar85pgI7eb3tPcGKGDULwBqcTb/c2mis7NqDjvC0lPJgm7+gOSnQYS+OqFBTxQE3vyeI19GIRq5oAWDAYytrDzoudnG22snQnBToQR2TGVUcWwW2wFerG0YMOzQlBWCoYysjBB079evQnBTIVEp5WkMOJeewXyOGHUbNArB0Wx1bGSHouOg6vsvZXM1JgayxsaP2E4AWRgw7VHUAsFQfpl9ubb0uHyHo2LVfR3wzHx7uIQH8qY7Fjqkqdl6hTdgx0mvNqFkAhjm2MlLQsWu/jmh6cny4hwTwRz+OT7EYyX4sMNh9wUiLf6NmARji2MpoQcd5v466a7qxeZ5faU4KHEpdaEUlh6kq0F7cF4zSC8eoWQCW5mT65dbpLn/x9jSWo3r2fdsRssf179ptBfamls6vpVfAWW3iHF//V3+9OE95Uo8DLkn0aeJzR38J5L7/wv++JHfqa3CU5zvec55nPwgAONRY2VGDjosdjY91jOxG4ga9lPKwTkFY6s0c0JEVhBzxwfOx/rrEIGOTo4t87sMG1Ul369f3CwpA7pVSns/z/HyQpqQj/HcCsA4/7/oXRww6wstSStyYbzxCdp7n0xp2RIk5wGghx2k9I/mrEICrXPVzUfvPRADyQ/21V89KKe+2uS9Y8qjZbTZ7viCCzbW/D7QK6tb+fWS/1v4eBZedTr/c2vlnftSg47xUtZRyf5tdyLiJK6V8t5Adqp69bHQMaJRSZPajSUXCwkKOi3Dj5wEWgBxA/bmJr1e1R9aDGnpsNQmt4WfT/UGqOt7s4Xld9feqlPK+RTg3z/Oqv4+wYYuANa6tWqx3TlY+OOPsJn951KBj534dbvZvrpTSZEFp15neLCjkuAg3dupyDVepGwuxwH5Tm2I+qovuOx0dYdlHtcMiRs36jAS6cIMd+6796z8t1jtn0y+3vJd/wUhTV77UryNutABGDzkuFqHfzvP8UMjBIcVx0NoT49u6G3XW0dHWXoKXQzJqFoBVGz3ouLipMU0FOJhSyoOOQ45YYL6oAcfjWIBmPyDGqvKoY9y/rT+H2SLkeDqtn1GzAKyaoOPPfh0j7OAAjdUgtdeQ43yBGTvra5uawiIDj4sKj+wy3CeD3BOoaAVgtQQdv+t5IQIsVN0xjYZ2vS2aPtSA41jAQYdHWu4nV3eMUtUR/VEAYJUEHX96UEoZ4cYGaKDuCL/tLOSIYynRfyMmTjmiQrdqdUeMdM8K4kboYXE+ajb7QQDAIQg6PqdfB7AvUSV21Nkxle80GWUp6s/q/aSw4+4gIcCz7AcAAIcg6Pi7t4OczQUOpJQSu9HRgLQHZ7WKwzEVFqeOdM8KO36Y1i8CnXvZDwIA9k3Q8Xdxpl6/DmAnddHwrLNeHKo4WEPYkXGkNWMySfz3tqRXBwCrI+i4mn4dwE36cvTgRe3FoYqDtYQdxwmXzqjM+mmQQAcADub24f7Vq+jX8aHeXDHWbnyLMt43mkGuUg/NRyPYeKyKg7WZ5/lVKeX7xuHDD7W/TTPzPL8ppbxs/F7yJClIYvfjkc8aBeZxLYDFEXR83ftSSpR92xEdR6tjB3GkQNCxvhvP7LPu8V4VVRwCWtbqcX2dtQoB7kWlVsJ9wE+Nj8A9KqXEotb9DgCr4OjK1/VUhg50qk5ryu7LEeFGBLNCDlarLsRfNL5sRoD5JuF+p5cGygBwY4KOzXZzlO0BX5PdwPi8WaPdWEY5wtK4Ii6OyzRVjza2Djuyw1oA2BtBx2aeGb8GXKUGoVHRkUXIwYhaNuzM+vz/ufH1jJoFYDUEHZt7WycqAJyrkwoyd0GFHIyqZbVDSpA5z3P0cjJqFgB2IOjYnH4dQE9HVoQcDKv+3DebLJRY6WDULAAMEnRkNtrTrwM4V0qJxn1Zi584vy/kYHS/NrxWyuI/Rs3WaUotqeoAYPEWF3TM83ycHHZEvw6dyWFg9Rjby6TLx6LnoZAD2lV0ZAUdSVUdMWrWUV0AFm1xQUf1MGGH47LXSjthaE8TFz4Rchghy/Bq2NfqtfDNlMeoWQAYIeioY9ceJz4E/TpgUHWnM6u0+7g2KAR+1yroSNvcMGoWAAYJOsI8z1Gy+irxIRyVUrJK14E8sQDIKOt+M89z5nse9Ojf0xiMmgWAEYKOS/06Mnc3n+rXAeOoR9bi2EprsaMb73dATkVH6qLfqFkAGCjoqPTrANZezq35KFxtpNeFUbMAMErQUW/+I+zIol8HDKDe8D9KuPQLzUeBOmo2qrtaUtUBwCItPui4VNL5IvEh6NcB65cRcpzM8/w84bpAn1r36jBqFoBFWkXQEepiILtfR8ZCCFjvpJXM6VJAf1o3JDZqFoBFWk3Q0Um/jpellKPE6wOHESFm613NV46sAFcc1zVqFgBGCjo66dcRzUmVecK6tK7mOEs+jgf0q3VTUqNmAVicVQUdvfTriMqOxOsDe1Rv8FtPHjg2ZQW4Sq30an1UV1NSABZldUHHpX4d7xIfQjTv0q8D1uHHxtc7rdMVgOu1Oi7aetpJb01JjZoFYFFWGXRcauKXeWOiXwcsXD2G1jq01IAUNvfNiEGHUbMAMGjQoV8HsAetQ44P9fgdsJmRNxSMmgWA0YKOS+dYjxMfgn4dsGw/rrzJICxdqyaZH6f+GDULACMGHWGe51cd9Ot4mnh9YAf1PPpR494cme9VsCiNJ4F01xzYqFkAGDjoqPTrALbVeufSOFnYzg8NrxUVoj0yahYARg06OujXEd462wqL0vLYyplJK9B1GNll0GHULAAMHHRcuhnInGYQZfCvE68PbKiGki2rsIQcsIU6wv1uw2Nl3R1ducSoWQAYNegIdcc0c0ERNwf6dUD/Wh9b0YQU+q246noSklGzADB40FEdJ5eg6tcB/fu+4bVO5nnO7CEEi1JKiSCyZZ+IHieu/JVRswAwctBRy0/jCEtmGap+HdC3eyteoMBi1c/O1mPbu67oqIyaBYCRg45L/TqisiOLfh3QqXr2vOX5cyNlYbvxpi1fn4uouDJqFgA+N2TQ0VG/jueJ1wfyqzkWsYiCjo6stO5ztaSKK6NmAWD0oKOTfh3P3CTA0P05lrSIgjS1t1VGJeRiKq6MmgWAPw0ddOjXAVyhZbPgJZz9hx5Cjve1L0RLHxZYcWXULACMHnRc2gGJsCNL3Li9Tbw+kBN0nNX3H6C/kGORFVdGzQLA74YPOsI8z+8SOpZfdk+/DsjX+CiZag64vidHVshxWkODJTJqFoDh3c5+AL2Y5/m4LnJalq3/tV9HlMla/ECeliXYHxteCxajLpqfJTQeXXQ1xyWvGk9EuRg1u9RgiC/7Ri+5dqwBYL8EHZ97OE3Tb0m7Rxf9Or6tvUNYt5elFM9zI/M839/wjzYdW9nwWrAIdVEVTUcz+z6cJVd53kjcQ5RSInR41PCyEawIOtbnUeOfo9Hdyn4AsCaCjkui6Vgp5XFiz4w7tUz3u6Tr005W5RCdTFyxcwN/qg0tX9bKgGw/rWDD4afGC9TzUbPe1wDohR4d/fXrOCqlxM0e0F6rai7VHFArOEopUcHxqZOQI3pzLL5nVtKo2ZbHZQDgqwQdX+jXkbwQeVqbsAHrrLRZ2shK2GsPjlJKNLD8rVYx9lQaH5//a9G6z0iEVkbNAtAFQcfX+3Vklq6+dsMAq/U/2Q8AWorPs1JKhPhxNPR/ax+O3o7wvatVnauQNGpWVQcAXRB0fKVfRw07Mkvos3qFwHAad5ZX0cEIR1Ii2IjQPo6lfOqoB8dVYmMjenStTeuqjgdGzQLQA81IvyKaapVSXiTuUJz366hHaYD1EHSwlmDwTq3M+Ef9NSoRl1iN+HgFDUh7GTX7aMlTawBYB0HHNaIpWSklJjFkzRGPHbGPayqnBVKPxTVXSok+DFwtwgE74LlerfUzNmnU7BNBBwDZBB2beVjLbrNuRqP0NzrBm9QAh9MszBzwtZwVFMN1PgxQNZkxavbBWsMjAJZBj44N1HLW7H4dEXbY9QOA/ThJ/mxf86jZqOoAgDSCji36dUzTFP06Msubo5EbAHAz5xsYK+3LcRWjZgEYiqBjy34dCbsilz0qpbQsPwX2b5SFFfT8Grxfp6sNwahZAEYj6NhelLlm3hy9LKVEdQewTKP154AeQ44RX4dGzQIwDEHHlvTrAIBFOh045JgSJqFcjJoFgOYEHTuoN0mZXdr16wCAzcXn9ncDhxwXGzVxhKUlTUkBSCHo2NE8z7Ezkjk6Tb8OWCbVWNDWu1rJoT/O76Nmp9ajZhtfEwAEHTf0WL8OYEtes9DOi3meR5qu8lVGzQIwCkHH8vt1vNWvAwCu7McR09L4nFGzAKyeoGP5/Tri5uF14vUBoCdvaj+OzHHw3TJqFoARCDrW0a8jRrg9Tbw+rEGzG39VWHDQKo7Hjqp016vDqFkAmhJ07LdfR2Y3d/064GZa7nB6rcJ+vVDFsZWo6mgZBhk1C0BTgo49qbtHEXZk7iLp1wHAaAv2b6MXhyqOzdXvVetKVE1JAWhG0LFH+nXAorWs6LjX8Fqw5oAjjqlkTj9behVMS0bNAtDM7XaXGqfJVynl+8QSzfN+HbVvCLChWCyVUlpd7h+tLgQrDDhiZKxwYz/veR8aB69PknuasZ14nXmtAYsk6DiM43oG/yixX8eJs8rd/4xk9nThalHO3eL4lx4dsN3rMppnvhFw7N1PjYOO81GznsfF+NmIZmCpBB0HOvtaSol+He8bLZq+1K8jynqdWe6TIKpPJ41u+gUdcL3Y+f+1jkPlAOZ5fldKOa1HX1uOmo17JAA4GD061tuvIwKWt4nXhyVqtct4R+NguNLFZ2cE9Q+FHE0YNQvA6gg6DqjeoGXepEWJqJJD2Ny/G15LQ1L4s3LjItyIEbGvHG1oyqhZAFZH0HFg0RE+uRfDs1KKBRVspuVxIsdXGF1MTLlVKzeEG0mMmgVgjfToaOPhNE2/6dcB3Wu50IrpTKNoPcZyX35s3LtgNL63fb1GH7UeNRs9QhpeE4CBCDrajXB7nNgz46Jfx/2k68OSXqutJq8MU2m11K79dVS4xfhhKw7f1Z5WJDJqFoC1EXS07Wz+apqmp5n9Opa64IAVTl6JhbQdTV708r5cSnmZ8BkV1xTC98GoWQBWQ4+OhuZ5Pu6gX8eDxOvDEnxseK2Rjq+wjOMLrY84xmJXY8oO1NC1degQo2YBYO8EHTn9OjJ7ZbyOHZTE60PvWjYkFTzSjdrHKWMs+kvjRrth1CwAqyDoaKyWaEa/jim5XwdwtZPGDflMX6G3segtw76Lz6U4wkI+o2YBWAVBR155aOYUgqN6Fhu4elf7pPFkD+hJRhj/yCj0fEbNArAWgo4ktflc612zy57q1wFf9GvDa3kd0mPlYUYYL4DvQ+vn/nzUbONrArBygo5c+nVAn1qGkG7y6dGrhMaUUW3YxQSakdWgq/VGjKoOAPZK0JFfIhphRxb9OuAK8zx/aBxC/tDwWtBzY9InAvghm5Kej5ptfE0AVkzQ0ceCKrtfx+vE60Ov3jXuT+Amnx77Sb1LCOB9JiUzahaApRN0dKCDfh2xyNL1HPL6dASvQXp0nHDEMnb3HefKZ9QsAIt1O/sB8Ic4wvKp7mZleFlKOZnnueW0Ceh6R7OUctbwNRkl+6/qkQHopl9DKeWnhN32+Ez6sM3roQb2KqP25x+Nr3cxajb6wwDAjQg6OhE3c6WUCDveJz2E83LhUsp9Cy34w7uGlRbxGoxd7DeNrgcbVx2WUqKPzFHDy96t4co2fULis8vxh2WLpqSCDgBuzNGV/vp1ZDR/uxA3scb7Qd7xFYs0enWcNAb9qPOeIuyXKVQA7IWgozPzPL9KvlHTrwPyGvLFTf7ThteDbYL4jGqjbcP3x8lj27k5o2YBuDFBR58eJ3Q7/+vZ6JYlytCznxtf75mGfHQqqzHpxuFfPXqZOcmM/Tzn7kEAuBFBR4fqjVr065iS+3VYbEH7Xex43anqoNfPpowjLFuFf7UyMnOSGTenqgOAGxF0dKpOP8nu1/E68frQzdSJhONksbAzPYLuzPP8JiFEiJDDEZaxxDFamy0A7EzQ0bEO+nXETHs7yzBNMV6zNY2B6dVx0sL33pYBpSMsy+b+A4CdCTr6p18H9NGI8TQhaDR9gF4rDjNGgL7eYbMgHivL9GP2AwBguQQdy+nXkVmC+1YJKaTsDuuVQ8+vh9bhX0wler7DZgHLFM+3KXAA7ETQsQAd9OuIXgH6dTC02pvgNKMxcONrQs+NSZ9s07+mfn46wrJcqjoA2ImgY1mLrNbTHy7TrwNyFkyOsNCleZ7fJTUm3fYIS1SBOMKyTEbNArATQceyHCffrOnXwdCSqjoujrCYwkKPMqab3Nsh/MusiuRmjJoFYGuCjuWVCmePzNOvg9FlVHXEa+5twnVhk+kmP/Xev6Y2FM5ooMrNGTULwNYEHQvTSb8OCy6GlVjVcVRK0a+D7tSjIRn9a54toIEq++HoLABbEXQsUAf9Ou7t0Pke1uRx4s6mKQT0KOM18XSb45SXqiJZHk1JAdiKoGO5svt1PCul3Eu8PqSpZfCtmzBeLtnXnJQeXxMZAfzrhTxObsaoWQC2IuhYqF76dSReG7Jl7gxH2KExMD0G8GcJR7qeLuBxcnOqOgDYmKBj+f06MhdbmoMxehPGjMakF6+998IOOgzgXyRVGG7TmNQRlmUyahaAjQk6Fm6e53c6yUOaV4nNDYUddGee51cJxyrv7HCEJT4744tlMWoWgI0IOlZgnufsfh0wpA52hoUd9CjjNfFgh75R2cc/2Z5RswBsRNCxHg/dsEF7tblhZlWVsIMej1VmvCZeL+SoDTdj1CwA1xJ0rKtfgDPHkONF4hGWIOygx9fEWcJkjuc7HLXJmqDEbjQlBeBat6//IyxFnDkupcRNm90OaCh2hkspETS+7yDsOJ7n2fhMenlNvE1oTPqmhv+berxtNQh/c6/1qFnvcwB8jaBjhf066jllO7vQ+AhLKSV2sZ8lPozzpoyllLvzPG+1s83nah+Au9mPYwXh+4fGi+Cphhb3N/3DNRTZ+M/zd6WU942f56jqEHQA8EWOrqxT3LDp1wGN1XChhzL42NV+q2nfbmpY/EnQsRePk8aQPki47sh+anw9o2YB+CpBxwrVBmvRnBQYtzFwLPR+sxjYXARDpZSX9QiSkGgParVERsPPqGzyHDZSx/W27lNk1CwAXyToWPckCN3kYeyg8W4NOxxj2ayK4zc9jg5W6dR6EXwn+RjZiFpXdRg1C8AXCTpWrKMyehgxaDye+hFHWaJRqaMYV1dxvK5VHL4/6zrC8rQGWLTxJqGaTTAJwJUEHevXSxk9DKWOreypWd553wnVHZ8FHM9rL45H2Y9nkPAvjje0FkeRaFfN1vo5NmoWgCsJOlauszJ6GMo8z487rKqK6o5PI+90x2jKekwljjYofW/nOCF4Pyql2PVvp/WR2fNRs42vCcACCDoGoF8HpIqg8WTqSxzRiKMs70cJPGoFR5zpjwqOOKrimMo4jUkj3PN8t3uOW4e7qjoA+BtBxyD064DUqqpeRz7fW3vgEQvcS0dUBBx9HOlqHfxF1Y4jLO0YNQtAOkHHeDvLrTvfw/A6Dzv+GnjEWNrFi+CmNhmNgMMRlb5kNOp9sNYwrzdGzQLQA0HHQPTrgDzzPJ90HnaEWAi+rT08YmLFosKB2NUtpbysx1Niioqz+/0ep4zKjtZeL+1nesGMmgUg1e3cy5Ox2CqlxG6aMt5cP9pd7M7pPM9vGrz+7tdFeM835Xfre0SEBrE7+2tMU6hhaVdqyXqc0X+w0GMpvfVvaeVFDaJavg7i5yMak5o8dHhvEiqpPLeH6W8TzyP9+DDPc9xHANcQdAx6RrqU8n1dGJDDTnN/PrQYB7ugsOPCg/r1uoYeH+uNVsoCvTaVjJDw4j1sCd/DL3lcy/yHE6FZDd3jeFHrhdub2jSTwz6/7xp/1kXgKegA4JygY1wx9vJooTugsGgLDDv+GnpE4BALxZMafMSvJ/uu+KihxkWw8d/11yV9v64LOQ4erPUs/vtLKbE4bV3dFuGKHdF2VTtNR82O/roC4HeCjrF3W6Jfx2/ZjwUGDzti0bXEiQEXIcQflWGllLMaekQI8u/6P28y7enoUoDxff39Er8nmzgbuZLjCscJn0PRqNaC+MCiaqaU8qFxkBXBmecVAEHHyPTrgK4qO9awsL9zxaLG+e4/nU/fyTr20/Fr4EXCz8l5/5ke+86ssCnpvdajZr3GADB1ZXDRr8PuB3QxetYO/7rFwutbC7ArxefQaUIoJ4Q7MKNmAcgi6CBEVYebb0gMO+Z5fpg0cpPDe1MrOVQPXKF+X+JzqLUYoWz61eEZNQtAc4IOLm4yozmpm3BINM9zLPa8FtfXjyO+PKfX7/xnVDU5utkm6Gv98x+jZgEYmKCDc7WcOmNHDbikNkiMoyzGXy7bSa3icDRwc8cJC+KjUoqRpAdUQ77WIVY0JQVgYIIO/lBvyN2UQx/B43f6dixWHEHSdHSHKR0JxxzCkzrKmMOJhrNT61Gzja8JQEcEHfyVfh3QV9+OjF1udnNaA45jR1V2M8/z84TPoOjn4AjL4UOsTUZN75OqDoCBCTr4jH4d0OVkpDjKIoDsWzxP383z3Hoxt0YZxygflFIeJFx3JK2rdWLUrGazAIMSdPA3+nVAf6/JeZ6/Syj/5nrnx4xUcexPDYsyjlG+NK1jdaNmVXUADErQwdf6dRh1Cf2V9UfgoWqgn4kqEXKottm/jCNb0afDtI71jZrVfwVgQIIOrht16QYe+qvuiKMsjpjlOKuVNd+aqHI4tTomo4LpWSnlKOG6o8gYNaspKcCABB1cJ5ohWkxBZ+oi+1uVV03F9zwqOJ47ptKsP01G9ZLGpOsaNfuk8fUA6ICgg006pcfOMdDnZJbjGngYRXs456HSPM9xVKV1j4HRZfSLiiaWqgAOp3Wlzh3PJ8B4BB1s2kDMrjF0KhbfdRRtHGnRv2M/YudZwJGs9j/J+PzRmHRdo2ZVdQAMRtDBRvTrgGVMq6j9OwQe++nBIeDoQzwfrZ+HCDkcYVlPU9Ijo2YBxiLoYBv6dcDyAg8NMzcTwVAEG//Ug6Mv9bnIOMISEzssjg/AqFkADk3Qwcb064BFBh6Paw+P2BW3eP/cWT0WEdUb901R6X5hrDHpuhg1C8DBCDrY5WYzY+QfcLMeHlGl8M8aVo7cuPSi98bDWr1x7HjKYmSMVI4jD88bX3MURs0CcDCCDrYWCybn/2GZomqhNi6NKo9Reu/8EW5c6r0xctizSDWQal0FEJ6oBNg/o2YBOKTbB/23s2axYPiU/SCAGy0a49jGq7qIe1DPsB9N63BSA9mPQo11Be2llP+uzUJbVwKo7Ni/qBBtGiJF35U41rfBH+05BM6YXEMfev65hMUFHaeNjip4w17YTkwpJRod7uLnWHxMffJzOK5hjy/8JfS4U0OP76dpikaMS9nJvrjxj/eW6E0y7PO5drUiiRWor9Nd7yVaTJvrUu0npKcQu7K2a6PFese9zlfc+tr/CcDYarXHUQ0+4tceplCc1q+PF5UbpqQAAHBB0AHALuHH3Rp6fFN/f/G1L2c1xIhf/+dSuHEi1AAA4GsEHQDs/Qz8pX+8c03fj4sw449/FmQAAAAAAAAAAAAAwLQi/w+lRpP0rjIHZwAAAABJRU5ErkJggg==" alt="IntegrateIT">
+    <p class="places">Kansas City <b>·</b> South Florida</p>
+    <p class="support">support@integrateit.tech · (913) 804-7575</p>
+  </footer>
+</div>
+</body>
+</html>

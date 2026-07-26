@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Shelly Cover",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_cover/releases/0.1.0/integrateit_shelly_cover.c4z",
+  "notes": "Dedicated Gen2+ Shelly Cover control over the device's own local JSON-RPC API — Open, Close, Stop, Go To Position, and Calibrate with REAL two-way position feedback, movement events, and honest calibration and obstruction reporting. No Shelly Cloud account.",
+  "sha256": "a61ac35f35f6f4a61d2d9f67e3e9150e474f9a1b408bd8adbce2cb506d6ebef4",
+  "size_bytes": 97240,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-26T14:33:31.812Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_cover/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_cover/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_cover/qa-report.json"
+}
