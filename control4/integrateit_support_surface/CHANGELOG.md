@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Support Surface
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - First cut: one Navigator experience button that opens a dealer-configured HTTPS support or contact page on touchscreens and in the mobile apps.
 - HTTPS-only destination behind a strict validator (scheme, fully qualified host, embedded credentials, control characters, whitespace, port range, unsafe path bytes, 512-character cap); a refusal names its reason in Destination Status and fires Support URL Rejected instead of pushing a bad URL.

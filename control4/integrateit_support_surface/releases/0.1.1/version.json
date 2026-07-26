@@ -2,7 +2,7 @@
   "name": "IntegrateIT Support Surface",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/integrateit_support_surface.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_support_surface/releases/0.1.1/integrateit_support_surface.c4z",
   "notes": "An in-project Navigator button that opens a dealer-configured HTTPS support or contact page on Control4 touchscreens and in the mobile apps, with strict URL validation and an on-driver privacy disclosure. MAC-locked IntegrateIT licensing.",
   "sha256": "6901e59710b868246795321d71cba9a3a902ce7b1bed6b6a08051aa6ede77e10",
   "size_bytes": 96172,
