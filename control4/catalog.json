@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T14:33:00.035Z",
+  "generated_at": "2026-07-26T14:33:04.383Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1765,6 +1765,142 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T02:38:03.887Z"
+    },
+    {
+      "slug": "integrateit_esphome",
+      "name": "IntegrateIT Client for the ESPHome Native API",
+      "summary": "Local Control4 client for a single ESPHome device over its Native API (TCP :6053, plaintext protobuf). Enumerates the device's switch, binary_sensor, sensor, and text_sensor entities, maps up to eight of them into labeled Control4 slots with typed variables and Changed events, and drives switch entities On/Off/Toggle. Plaintext + legacy password auth only. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "ESPHome Native Client",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Speaks the ESPHome Native API wire protocol directly over TCP (default port 6053) — a hand-rolled, minimal plaintext-protobuf client, no third-party library",
+        "Enumerates the device's switch, binary_sensor, sensor, and text_sensor entities and reports them for mapping",
+        "Maps up to eight entities into labeled slots, each with STRING / NUMBER / BOOL variables and a Slot Changed event",
+        "Switch slots expose On, Off, and Toggle actions fireable from Composer programming",
+        "Legacy plaintext password authentication; keepalive pings; bounded-backoff reconnect with automatic entity re-enumeration",
+        "Detects a Noise-encryption device that refuses plaintext and says so plainly instead of silently failing",
+        "LAN-only destination safeguard, password-typed credential that is never logged, and MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Protocol",
+          "value": "ESPHome Native API, plaintext framing (indicator 0x00), TCP :6053"
+        },
+        {
+          "label": "Entity types",
+          "value": "switch, binary_sensor, sensor, text_sensor"
+        },
+        {
+          "label": "Authentication",
+          "value": "None or legacy API password (plaintext)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "An ESPHome device with the api: component enabled and reachable on the LAN",
+        "The device must NOT have an api: encryption key set (v1 speaks plaintext only)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; representative-device acceptance on a real controller is still pending.",
+        "Plaintext Native API only: a device configured with an api: encryption key (Noise) refuses plaintext and is reported as encryption-required, not connected. Noise/ChaCha20 is deferred to v2.",
+        "Legacy password auth only (ConnectRequest password) — the modern PSK is out of scope in v1.",
+        "Control scope is switch On/Off/Toggle. Read scope is switch, binary_sensor, sensor, and text_sensor. Lights, covers, fans, climate, and services are not driven in v1.",
+        "Single device per driver instance, bound by manual IP — no mDNS/DNS-SD discovery in v1.",
+        "WAN destinations are refused unless Allow WAN Destinations is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained commissioning guide included inside the C4Z package: entity enumeration, slot mapping, the plaintext-only contract, and troubleshooting.",
+          "alt": "IntegrateIT ESPHome Native API client commissioning guide showing overview, wire-and-commission steps, slot mapping, and the encryption-required limitation.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_esphome",
+        "generated_at": "2026-07-26T14:33:03.901Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "357292e8b66df7061adfd85104a681393fd0b8be0d8293db2fb2ca8b44dd781c",
+        "artifact_sha256": "03115824bf0ed751ee3ac2befe08f2dd3e7d076b43b494f38394493190a0fa9f",
+        "artifact_size_bytes": 68780,
+        "build_version_manifest_sha256": "eadc412fd3dfa23aa97d2f5ea10397299d23bc6227cc5b40e422107af3b94bd6",
+        "version_manifest_sha256": "1fdc63fb0f4f7fc04efb8806f8f4f79bf333c28293fcf9c21e7b25e43e834185",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 102
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 73,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 93,
+            "checks": 257,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 55,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 26,
+        "commands": 0,
+        "actions": 28,
+        "events": 14
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 68780,
+      "sha256": "03115824bf0ed751ee3ac2befe08f2dd3e7d076b43b494f38394493190a0fa9f",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/integrateit_esphome.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T14:33:04.370Z"
     },
     {
       "slug": "integrateit_experience_buttons",

@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "03115824bf0ed751ee3ac2befe08f2dd3e7d076b43b494f38394493190a0fa9f",
+      "size_bytes": 68780,
+      "published_at": "2026-07-26T14:33:04.370Z",
+      "notes": "Initial release candidate: a clean-room Control4 client for the ESPHome Native API, speaking the plaintext-framed protobuf wire protocol directly over TCP (default port 6053) with a hand-rolled minimal codec — no third-party library. Specified from ESPHome's public docs (esphome.io/components/api.html, developers.esphome.io/architecture/api and .../protocol_details) and the public api.proto message-id / field annotations. · Handshake: HelloRequest/HelloResponse, then ConnectRequest with the optional legacy plaintext password and ConnectResponse (invalid_password surfaces a Password Rejected event with no retry storm), DeviceInfoRequest, a full ListEntities enumeration, and SubscribeStates. · Entities: switch, binary_sensor, sensor, and text_sensor are enumerated and summarized in Entities Found. Up to eight are mapped by object id or key hex into labeled slots, each publishing SLOT_n_STRING / SLOT_n_NUMBER / SLOT_n_BOOL variables and a Slot n Changed event. The unknown-to-first-known transition updates the variables but fires no event. · Control: switch slots expose On / Off / Toggle, each gated on the license at dispatch and re-checked immediately before the wire write. · Resilience: keepalive Ping every interval with a three-missed-reply reconnect, bounded-backoff reconnect, entity re-enumeration on reconnect, a reassembly parser tolerant of arbitrary chunk boundaries and unknown message types, and a capped RX buffer. · Honest v1 boundary: PLAINTEXT + LEGACY PASSWORD ONLY. A device with an api: encryption key (Noise) refuses plaintext; the driver detects the refusal frame and reports \"This device requires API encryption; disable the key or wait for v2.\" rather than retrying. No Noise/ChaCha20 in v1. · Safety: LAN-only destination guard with an Allow WAN Destinations override, a password-typed credential that is never printed or logged, Debug that logs frame type + byte count only (never payload content), and MAC-locked IntegrateIT licensing.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}
