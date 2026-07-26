@@ -2,7 +2,7 @@
   "name": "IntegrateIT Gate Integration",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/integrateit_gate_integration.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gate_integration/releases/0.1.2/integrateit_gate_integration.c4z",
   "notes": "Supervised driveway and access gate control over Control4 relays: open, close, and stop outputs, open/closed position contacts, an auto-close timer, and a safety-loop input that halts and reverses a closing gate.",
   "sha256": "e57de9350fa92d063e95d2eea6cfda9af2fdea19cc8c474826b0226478d3ce7c",
   "size_bytes": 93959,
