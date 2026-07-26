@@ -1,0 +1,52 @@
+# Changelog — IntegrateIT ratgdo Garage Controller
+
+## [0.1.0] - 2026-07-26
+- Initial release candidate: a clean-room Control4 driver for a ratgdo board
+  running stock ESPHome ratgdo firmware, speaking the ESPHome Native API
+  plaintext-framed protobuf wire protocol directly over TCP (default port 6053)
+  with a hand-rolled minimal codec — no third-party library. Specified from
+  ESPHome's public docs (esphome.io/components/api.html) and the public api.proto
+  message-id / field annotations, and the public ratgdo project's documented
+  ESPHome entity surface (github.com/ratgdo/esphome-ratgdo). The ratgdo firmware
+  is GPL-2.0; this driver is an independent network client of it, not a
+  derivative of its source.
+- Handshake: HelloRequest/HelloResponse, then ConnectRequest with the optional
+  legacy plaintext password and ConnectResponse (invalid_password surfaces a
+  Password Rejected event with no retry storm), DeviceInfoRequest, a full
+  ListEntities enumeration, and SubscribeStates.
+- Entity binding: auto-binds the ratgdo roles from the enumeration — the garage
+  door (cover), the opener light, the wireless-remote lock, and the obstruction
+  and motion binary sensors — with per-role object-id / key-hex overrides for
+  non-standard entity names. A rebind re-baselines the role so no stale reading
+  drives automation and the new entity's first reading is silent.
+- Door: Open / Close / Stop / Toggle over CoverCommandRequest, and a live Door
+  State (Closed / Open / Opening / Closing / Partially Open / Unknown) derived
+  from the cover's reported operation and position — never a guessed position.
+  Door position is published as a percentage. A door stopped mid-travel reports
+  as Partially Open, because the protocol reports position, not intent.
+- Garage safety register (UL 325 honesty): this is a convenience integration,
+  NOT a listed safety device. Obstruction is published and never suppressed —
+  reported exactly as the opener reports it, and it flows even while control is
+  license-gated. The opener, not this driver, enforces obstruction reversal.
+  Door moving-state transitions fire exactly once, the state is Unknown at boot,
+  and the unknown-to-first-known reading fires no event. An optional Close
+  Warning (s) delay fires a Door Close Warning event before a remote close is
+  sent — an automation aid for unattended close, not an audible/visual safety
+  device. Remote open/close run only on explicit user or program action.
+- Light and lock: opener light On / Off / Toggle and wireless-remote Lock /
+  Unlock, each gated on the license at dispatch and re-checked immediately before
+  the wire write.
+- Navigator: a uibutton with live door-state icons; a press toggles the door,
+  deduped so one press is one command.
+- Resilience: keepalive Ping every interval with a three-missed-reply reconnect,
+  bounded-backoff reconnect, entity re-enumeration on reconnect, a reassembly
+  parser tolerant of arbitrary chunk boundaries and unknown message types, and a
+  capped RX buffer.
+- Honest v1 boundary: PLAINTEXT + LEGACY PASSWORD ONLY, one ratgdo per instance.
+  A board with an api: encryption key (Noise) refuses plaintext; the driver
+  detects the refusal frame and reports "This board requires API encryption;
+  disable the key or wait for v2." rather than retrying. No Noise/ChaCha20 in v1.
+- Safety of the wire: LAN-only destination guard with an Allow WAN Destinations
+  override, a password-typed credential that is never printed or logged, Debug
+  that logs frame type + byte count only (never payload content), and MAC-locked
+  IntegrateIT licensing.

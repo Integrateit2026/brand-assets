@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T14:33:31.823Z",
+  "generated_at": "2026-07-26T22:59:07.101Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3841,7 +3841,7 @@
     {
       "slug": "integrateit_lifx",
       "name": "IntegrateIT LIFX",
-      "summary": "Local Control4 driver for a single LIFX Wi-Fi bulb over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback.",
+      "summary": "Local Control4 driver for a single LIFX Wi-Fi light over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect over SetExtendedColorZones; single-zone bulbs refuse zone commands by name.",
       "category": "others",
       "device_type": "LIFX LAN Protocol",
       "release_status": "release-candidate",
@@ -3852,6 +3852,7 @@
         "Broadcast discovery (GetService/StateService) enumerates every LIFX bulb on the subnet; you paste a serial and Bind one to this instance",
         "Bound target is persisted, so the driver keeps controlling the same bulb across reboots and driver upgrades",
         "Power on/off/toggle with a transition duration, color by hue/saturation/brightness (HSBK), and white by Kelvin + brightness",
+        "MultiZone for LIFX Z / Beam strips: per-zone color over a range and a start-to-end gradient via SetExtendedColorZones (little-endian, auto-chunked at 82 zones), plus the Move effect — capability is detected honestly from the product id / a StateExtendedColorZones reply, and single-zone bulbs refuse zone commands naming the reason",
         "Polled State (Light Get/State) publishes POWER, HUE, SAT, BRIGHTNESS, KELVIN, and DEVICE_ONLINE; an EchoRequest keepalive proves reachability",
         "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, and Discovery Complete events for Composer programming",
         "Replies correlated by source + sequence and de-duplicated against late/duplicate datagrams; no token or key of any kind leaves the controller; MAC-locked IntegrateIT licensing on every control path"
@@ -3887,7 +3888,7 @@
         "Release Candidate: verified against the Control4 API simulator and the LIFX LAN wire format; acceptance on physical LIFX hardware and a physical controller is not yet attached to this release.",
         "One LIFX bulb per driver instance — add another instance per bulb. This version does not model bulb groups or scenes.",
         "LAN broadcast reachability is required: discovery and control are sent to the subnet broadcast address and targeted by the bulb's serial. If the controller and bulb are on different subnets/VLANs, or broadcast is filtered, the bulb will not be found or controlled.",
-        "Color and multi-zone strips (LIFX Z / Beam SetExtendedColorZones), Tile/Candle matrix effects (Set64/SetTileEffect), HEV/Clean cycles (SetHevCycle), and the LIFX Switch relay (SetRPower) are documented by LIFX but out of scope for v0.1.0 — this version drives single-zone color/white bulbs only.",
+        "MultiZone covers LIFX Z / Beam strips via SetExtendedColorZones (510): per-zone color, gradients, and the Move effect. Extended zones need recent strip firmware (older LIFX Z may need a firmware update); the legacy SetColorZones (501) path is not written, and zone commands are refused until capability is positively confirmed. Tile/Candle matrix effects (Set64/SetTileEffect), HEV/Clean cycles (SetHevCycle), and the LIFX Switch relay (SetRPower) remain out of scope.",
         "State feedback is by polling, not push: a change made from the LIFX app appears on the next poll (default 10s), not instantly. Unsolicited/streamed state is not subscribed to.",
         "Discovery lists a bulb by its serial (12-hex). Friendly labels (SetLabel/StateLabel) and firmware/version reads are not surfaced in this version.",
         "The LIFX LAN protocol is unauthenticated by design (no token, password, or key on the wire). Use it only on a trusted LAN segment; anyone on the same broadcast domain can address the bulb."
@@ -3952,10 +3953,10 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 10,
-        "commands": 6,
-        "actions": 5,
-        "events": 7
+        "properties": 17,
+        "commands": 10,
+        "actions": 6,
+        "events": 8
       },
       "version": "0.1.0",
       "xml_version": 1,
@@ -5607,6 +5608,148 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T03:19:50.203Z"
+    },
+    {
+      "slug": "integrateit_ratgdo",
+      "name": "IntegrateIT ratgdo Garage Controller",
+      "summary": "Local Control4 driver for a ratgdo board running stock ESPHome firmware, spoken over the ESPHome Native API (TCP :6053, plaintext protobuf). Drives the garage door (open/close/stop), the opener light, and the wireless-remote lock, and reports live door position, obstruction, and motion. Convenience integration — not a listed safety device. Plaintext-only, one ratgdo per instance, MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "ratgdo Garage Controller",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Speaks the ESPHome Native API wire protocol directly over TCP (default port 6053) — a hand-rolled plaintext-protobuf client, no third-party library — pointed at a ratgdo board running stock ESPHome ratgdo firmware",
+        "Auto-binds the ratgdo entity set: the garage door (cover), the opener light, the obstruction and motion binary sensors, and the wireless-remote lock; per-role overrides handle non-standard entity names",
+        "Door open, close, stop, and toggle with a live Door State (Closed / Open / Opening / Closing / Partially Open / Unknown) driven by the cover's reported position and operation — never a guessed position",
+        "Obstruction state is published and never suppressed; it is reported exactly as the opener reports it and always flows, even while control is license-gated",
+        "Optional pre-close warning delay fires a Door Close Warning event before a remote close is sent — an automation aid for unattended-close workflows, not an audible or visual safety device",
+        "Opener light On / Off / Toggle and wireless-remote Lock / Unlock, each gated on the license at dispatch and re-checked immediately before the wire write",
+        "Keepalive with bounded-backoff reconnect and automatic entity re-enumeration; a Navigator button with live door-state icons; a device that requires API encryption is reported honestly instead of silently failing",
+        "LAN-only destination safeguard, a password-typed credential that is never logged, and MAC-locked IntegrateIT licensing on every actuating path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Protocol",
+          "value": "ESPHome Native API, plaintext framing (indicator 0x00), TCP :6053"
+        },
+        {
+          "label": "Firmware",
+          "value": "ratgdo board flashed with stock ESPHome ratgdo firmware (esphome-ratgdo)"
+        },
+        {
+          "label": "Entities driven",
+          "value": "cover (door), light, lock, and binary_sensor (obstruction, motion)"
+        },
+        {
+          "label": "Authentication",
+          "value": "None or legacy API password (plaintext)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "A ratgdo control board flashed with stock ESPHome ratgdo firmware, on the LAN with its api: component enabled",
+        "The board must NOT have an api: encryption key set (v1 speaks plaintext only)",
+        "A compatible garage-door opener wired to the ratgdo board, with its own working photo-eyes / obstruction sensors",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Convenience integration, NOT a listed safety device. The driver commands and reports; it does not provide entrapment protection, does not enforce photo-eye reversal, and never replaces the opener's own UL 325 safety logic.",
+        "Release Candidate: simulator verified; acceptance on a real controller with a ratgdo board and opener is still pending — see the garage-safety acceptance rig.",
+        "Plaintext Native API only: a board configured with an api: encryption key (Noise) refuses plaintext and is reported as encryption-required, not connected. Noise/ChaCha20 is deferred to v2.",
+        "One ratgdo board per driver instance, bound by manual IP — no mDNS/DNS-SD discovery in v1.",
+        "A door stopped mid-travel reports as Partially Open: the cover protocol reports position and operation, not the intent behind a stop.",
+        "Remote OPEN and CLOSE are gated behind explicit user or program action and are never wired to auto-open on a scene by this driver. WAN destinations are refused unless Allow WAN Destinations is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained commissioning guide included inside the C4Z package: the safety boundary, wire-and-commission steps, the door-state contract, and troubleshooting.",
+          "alt": "IntegrateIT ratgdo Garage Controller commissioning guide showing the safety boundary, ESPHome Native API setup steps, the door-state contract, and the encryption-required limitation.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_ratgdo",
+        "generated_at": "2026-07-26T22:59:06.415Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "00ccd9a841fc82fde12a09378c868f76ea33ac4aafe6bcab996618b1578bc1fb",
+        "artifact_sha256": "25badca94eda4c9e87e943906d7fae3d4cb467a1742a9c248124c16dbb886d7c",
+        "artifact_size_bytes": 241194,
+        "build_version_manifest_sha256": "99972052b85d51750eb5224fcf513062529ea6ca145c88838a384f23334912a0",
+        "version_manifest_sha256": "99f4e14b9af4272169b103eaf336148d3cb9be816cc57dc395b2ae0f3e017ea1",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 135
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 80,
+            "checks": 20,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 106,
+            "checks": 278,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 56,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 22,
+        "commands": 0,
+        "actions": 13,
+        "events": 18
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 241194,
+      "sha256": "25badca94eda4c9e87e943906d7fae3d4cb467a1742a9c248124c16dbb886d7c",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/integrateit_ratgdo.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T22:59:07.090Z"
     },
     {
       "slug": "integrateit_remote_detection",

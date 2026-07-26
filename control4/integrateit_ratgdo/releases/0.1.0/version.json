@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT ratgdo Garage Controller",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/releases/0.1.0/integrateit_ratgdo.c4z",
+  "notes": "Local Control4 driver for a ratgdo board running stock ESPHome firmware, spoken over the ESPHome Native API (TCP :6053, plaintext protobuf). Drives the garage door (open/close/stop), the opener light, and the wireless-remote lock, and reports live door position, obstruction, and motion. Convenience integration — not a listed safety device. Plaintext-only, one ratgdo per instance, MAC-locked IntegrateIT licensing.",
+  "sha256": "25badca94eda4c9e87e943906d7fae3d4cb467a1742a9c248124c16dbb886d7c",
+  "size_bytes": 241194,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-26T22:59:07.090Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ratgdo/qa-report.json"
+}
