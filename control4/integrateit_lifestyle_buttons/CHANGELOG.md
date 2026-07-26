@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Lifestyle Buttons
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - First cut: a six-slot lifestyle mode selector on its own Navigator experience pad, plus a Reset button, with exactly one button lit at a time.
 - Explicit activation and reset paths, a configurable Repeat Press policy (Ignore / Re-activate / Toggle Off), and a per-button press debounce that collapses the SELECT + DO_CLICK pair one tap can produce.
