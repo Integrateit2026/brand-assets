@@ -2,7 +2,7 @@
   "name": "IntegrateIT Lutron RadioRA Classic",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/integrateit_lutron_radiora.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_radiora/releases/0.1.2/integrateit_lutron_radiora.c4z",
   "notes": "Drives a legacy Lutron RadioRA Classic (RadioRA 1) system through its RS232 Interface or Chronos System Bridge: dimmer levels, switch on/off, GRAFIK Eye scenes, phantom button presses including ALL ON / ALL OFF, and live two-way feedback parsing (zone changes, zone map, LED map, master control presses) into per-zone variables and events.",
   "sha256": "d02b92ed9621d4e22d1e791c08a30651f76dcd065375fb38f034296e5544d068",
   "size_bytes": 99038,

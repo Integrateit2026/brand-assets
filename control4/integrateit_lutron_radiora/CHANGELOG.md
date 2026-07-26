@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Lutron RadioRA Classic
 
+## [0.1.2] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.1] - 2026-07-21
 - Fix: the interface's feedback channels are now asserted at startup (LZCMON / MBPMON / LMPMON / ZMPMON / RSMMON) so live monitoring and the programming-mode queue hold actually work on real hardware. Per Lutron's published protocol (FBKI reference) the RadioRA System Mode (RSM) feedback is OFF by default and every channel is switchable, persistent device state - so without this the driver would never see the pushed RSM,PGM,ENT and would keep transmitting commands the interface silently drops while the system is in programming mode. Priming is ungated (enabling monitoring is not a licensed action, so it runs even when control is license-disabled) and quiet (excluded from the Command Sent event and the Last Command / Commands Sent surfaces), and is paced through the same one-command queue. New "Feedback Monitoring" property (Ensure On default; Leave As-Is opts out when another serial master owns the interface's monitoring state).
 
