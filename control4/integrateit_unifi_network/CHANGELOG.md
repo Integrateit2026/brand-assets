@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT UniFi Network
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-21
 - Initial release against the official UniFi Network Integration API (local HTTPS, `/proxy/network/integration/v1`, stateless `X-API-KEY` auth minted by the customer on their own UniFi OS console).
 - Controller reachability + Network application version (`GET /info`), with Controller Went Online / Offline events.
