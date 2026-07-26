@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.1",
+  "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "7d5420502f564b910a0a7a26c8ee0b2c50705224586df85ceb651c9b13e5829d",
+      "size_bytes": 98323,
+      "published_at": "2026-07-26T14:33:28.678Z",
+      "notes": "Fix (P0, wire fidelity): Bond's `position` percentage is inverted versus this driver's Control4 convention — the api-v2 Position feature documents it verbatim as \"0 = open, 100 = closed\", while the driver (and the `open` flag) use 0 = closed / 100 = open. The device-reported/Bridge Pro path read and wrote the raw Bond value, so a fully open shade (`position:0`) was published as closed (firing Shade Closed), the on-frame `position` and `open` fields contradicted each other, and \"Set Position 80%\" transmitted `argument:80` = ~80% closed, moving the shade the wrong way. Both the state read (`100 - p`) and the SetPosition argument (`100 - target`) are now flipped on the wire. The `open`-flag and assumed-CourseTime paths were already correct and are unchanged. Added regression cases proving Bond position 0 = fully open (fires Shade Opened) and a 35%-open target ships as argument 65.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

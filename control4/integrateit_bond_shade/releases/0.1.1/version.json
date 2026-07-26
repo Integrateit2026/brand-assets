@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Bond Shade",
+  "version": "0.1.1",
+  "xml_version": 2,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/releases/0.1.1/integrateit_bond_shade.c4z",
+  "notes": "Local Control4 control of one Bond Home motorized shade (device type MS) over the Bond v2 HTTP API: open, close, stop/hold, preset, and set-position where the shade reports position — otherwise an honest CourseTime assumed-position model for the RF shades that report nothing back. State arrives by BPUP UDP push (port 30007) with a hash-gated poll fallback, published as POSITION, STATE, and DEVICE_ONLINE.",
+  "sha256": "7d5420502f564b910a0a7a26c8ee0b2c50705224586df85ceb651c9b13e5829d",
+  "size_bytes": 98323,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-26T14:33:28.678Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/qa-report.json"
+}

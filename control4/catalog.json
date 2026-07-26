@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T14:33:25.478Z",
+  "generated_at": "2026-07-26T14:33:28.688Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -676,6 +676,144 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T14:33:25.464Z"
+    },
+    {
+      "slug": "integrateit_bond_shade",
+      "name": "IntegrateIT Bond Shade",
+      "summary": "Local Control4 control of one Bond Home motorized shade (device type MS) over the Bond v2 HTTP API: open, close, stop/hold, preset, and set-position where the shade reports position — otherwise an honest CourseTime assumed-position model for the RF shades that report nothing back. State arrives by BPUP UDP push (port 30007) with a hash-gated poll fallback, published as POSITION, STATE, and DEVICE_ONLINE.",
+      "category": "others",
+      "device_type": "Bond MS",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Local Bond v2 HTTP control of one motorized shade (device type MS) — no cloud dependency",
+        "Open, Close, Stop (Hold), and Set Preset over PUT /v2/devices/<id>/actions/<Action>",
+        "Set Position (0-100) sent as a real SetPosition action where the shade reports position support",
+        "CourseTime assumed-position model for RF shades with no position report: position is dead-reckoned from the configured travel time and labeled ASSUMED, Unknown at boot",
+        "BPUP push state over UDP port 30007 with a hash-gated poll fallback; the active mode is stated in Status",
+        "Publishes POSITION, POSITION_ASSUMED, STATE, and DEVICE_ONLINE as Control4 variables",
+        "Transition-only events: Motion Started/Stopped, Shade Opened/Closed, and Went Online/Offline",
+        "LAN-only destination safeguard, the Bond token is never written to the log, and MAC-locked IntegrateIT licensing on every actuating path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge (open/close/hold/preset) or Bond Bridge Pro (native SetPosition via CourseTime), local API v2 enabled"
+        },
+        {
+          "label": "Device",
+          "value": "One Bond motorized shade (type MS, subtype ROLLER or SHEER) per driver instance"
+        },
+        {
+          "label": "State feedback",
+          "value": "BPUP UDP push (port 30007) preferred, hash-gated poll fallback"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Bond Bridge or Bond Bridge Pro reachable on the same LAN as the controller, with the local API v2 enabled",
+        "The Bond's IP address and its local API token (Bond Home app, device Settings, Advanced Settings, Local Token)",
+        "The target shade's Bond device id (use the List Bond Shades action to enumerate them)",
+        "For a shade with no native position, the full open-to-close travel time measured with a stopwatch (Course Time)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond and controller is not yet attached to this release.",
+        "One Bond shade per driver instance — add another instance for each shade you want to control.",
+        "Set Position is only sent as a real action when the shade reports position support (native, or Bridge Pro CourseTime). On a shade that reports nothing, position is ASSUMED: dead-reckoned from the Course Time property, Unknown at boot, and a partial move needs a known endpoint (send Open or Close first).",
+        "A shade moved by a Bond remote or the Bond app is reflected by BPUP push when subscribed, or on the next poll otherwise — an assumed-position shade cannot report a remote move at all until the next driver command.",
+        "The Bond local API is plain, unencrypted HTTP on port 80 (and BPUP is unauthenticated UDP on 30007) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes.",
+        "Which actions a shade accepts depends on how it was learned by Bond; an action the shade does not support returns a Bond error that the driver surfaces in Status. ToggleOpen and Hold are offered only when the shade's action list reports them."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained Bond shade commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Bond Shade commissioning guide showing overview, the assumed-position contract, install steps, the BPUP push protocol, and safety limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_bond_shade",
+        "generated_at": "2026-07-26T14:33:28.330Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "08dcebeefa20c1d1b2880ef3901ed3be3ecc71a233df316da77b6177b893f2a4",
+        "artifact_sha256": "7d5420502f564b910a0a7a26c8ee0b2c50705224586df85ceb651c9b13e5829d",
+        "artifact_size_bytes": 98323,
+        "build_version_manifest_sha256": "da66d6d5fa2410a31c14641d245568edeeccd1c1f18975235382211a41e11e73",
+        "version_manifest_sha256": "54cb23f284c4443df9b181203688b7e0ffab22c1f3aa6651d78baafeeb5e7abb",
+        "version": "0.1.1",
+        "xml_version": 2,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 102
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 77,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 86,
+            "checks": 245,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 56,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 12,
+        "commands": 7,
+        "actions": 4,
+        "events": 6
+      },
+      "version": "0.1.1",
+      "xml_version": 2,
+      "min_os": "3.0.0",
+      "size_bytes": 98323,
+      "sha256": "7d5420502f564b910a0a7a26c8ee0b2c50705224586df85ceb651c9b13e5829d",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/integrateit_bond_shade.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_shade/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T14:33:28.678Z"
     },
     {
       "slug": "integrateit_circadian_lighting",
