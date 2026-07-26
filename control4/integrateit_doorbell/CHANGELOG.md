@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Doorbell Bridge
 
+## [0.1.3] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.2] - 2026-07-26
 - Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
 
