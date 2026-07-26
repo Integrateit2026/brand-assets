@@ -2,7 +2,7 @@
   "name": "IntegrateIT Mode Integration",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/integrateit_mode_integration.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mode_integration/releases/0.1.2/integrateit_mode_integration.c4z",
   "notes": "A dealer-configurable house-mode state machine for Control4 — Home, Away, Night, Vacation, Guest, or any modes you name — that holds the current mode and exposes it as Composer variables plus a generic Mode Changed event, so project programming keys off one source of truth for the whole house. MAC-locked IntegrateIT licensing.",
   "sha256": "2151fea8e0ecda72d480db7a5f640c07e25115579862be020fce5ecfcf453301",
   "size_bytes": 90960,
