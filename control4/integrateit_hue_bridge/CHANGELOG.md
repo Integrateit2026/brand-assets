@@ -1,0 +1,14 @@
+# Changelog — IntegrateIT Hue Bridge
+
+## [0.1.0] - 2026-07-26
+- Initial release candidate: local Control4 control of a Philips Hue Bridge over the on-bridge CLIP API v2 (HTTPS, developers.meethue.com). Clean-room original engineering.
+- Link-button pairing built in: Pair (Link Button) POSTs `/api` with `generateclientkey`, handles the error-101 "press the button" round-trip, and stores the returned application key in the password-typed property — never printed, never logged (it rides only in the `hue-application-key` header).
+- Up to eight slots, each mapped as `light:<rid>` / `group:<rid>` / `scene:<rid>` by CLIP resource id: Slot On/Off/Toggle, Set Brightness (0-100, 0 = off), Set Color Temperature (mirek 153-500), Set Color (CIE xy, clamped), and Recall Scene via PUT /clip/v2/resource/….
+- Push feedback: consumes the /eventstream/clip/v2 SSE stream and reflects changes into BRIDGE_ONLINE, per-slot SLOT_n_ON / SLOT_n_BRI, LAST_CHANGED_SLOT, and LAST_SCENE without polling; fires Slot Turned On/Off, Bridge Online/Offline, Scene Recalled, and Event Stream Reconnected. SSE parsing tolerates arbitrary chunk boundaries and keep-alive comments.
+- Self-healing: on a stream drop it reconnects with bounded backoff (5s → 60s cap) and runs one full resync; a periodic resync heartbeat backs the stream up and is the whole feedback path on legacy OS builds without C4:url streaming.
+- Honest TLS trust model: the bridge is self-signed, so the driver connects over HTTPS with CA verification disabled and pins trust to the LAN address + application key; a broken TLS handshake fails closed and never downgrades to plaintext.
+- LAN-only destination guard with an Allow WAN Bridge override, a single bounded retry that honors 429 Retry-After (no retry storm), and MAC-locked IntegrateIT licensing on every control path.
+- Known limits: no entertainment/streaming API and no accessories (motion/buttons/sensors) yet — lights, grouped_lights, and scenes only; eight slots per instance; commands act on the Target Slot property.
+
+### Fixed (pre-ship verify)
+- Scene slots no longer fake power events from the eventstream. A scene resource pushed over `/eventstream/clip/v2` carries its own `actions[].action.on`/`dimming`, which the tolerant extractor reads out under the scene's rid; `SlotForRid` resolves that to the scene slot, so the driver was firing phantom `Slot Turned On/Off` and flipping `SLOT_n_ON` off a scene's action list (the resync path was safe via `captureScenes`; only the live stream bit). `ApplyResourceUpdate` now reflects light/group slots only — scene rids, unmapped resources, and the SSE envelope's own event id are dropped, which also bounds `gState` to the ≤8 mapped light/group rids instead of growing one dead entry per stream event over the controller's uptime. New runtime case `a scene update over SSE never fakes a slot power event` covers the live-stream path.

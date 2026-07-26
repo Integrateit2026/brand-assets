@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_hue_bridge",
+  "generated_at": "2026-07-26T14:33:07.282Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "ff03f26015ca828fa5d9f56b9677e4965c0d3e3a00b2fea6d2149ff85c5448d1",
+  "artifact_sha256": "b113b71f3b2edf45160e7773a6e1e9fd4e7073b79183c15cc9a4dc393c8bf580",
+  "artifact_size_bytes": 99830,
+  "build_version_manifest_sha256": "92a96bd79037d5304f11eed0577b2ccb66789ae17ee5c0b1c43f88379039b331",
+  "version_manifest_sha256": "26a8b55b3482c21b9cd17c611ffa4bb36115d7b3dbc70b07ebda2bc7053726d5",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 104
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 72,
+      "checks": 17,
+      "warnings": 8
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 93,
+      "checks": 290,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 54,
+      "files": 2
+    }
+  ]
+}

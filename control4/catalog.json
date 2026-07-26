@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T14:33:04.383Z",
+  "generated_at": "2026-07-26T14:33:07.827Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3000,6 +3000,145 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T02:54:18.355Z"
+    },
+    {
+      "slug": "integrateit_hue_bridge",
+      "name": "IntegrateIT Hue Bridge",
+      "summary": "Local Control4 driver for a Philips Hue Bridge over the on-bridge CLIP API v2 (HTTPS) with live push feedback from the eventstream. Map up to eight lights, groups, or scenes; no cloud dependency.",
+      "category": "others",
+      "device_type": "Hue Bridge CLIP API v2",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Local Philips Hue Bridge control over the on-bridge CLIP API v2 — no cloud hop, works when the internet is down",
+        "Link-button pairing built in: press the bridge button, run Pair, and the driver claims and stores the application key itself",
+        "Map up to eight slots, each a light, a grouped_light, or a scene, addressed by its stable CLIP resource id",
+        "On/off/toggle, brightness (0-100), color temperature (mirek 153-500), and xy color for lights and groups; scene recall for scene slots",
+        "Live push feedback: the driver consumes the bridge eventstream (SSE) so state changes appear without polling",
+        "On an eventstream drop it reconnects with bounded backoff and runs one full resync, so it self-heals without hammering the bridge",
+        "Publishes BRIDGE_ONLINE plus per-slot ON and BRI variables, and fires Slot Turned On/Off, Bridge Online/Offline, Scene Recalled, and Event Stream Reconnected",
+        "HTTPS to the bridge's self-signed certificate, the application key never written to the log, and MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Hue Bridge v2 (square, BSB002) running firmware with the CLIP API v2 (/clip/v2) and the eventstream"
+        },
+        {
+          "label": "Feedback",
+          "value": "Push via the CLIP v2 eventstream (SSE) on OS builds with C4:url streaming; a periodic resync heartbeat backs it up"
+        },
+        {
+          "label": "Legacy OS fallback",
+          "value": "On OS builds without C4:url streaming the eventstream is skipped and state comes from the resync heartbeat only (lower the Resync Interval)"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Hue Bridge reachable on the same LAN as the controller, with a DHCP-reserved IP address",
+        "Physical access to the bridge once, to press the round link button and open the pairing window",
+        "The CLIP resource ids of the lights, groups, or scenes to map (Discover Bridges and the resync log help you read them)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Hue Bridge and a physical controller is not yet attached to this release (hardwareStatus: simulation-verified, not bench-tested).",
+        "No entertainment / streaming API: the DTLS entertainment channel and per-frame light streaming are out of scope for v0.1.0 (the pairing clientkey is claimed but not used).",
+        "No accessories yet: motion sensors, buttons, dials, and contact sensors are not surfaced in this version — lights, grouped_lights, and scenes only.",
+        "Up to eight mapped slots per driver instance; add another instance for a ninth mapping.",
+        "The bridge presents a self-signed certificate, so the driver connects over HTTPS with CA chain verification disabled and trusts the bridge by its LAN address plus the application key — a genuinely broken TLS negotiation still fails closed and never downgrades to plaintext.",
+        "Slots address resources by their stable CLIP resource id (a UUID). If a light is deleted and re-added on the bridge it gets a new id and the slot must be re-pointed.",
+        "Color is set as CIE xy (the CLIP v2 native form); RGB and named-color conversion are the caller's job. Values are clamped to 0.0-1.0.",
+        "The commands act on the Target Slot property; change Target Slot to address a different slot, or map high-traffic lights to fixed slots and read the per-slot variables."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Hue Bridge pairing and commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Hue Bridge commissioning guide showing overview, link-button pairing steps, slot mapping, the eventstream feedback contract, and honest v1 limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_hue_bridge",
+        "generated_at": "2026-07-26T14:33:07.282Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "ff03f26015ca828fa5d9f56b9677e4965c0d3e3a00b2fea6d2149ff85c5448d1",
+        "artifact_sha256": "b113b71f3b2edf45160e7773a6e1e9fd4e7073b79183c15cc9a4dc393c8bf580",
+        "artifact_size_bytes": 99830,
+        "build_version_manifest_sha256": "92a96bd79037d5304f11eed0577b2ccb66789ae17ee5c0b1c43f88379039b331",
+        "version_manifest_sha256": "26a8b55b3482c21b9cd17c611ffa4bb36115d7b3dbc70b07ebda2bc7053726d5",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 104
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 72,
+            "checks": 17,
+            "warnings": 8
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 93,
+            "checks": 290,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 54,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 19,
+        "commands": 8,
+        "actions": 5,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 99830,
+      "sha256": "b113b71f3b2edf45160e7773a6e1e9fd4e7073b79183c15cc9a4dc393c8bf580",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/integrateit_hue_bridge.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T14:33:07.817Z"
     },
     {
       "slug": "integrateit_integrator_tools",
