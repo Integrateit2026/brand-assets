@@ -1,5 +1,12 @@
 # Changelog — IntegrateIT LIFX
 
+## [0.2.0] - 2026-07-26
+- MultiZone for LIFX Z / Beam strips over SetExtendedColorZones (type 510). Set Zone Color paints a Zone Start..Zone End range one HSBK color; Set Zone Gradient ramps start->end color across the strip. Both pack the fixed 664-byte payload (duration u32, apply u8, zone_index u16, colors_count u8, 82-entry HSBK array) little-endian; strips longer than 82 zones auto-chunk with apply=NO_APPLY on every message but the last and apply=APPLY on the final one, so the whole strip lands in one atomic update.
+- Honest capability detection: on bind and while still unknown, the driver asks GetVersion (32) and GetExtendedColorZones (511). A StateVersion product id in the embedded multizone subset (LIFX Z 31/32, Beam 38, per the official products registry) or any StateExtendedColorZones (512) reply flips MULTIZONE to yes, publishes the real ZONES_COUNT, and fires MultiZone Detected. An unlisted product id is treated as single-zone. Until something positively confirms, capability stays unknown and zone commands are refused.
+- Single-zone bulbs refuse every zone/effect command by name — nothing reaches the wire — and the refusal states the reason (single-zone, or capability not yet confirmed; run Detect MultiZone).
+- MultiZone Move On/Off runs the LIFX Move effect via SetMultiZoneEffect (508) at the configured Move Speed. Every multizone control path re-checks the license at wire-write time, exactly like the single-bulb commands.
+- New variables MULTIZONE (unknown/yes/no) and ZONES_COUNT, new MultiZone Detected event, and new Set Zone Color / Set Zone Gradient / MultiZone Move On/Off commands, Detect MultiZone action, and the zone/gradient/move-speed properties. Single-bulb behavior and the 0.1.0 reachability-honesty and rebind-reset fixes are unchanged.
+
 ## [0.1.0] - 2026-07-26
 - Initial release candidate: single-bulb control over the LIFX LAN protocol (UDP binary, port 56700, lan.developer.lifx.com). No cloud, no LIFX account, no token on the wire.
 - Broadcast discovery: Rescan sends GetService (type 2, tagged) to the subnet broadcast address and collects StateService (type 3) replies, keyed and de-duplicated by the responder's serial. Paste a serial into Discovered Device and run Bind Selected Device; the bound target is persisted across reboots and driver upgrades.

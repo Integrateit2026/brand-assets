@@ -2,7 +2,7 @@
   "name": "IntegrateIT LIFX",
   "version": "0.2.0",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/integrateit_lifx.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/releases/0.2.0/integrateit_lifx.c4z",
   "notes": "Local Control4 driver for a single LIFX Wi-Fi light over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect over SetExtendedColorZones; single-zone bulbs refuse zone commands by name.",
   "sha256": "bd6a9d9bcc12ef70539e16bb2d949c55cdffbf23d107eaeae36f1f88eb2f3b17",
   "size_bytes": 102151,
