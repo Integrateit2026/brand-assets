@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT UniFi Access
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-21
 - Initial release candidate against Ubiquiti's official local Access Developer API (HTTPS :12445, customer-minted Bearer token).
 - One door per instance: polled lock relay + door position (DPS) published as DOOR_LOCKED / DOOR_POSITION / DOOR_NAME / DEVICE_ONLINE with Door Opened/Closed, Door Locked/Unlocked, and Went Online/Offline events.
