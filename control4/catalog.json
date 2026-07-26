@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T02:26:47.609Z",
+  "generated_at": "2026-07-26T02:30:59.072Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -470,16 +470,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_bond",
-        "generated_at": "2026-07-20T21:14:42.766Z",
+        "generated_at": "2026-07-26T02:30:58.611Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "dda89a3413fc8bc569e08559eda405e16845df769a2f5ffa8e33576acb6ab644",
-        "artifact_sha256": "42df3a3b59b65a7f2977566d69859e9a5770a66e368221c594fcbc0d251ffce7",
-        "artifact_size_bytes": 83224,
-        "build_version_manifest_sha256": "cda5992def93a6f0bccdedd1c0fc7fa244691e9a4d90f0ae39411f06d765698e",
-        "version_manifest_sha256": "8088db2e7a4cd195e7b4b4686bce69d043f699cb1581a1cc757b4f797fe8522e",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "5d0bbf8474b4811f717e5f5bfd70f744aac54768d9fe798e74cd338caf0ddd1c",
+        "artifact_sha256": "2fe1e4cea1c1974600bd848692afe5d724de764bf07a8e17b218434007de2daf",
+        "artifact_size_bytes": 94959,
+        "build_version_manifest_sha256": "1d56ee79cda0d4fc0763ad694f751d560f8f43e236c34b7bd53c9c17075a7c1c",
+        "version_manifest_sha256": "2cfbc7cc850478ca04204c8b6c264b7650c1a4c6d241b7af74d79aecfe9117c1",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -491,26 +491,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 139
+            "duration_ms": 121
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 92,
+            "duration_ms": 87,
             "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 96,
+            "duration_ms": 89,
             "checks": 225,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 70,
+            "duration_ms": 63,
             "files": 2
           }
         ]
@@ -523,11 +523,11 @@
         "actions": 4,
         "events": 6
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 83224,
-      "sha256": "42df3a3b59b65a7f2977566d69859e9a5770a66e368221c594fcbc0d251ffce7",
+      "size_bytes": 94959,
+      "sha256": "2fe1e4cea1c1974600bd848692afe5d724de764bf07a8e17b218434007de2daf",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/integrateit_bond.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/CHANGELOG.md",
@@ -538,7 +538,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-20T21:14:43.242Z"
+      "published_at": "2026-07-26T02:30:59.062Z"
     },
     {
       "slug": "integrateit_circadian_lighting",

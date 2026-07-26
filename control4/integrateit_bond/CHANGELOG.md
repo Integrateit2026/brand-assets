@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Bond
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - Initial release candidate: single-device control over the Bond Home local API v2 (github.com/bondhome/api-v2).
 - Ceiling fan (power, ranged speed, increase/decrease, light, brightness, summer/winter direction), shade (open/close/hold), light (on/off/brightness), and generic (toggle power/light) commands via PUT /v2/devices/<id>/actions/<Action>.
