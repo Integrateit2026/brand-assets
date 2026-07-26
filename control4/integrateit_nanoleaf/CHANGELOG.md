@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Nanoleaf
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20 (adversarial review pass, same day)
 - Fix: every body-carrying write now declares `Content-Type: application/json` (house pattern; the frame was previously sent with no media type).
 - Fix: state parsing no longer requires `"value"` to be the first key of each attribute object — a firmware serializing min/max first would have silently blanked POWER/BRIGHTNESS/HUE/SAT/CT.
