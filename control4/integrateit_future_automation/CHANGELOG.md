@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Future Automation
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-21
 - Initial release candidate: Future Automation mechanism control over the published
   RS-232 token protocol (fa_in / fa_out / fa_stop / fa_home / fa_left / fa_right /
