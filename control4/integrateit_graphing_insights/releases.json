@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "3a21c53ac20ac55aa3798e81686ab092967daf0918b627a8f8e01a7fd5cdca44",
+      "size_bytes": 101051,
+      "published_at": "2026-07-26T02:50:04.731Z",
+      "notes": "Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code. · The window no longer collapses when the open hour is sealed. Under Aggregates Only there are no raw rows by construction, so the window came from the open hourly bucket alone — and `Seal Open Buckets` nils it, dropping min/max/average/trend to zero on a ledger still holding good data. It now falls back to the newest sealed hour. · The cascade is explicitly append-only. A sample stamped older than the newest hour the ledger holds used to seal the open hour and reopen a past one, which the next live sample sealed again: two rows for one hour, an hourly ring out of chronological order (so both the export and `METRIC_DELTA_1H` read the wrong row), a spurious `Hour Rolled Over`, and a `Current Value` walking backwards. Stale instants are refused now, and the limitation is documented. · `Storage Estimate` billed for the raw sample ring whenever persistence was `Full`, even though privacy outranks persistence in `savePersist` and a `Full` + `Aggregates Only` project stores no raw rows at all. The estimate overstated the backup footprint by the whole sample ring. · Restored persistence rows are validated, not merely type-checked. \"Is a table\" was the entire test, so a table-shaped row missing its numeric fields entered the ring and then threw on the first arithmetic that touched it — taking down the next `RecordSample` and leaving a live driver with a dead ledger. Buckets and samples are now field-validated, and `total` is clamped. · Tightening Privacy Mode rebuilds the recent ring empty but left the wrap flag set, silently retiring `Retention Limit Reached` for the rest of the driver's life. Fresh headroom re-arms it, as it already did on a retention resize.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,
