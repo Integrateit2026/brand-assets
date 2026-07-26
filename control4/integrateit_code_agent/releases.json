@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "d2e43d5f7552f02b94f7d38ec5972dd1c26415927996ec5ed2aab73e051a9d3a",
+      "size_bytes": 98907,
+      "published_at": "2026-07-26T02:23:17.409Z",
+      "notes": "Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code. · **Parser: a verb must be a whole word.** `FIRE1` used to split into `FIRE 1` and run. The allowlist claims a closed vocabulary, so a token welded to a verb is now refused under its whole name rather than quietly reinterpreted. · **Parser: `IF` and `SET` now share one grammar.** `IF` demanded a single-token value while `SET` accepted the rest of the line, so `SET Mode Movie Night` stored a value no `IF` could ever name — writable but permanently untestable. · **`ADD` no longer destroys a text register.** `tonumber(x) or 0` turned `Mode=Movie` into `Mode=5`. A non-numeric register now aborts the run and rolls back, which is what T8 promised all along. · **`ADD` refuses non-finite results.** `1e400` is rejected at parse time; a sum that accumulates to infinity aborts the run. `inf`/`nan` compare false against everything and no literal can clear them, so one could permanently poison a register. · **T8 now covers a restart mid-run.** Registers were committed to PersistData as each step ran, so a controller that died mid-run came back holding half an unfinished run's writes. The pre-run snapshot is now parked for the life of the run and restored on boot if the run never reached an ending.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,
