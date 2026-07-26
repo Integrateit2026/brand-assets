@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Enhanced Lighting
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - First cut of the enhanced lighting interface: 1-8 LIGHT_V2 loads driven as one group.
 - Original ladder interaction — each Tap moves to the first rung above the group's real level, then wraps to Off or holds at the top.

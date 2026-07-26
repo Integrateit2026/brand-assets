@@ -2,7 +2,7 @@
   "name": "IntegrateIT Enhanced Lighting",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/integrateit_enhanced_lighting.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/releases/0.1.1/integrateit_enhanced_lighting.c4z",
   "notes": "An enhanced lighting interface for up to eight bound loads with an original ladder-and-glide interaction model, live external-change tracking, and Control4 version-capability detection that picks a native-ramp or emulated-fade transition path. MAC-locked IntegrateIT licensing.",
   "sha256": "3e7a5d384434da70406f04365cd3040145ee91a369f28c6666a307f5d0a0a341",
   "size_bytes": 97314,
