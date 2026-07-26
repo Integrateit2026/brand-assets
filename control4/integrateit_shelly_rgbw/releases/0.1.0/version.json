@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Shelly RGBW",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/releases/0.1.0/integrateit_shelly_rgbw.c4z",
+  "notes": "Dedicated Gen2+ Shelly light control over the device's own local JSON-RPC API — on/off, brightness, RGB(W) color, and white level for a Light, RGB, or RGBW component, with REAL two-way state read back from the device. No Shelly Cloud account.",
+  "sha256": "c0b13141831b1edf79268bb092b558c228c8451169f5907513dc7edc0826e325",
+  "size_bytes": 96477,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-26T22:59:15.269Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/qa-report.json"
+}
