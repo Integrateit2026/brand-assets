@@ -2,7 +2,7 @@
   "name": "IntegrateIT Network Agent",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/integrateit_network_agents.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_network_agents/releases/0.1.1/integrateit_network_agents.c4z",
   "notes": "Bounded LAN reachability monitoring for up to six named peers — a diagnostic that reports whether the hosts you care about are up and answering promptly, with no discovery, no scanning, and no remote command channel. MAC-locked IntegrateIT licensing.",
   "sha256": "6a4b53add05f4773f37c95b94fba034962801e6e940c6a68792041712d4bfb7e",
   "size_bytes": 99322,

@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Network Agent
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - First cut: bounded LAN reachability diagnostics for 1-6 explicitly allowlisted peers.
 - IIT-NA/1, an original single-frame probe protocol — the driver can only ever emit PING, so there is no remote command channel, shell, or discovery path.
