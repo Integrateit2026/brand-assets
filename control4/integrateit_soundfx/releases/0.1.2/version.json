@@ -2,7 +2,7 @@
   "name": "IntegrateIT SoundFX",
   "version": "0.1.2",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/integrateit_soundfx.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/releases/0.1.2/integrateit_soundfx.c4z",
   "notes": "Headless audio-cue engine for Control4: it takes any set of rooms for a short cue - routing, level, and restore, with a queue and three concurrency modes - while a source already in the project plays the file. Ships no audio; you supply IntegrateIT-owned or licensed media.",
   "sha256": "72809d43e0acdb3319e3cae812d65037300b5d667a85da975e150726ccea3e62",
   "size_bytes": 96883,

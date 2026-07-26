@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT SoundFX
 
+## [0.1.2] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.1] - 2026-07-20
 - Fixed: a room whose state could not be read was powered off at cue end. An unreadable CURRENT_SELECTION was coerced to "" and read as "the room was off", so a room that may have been playing music got a ROOM_OFF it never earned. An unread selection is now treated as unknown and the room is left exactly as found.
 - Fixed: under Unlimited concurrency, two cues sharing a room left it parked at the cue volume forever. The second cue snapshotted the level the first had already set, and the first restored the room mid-playback of the second. Overlapping runs now share one inherited pre-cue snapshot, and only the run that still holds the zone restores and releases it — so the last cue out writes back the true original level, once. The persisted debt follows the same hand-off, so a restart between two overlapping holds also replays the original level.
