@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T14:33:07.827Z",
+  "generated_at": "2026-07-26T14:33:11.488Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3562,6 +3562,142 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T02:58:53.695Z"
+    },
+    {
+      "slug": "integrateit_lifx",
+      "name": "IntegrateIT LIFX",
+      "summary": "Local Control4 driver for a single LIFX Wi-Fi bulb over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback.",
+      "category": "others",
+      "device_type": "LIFX LAN Protocol",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Local LIFX LAN protocol control — UDP binary on port 56700, no cloud, no LIFX account, works when the internet is down",
+        "Broadcast discovery (GetService/StateService) enumerates every LIFX bulb on the subnet; you paste a serial and Bind one to this instance",
+        "Bound target is persisted, so the driver keeps controlling the same bulb across reboots and driver upgrades",
+        "Power on/off/toggle with a transition duration, color by hue/saturation/brightness (HSBK), and white by Kelvin + brightness",
+        "Polled State (Light Get/State) publishes POWER, HUE, SAT, BRIGHTNESS, KELVIN, and DEVICE_ONLINE; an EchoRequest keepalive proves reachability",
+        "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, and Discovery Complete events for Composer programming",
+        "Replies correlated by source + sequence and de-duplicated against late/duplicate datagrams; no token or key of any kind leaves the controller; MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Devices",
+          "value": "LIFX Wi-Fi color bulbs speaking the LAN protocol (lan.developer.lifx.com), on the same subnet as the controller"
+        },
+        {
+          "label": "Transport",
+          "value": "UDP :56700, broadcast on the local subnet — no unicast IP is entered; the controller and bulb must share a broadcast domain"
+        },
+        {
+          "label": "State feedback",
+          "value": "Polled (default 10s) via Light Get/State; push (unsolicited state) and mDNS discovery are future work"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "One or more LIFX bulbs powered and joined to the same Wi-Fi/LAN as the controller, in the same broadcast domain (same subnet/VLAN)",
+        "UDP broadcast permitted on the subnet (port 56700) — some managed switches or guest VLANs block broadcast",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator and the LIFX LAN wire format; acceptance on physical LIFX hardware and a physical controller is not yet attached to this release.",
+        "One LIFX bulb per driver instance — add another instance per bulb. This version does not model bulb groups or scenes.",
+        "LAN broadcast reachability is required: discovery and control are sent to the subnet broadcast address and targeted by the bulb's serial. If the controller and bulb are on different subnets/VLANs, or broadcast is filtered, the bulb will not be found or controlled.",
+        "Color and multi-zone strips (LIFX Z / Beam SetExtendedColorZones), Tile/Candle matrix effects (Set64/SetTileEffect), HEV/Clean cycles (SetHevCycle), and the LIFX Switch relay (SetRPower) are documented by LIFX but out of scope for v0.1.0 — this version drives single-zone color/white bulbs only.",
+        "State feedback is by polling, not push: a change made from the LIFX app appears on the next poll (default 10s), not instantly. Unsolicited/streamed state is not subscribed to.",
+        "Discovery lists a bulb by its serial (12-hex). Friendly labels (SetLabel/StateLabel) and firmware/version reads are not surfaced in this version.",
+        "The LIFX LAN protocol is unauthenticated by design (no token, password, or key on the wire). Use it only on a trusted LAN segment; anyone on the same broadcast domain can address the bulb."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained LIFX discovery, binding, and commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT LIFX commissioning guide showing overview, the LAN protocol contract, discover-and-bind steps, command reference, and honest v1 limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_lifx",
+        "generated_at": "2026-07-26T14:33:10.930Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "76df939d3e358febd0af9162266d463e0e87a9af55ba951d76defd50ed6d90e9",
+        "artifact_sha256": "b91acae37da991f228b76593ea4669607357c129cd2c51670ec8143484c7d4b4",
+        "artifact_size_bytes": 95892,
+        "build_version_manifest_sha256": "d076125de64e14191f33e7f47451d5f5d888c8d4ec9bd6c8a5d5f77d0ee98d78",
+        "version_manifest_sha256": "b3e1e369a56df6a06cb481305593dd7f8aa08899981179702dd81f73bd9fb517",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 114
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 75,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 77,
+            "checks": 252,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 52,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 10,
+        "commands": 6,
+        "actions": 5,
+        "events": 7
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 95892,
+      "sha256": "b91acae37da991f228b76593ea4669607357c129cd2c51670ec8143484c7d4b4",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/integrateit_lifx.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T14:33:11.478Z"
     },
     {
       "slug": "integrateit_lock_integration",

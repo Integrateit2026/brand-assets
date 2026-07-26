@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "b91acae37da991f228b76593ea4669607357c129cd2c51670ec8143484c7d4b4",
+      "size_bytes": 95892,
+      "published_at": "2026-07-26T14:33:11.478Z",
+      "notes": "Initial release candidate: single-bulb control over the LIFX LAN protocol (UDP binary, port 56700, lan.developer.lifx.com). No cloud, no LIFX account, no token on the wire. · Broadcast discovery: Rescan sends GetService (type 2, tagged) to the subnet broadcast address and collects StateService (type 3) replies, keyed and de-duplicated by the responder's serial. Paste a serial into Discovered Device and run Bind Selected Device; the bound target is persisted across reboots and driver upgrades. · Control: Power On/Off/Toggle via SetLightPower (type 117) with a transition duration; Set Color via SetColor (type 102, HSBK) from Hue/Saturation/Brightness; Set White via SetColor with saturation 0 from Kelvin/Brightness. Every control path re-checks the license at wire-write time. · Feedback: Light Get (type 101, res_required) is polled; the State (type 107) reply is parsed into POWER, HUE, SAT, BRIGHTNESS, KELVIN and DEVICE_ONLINE, firing Turned On/Off, Color Changed and Went Online/Offline. Replies are correlated by source + sequence; unknown→known baseline adoption fires no state events. · Keepalive: EchoRequest (type 58) proves reachability between polls; a missing reply within the poll window flips the bulb Offline. · Wire hygiene: the RX path tolerates arbitrary datagram boundaries and junk (bounded frame walk, no resync loops), drops sends while the socket is offline, and never logs raw frame bytes — Debug prints the frame type + sequence only. The LIFX LAN protocol carries no secret, so nothing secret can leak; the IntegrateIT license key is never printed. · Fix (reachability honesty): a lost LAN socket now drops reachability (`ApplyReach(false)`) instead of stranding `DEVICE_ONLINE` asserted true. Because polling stops when the socket goes offline, the missed-poll path could never fire again to correct the variable — automation told to gate on `DEVICE_ONLINE` would have seen a frozen \"online\" for a bulb the driver could no longer reach. · Fix (rebind reachability): binding a new serial now resets reachability to unknown and publishes `DEVICE_ONLINE` false, instead of inheriting the previously-bound bulb's last reply. A freshly-bound (possibly dead) target no longer reports online until it actually answers. · Known limits: single bulb per instance; broadcast reachability required (same subnet); no multi-zone/tile/HEV/relay extensions; polled feedback, not push; serial-only discovery labels.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

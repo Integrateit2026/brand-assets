@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT LIFX",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/releases/0.1.0/integrateit_lifx.c4z",
+  "notes": "Local Control4 driver for a single LIFX Wi-Fi bulb over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback.",
+  "sha256": "b91acae37da991f228b76593ea4669607357c129cd2c51670ec8143484c7d4b4",
+  "size_bytes": 95892,
+  "min_os": "3.0.0",
+  "published_at": "2026-07-26T14:33:11.478Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/qa-report.json"
+}
