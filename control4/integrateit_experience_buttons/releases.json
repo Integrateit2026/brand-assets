@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "124c5beae4b24738d7b62da2d3a279dbde5b6668a2acadd9c5bdfa2dac60062a",
+      "size_bytes": 262784,
+      "published_at": "2026-07-26T02:42:19.821Z",
+      "notes": "Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code. · A tripped loop guard could refuse the clamp that runs when a dealer lowers `Number of States`, stranding the button on a state that no longer exists — `IS_STATE_6` stayed true with the count set to 2, and nothing published afterwards to correct it. Structural clamps are now forced through the guard and the re-entrancy refusal. · The loop guard re-armed at the end of the *counting* window rather than a window after it tripped, so a storm starting late in the window bought only the remainder as protection (trip at 9.9s of a 10s window, re-arm 100ms later). Tripping now restarts the window, matching what `Loop Guard Window (s)` documents. · A press on a `Disabled` button armed the debounce timer before Press Action was read, leaving a live timer on a read-only indicator and swallowing the first real press if the dealer re-enabled the button inside that window.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,

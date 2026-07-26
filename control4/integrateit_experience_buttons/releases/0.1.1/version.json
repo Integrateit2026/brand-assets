@@ -2,7 +2,7 @@
   "name": "IntegrateIT Experience State Button",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_experience_buttons/integrateit_experience_buttons.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_experience_buttons/releases/0.1.1/integrateit_experience_buttons.c4z",
   "notes": "A Navigator button that holds exactly one of up to six dealer-named, mutually-exclusive states and publishes that choice to Control4 programming as events and variables, with reboot persistence, press debounce, and a loop guard that keeps self-referential programming safe. MAC-locked IntegrateIT licensing.",
   "sha256": "124c5beae4b24738d7b62da2d3a279dbde5b6668a2acadd9c5bdfa2dac60062a",
   "size_bytes": 262784,

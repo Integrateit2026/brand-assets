@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Experience State Button
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [Unreleased]
 ### Fixed (adversarial review, 2026-07-20)
 - A tripped loop guard could refuse the clamp that runs when a dealer lowers `Number of States`, stranding the button on a state that no longer exists — `IS_STATE_6` stayed true with the count set to 2, and nothing published afterwards to correct it. Structural clamps are now forced through the guard and the re-entrancy refusal.
