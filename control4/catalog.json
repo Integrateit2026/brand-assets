@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T03:16:18.386Z",
+  "generated_at": "2026-07-26T03:18:04.646Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4723,16 +4723,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_paradox_evo",
-        "generated_at": "2026-07-21T19:46:31.855Z",
+        "generated_at": "2026-07-26T03:18:04.159Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "445fe0584f43b89644f1a106fdfdaec81071da66284b62d8bb8df714c8d63613",
-        "artifact_sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
-        "artifact_size_bytes": 97928,
-        "build_version_manifest_sha256": "64cd95c6129d4a1a03afcb1151b480d37c299e4e108c9ab9fa1ccd16c9919724",
-        "version_manifest_sha256": "50871eaecf84b0620b6d28dcf67c2e0638a5b986788d610747b8b12f064c9d01",
-        "version": "0.1.1",
-        "xml_version": 1,
+        "build_inputs_sha256": "90e0a56a4ea151413fb2eec48ca9148b0b2277d45e2abc2a9f2f3bf22575222f",
+        "artifact_sha256": "bea8f15ee63a439494dd533a3a0562c2d258a8620ceb164de66db6759d2941d8",
+        "artifact_size_bytes": 99444,
+        "build_version_manifest_sha256": "1b3a1adde78f616a7b613a25411e0386025d0df9958ddd5827d9519b7628576b",
+        "version_manifest_sha256": "03e319c7841d3798c8ed5c493a1829d65d48580fdc91122f323ebc3589db414f",
+        "version": "0.1.2",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -4744,26 +4744,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 121
+            "duration_ms": 142
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 79,
+            "duration_ms": 93,
             "checks": 19,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 87,
+            "duration_ms": 103,
             "checks": 325,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 55,
+            "duration_ms": 66,
             "files": 2
           }
         ]
@@ -4776,11 +4776,11 @@
         "actions": 6,
         "events": 11
       },
-      "version": "0.1.1",
-      "xml_version": 1,
+      "version": "0.1.2",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 97928,
-      "sha256": "0cea91b9d0111cef40cb08f710ecba313dc20c3a17a7a55e84f587e5229cca82",
+      "size_bytes": 99444,
+      "sha256": "bea8f15ee63a439494dd533a3a0562c2d258a8620ceb164de66db6759d2941d8",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/integrateit_paradox_evo.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/CHANGELOG.md",
@@ -4791,7 +4791,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-21T19:46:32.187Z"
+      "published_at": "2026-07-26T03:18:04.635Z"
     },
     {
       "slug": "integrateit_push_pushover",

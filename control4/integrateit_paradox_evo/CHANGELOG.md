@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Paradox EVO
 
+## [0.1.2] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.1] - 2026-07-21
 - Pre-ship adversarial review hardening (state fidelity + the never-suppress-an-alarm contract), no protocol changes:
   - Special disarm events (system-event group G022 - WinLoad disarm, one-touch stay/instant disarm, voice-module disarm, auto-arm cancelled) now report the area as Disarmed and fire `Area Disarmed`. These paths emit no G013-018 disarm event, so G022 is their only signal; previously the area read a stale `Armed` until the next status poll. The G022 cancel-alarm sub-event (N004) still only clears the alarm and never fabricates a disarm.
