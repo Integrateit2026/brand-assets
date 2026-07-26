@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T03:00:39.455Z",
+  "generated_at": "2026-07-26T03:02:25.229Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3483,16 +3483,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_lutron_homeworks",
-        "generated_at": "2026-07-21T19:46:29.005Z",
+        "generated_at": "2026-07-26T03:02:24.843Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "6d53ab5fc4cf37a226769b76adf021edce89dae98db9162cc1b561bed9ba0536",
-        "artifact_sha256": "9098109594ddf5565a4820bfda18c446c9e90a1f00950fe620444379d8b0e4ac",
-        "artifact_size_bytes": 94533,
-        "build_version_manifest_sha256": "169db135849d3910de45801bfe4fdefc324eb434ae34080ac700da5199ba1d14",
-        "version_manifest_sha256": "b8feb6ffed89e43cc7bc1887384d35bff5ceccc7d33533f07c12860ca6896954",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "9b7927104b5348e8e0d49d3718820012033bccd7a4bec6f14c35a8e454c235cf",
+        "artifact_sha256": "461e9b09c4a3058bfa36591fa3c1f83f8f74c027a37bba4cc789304aeb0dad40",
+        "artifact_size_bytes": 98473,
+        "build_version_manifest_sha256": "f7a0eb347a1b2f302fb43f1125092f485c3c1ffece85ff2836bcc9faae5a75e6",
+        "version_manifest_sha256": "f8a648ca11086652c3b2313e29182d96cd4281be3e13014c242ffeff6c7608c7",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -3504,26 +3504,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 107
+            "duration_ms": 118
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 75,
+            "duration_ms": 80,
             "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 88,
+            "duration_ms": 87,
             "checks": 258,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 57,
+            "duration_ms": 67,
             "files": 2
           }
         ]
@@ -3536,11 +3536,11 @@
         "actions": 4,
         "events": 6
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 94533,
-      "sha256": "9098109594ddf5565a4820bfda18c446c9e90a1f00950fe620444379d8b0e4ac",
+      "size_bytes": 98473,
+      "sha256": "461e9b09c4a3058bfa36591fa3c1f83f8f74c027a37bba4cc789304aeb0dad40",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/integrateit_lutron_homeworks.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/CHANGELOG.md",
@@ -3551,7 +3551,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-21T19:46:29.366Z"
+      "published_at": "2026-07-26T03:02:25.219Z"
     },
     {
       "slug": "integrateit_lutron_radiora",

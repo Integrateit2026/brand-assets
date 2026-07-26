@@ -2,7 +2,7 @@
   "name": "IntegrateIT Lutron HomeWorks QS",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/integrateit_lutron_homeworks.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lutron_homeworks/releases/0.1.1/integrateit_lutron_homeworks.c4z",
   "notes": "Two-way Control4 integration for a classic Lutron HomeWorks QS processor over Lutron's published Integration Protocol (LIP) on telnet. Up to 8 mapped OUTPUT integration IDs — dimmer levels with fade, raise / lower / stop for Sivoia QS shades — with live level feedback, per-zone variables, and MAC-locked IntegrateIT licensing.",
   "sha256": "461e9b09c4a3058bfa36591fa3c1f83f8f74c027a37bba4cc789304aeb0dad40",
   "size_bytes": 98473,
