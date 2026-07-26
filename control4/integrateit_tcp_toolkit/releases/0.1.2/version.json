@@ -2,7 +2,7 @@
   "name": "IntegrateIT Generic TCP Toolkit",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/integrateit_tcp_toolkit.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_tcp_toolkit/releases/0.1.2/integrateit_tcp_toolkit.c4z",
   "notes": "Dealer-configurable raw TCP/IP control for any LAN device: four labeled command slots plus a raw send, ASCII or hex payloads, selectable line endings, persistent or on-demand sockets, and response events — with destination, payload-size, and buffer safeguards. MAC-locked IntegrateIT licensing.",
   "sha256": "b273791e4ef8a62c83a0719bc72af272cf54ccb66a6388e7ba7604ec35518938",
   "size_bytes": 95498,
