@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Integrator Tools
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [Unreleased] - 2026-07-20 — adversarial review fixes
 - **Confirmation codes are now seeded per driver load.** Lua 5.1 starts `math.random` from a fixed sequence unless seeded, so the "one-time" code was identical on every controller and every reload — guessable without ever seeing one. Seeded from wall clock + process clock + controller MAC + a persisted nonce that bumps each boot, so two reloads inside the same second still diverge.
 - **Immediate mode can no longer clear the audit log unconfirmed.** Immediate applies to the three task slots only; `Request Audit Log Clear` always arms a Two-Step confirmation. A one-Action unconfirmed wipe of the accountability record was the worst thing this driver could do.
