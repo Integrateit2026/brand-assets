@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "e6b6f5c11f30d174d979a164f2a6e457b98727ddd1394fb9212102766776bc8d",
+      "size_bytes": 98851,
+      "published_at": "2026-07-26T14:33:25.464Z",
+      "notes": "Initial release candidate: dedicated single-fan control of a Smart by Bond ceiling fan (device type CF) over the Bond Home local API v2 (github.com/bondhome/api-v2). · Graded fan control via PUT /v2/devices/<id>/actions/<Action>: Set Fan Speed (SetSpeed, clamped 1..max_speed), Speed Up/Down (IncreaseSpeed/DecreaseSpeed), Power On/Off/Toggle, Toggle Direction, Breeze On/Off, Toggle Light, and Set Brightness (1-100). · Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on UDP port 30007: keep-alive subscription, \\n-delimited JSON frame parsing tolerant of arbitrary datagram boundaries, and resubscribe before the 125s bridge drop. · Automatic fallback to hash-gated HTTP polling of /state when BPUP goes silent; the Feedback Mode property reports which path is live (Push (BPUP) vs Polling, with the fall-back reason). · Learns max_speed from /properties and supported features from the device's Bond actions list; an action the fan was not learned with is refused as \"not supported by this fan\", never a silent no-op. · Publishes POWER, SPEED, DIRECTION, BREEZE, LIGHT, and DEVICE_ONLINE with transition-only events (unknown->known baseline adoption is silent). · BOND-Token header auth (user-supplied, never logged), LAN-only destination guard with an Allow WAN Bond override, and MAC-locked IntegrateIT licensing gated at wire-write time on every control path. · Known limits: one fan per instance; ceiling fans (CF) only; BPUP needs UDP 30007 reachable or the driver runs poll-only; acceptance on physical hardware is not yet attached to this release.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

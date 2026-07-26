@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T14:33:11.488Z",
+  "generated_at": "2026-07-26T14:33:25.478Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -539,6 +539,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T02:30:59.062Z"
+    },
+    {
+      "slug": "integrateit_bond_ceilingfan",
+      "name": "IntegrateIT Bond Ceiling Fan",
+      "summary": "First-class Control4 control of one Smart by Bond ceiling fan (device type CF) over the Bond Home v2 local HTTP API, with real push state feedback. Learns the fan's max speed and supported features, exposes graded speed, direction, breeze, and light, and reflects remote/app changes over the BPUP UDP push listener (port 30007) with hash-polling fallback.",
+      "category": "others",
+      "device_type": "Bond Ceiling Fan (CF)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Dedicated Bond ceiling-fan (CF) control over the local v2 HTTP API — no cloud dependency",
+        "Graded speed: Set Fan Speed (1..max, clamped to the fan's reported maximum), Speed Up, Speed Down",
+        "Power On / Off / Toggle, Toggle Direction (summer/winter), Breeze On/Off, Toggle Light, Set Brightness",
+        "Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on port 30007 — remote and app changes reflect without polling",
+        "Automatic hash-gated HTTP polling fallback when BPUP goes silent; Feedback Mode always says which path is live",
+        "Publishes POWER, SPEED, DIRECTION, BREEZE, LIGHT, and DEVICE_ONLINE with transition-only events",
+        "Honest feature detection: an action the fan was not learned with is refused as 'not supported by this fan', never a silent no-op",
+        "LAN-only destination safeguard, the Bond token never logged, and MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge or Smart by Bond radio, local API v2 enabled"
+        },
+        {
+          "label": "Device",
+          "value": "One Bond ceiling fan (device type CF) per driver instance"
+        },
+        {
+          "label": "State feedback",
+          "value": "BPUP UDP push (port 30007) with hash-gated HTTP poll fallback"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Bond Bridge or Smart by Bond device reachable on the same LAN as the controller",
+        "The Bond's IP address and its local API token (Bond Home app, device Settings, Advanced Settings, Local Token)",
+        "The ceiling fan's Bond device id (use the List Bond Devices action to enumerate them)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and fan is not yet attached to this release.",
+        "One ceiling fan per driver instance — add another instance for each additional fan.",
+        "Ceiling fans only (device type CF). Bond shades, fireplaces, and generic remotes are out of scope for this driver.",
+        "Push feedback needs the bridge's BPUP service reachable on UDP 30007; where it is blocked or disabled, set State Feedback to 'Poll only' and the driver runs on hash-gated HTTP polling.",
+        "Breeze, light, brightness, and direction are offered only when the fan was learned with those actions; on a fan without them the command is refused honestly rather than silently dropped.",
+        "The Bond local API is plain, unencrypted HTTP on port 80 (and unencrypted UDP for BPUP) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Bond ceiling-fan commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Bond Ceiling Fan commissioning guide showing overview, the feedback contract, wiring steps, and the wire protocol.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_bond_ceilingfan",
+        "generated_at": "2026-07-26T14:33:24.970Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "b092d83c2919bd36b3eda13ed19ac2ee23f86c8a591f7b47c921a7ac9f6c844f",
+        "artifact_sha256": "e6b6f5c11f30d174d979a164f2a6e457b98727ddd1394fb9212102766776bc8d",
+        "artifact_size_bytes": 98851,
+        "build_version_manifest_sha256": "44d64db88280f8450600073346de863a4ac997948577e9129a1e1bfed518bccd",
+        "version_manifest_sha256": "d5d4c307e62e748b43c702031f631f8e2ac35eb8e0bc05ef857cdd1031b6488c",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 100
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 72,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 83,
+            "checks": 261,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 57,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 12,
+        "commands": 12,
+        "actions": 4,
+        "events": 10
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 98851,
+      "sha256": "e6b6f5c11f30d174d979a164f2a6e457b98727ddd1394fb9212102766776bc8d",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/integrateit_bond_ceilingfan.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T14:33:25.464Z"
     },
     {
       "slug": "integrateit_circadian_lighting",

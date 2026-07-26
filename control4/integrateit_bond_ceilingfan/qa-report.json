@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_bond_ceilingfan",
+  "generated_at": "2026-07-26T14:33:24.970Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "b092d83c2919bd36b3eda13ed19ac2ee23f86c8a591f7b47c921a7ac9f6c844f",
+  "artifact_sha256": "e6b6f5c11f30d174d979a164f2a6e457b98727ddd1394fb9212102766776bc8d",
+  "artifact_size_bytes": 98851,
+  "build_version_manifest_sha256": "44d64db88280f8450600073346de863a4ac997948577e9129a1e1bfed518bccd",
+  "version_manifest_sha256": "d5d4c307e62e748b43c702031f631f8e2ac35eb8e0bc05ef857cdd1031b6488c",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 100
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 72,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 83,
+      "checks": 261,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 57,
+      "files": 2
+    }
+  ]
+}

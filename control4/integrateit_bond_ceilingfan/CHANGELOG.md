@@ -1,0 +1,14 @@
+# Changelog — IntegrateIT Bond Ceiling Fan
+
+## [Unreleased]
+- Security fix (LAN guard bypass): the boot-time metadata reads FetchProps (GET /properties) and FetchDeviceDoc (GET /v2/devices/<id>) had no LAN-destination check, so a Bond IP pointed at a public/WAN host still received two token-bearing GETs from OnDeviceInit even with Allow WAN Bond = No — leaking the BOND-Token header off-LAN at load. The LAN guard now runs at the single BondHttp transport chokepoint, so every Bond HTTP call (control, poll, and boot reads) is refused for a non-LAN destination unless Allow WAN Bond is Yes. Regression test added (a public IP boots with zero token-bearing requests).
+
+## [0.1.0] - 2026-07-26
+- Initial release candidate: dedicated single-fan control of a Smart by Bond ceiling fan (device type CF) over the Bond Home local API v2 (github.com/bondhome/api-v2).
+- Graded fan control via PUT /v2/devices/<id>/actions/<Action>: Set Fan Speed (SetSpeed, clamped 1..max_speed), Speed Up/Down (IncreaseSpeed/DecreaseSpeed), Power On/Off/Toggle, Toggle Direction, Breeze On/Off, Toggle Light, and Set Brightness (1-100).
+- Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on UDP port 30007: keep-alive subscription, \n-delimited JSON frame parsing tolerant of arbitrary datagram boundaries, and resubscribe before the 125s bridge drop.
+- Automatic fallback to hash-gated HTTP polling of /state when BPUP goes silent; the Feedback Mode property reports which path is live (Push (BPUP) vs Polling, with the fall-back reason).
+- Learns max_speed from /properties and supported features from the device's Bond actions list; an action the fan was not learned with is refused as "not supported by this fan", never a silent no-op.
+- Publishes POWER, SPEED, DIRECTION, BREEZE, LIGHT, and DEVICE_ONLINE with transition-only events (unknown->known baseline adoption is silent).
+- BOND-Token header auth (user-supplied, never logged), LAN-only destination guard with an Allow WAN Bond override, and MAC-locked IntegrateIT licensing gated at wire-write time on every control path.
+- Known limits: one fan per instance; ceiling fans (CF) only; BPUP needs UDP 30007 reachable or the driver runs poll-only; acceptance on physical hardware is not yet attached to this release.
