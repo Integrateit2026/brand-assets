@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Shelly
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - Initial release candidate. Local-LAN control of a single Shelly component over the on-device HTTP API — no Shelly Cloud, no issued credentials.
 - Dual transport: Gen2+ JSON-RPC 2.0 (`POST /rpc`: Switch.Set/Toggle/GetStatus, Cover.Open/Close/Stop/GoToPosition/GetStatus, Shelly.GetDeviceInfo) and Gen1 REST (`/shelly`, `/relay/<ch>?turn=…`, `/roller/<ch>?go=…`).
