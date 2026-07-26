@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Remote Detection
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-20
 - First cut. Classifies which handheld remote is driving a room across six explicitly bounded classes (SR-250, SR-260, Halo, Halo Touch, Neeo, Other Remote), fed by six BUTTON_LINK connections and/or the Report Remote Activity programming command.
 - Duplicate-press suppression on a guard timer, stale-activity timeout, per-class offline/reconnect tracking, reported battery level with a low-battery threshold, and a three-position Privacy Mode (Full Detail / Class Only / Off).
