@@ -1,6 +1,16 @@
 {
-  "latest": "0.9.2",
+  "latest": "0.9.3",
   "history": [
+    {
+      "version": "0.9.3",
+      "xml_version": 5,
+      "sha256": "a636317ed92687e6a12beaa9d32969faaf5d418ceb0bb758f62e042367a0c901",
+      "size_bytes": 69637,
+      "published_at": "2026-07-26T02:52:33.080Z",
+      "notes": "Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.9.2",
       "xml_version": 4,
