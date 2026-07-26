@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT UniFi Protect
 
+## [0.1.1] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.0] - 2026-07-21
 - Initial release candidate: events driver for the official Protect Integration API (developer.ui.com/protect, spec v7.1.87) — local HTTPS on the console, X-API-KEY auth with a customer-minted key.
 - Camera inventory poll (GET /v1/cameras) publishes CAMERA_COUNT / CAMERAS_CONNECTED and fires Camera Online/Offline on per-camera CONNECTED↔DISCONNECTED transitions; List Cameras prints ids for the Watched Cameras filter.
