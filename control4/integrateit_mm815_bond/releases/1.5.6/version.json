@@ -2,7 +2,7 @@
   "name": "MantelMount MM815 (Bond Bridge) by IntegrateIT",
   "version": "1.5.6",
   "xml_version": 20,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/integrateit_mm815_bond.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_mm815_bond/releases/1.5.6/integrateit_mm815_bond.c4z",
   "notes": "PTZ-style control of a MantelMount MM815 motorized TV mount over Bond Bridge — nudge, drive-to-limit, true hold-to-move, six favorites, and TV-follow (auto Deploy/Stow with TV power). Bond auto-discovery + health, position state variables/events, per-controller licensing, and over-the-air updates.",
   "sha256": "634aeca8709a73bc319fbd22bd402908000074f0cd68c2bf1c86397a806dc678",
   "size_bytes": 1423108,
