@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T22:59:07.101Z",
+  "generated_at": "2026-07-26T22:59:12.107Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -676,6 +676,149 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T14:33:25.464Z"
+    },
+    {
+      "slug": "integrateit_bond_fireplace",
+      "name": "IntegrateIT Bond Fireplace",
+      "summary": "Convenience control of one Smart by Bond fireplace (device type FP) over the Bond Home v2 local HTTP API, with real push state feedback. Flame on/off with level stepping where the device exposes it, an independent FpFan (on/off/speed) that is never touched by a flame command, and light where the fireplace was learned with one. This is convenience control of an appliance that keeps its own listed safety systems — the driver claims no flame supervision, ignition safety, or auto-off it does not have.",
+      "category": "others",
+      "device_type": "Bond Fireplace (FP)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Dedicated Bond fireplace (FP) control over the local v2 HTTP API — no cloud dependency",
+        "Flame On / Off / Toggle, plus Flame Up / Down and Set Flame Level where the fireplace exposes graded flame (learned from its Bond actions list)",
+        "Independent FpFan: Fan On / Off and Set Fan Speed (clamped to the device's reported maximum) — a fan command never TurnOn/TurnOff the flame, and a flame command never touches the fan",
+        "Toggle Light and Set Brightness where the fireplace was learned with a light",
+        "Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on port 30007 — remote and app changes reflect without polling",
+        "Automatic hash-gated HTTP polling fallback when BPUP goes silent; Feedback Mode always says which path is live",
+        "Publishes FLAME_POWER, FLAME_LEVEL, FAN_POWER, FAN_SPEED, LIGHT, and DEVICE_ONLINE with transition-only events",
+        "Honest feature detection: an action the fireplace was not learned with is refused as 'not supported by this fireplace', never a silent no-op; an unknown-support action is attempted and the bridge's own error is surfaced",
+        "Convenience-only honesty: no flame supervision, no ignition safety, no timer auto-off — the fireplace's own listed safety systems remain the only safety layer",
+        "LAN-only destination safeguard, the Bond token never logged, and MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge or Smart by Bond radio, local API v2 enabled"
+        },
+        {
+          "label": "Device",
+          "value": "One Bond fireplace (device type FP) per driver instance"
+        },
+        {
+          "label": "State feedback",
+          "value": "BPUP UDP push (port 30007) with hash-gated HTTP poll fallback"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Bond Bridge or Smart by Bond device reachable on the same LAN as the controller",
+        "The Bond's IP address and its local API token (Bond Home app, device Settings, Advanced Settings, Local Token)",
+        "The fireplace's Bond device id (use the List Bond Devices action to enumerate them)",
+        "A fireplace whose own listed safety systems (flame supervision, thermocouple/flame-sense, over-temp cutoff) remain fully in service — this driver is convenience control layered on top of them, not a replacement for them",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and fireplace is not yet attached to this release.",
+        "Convenience control only. The driver does NOT provide flame supervision, ignition safety, flame-failure detection, gas-valve interlock, or timer-based auto-off — it cannot observe or guarantee any of those. The fireplace's own listed safety mechanisms remain the only safety layer, and must remain fully in service.",
+        "One fireplace per driver instance — add another instance for each additional fireplace.",
+        "Fireplaces only (device type FP). Bond fans, shades, and generic remotes are out of scope for this driver.",
+        "No thermostat, setpoint, or auxiliary-heat modeling in this version — flame, fan, and light are the only concerns exposed.",
+        "Flame level stepping (Flame Up / Down / Set Flame Level) is offered only when the fireplace was learned with those actions; a flame appliance that only supports on/off is controlled honestly as on/off, and the graded commands are refused rather than faked.",
+        "The FpFan is modeled as fully independent of the flame, matching the Bond FP contract: turning the fan on or off, or changing its speed, issues only FpFan actions and never a flame action, and vice versa.",
+        "Push feedback needs the bridge's BPUP service reachable on UDP 30007; where it is blocked or disabled, set State Feedback to 'Poll only' and the driver runs on hash-gated HTTP polling.",
+        "The Bond local API is plain, unencrypted HTTP on port 80 (and unencrypted UDP for BPUP) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Bond fireplace commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Bond Fireplace commissioning guide showing overview, the safety boundary, the feedback contract, wiring steps, and the wire protocol.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_bond_fireplace",
+        "generated_at": "2026-07-26T22:59:11.720Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "d6bfc55ac572c3e11997931e47ae821de2d510c68bc35e6390ec3321eebd4490",
+        "artifact_sha256": "f405bb4663241a666a686ec116ea74a6c0c21e01983a3f40b822957adc27ae01",
+        "artifact_size_bytes": 101553,
+        "build_version_manifest_sha256": "35b1843230b525b034aabe3429c8c838ec35bfeea7c9a4200fcfbcd2af63cca7",
+        "version_manifest_sha256": "2e3e6727b0993c7ff5630ed35d6f69c2683a4c58631ad5bf7aca4c931ce538d6",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 99
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 68,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 82,
+            "checks": 307,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 47,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 13,
+        "commands": 12,
+        "actions": 4,
+        "events": 10
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 101553,
+      "sha256": "f405bb4663241a666a686ec116ea74a6c0c21e01983a3f40b822957adc27ae01",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/integrateit_bond_fireplace.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-26T22:59:12.096Z"
     },
     {
       "slug": "integrateit_bond_shade",
