@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Colour Wheel
 
+## [0.1.2] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.1] - 2026-07-20
 Adversarial review of the first cut. Six defects, all with regression cases.
 - **Next Hue / Previous Hue were dead buttons under a custom hex.** `Custom Colour (Hex)` outranks the hue stop in the resolve spine, so a step moved the property, fired *Hue Stop Changed*, and pushed the same colour — the picker announced a stop the room did not show. A step now retires the override and says so; pressing a hue button is an explicit request for a named stop.
