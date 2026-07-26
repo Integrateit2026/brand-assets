@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-21T19:46:32.196Z",
+  "generated_at": "2026-07-26T02:17:57.093Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -65,16 +65,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_appliance_status",
-        "generated_at": "2026-07-19T21:54:11.812Z",
+        "generated_at": "2026-07-26T02:17:56.452Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "e5f599759ee080c97331bb70f195058478552fc8b8b15075a872888ee78cace7",
-        "artifact_sha256": "b305f49f3f6d86d40a849c211e3a3a19c01eeffd4f23e7185b1738a88eaa855d",
-        "artifact_size_bytes": 79838,
-        "build_version_manifest_sha256": "35525ba0f0175727ec95de74bf9925a2bc6928627aeaf189c1ca345a0560791e",
-        "version_manifest_sha256": "e693ee864ea9f380572e5bc173bbc59591b84e6fd7a78230bf4d7f22b69e2ffa",
-        "version": "0.1.1",
-        "xml_version": 2,
+        "build_inputs_sha256": "d1cbbd0b33aacc01a31f5e6842ee582b5ce40d0a8be646cbdfb15a96251b37b5",
+        "artifact_sha256": "bdbde726794968d8334ad7dea62c759c2d1c8a1c1af59efdf81b303667086605",
+        "artifact_size_bytes": 91004,
+        "build_version_manifest_sha256": "e9e4f301cc118856898c5783572090f00b1be6047cbb2ea572c87c2341e51cbd",
+        "version_manifest_sha256": "29f82b607f31186bc04cac53846da6f31888c83edd810e9396ebbcf18c82ad04",
+        "version": "0.1.3",
+        "xml_version": 4,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -86,7 +86,7 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 114
+            "duration_ms": 122
           },
           {
             "name": "static",
@@ -105,7 +105,7 @@
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 55,
+            "duration_ms": 57,
             "files": 2
           }
         ]
@@ -118,11 +118,11 @@
         "actions": 3,
         "events": 4
       },
-      "version": "0.1.1",
-      "xml_version": 2,
+      "version": "0.1.3",
+      "xml_version": 4,
       "min_os": "3.0.0",
-      "size_bytes": 79838,
-      "sha256": "b305f49f3f6d86d40a849c211e3a3a19c01eeffd4f23e7185b1738a88eaa855d",
+      "size_bytes": 91004,
+      "sha256": "bdbde726794968d8334ad7dea62c759c2d1c8a1c1af59efdf81b303667086605",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/integrateit_appliance_status.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/CHANGELOG.md",
@@ -133,12 +133,12 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-19T21:54:12.191Z"
+      "published_at": "2026-07-26T02:17:57.084Z"
     },
     {
       "slug": "integrateit_assistance_button",
       "name": "IntegrateIT Assistance Button",
-      "summary": "Turns 1-4 wired help/panic buttons into one latching, per-station assistance call for elderly-care, accessibility, pool-alarm, or staff-call use. A press latches an assistance alarm, records which station called, and can re-alert on an interval until a caregiver acknowledges and clears it. Per-wiring press polarity, optional re-alert nagging, MAC-locked IntegrateIT licensing.",
+      "summary": "Turns 1-4 wired help/panic buttons into one latching, per-station assistance call for elderly-care, accessibility, pool-alarm, and staff-call use. A press latches the call and records which station asked for help until a caregiver clears it.",
       "category": "others",
       "device_type": "Assistance Button",
       "release_status": "release-candidate",
@@ -408,7 +408,7 @@
     {
       "slug": "integrateit_bond",
       "name": "IntegrateIT Bond",
-      "summary": "Control a single Bond Home device (Smart by Bond ceiling fan, light, shade, or generic remote) over the local, unencrypted Bond v2 HTTP API — power, fan speed, light, brightness, summer/winter direction, and open/close/hold — with a configurable state poll that publishes POWER, SPEED, LIGHT, BRIGHTNESS, DIRECTION, and DEVICE_ONLINE variables plus on/off/light/online events. LAN-only destination safeguard, the Bond token never logged, and MAC-locked IntegrateIT licensing.",
+      "summary": "Local Control4 control of one Smart by Bond device — a ceiling fan, light, shade, or generic remote — over the Bond Home v2 HTTP API on your LAN, with no cloud dependency. A background poll publishes power, speed, light, brightness, direction, and reachability as Control4 variables and events.",
       "category": "others",
       "device_type": "Bond",
       "release_status": "release-candidate",
@@ -543,7 +543,7 @@
     {
       "slug": "integrateit_circadian_lighting",
       "name": "IntegrateIT Circadian Lighting",
-      "summary": "A headless circadian engine that computes the ideal warm-to-cool color temperature and brightness curve across the day and publishes it as Composer variables plus events, so your lighting programming reads the values and applies them. Hardware-agnostic — it is the brain, not the driver of the lights. MAC-locked IntegrateIT licensing.",
+      "summary": "A headless circadian engine that computes a warm-to-cool color-temperature and brightness curve across the day and publishes it as Composer variables plus events for your lighting programming to read and apply. Hardware-agnostic — it is the brain, not the driver of the lights; MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Circadian Engine",
       "release_status": "release-candidate",
@@ -674,7 +674,7 @@
     {
       "slug": "integrateit_code_agent",
       "name": "IntegrateIT Code Agent",
-      "summary": "Runs a short dealer-authored automation script from a closed, allowlisted verb vocabulary - SET, ADD, IF, GOTO, WAIT, FIRE, LOG, STOP - with a hard step budget, single-flight execution, an audit log, and register rollback on abort. No eval, no remote code, no network trigger. MAC-locked IntegrateIT licensing.",
+      "summary": "A headless Control4 driver that runs a short, dealer-authored automation script - up to eight steps over a closed, allowlisted verb set - entirely inside Composer programming. It keeps registers, compares and waits, and raises events for your programming to act on; it never evaluates code, drives a device, or touches the network.",
       "category": "others",
       "device_type": "Scripted Action Runner",
       "release_status": "release-candidate",
@@ -950,7 +950,7 @@
     {
       "slug": "integrateit_colour_wheel",
       "name": "IntegrateIT Colour Wheel",
-      "summary": "An accessible colour picker for Control4 colour-capable lights. Twelve named hue stops you can step with a single button, a colour-vision-safe subset, a full sRGB/HSV/CCT conversion engine, and four recallable presets, pushed to up to six bound lights over the Control4 colour proxy contract. MAC-locked IntegrateIT licensing.",
+      "summary": "An accessible colour picker for Control4 colour-capable lights: twelve named hue stops you step with a single button, a colour-vision-safe subset, a full sRGB/HSV/CCT conversion engine, and four recallable presets, pushed to up to six bound lights over the Control4 colour proxy contract with MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Accessible Colour Engine",
       "release_status": "release-candidate",
@@ -1363,7 +1363,7 @@
     {
       "slug": "integrateit_enhanced_scheduler",
       "name": "IntegrateIT Enhanced Scheduler",
-      "summary": "A headless time-of-day + day-of-week scheduler for Control4 with up to six independent slots, each with its own time, weekday mask, and enable switch. Every slot fires a generic Schedule Fired event (and, for slots 1-3, a dedicated per-slot event) so Composer programming keys off flexible recurring schedules the built-in scheduler cannot express. Manual test-fire, next-fire preview, MAC-locked IntegrateIT licensing.",
+      "summary": "A headless recurring-time scheduler for Control4 with up to six independent slots, each with its own time-of-day, weekday mask, and enable switch. Every slot fires Composer events so project programming can react to flexible recurring schedules the built-in scheduler cannot express.",
       "category": "others",
       "device_type": "Scheduler",
       "release_status": "release-candidate",
@@ -1769,7 +1769,7 @@
     {
       "slug": "integrateit_experience_buttons",
       "name": "IntegrateIT Experience State Button",
-      "summary": "A Navigator button that holds one of up to six mutually-exclusive named states. A press advances the state, programming can select any state directly, the choice survives a reboot, duplicate press deliveries are debounced, and a loop guard stops programming that reacts to its own state change from running away. MAC-locked IntegrateIT licensing.",
+      "summary": "A Navigator button that holds exactly one of up to six dealer-named, mutually-exclusive states and publishes that choice to Control4 programming as events and variables, with reboot persistence, press debounce, and a loop guard that keeps self-referential programming safe. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Experience State Button",
       "release_status": "release-candidate",
@@ -2313,7 +2313,7 @@
     {
       "slug": "integrateit_gemini",
       "name": "IntegrateIT Gemini Assistant",
-      "summary": "Ask Google Gemini a question from Control4 programming — a bring-your-own-key cloud driver for the official Gemini API (generativelanguage.googleapis.com). One Ask action sends the Prompt with an optional system instruction and a max-token cap; the bounded answer lands in a Control4 variable with Response Received, Response Truncated, and Request Failed events, a request timeout with a stale-response guard, and a busy/min-interval rate guard. The customer's API key travels only in the x-goog-api-key request header and is never logged.",
+      "summary": "A bring-your-own-key Control4 driver for the official Google Gemini API. Ask Gemini a question from any programming event and act on the bounded answer — shaped by an optional system instruction and a max-token cap, all on the customer's own API key.",
       "category": "others",
       "device_type": "Gemini Assistant",
       "release_status": "release-candidate",
@@ -2450,7 +2450,7 @@
     {
       "slug": "integrateit_graphing_insights",
       "name": "IntegrateIT Metrics & Insights",
-      "summary": "Samples any Control4 device variable into a bounded three-tier ledger (recent samples, hourly buckets, daily buckets), publishes min/max/average/trend insight variables and threshold events, and exports CSV or JSON for external charting. Local-calendar bucketing, an explicit privacy mode, and a capped project-backup footprint. MAC-locked IntegrateIT licensing.",
+      "summary": "Samples any Control4 device variable into a bounded three-tier ledger (recent samples, hourly buckets, daily buckets), publishes min/max/average/trend insight variables plus new-extreme, significant-change, and rollover events, and exports CSV or JSON for external charting. Local-calendar bucketing, an explicit privacy mode, a capped project-backup footprint, and MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Metric Ledger",
       "release_status": "release-candidate",
@@ -3418,7 +3418,7 @@
     {
       "slug": "integrateit_lutron_homeworks",
       "name": "IntegrateIT Lutron HomeWorks QS",
-      "summary": "Telnet (LIP) integration with a Lutron HomeWorks QS processor: prompt-based login, control and live monitoring of up to 8 mapped integration IDs — dimmer level set with fade, raise / lower / stop for Sivoia QS shades — with per-zone level variables, level-change events, and reconnect with exponential backoff. MAC-locked IntegrateIT licensing.",
+      "summary": "Two-way Control4 integration for a classic Lutron HomeWorks QS processor over Lutron's published Integration Protocol (LIP) on telnet. Up to 8 mapped OUTPUT integration IDs — dimmer levels with fade, raise / lower / stop for Sivoia QS shades — with live level feedback, per-zone variables, and MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "HomeWorks QS (LIP telnet)",
       "release_status": "release-candidate",
@@ -3831,7 +3831,7 @@
     {
       "slug": "integrateit_mode_integration",
       "name": "IntegrateIT Mode Integration",
-      "summary": "A dealer-configurable house-mode state machine for Control4: Home, Away, Night, Vacation, Guest, or any modes you name, exposed as variables plus a generic Mode Changed event so Composer programming keys off the current experience. Atomic transitions, recursion prevention, and mode persistence across controller restart. MAC-locked IntegrateIT licensing.",
+      "summary": "A dealer-configurable house-mode state machine for Control4 — Home, Away, Night, Vacation, Guest, or any modes you name — that holds the current mode and exposes it as Composer variables plus a generic Mode Changed event, so project programming keys off one source of truth for the whole house. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "House Mode State Machine",
       "release_status": "release-candidate",
@@ -3964,7 +3964,7 @@
     {
       "slug": "integrateit_nanoleaf",
       "name": "IntegrateIT Nanoleaf",
-      "summary": "Control a Nanoleaf light (Light Panels, Canvas, Shapes, Elements, Lines) over the vendor's local Open API — on/off, brightness, hue/saturation color, color temperature, and effect selection by name — with documented power-button pairing that claims and stores the auth token for you, plus a configurable reachability poll that publishes POWER, BRIGHTNESS, HUE, SAT, CT, EFFECT, and DEVICE_ONLINE variables and fires on/off, effect, and online/offline events. LAN-only destination safeguard, the auth token never logged, and MAC-locked IntegrateIT licensing.",
+      "summary": "Local Control4 driver for a Nanoleaf light — Light Panels, Canvas, Shapes, Elements, or Lines — over the vendor's on-device Open API, with built-in power-button pairing and polled state feedback. No cloud dependency: control stays on the LAN.",
       "category": "others",
       "device_type": "Nanoleaf Open API",
       "release_status": "release-candidate",
@@ -4101,7 +4101,7 @@
     {
       "slug": "integrateit_network_agents",
       "name": "IntegrateIT Network Agent",
-      "summary": "Bounded LAN reachability diagnostics for up to six allowlisted peers over an original authenticated probe protocol: one fixed PING frame, a shared-secret token, a per-minute rate limit, a LAN-only guard, and redacted logging. No shell, no scanning, no remote command channel. MAC-locked IntegrateIT licensing.",
+      "summary": "Bounded LAN reachability monitoring for up to six named peers — a diagnostic that reports whether the hosts you care about are up and answering promptly, with no discovery, no scanning, and no remote command channel. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Network Agent",
       "release_status": "release-candidate",
@@ -4373,7 +4373,7 @@
     {
       "slug": "integrateit_openai",
       "name": "IntegrateIT OpenAI Assistant",
-      "summary": "Ask the OpenAI Platform API from Control4 programming: an Ask command sends a prompt (parameter or property) to chat completions with a configurable model, system prompt, and max-token cap, publishes the answer to a bounded RESPONSE variable, and fires Response Ready / Request Failed / Rate Limit Reached events. Strict per-request timeout with stale-response discard, a per-hour request cap enforced before any network call, and a BYO-key design: the customer enters their own OpenAI API key, sent only in the request header and never logged.",
+      "summary": "Runs OpenAI chat completions from Control4 programming on the customer's own API key — an Ask command turns a prompt into an answer your programming can speak, display, or act on, bounded by a per-hour spend guard and a BYO-key design that never logs the key.",
       "category": "others",
       "device_type": "OpenAI Platform API",
       "release_status": "release-candidate",
@@ -4513,7 +4513,7 @@
     {
       "slug": "integrateit_optimus",
       "name": "IntegrateIT Optimus AI",
-      "summary": "The AI assistant, Service Requests, and My System experience inside Control4 Navigator. The assistant drives lights, scenes, thermostat, shades, fans, locks, and announcements; optional driver-hosted quick-control panel; resilient relay link with backoff and optional two-way device state. Per-controller licensing + over-the-air updates.",
+      "summary": "An in-Navigator AI assistant, Service Requests, and My System experience for Control4 — the assistant drives lighting, scenes, climate, shades, fans, locks, garage, and announcements through the IntegrateIT relay, with an optional quick-control panel and a sensitive-action confirmation gate.",
       "category": "others",
       "device_type": "Optimus AI",
       "release_status": "release-candidate",
@@ -4925,7 +4925,7 @@
     {
       "slug": "integrateit_remote_detection",
       "name": "IntegrateIT Remote Detection",
-      "summary": "Reports which handheld remote class is driving a room. Six explicitly bounded classes are detected from button-link bindings or from Composer programming, with duplicate-press suppression, a stale-activity timeout, offline and reconnect tracking, low-battery reporting, and a privacy mode that limits what is published. MAC-locked IntegrateIT licensing.",
+      "summary": "Reports which handheld remote class is driving a room, from six explicitly bounded classes (SR-250, SR-260, Halo, Halo Touch, Neeo, Other Remote) detected via button-link bindings or Composer programming. Duplicate-press suppression, a stale-activity timeout, offline and reconnect tracking, low-battery reporting, a privacy mode, and MAC-locked IntegrateIT licensing are built in.",
       "category": "others",
       "device_type": "Remote Detection",
       "release_status": "release-candidate",
@@ -5196,7 +5196,7 @@
     {
       "slug": "integrateit_shelly",
       "name": "IntegrateIT Shelly",
-      "summary": "Local-LAN control for a single Shelly component (relay/switch or roller/cover) over the on-device HTTP API — Gen2+ JSON-RPC or Gen1 REST, auto-detected. Turn On/Off/Toggle a switch or Open/Close/Stop/Go-To-Position a cover, with polled state published as variables and events. No Shelly Cloud account required. MAC-locked IntegrateIT licensing.",
+      "summary": "Local-LAN control of a single Shelly component — one relay/switch or one roller/cover channel — over the device's own HTTP API on Gen1 and Gen2+ hardware, with confirmed two-way state and no Shelly Cloud account.",
       "category": "others",
       "device_type": "Shelly Local API",
       "release_status": "release-candidate",
@@ -5466,7 +5466,7 @@
     {
       "slug": "integrateit_soundfx",
       "name": "IntegrateIT SoundFX",
-      "summary": "Plays short audio cues into Control4 rooms with a FIFO queue, three concurrency modes, automatic room-volume snapshot and restore, mid-cue zone-removal handling, and restore-after-controller-restart. Ships no audio - you supply IntegrateIT-owned or licensed media. MAC-locked IntegrateIT licensing.",
+      "summary": "Headless audio-cue engine for Control4: it takes any set of rooms for a short cue - routing, level, and restore, with a queue and three concurrency modes - while a source already in the project plays the file. Ships no audio; you supply IntegrateIT-owned or licensed media.",
       "category": "others",
       "device_type": "Audio Cue Engine",
       "release_status": "release-candidate",
@@ -5605,7 +5605,7 @@
     {
       "slug": "integrateit_support_surface",
       "name": "IntegrateIT Support Surface",
-      "summary": "An in-project Navigator support button that opens a dealer-configured HTTPS support or contact page on touchscreens and mobile. HTTPS-only with strict URL validation, an on-driver privacy disclosure, no hidden tracking, no inbound WebView command bridge, and graceful offline messaging when the page cannot be reached. MAC-locked IntegrateIT licensing.",
+      "summary": "An in-project Navigator button that opens a dealer-configured HTTPS support or contact page on Control4 touchscreens and in the mobile apps, with strict URL validation and an on-driver privacy disclosure. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Support Surface",
       "release_status": "release-candidate",
@@ -5880,7 +5880,7 @@
     {
       "slug": "integrateit_unifi_access",
       "name": "IntegrateIT UniFi Access",
-      "summary": "Monitor one UniFi Access door and unlock it deliberately from Control4, over Ubiquiti's official local Developer API (HTTPS port 12445, customer-minted Bearer token). A configurable poll publishes DOOR_LOCKED, DOOR_POSITION, DOOR_NAME, and DEVICE_ONLINE variables and fires Door Opened/Closed, Door Locked/Unlocked, and Went Online/Offline events; remote unlock is double-gated behind the IntegrateIT license AND an explicit Allow Remote Unlock property. An access-convenience surface — not a life-safety system.",
+      "summary": "Monitors one UniFi Access door — lock relay, position sensor, reachability, and name — from Control4 over Ubiquiti's official local Developer API, and can deliberately unlock it under a double license-and-property gate. An access-convenience surface, not a life-safety system.",
       "category": "others",
       "device_type": "UniFi Access",
       "release_status": "release-candidate",
@@ -6155,7 +6155,7 @@
     {
       "slug": "integrateit_unifi_protect",
       "name": "IntegrateIT UniFi Protect",
-      "summary": "Surfaces UniFi Protect camera activity to Control4 programming over the official Protect Integration API (local HTTPS, X-API-KEY): camera inventory and per-camera reachability from GET /v1/cameras, plus motion, smart-detection (person / vehicle / package / animal), and doorbell-ring events read by polling the console's event feed. Events only — no video, no streams. LAN-only destination safeguard, the API key never logged, and MAC-locked IntegrateIT licensing.",
+      "summary": "Surfaces UniFi Protect camera activity — motion, smart detections (person / vehicle / package / animal), doorbell rings, and camera and console reachability — to Control4 programming over the official Protect Integration API. Events only: no video, streams, or snapshots; local-console only, the API key is never logged, and MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "UniFi Protect",
       "release_status": "release-candidate",
