@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT ESI R2D7 Shades
 
+## [0.1.2] - 2026-07-26
+- Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
+
 ## [0.1.1] - 2026-07-21
 - Protocol-fidelity fixes against the manufacturer-published R2D7 V4.1 command table:
   - Command validation is now case-sensitive, per the spec's "case is important: o is different from O." The raw-command sender previously lowercased the command letter, so an uppercase movement letter (e.g. `*1O01`) validated as "open," transmitted a frame the R2D7 actually rejects, and dishonestly marked the channel Assumed Open. Wrong-case letters are now refused with a named reason and never touch the wire or the assumed state.
