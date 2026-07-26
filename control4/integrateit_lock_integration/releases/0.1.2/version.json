@@ -2,7 +2,7 @@
   "name": "IntegrateIT Lock Integration",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/integrateit_lock_integration.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lock_integration/releases/0.1.2/integrateit_lock_integration.c4z",
   "notes": "Relay-driven electric strike, maglock, or deadbolt control with contact-confirmed lock status, an auto-relock timer, and a fire/egress safety interlock that refuses to lock and forces release.",
   "sha256": "f679b673e510b32f1ba4c9ee4a97c8d72a5be2ee33ead01ecaa6296991cb716b",
   "size_bytes": 93326,
