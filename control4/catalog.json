@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-27T17:21:33.565Z",
+  "generated_at": "2026-07-27T17:22:00.031Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -819,6 +819,144 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T22:59:12.096Z"
+    },
+    {
+      "slug": "integrateit_bond_generic",
+      "name": "IntegrateIT Bond Generic Device",
+      "summary": "First-class Control4 control of one Bond generic device (device type GX) over the Bond Home v2 local HTTP API, with BPUP push state. Exposes only the actions the device actually advertises, and labels its power state assumed because a learned one-way RF device never reports back.",
+      "category": "others",
+      "device_type": "Bond Generic Device (GX)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Dedicated Bond generic-device (GX) control over the local v2 HTTP API — no cloud dependency",
+        "Power On / Power Off / Toggle Power / Stop, each gated on the actions the device actually advertises",
+        "Run Advertised Action reaches any other action this device advertises, by name, with an optional argument",
+        "Refuses a non-GX device by name and points at the dedicated ceiling-fan, shade, or fireplace driver instead",
+        "Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on port 30007, with hash-gated HTTP polling fallback",
+        "Publishes POWER, POWER_ASSUMED, and DEVICE_ONLINE with transition-only Turned On/Off and Went Online/Offline events",
+        "Assumed-state honesty: a GX device is a learned one-way RF target, so Bond reports its tracked belief and this driver labels it assumed",
+        "LAN-only destination safeguard on every call including boot reads, the Bond token never logged, and MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge or Bond Bridge Pro, local API v2 enabled"
+        },
+        {
+          "label": "Device",
+          "value": "One Bond generic device (device type GX) per driver instance"
+        },
+        {
+          "label": "State feedback",
+          "value": "BPUP UDP push (port 30007) with hash-gated HTTP poll fallback"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Bond Bridge reachable on the same LAN as the controller, with the generic remote already learned into it",
+        "The Bond's IP address and its local API token (Bond Home app, device Settings, Advanced Settings, Local Token)",
+        "The generic device's Bond device id (use the List Bond Devices action to enumerate them)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and a learned generic device is not yet attached to this release.",
+        "One generic device per driver instance — add another instance for each additional GX device.",
+        "Generic devices only (device type GX). A ceiling fan (CF), shade (MS), or fireplace (FP) is refused by name and belongs on its dedicated IntegrateIT driver.",
+        "Power state is ASSUMED, never measured. Bond reports the state it believes it transmitted; the original hand-held remote bypasses Bond entirely, so a press on that remote silently desyncs the belief and neither Bond nor this driver can detect it.",
+        "Only the actions the device advertises are sent. Once the action list is known, anything absent from it is refused locally by name and never reaches the wire.",
+        "Push feedback needs the bridge's BPUP service reachable on UDP 30007; where it is blocked or disabled, set State Feedback to Poll only and the driver runs on hash-gated HTTP polling.",
+        "The Bond local API is plain, unencrypted HTTP on port 80 (and unencrypted UDP for BPUP) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Bond generic-device commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Bond Generic Device commissioning guide showing overview, the assumed-state contract, wiring steps, and the wire protocol.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_bond_generic",
+        "generated_at": "2026-07-27T17:21:58.699Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "48f55012ad588282773b406916453d7b361127980a8c0f3c7316b5a2f519d36a",
+        "artifact_sha256": "12e5a936554093ffb4554b74afd78a324a701b2a22eca2911e1c84354d3f4c76",
+        "artifact_size_bytes": 102414,
+        "build_version_manifest_sha256": "6101e27a2f5b5b66dd8e7cf1eb75a2118c05b5559c7acf7dd6c2b1e2fdd34e9c",
+        "version_manifest_sha256": "45ca4a70f4fcd66bfdb77ce479b916ded66963824f011b2e7623ef2bcc29961b",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 2286
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 733,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 911,
+            "checks": 316,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 406,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 13,
+        "commands": 6,
+        "actions": 5,
+        "events": 4
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 102414,
+      "sha256": "12e5a936554093ffb4554b74afd78a324a701b2a22eca2911e1c84354d3f4c76",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/integrateit_bond_generic.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-27T17:21:59.963Z"
     },
     {
       "slug": "integrateit_bond_shade",
