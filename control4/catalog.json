@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-27T00:19:35.902Z",
+  "generated_at": "2026-07-27T17:21:02.067Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3559,6 +3559,157 @@
       "published_at": "2026-07-26T14:33:07.817Z"
     },
     {
+      "slug": "integrateit_hue_motion",
+      "name": "IntegrateIT Hue Motion Sensor",
+      "summary": "Local Control4 driver for one Philips Hue motion accessory over the on-bridge CLIP API v2, with push feedback from the eventstream for motion, light level, temperature, and battery. Lighting and comfort automation only — not a security or intrusion device.",
+      "category": "others",
+      "device_type": "Hue Motion Sensor (CLIP API v2)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Binds ONE Philips Hue motion accessory through the bridge's local CLIP API v2 — no cloud hop, no Hue account, works when the internet is down",
+        "Link-button pairing built in: press the bridge button, run Pair, and the driver claims and stores the application key itself",
+        "Discover Sensors lists every bridge device that publishes a motion service; pick one by number and bind it — the binding persists across reboots",
+        "Live push feedback from the bridge eventstream: motion, light level, temperature, and battery arrive without polling",
+        "Publishes MOTION plus CONTACT_STATE in the Control4 contact vocabulary (OPENED on motion, CLOSED when clear, UNKNOWN before the first observation)",
+        "LIGHT_LEVEL in lux converted from the CLIP logarithmic value (lux = 10 ^ ((light_level - 1) / 10000)), with the raw value published alongside it",
+        "TEMPERATURE in Fahrenheit or Celsius and BATTERY_LEVEL in percent, with a Battery Low event at a dealer-set threshold",
+        "Stream-loss honesty: a dropped eventstream — or an unanswered resync, which is the only signal a build without streaming has — publishes BRIDGE_ONLINE false, sets STATE_STALE, and labels the readings stale instead of freezing them as if they were live",
+        "Enable Sensing / Disable Sensing are the only writes this driver ever makes — everything else is read-only, and both are license-gated at the wire",
+        "LAN-only destination guard on every request including the boot-time reads, and an application key that is never written to the log"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Hue Bridge v2 (square, BSB002) running firmware with the CLIP API v2 (/clip/v2) and the eventstream"
+        },
+        {
+          "label": "Accessory",
+          "value": "Any Hue device whose bridge record publishes a motion service (indoor and outdoor Hue motion sensors also publish light_level, temperature, and device_power)"
+        },
+        {
+          "label": "Feedback",
+          "value": "Push via the CLIP v2 eventstream (SSE) on OS builds with C4:url streaming; a periodic resync heartbeat backs it up"
+        },
+        {
+          "label": "Legacy OS fallback",
+          "value": "On OS builds without C4:url streaming the eventstream is skipped and state comes from the resync heartbeat only (lower the Resync Interval)"
+        },
+        {
+          "label": "Scope",
+          "value": "Lighting and comfort automation. Philips Hue Developer Terms 8.2 forbid security, surveillance, and intrusion-detection use of the Hue API"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Hue Bridge reachable on the same LAN as the controller, with a DHCP-reserved IP address",
+        "Physical access to the bridge once, to press the round link button and open the pairing window",
+        "At least one Hue motion accessory already added to the bridge in the Hue app",
+        "One driver instance per sensor — add another instance for a second sensor",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "NOT a security, surveillance, or intrusion-detection device. Philips Hue Developer Terms 8.2 forbid that use of the Hue API, and a battery accessory on a consumer mesh is not a listed alarm path. Never bind this driver into a security partition or let it carry a life-safety or intrusion decision.",
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Hue Bridge, a physical motion accessory, and a physical controller is not yet attached to this release (hardwareStatus: simulation-verified, not bench-tested).",
+        "One sensor per driver instance. The binding is a single CLIP device resource id; a sensor deleted and re-added on the bridge gets a new id and must be re-bound.",
+        "Enable Sensing / Disable Sensing (the motion service enabled flag) is the only writable surface. Sensitivity, outdoor-sensor daylight thresholds, and Hue-app automations are not exposed.",
+        "The driver does not present a bindable Control4 CONTACT_SENSOR connection. Producer-side contact delivery is unverified SDK surface, so motion is published as variables and events instead.",
+        "Light level is a conversion, not a calibrated measurement: the bridge reports 10000 * log10(lux) + 1 and the driver inverts it. A reported 0 sits below the formula's meaningful floor — inverting it yields 0.9998 lux — so the driver publishes 0 lux there rather than round that up to 1.",
+        "Temperature comes from the accessory's own on-board sensor, which sits inside the sensor housing and reads warm relative to room air. It is a trend signal, not a thermostat reference.",
+        "A motion change that happens while the live feed is down produces no event: the one catch-up read that follows adopts the new state into the variables silently rather than firing a transition the driver never observed. Anything the eventstream itself delivers once it is back is a live observation and fires normally, and Battery Low is the deliberate exception — a low battery is a standing condition, so it is reported the first time it is seen.",
+        "The bridge presents a self-signed certificate, so the driver connects over HTTPS with CA chain verification disabled and trusts the bridge by its LAN address plus the application key — a genuinely broken TLS negotiation still fails closed and never downgrades to plaintext."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Hue motion-sensor pairing and commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Hue Motion Sensor commissioning guide showing overview, link-button pairing, sensor discovery and binding, the staleness contract, and honest limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_hue_motion",
+        "generated_at": "2026-07-27T17:21:01.058Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "f36f7630280dfb4500352d15153e755195da9df2a9b22ff3ed63d090644c1202",
+        "artifact_sha256": "0b1e9680cfd9f45aeff311d6b0060e9ca81d4f609b52889b26466ac4edec1066",
+        "artifact_size_bytes": 109571,
+        "build_version_manifest_sha256": "fa0db61da09083d9525f2b721550f1f9a8819795d14f6fe22f341d33acfb1a52",
+        "version_manifest_sha256": "09b53122e50c4aaebdfc9d17c9dcedcbb946dee6fa86f54c35f40e3ca27ff7fb",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 899
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 522,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 707,
+            "checks": 389,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 329,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 11,
+        "commands": 3,
+        "actions": 8,
+        "events": 9
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 109571,
+      "sha256": "0b1e9680cfd9f45aeff311d6b0060e9ca81d4f609b52889b26466ac4edec1066",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/integrateit_hue_motion.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-27T17:21:02.002Z"
+    },
+    {
       "slug": "integrateit_integrator_tools",
       "name": "IntegrateIT Integrator Tools",
       "summary": "A dealer utility surface that puts three labelled privileged maintenance tasks behind an explicit confirmation step and writes every request, authorization, denial and lock change to a persistent on-controller audit log with an optional webhook. MAC-locked IntegrateIT licensing.",
@@ -3984,7 +4135,7 @@
     {
       "slug": "integrateit_lifx",
       "name": "IntegrateIT LIFX",
-      "summary": "Local Control4 driver for a single LIFX Wi-Fi light over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect over SetExtendedColorZones; single-zone bulbs refuse zone commands by name.",
+      "summary": "Local Control4 driver for a single LIFX Wi-Fi light over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect; confirmed matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror) add whole-matrix color and the MORPH / FLAME / SKY firmware effects; confirmed LIFX Clean bulbs add HEV clean cycles. Every capability is unknown until the device proves it, and unproven commands are refused by name.",
       "category": "others",
       "device_type": "LIFX LAN Protocol",
       "release_status": "release-candidate",
@@ -3996,8 +4147,10 @@
         "Bound target is persisted, so the driver keeps controlling the same bulb across reboots and driver upgrades",
         "Power on/off/toggle with a transition duration, color by hue/saturation/brightness (HSBK), and white by Kelvin + brightness",
         "MultiZone for LIFX Z / Beam strips: per-zone color over a range and a start-to-end gradient via SetExtendedColorZones (little-endian, auto-chunked at 82 zones), plus the Move effect — capability is detected honestly from the product id / a StateExtendedColorZones reply, and single-zone bulbs refuse zone commands naming the reason",
+        "Matrix/Tile for LIFX Tile, Candle, Ceiling, Path, Spot, Tube, Luna and Mirror: paint the whole matrix one color via Set64 (one 522-byte message per tile, and per 64-zone band on wide devices), and run the MORPH, FLAME, or SKY firmware effect via SetTileEffect — capability comes from the product id or a StateDeviceChain reply, which also hands over the real chain geometry",
+        "HEV clean cycles for LIFX Clean: Start/Stop over SetHevCycle, the bulb's own stored defaults read and written over Get/SetHevCycleConfiguration, live CLEAN_REMAINING_S countdown, and the bulb's own end-of-cycle vocabulary (SUCCESS / BUSY / INTERRUPTED_BY_RESET / _HOMEKIT / _LAN / _CLOUD / NONE) in CLEAN_LAST_RESULT",
         "Polled State (Light Get/State) publishes POWER, HUE, SAT, BRIGHTNESS, KELVIN, and DEVICE_ONLINE; an EchoRequest keepalive proves reachability",
-        "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, and Discovery Complete events for Composer programming",
+        "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, Discovery Complete, MultiZone/Matrix/HEV Detected, and Clean Cycle Started/Finished events for Composer programming",
         "Replies correlated by source + sequence and de-duplicated against late/duplicate datagrams; no token or key of any kind leaves the controller; MAC-locked IntegrateIT licensing on every control path"
       ],
       "compatibility": [
@@ -4007,7 +4160,7 @@
         },
         {
           "label": "Devices",
-          "value": "LIFX Wi-Fi color bulbs speaking the LAN protocol (lan.developer.lifx.com), on the same subnet as the controller"
+          "value": "LIFX Wi-Fi lights speaking the LAN protocol (lan.developer.lifx.com), on the same subnet as the controller — color bulbs, Z / Beam strips, matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror), and Clean (HEV) bulbs"
         },
         {
           "label": "Transport",
@@ -4031,7 +4184,9 @@
         "Release Candidate: verified against the Control4 API simulator and the LIFX LAN wire format; acceptance on physical LIFX hardware and a physical controller is not yet attached to this release.",
         "One LIFX bulb per driver instance — add another instance per bulb. This version does not model bulb groups or scenes.",
         "LAN broadcast reachability is required: discovery and control are sent to the subnet broadcast address and targeted by the bulb's serial. If the controller and bulb are on different subnets/VLANs, or broadcast is filtered, the bulb will not be found or controlled.",
-        "MultiZone covers LIFX Z / Beam strips via SetExtendedColorZones (510): per-zone color, gradients, and the Move effect. Extended zones need recent strip firmware (older LIFX Z may need a firmware update); the legacy SetColorZones (501) path is not written, and zone commands are refused until capability is positively confirmed. Tile/Candle matrix effects (Set64/SetTileEffect), HEV/Clean cycles (SetHevCycle), and the LIFX Switch relay (SetRPower) remain out of scope.",
+        "MultiZone covers LIFX Z / Beam strips via SetExtendedColorZones (510): per-zone color, gradients, and the Move effect. Extended zones need recent strip firmware (older LIFX Z may need a firmware update); the legacy SetColorZones (501) path is not written, and zone commands are refused until capability is positively confirmed.",
+        "Matrix covers whole-matrix color (Set64, 715) and the MORPH / FLAME / SKY firmware effects (SetTileEffect, 719). Per-zone matrix patterns, animations, and reading the matrix back (Get64/State64, 707/711) are not written — Set Matrix Color paints one color across every zone. SetUserPosition (703) is deliberately excluded: its float tile coordinates have no source the driver can read, the message returns nothing even with res_required set, and a wrong value would corrupt the chain layout other LIFX apps depend on. The driver also does not read a running effect back (StateTileEffect, 720), so no variable claims which effect is active. SKY is documented by LIFX as LIFX Ceiling on firmware 4.4 or newer only; this driver cannot check firmware version, so on other matrix devices the SKY selection is simply ignored by the device.",
+        "HEV covers Start/Stop clean cycles (SetHevCycle, 143) and the stored cycle defaults (Get/SetHevCycleConfiguration, 145/146). The bulb reports last_power (its power state from before the cycle) only while a cycle is running, so that value is logged in Debug rather than published as a variable that would be meaningless between cycles. The end-of-cycle indication is a boolean in the protocol — no brightness or power level for it exists to expose. The LIFX Switch relay (SetRPower, 817) remains out of scope.",
         "State feedback is by polling, not push: a change made from the LIFX app appears on the next poll (default 10s), not instantly. Unsolicited/streamed state is not subscribed to.",
         "Discovery lists a bulb by its serial (12-hex). Friendly labels (SetLabel/StateLabel) and firmware/version reads are not surfaced in this version.",
         "The LIFX LAN protocol is unauthenticated by design (no token, password, or key on the wire). Use it only on a trusted LAN segment; anyone on the same broadcast domain can address the bulb."
@@ -4096,10 +4251,10 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 17,
-        "commands": 10,
-        "actions": 6,
-        "events": 8
+        "properties": 25,
+        "commands": 15,
+        "actions": 9,
+        "events": 12
       },
       "version": "0.2.0",
       "xml_version": 2,

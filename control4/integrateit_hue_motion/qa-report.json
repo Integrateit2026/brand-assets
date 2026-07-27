@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_hue_motion",
+  "generated_at": "2026-07-27T17:21:01.058Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "f36f7630280dfb4500352d15153e755195da9df2a9b22ff3ed63d090644c1202",
+  "artifact_sha256": "0b1e9680cfd9f45aeff311d6b0060e9ca81d4f609b52889b26466ac4edec1066",
+  "artifact_size_bytes": 109571,
+  "build_version_manifest_sha256": "fa0db61da09083d9525f2b721550f1f9a8819795d14f6fe22f341d33acfb1a52",
+  "version_manifest_sha256": "09b53122e50c4aaebdfc9d17c9dcedcbb946dee6fa86f54c35f40e3ca27ff7fb",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 899
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 522,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 707,
+      "checks": 389,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 329,
+      "files": 2
+    }
+  ]
+}
