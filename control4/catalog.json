@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-26T22:59:18.389Z",
+  "generated_at": "2026-07-27T00:19:35.902Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7403,6 +7403,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T03:35:39.973Z"
+    },
+    {
+      "slug": "integrateit_unifi_nvr_hdmi",
+      "name": "IntegrateIT UniFi NVR HDMI",
+      "summary": "Display-only Control4 AV source for the Ubiquiti UniFi NVR G2 HDMI live-view output. Exposes a single HDMI OUT binding so the NVR feed can be routed through an AV matrix and selected in Watch. Controls nothing and reports nothing by design; the binding is the whole point. Field-proven routing video on an AVPro Edge matrix; factory build adds self-update, validation, tests, and packaged docs the hand-built v1-v3 never had.",
+      "category": "others",
+      "device_type": "UNVR-G2 HDMI Out",
+      "release_status": "stable",
+      "hardware_status": "bench-tested",
+      "featured": false,
+      "features": [
+        "Exposes the Ubiquiti UniFi NVR G2 live-view HDMI output as a Control4 AV source via a single HDMI OUT binding (video + audio) that drops onto any matrix input in Composer Connections",
+        "Appears as a selectable source in Watch, skinned with a branded IntegrateIT aperture-tile icon that renders in Composer and on OS3 Navigators",
+        "Display-only dummy source: it commands nothing and reports nothing, exactly as designed — Control4 has no native driver for the NVR, and this provides the binding that was otherwise missing",
+        "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes",
+        "Self-updating from the IntegrateIT channel, a capability the hand-built v1-v3 predecessors never had",
+        "No network connection, no credentials, no logging — there is nothing for a dummy source to leak"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Source device",
+          "value": "Ubiquiti UniFi NVR G2 (UNVR-G2) HDMI live-view output"
+        },
+        {
+          "label": "Matrix",
+          "value": "Any Control4 AV matrix with an HDMI input — proven on AVPro Edge MX Pro"
+        },
+        {
+          "label": "Binding",
+          "value": "HDMI OUT (type 5), classes HDMI + STEREO"
+        },
+        {
+          "label": "Control / feedback",
+          "value": "None — display-only by design"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer with Composer Pro",
+        "A UniFi NVR G2 (or any HDMI-only box) whose HDMI output feeds a Control4-controlled AV matrix input",
+        "The .c4z kept at its shipped filename — the icon URLs embed the driver name; a renamed file loads but shows a blank icon",
+        "For self-update, the IntegrateIT driver channel reachable from the controller"
+      ],
+      "limitations": [
+        "Display-only dummy source: NO control and NO feedback. The driver cannot power, switch inputs on, or read the state of the NVR — it only exposes the HDMI OUT binding. Anything claiming otherwise would be faking it.",
+        "v2 is field-proven routing video on Daniel's own AVPro Edge matrix; the v3 branded-icon render on live Navigators is awaiting field confirmation. If the icon is blank, verify the .c4z filename, then Update Driver, Refresh Navigators, and force-close the app or reboot T3-T4 panels.",
+        "EDID: if a display blanks when the source is selected, set the matrix input's EDID to 4K30 or 1080p — the NVR pushes 4K and can out-run a display or a long HDMI run.",
+        "Not a UniFi Protect integration: there are no per-camera streams, snapshots, or doorbell events here — this is the full-grid HDMI live view as one source. Pair with a Protect driver if you need native events."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained commissioning guide inside the C4Z: what a dummy source is, the NVR to matrix to Watch chain, the wire-and-commission steps, the field refresh order, and the EDID fix.",
+          "alt": "IntegrateIT UniFi NVR HDMI commissioning guide showing the display-only contract, wire-and-commission steps, the Navigator field-refresh order, and the EDID troubleshooting note.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_unifi_nvr_hdmi",
+        "generated_at": "2026-07-27T00:19:35.155Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "c7e2bfd34f4d2582293c3eaac732a2c630cf6cccd2cb1734b9dbd976433e9e4d",
+        "artifact_sha256": "e606e6bef724095dd4d4dd1154c83491a5ed3d3a1f32f8088cc2578f4f58c360",
+        "artifact_size_bytes": 988199,
+        "build_version_manifest_sha256": "8661c3a1281685af097b09900cfa97e4a84e64938ab01ad1c9ef3fb213bd0e29",
+        "version_manifest_sha256": "1eec261a560c6ddb38e63e8d50a1c3fa49c42f4cb92143b78860de3120eb83f5",
+        "version": "3.0.0",
+        "xml_version": 5,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "bench-tested",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 133
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 81,
+            "checks": 16,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 68,
+            "checks": 154,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 54,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 0,
+        "commands": 0,
+        "actions": 0,
+        "events": 0
+      },
+      "version": "3.0.0",
+      "xml_version": 5,
+      "min_os": "3.0.0",
+      "size_bytes": 988199,
+      "sha256": "e606e6bef724095dd4d4dd1154c83491a5ed3d3a1f32f8088cc2578f4f58c360",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/integrateit_unifi_nvr_hdmi.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-27T00:19:35.891Z"
     },
     {
       "slug": "integrateit_unifi_protect",

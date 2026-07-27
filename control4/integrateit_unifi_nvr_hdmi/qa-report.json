@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_unifi_nvr_hdmi",
+  "generated_at": "2026-07-27T00:19:35.155Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "c7e2bfd34f4d2582293c3eaac732a2c630cf6cccd2cb1734b9dbd976433e9e4d",
+  "artifact_sha256": "e606e6bef724095dd4d4dd1154c83491a5ed3d3a1f32f8088cc2578f4f58c360",
+  "artifact_size_bytes": 988199,
+  "build_version_manifest_sha256": "8661c3a1281685af097b09900cfa97e4a84e64938ab01ad1c9ef3fb213bd0e29",
+  "version_manifest_sha256": "1eec261a560c6ddb38e63e8d50a1c3fa49c42f4cb92143b78860de3120eb83f5",
+  "version": "3.0.0",
+  "xml_version": 5,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "bench-tested",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 133
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 81,
+      "checks": 16,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 68,
+      "checks": 154,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 54,
+      "files": 2
+    }
+  ]
+}
