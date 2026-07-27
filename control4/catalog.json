@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-27T17:21:02.067Z",
+  "generated_at": "2026-07-27T17:21:33.565Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3557,6 +3557,148 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-26T14:33:07.817Z"
+    },
+    {
+      "slug": "integrateit_hue_button",
+      "name": "IntegrateIT Hue Button",
+      "summary": "Turns one Philips Hue button accessory — dimmer switch, smart button, wall switch module, or tap dial including its rotary ring — into Control4 programming events over the bridge's local CLIP API v2 eventstream. Events only: it relays presses, it does not control lights.",
+      "category": "others",
+      "device_type": "Hue button accessories (CLIP API v2)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Turns one Hue button accessory into Control4 programming events over the bridge's local CLIP API v2 — no cloud hop, no Hue account",
+        "Link-button pairing built in: press the bridge button, run Pair, and the driver claims and stores the application key itself",
+        "List Accessories enumerates every bridge device that owns a button service; bind one by its resource id and the binding survives a reboot",
+        "Per-button events for the CLIP v2 button vocabulary — Initial Press, Repeat, Short Release, Long Release, Double Short Release — on buttons 1 through 4",
+        "A catch-all Button Event fires for every button report, including any event value outside the five named above, with LAST_BUTTON and LAST_EVENT carrying the detail",
+        "Tap dial ring support: Rotary Clockwise / Rotary Counterclockwise with LAST_ROTARY_STEPS and LAST_ROTARY_DIRECTION from the relative_rotary report",
+        "Battery reporting from device_power: BATTERY_LEVEL and BATTERY_STATE variables plus a Battery Low event on a real change into low or critical",
+        "Honest outage model: BRIDGE_ONLINE with Went Online / Went Offline and Event Stream Reconnected, and documentation that says plainly a press made while the stream is down is gone",
+        "LAN-only destination guard enforced at the transport itself, an application key that is never written to the log, and MAC-locked IntegrateIT licensing"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer — the eventstream needs an OS build with C4:url streaming"
+        },
+        {
+          "label": "Bridge",
+          "value": "Hue Bridge v2 (square, BSB002) running firmware with the CLIP API v2 (/clip/v2) and the eventstream"
+        },
+        {
+          "label": "Accessories",
+          "value": "Any bridge device that exposes a button service — Hue dimmer switch, smart button, wall switch module, tap dial (its ring adds a relative_rotary service)"
+        },
+        {
+          "label": "Feedback",
+          "value": "Push only. Button and rotary events exist solely on the CLIP v2 eventstream (SSE); no poll can recover a press"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Hue Bridge reachable on the same LAN as the controller, with a DHCP-reserved IP address",
+        "Physical access to the bridge once, to press the round link button and open the pairing window",
+        "The accessory already added to the Hue app, so the bridge owns its button services",
+        "An OS build with C4:url streaming — without the eventstream this driver has no event source at all",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Hue Bridge, a physical accessory, and a physical controller is not yet attached to this release (hardwareStatus: simulation-verified, not bench-tested).",
+        "Events only. This driver reads; it never writes to the bridge and declares no Control4 proxy. It cannot turn on a light, recall a scene, or put a control on a Navigator page — pair it with IntegrateIT Hue Bridge for that.",
+        "Button events are transient. A press that happens while the eventstream is down is lost permanently: the driver requests no event replay, and the bridge's stored button_report cannot say whether a press landed inside your outage. Nothing in this driver will invent one.",
+        "One accessory per driver instance. Add another instance for a second switch — that keeps each accessory's events unambiguous in Programming.",
+        "Buttons 1 through 4 get named events, matching the largest Hue accessory shipped (dimmer switch and tap dial). A button whose metadata.control_id is outside 1-4, or a press whose control_id the driver has not enumerated yet, still fires the catch-all Button Event.",
+        "The CLIP v2 button vocabulary is relayed verbatim. The five values with named per-button events are initial_press, repeat, short_release, long_release, and double_short_release; any other value the bridge reports arrives as Button Event with LAST_EVENT carrying the literal string. The driver never translates an event value it cannot account for.",
+        "Battery Low derives from the official battery_state enum (normal / low / critical), not from an invented percentage threshold, and only fires on a change from an already-known state.",
+        "The bridge presents a self-signed certificate, so the driver connects over HTTPS with CA chain verification disabled and trusts the bridge by its LAN address plus the application key — a genuinely broken TLS negotiation still fails closed and never downgrades to plaintext.",
+        "On an OS build without C4:url streaming there is no eventstream and therefore no button events at all. The driver says so in Device Status rather than pretending to listen."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Hue button and tap-dial commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Hue Button commissioning guide showing overview, the event contract, pairing and binding steps, per-button event reference, and honest limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_hue_button",
+        "generated_at": "2026-07-27T17:21:31.875Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "2c78834b659b482d236ddc6ac21f1773c2254415523dda9d6dc1e716683ce657",
+        "artifact_sha256": "8c4315d76aa45cfde479b4148a304ae8577e8d2c1511aa049e410f819d571960",
+        "artifact_size_bytes": 109222,
+        "build_version_manifest_sha256": "b5186789cd9256292dc02db9c376f53fb28ef950197609f69567d40f0c28192c",
+        "version_manifest_sha256": "621c08ad15638932b57dad4b1a170683699ff2ae73d24dd91ff9b9f4352f539e",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 1077
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 610,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 1008,
+            "checks": 408,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 488,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 7,
+        "commands": 1,
+        "actions": 6,
+        "events": 27
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 109222,
+      "sha256": "8c4315d76aa45cfde479b4148a304ae8577e8d2c1511aa049e410f819d571960",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/integrateit_hue_button.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-27T17:21:33.347Z"
     },
     {
       "slug": "integrateit_hue_motion",
