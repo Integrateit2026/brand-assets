@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "225a5d7fdafd833cdc76d8ccf00782ecd0adc1eb570c13f32c4e1f2fecd2decd",
+      "size_bytes": 102931,
+      "published_at": "2026-07-27T17:37:12.080Z",
+      "notes": "Brightness feedback now follows the right light. The bridge sends object keys in alphabetical order, which the old parser mis-sliced - with several lights in one read each picked up its neighbour's level (10/55/99 arrived as 55/99/blank) and the last got none. · Dims made from the Hue app, a wall dimmer, or an accessory are now seen live. A dim-only eventstream update previously parsed as nothing, so SLOT_n_BRI only moved when Control4 itself sent the command. · A bulb's power-restore default no longer masquerades as its current brightness - the driver reads only the resource's own top-level dimming value, never the nested powerup block. · Eventstream frames are accepted with CRLF and bare-CR line endings, not just LF. A bridge or proxy using CRLF previously left the driver silently deaf - connection up, status Online, every state change discarded. · Lights, rooms, and scenes named with brackets or braces no longer truncate a read or vanish from the scene list; names reach LAST_SCENE exactly as typed in the Hue app. · Resource parsing is now order-independent and string-aware by construction, with regression coverage in both the bridge's real key order and the reverse.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,

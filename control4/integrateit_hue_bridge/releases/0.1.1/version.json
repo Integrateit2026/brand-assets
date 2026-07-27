@@ -2,7 +2,7 @@
   "name": "IntegrateIT Hue Bridge",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/integrateit_hue_bridge.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/releases/0.1.1/integrateit_hue_bridge.c4z",
   "notes": "Local Control4 driver for a Philips Hue Bridge over the on-bridge CLIP API v2 (HTTPS) with live push feedback from the eventstream. Map up to eight lights, groups, or scenes; no cloud dependency.",
   "sha256": "225a5d7fdafd833cdc76d8ccf00782ecd0adc1eb570c13f32c4e1f2fecd2decd",
   "size_bytes": 102931,

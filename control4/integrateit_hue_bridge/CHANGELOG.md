@@ -1,5 +1,13 @@
 # Changelog — IntegrateIT Hue Bridge
 
+## [0.1.1] - 2026-07-27
+- Brightness feedback now follows the right light. The bridge sends object keys in alphabetical order, which the old parser mis-sliced - with several lights in one read each picked up its neighbour's level (10/55/99 arrived as 55/99/blank) and the last got none.
+- Dims made from the Hue app, a wall dimmer, or an accessory are now seen live. A dim-only eventstream update previously parsed as nothing, so SLOT_n_BRI only moved when Control4 itself sent the command.
+- A bulb's power-restore default no longer masquerades as its current brightness - the driver reads only the resource's own top-level dimming value, never the nested powerup block.
+- Eventstream frames are accepted with CRLF and bare-CR line endings, not just LF. A bridge or proxy using CRLF previously left the driver silently deaf - connection up, status Online, every state change discarded.
+- Lights, rooms, and scenes named with brackets or braces no longer truncate a read or vanish from the scene list; names reach LAST_SCENE exactly as typed in the Hue app.
+- Resource parsing is now order-independent and string-aware by construction, with regression coverage in both the bridge's real key order and the reverse.
+
 ## [0.1.0] - 2026-07-26
 - Initial release candidate: local Control4 control of a Philips Hue Bridge over the on-bridge CLIP API v2 (HTTPS, developers.meethue.com). Clean-room original engineering.
 - Link-button pairing built in: Pair (Link Button) POSTs `/api` with `generateclientkey`, handles the error-101 "press the button" round-trip, and stores the returned application key in the password-typed property — never printed, never logged (it rides only in the `hue-application-key` header).
