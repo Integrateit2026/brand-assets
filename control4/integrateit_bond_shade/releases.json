@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.1",
+  "latest": "0.1.2",
   "history": [
+    {
+      "version": "0.1.2",
+      "xml_version": 3,
+      "sha256": "598c69964be97d241f19f1c2acd8b4cd0ec7cb7f19dbc8c853eb4085995d1800",
+      "size_bytes": 99343,
+      "published_at": "2026-07-29T06:12:21.038Z",
+      "notes": "Fixes a case where an assumed-position shade could be driven and never stopped. A corrupted Set Position made the computed Hold time nan, so the stop command was scheduled and never fired - the shade traveled to its endpoint with the driver still reporting moving. · A corrupted Course Time (s) no longer strands a move on a settle timer that never fires, and a corrupted Poll Interval (s) no longer kills polling. · Set Position and Preset Argument can no longer put a malformed body like {\"argument\":nan} on the wire. · A corrupted numeric property now falls back to its documented default, and the single transmit chokepoint refuses a non-finite argument outright - reporting nothing was sent, so no phantom move begins.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.1",
       "xml_version": 2,

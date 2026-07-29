@@ -1,5 +1,11 @@
 # Changelog — IntegrateIT Bond Shade
 
+## [0.1.2] - 2026-07-29
+- Fixes a case where an assumed-position shade could be driven and never stopped. A corrupted Set Position made the computed Hold time nan, so the stop command was scheduled and never fired - the shade traveled to its endpoint with the driver still reporting moving.
+- A corrupted Course Time (s) no longer strands a move on a settle timer that never fires, and a corrupted Poll Interval (s) no longer kills polling.
+- Set Position and Preset Argument can no longer put a malformed body like {"argument":nan} on the wire.
+- A corrupted numeric property now falls back to its documented default, and the single transmit chokepoint refuses a non-finite argument outright - reporting nothing was sent, so no phantom move begins.
+
 ## [0.1.1] - 2026-07-26
 - Fix (P0, wire fidelity): Bond's `position` percentage is inverted versus this driver's Control4 convention — the api-v2 Position feature documents it verbatim as "0 = open, 100 = closed", while the driver (and the `open` flag) use 0 = closed / 100 = open. The device-reported/Bridge Pro path read and wrote the raw Bond value, so a fully open shade (`position:0`) was published as closed (firing Shade Closed), the on-frame `position` and `open` fields contradicted each other, and "Set Position 80%" transmitted `argument:80` = ~80% closed, moving the shade the wrong way. Both the state read (`100 - p`) and the SetPosition argument (`100 - target`) are now flipped on the wire. The `open`-flag and assumed-CourseTime paths were already correct and are unchanged. Added regression cases proving Bond position 0 = fully open (fires Shade Opened) and a 35%-open target ships as argument 65.
 
