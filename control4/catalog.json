@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-27T17:37:12.135Z",
+  "generated_at": "2026-07-29T05:47:21.931Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -957,6 +957,145 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-27T17:21:59.963Z"
+    },
+    {
+      "slug": "integrateit_bond_light",
+      "name": "IntegrateIT Bond Light",
+      "summary": "First-class Control4 control of one Bond light (device type LT) over the Bond Home v2 local HTTP API, with BPUP push state. Sends only the actions the light actually advertises, resolves on/off and brightness from whichever state fields the light reports, and labels that state assumed because the local API never says whether it is measured.",
+      "category": "others",
+      "device_type": "Bond Light (LT)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Dedicated Bond light (LT) control over the local v2 HTTP API — no cloud dependency",
+        "Light On / Light Off / Toggle Light resolved against the light's own advertised action list, so both the TurnLightOn and the TurnOn naming a Bond light can carry are handled from data",
+        "Set Brightness (1-100), Brightness Up, and Brightness Down, each sent only when the light advertises the matching action and refused by name with the advertised list when it does not",
+        "Run Advertised Action reaches any other action this light advertises, by name, with an optional finite numeric argument",
+        "Refuses a non-LT device by name and points at the dedicated ceiling-fan, shade, fireplace, or generic-device driver where one exists",
+        "Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on port 30007, with hash-gated HTTP polling fallback",
+        "Publishes POWER, POWER_ASSUMED, BRIGHTNESS, BRIGHTNESS_ASSUMED, and DEVICE_ONLINE with transition-only Light On/Off, Brightness Changed, and Went Online/Offline events",
+        "LAN-only destination safeguard on every call including boot reads, the Bond token never logged, and MAC-locked IntegrateIT licensing on every control path"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Bridge",
+          "value": "Bond Bridge, Bond Bridge Pro, or a Smart by Bond light, local API v2 enabled"
+        },
+        {
+          "label": "Device",
+          "value": "One Bond light (device type LT) per driver instance"
+        },
+        {
+          "label": "State feedback",
+          "value": "BPUP UDP push (port 30007) with hash-gated HTTP poll fallback"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "A Bond Bridge or Smart by Bond light reachable on the same LAN as the controller, with the light already set up in the Bond Home app",
+        "The Bond's IP address and its local API token (Bond Home app, device Settings, Advanced Settings, Local Token)",
+        "The light's Bond device id (use the List Bond Devices action to enumerate them)",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and a real Bond light is not yet attached to this release.",
+        "One light per driver instance — add another instance for each additional LT device.",
+        "Lights only (device type LT). A ceiling fan (CF), shade (MS), fireplace (FP), or generic device (GX) is refused by name and belongs on its dedicated IntegrateIT driver; a heater (HT), smart switch (SW), or bidet (BD) is refused without naming a driver, because no IntegrateIT driver models those yet.",
+        "State is labeled ASSUMED in every case. The local API marks nothing as measured, so this driver cannot tell a Smart by Bond light reporting its own hardware from a one-way RF light whose state is only Bond's tracked belief — and it will not claim the stronger of the two.",
+        "Only the actions the light advertises are sent. Once the action list is known, anything absent from it is refused locally by name and never reaches the wire.",
+        "Bond publishes no per-type action list for LT, so the on/off and brightness actions are resolved from this light's own advertised list rather than assumed. A light that advertises none of the candidates for a command refuses that command by name.",
+        "Push feedback needs the bridge's BPUP service reachable on UDP 30007; where it is blocked or disabled, set State Feedback to Poll only and the driver runs on hash-gated HTTP polling.",
+        "The Bond local API is plain, unencrypted HTTP on port 80 (and unencrypted UDP for BPUP) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained Bond light commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Bond Light commissioning guide showing overview, the assumed-state contract, bridge binding, advertised-action dispatch, and honest limits.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_bond_light",
+        "generated_at": "2026-07-29T05:47:21.575Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "7cf5b338fd960a8618150e71c0d418ac6cdec09647e9b245c455e8d87d255fdc",
+        "artifact_sha256": "d8f29263945451da033ea37b9e70ff8a70acf8ac352f94f3fe06f23cae528875",
+        "artifact_size_bytes": 108575,
+        "build_version_manifest_sha256": "53710dcb838f69947fbc849b33d45f9fee4dc07336bbf92eee0af723b6b9e9ff",
+        "version_manifest_sha256": "8699e740023c7a570c7756ed483417104abd982c6746d2d89e3cea09033fd9b8",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 115
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 75,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 101,
+            "checks": 429,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 54,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 0,
+        "connections": 0,
+        "properties": 16,
+        "commands": 8,
+        "actions": 5,
+        "events": 5
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 108575,
+      "sha256": "d8f29263945451da033ea37b9e70ff8a70acf8ac352f94f3fe06f23cae528875",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/integrateit_bond_light.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-07-29T05:47:21.909Z"
     },
     {
       "slug": "integrateit_bond_shade",
@@ -3709,8 +3848,9 @@
         "Turns one Hue button accessory into Control4 programming events over the bridge's local CLIP API v2 — no cloud hop, no Hue account",
         "Link-button pairing built in: press the bridge button, run Pair, and the driver claims and stores the application key itself",
         "List Accessories enumerates every bridge device that owns a button service; bind one by its resource id and the binding survives a reboot",
-        "Per-button events for the CLIP v2 button vocabulary — Initial Press, Repeat, Short Release, Long Release, Double Short Release — on buttons 1 through 4",
-        "A catch-all Button Event fires for every button report, including any event value outside the five named above, with LAST_BUTTON and LAST_EVENT carrying the detail",
+        "Per-button events for the whole CLIP v2 button vocabulary — Initial Press, Repeat, Long Press, Short Release, Long Release, Double Short Release — on buttons 1 through 4",
+        "Long Press is named as of 0.2.0, so hold-to-ramp programming binds to the hold itself (Long Press starts, Long Release stops) instead of decoding LAST_EVENT in a catch-all branch",
+        "A catch-all Button Event fires for every button report, including any event value outside the six named above, with LAST_BUTTON and LAST_EVENT carrying the detail",
         "Tap dial ring support: Rotary Clockwise / Rotary Counterclockwise with LAST_ROTARY_STEPS and LAST_ROTARY_DIRECTION from the relative_rotary report",
         "Battery reporting from device_power: BATTERY_LEVEL and BATTERY_STATE variables plus a Battery Low event on a real change into low or critical",
         "Honest outage model: BRIDGE_ONLINE with Went Online / Went Offline and Event Stream Reconnected, and documentation that says plainly a press made while the stream is down is gone",
@@ -3750,8 +3890,9 @@
         "Events only. This driver reads; it never writes to the bridge and declares no Control4 proxy. It cannot turn on a light, recall a scene, or put a control on a Navigator page — pair it with IntegrateIT Hue Bridge for that.",
         "Button events are transient. A press that happens while the eventstream is down is lost permanently: the driver requests no event replay, and the bridge's stored button_report cannot say whether a press landed inside your outage. Nothing in this driver will invent one.",
         "One accessory per driver instance. Add another instance for a second switch — that keeps each accessory's events unambiguous in Programming.",
-        "Buttons 1 through 4 get named events, matching the largest Hue accessory shipped (dimmer switch and tap dial). A button whose metadata.control_id is outside 1-4, or a press whose control_id the driver has not enumerated yet, still fires the catch-all Button Event.",
-        "The CLIP v2 button vocabulary is relayed verbatim. The five values with named per-button events are initial_press, repeat, short_release, long_release, and double_short_release; any other value the bridge reports arrives as Button Event with LAST_EVENT carrying the literal string. The driver never translates an event value it cannot account for.",
+        "Buttons 1 through 4 get named events, matching the largest Hue accessory shipped (dimmer switch and tap dial). A button whose metadata.control_id is outside 1-4, or a press whose control_id the driver has not enumerated yet, still fires the catch-all Button Event — including long_press.",
+        "The CLIP v2 button vocabulary is relayed verbatim. The six values with named per-button events are initial_press, repeat, long_press, short_release, long_release, and double_short_release; any other value the bridge reports arrives as Button Event with LAST_EVENT carrying the literal string. The driver never translates an event value it cannot account for.",
+        "Which of those six values a given accessory actually emits is the accessory's and the bridge firmware's behavior, not this driver's. An older switch may tick repeat while held and never report long_press at all; the driver relays exactly what arrives on the stream and synthesizes neither one from the other. Program a hold so it works from whichever of the two your hardware sends.",
         "Battery Low derives from the official battery_state enum (normal / low / critical), not from an invented percentage threshold, and only fires on a change from an already-known state.",
         "The bridge presents a self-signed certificate, so the driver connects over HTTPS with CA chain verification disabled and trusts the bridge by its LAN address plus the application key — a genuinely broken TLS negotiation still fails closed and never downgrades to plaintext.",
         "On an OS build without C4:url streaming there is no eventstream and therefore no button events at all. The driver says so in Device Status rather than pretending to listen."
@@ -3819,7 +3960,7 @@
         "properties": 7,
         "commands": 1,
         "actions": 6,
-        "events": 27
+        "events": 31
       },
       "version": "0.1.0",
       "xml_version": 1,
@@ -4415,7 +4556,7 @@
     {
       "slug": "integrateit_lifx",
       "name": "IntegrateIT LIFX",
-      "summary": "Local Control4 driver for a single LIFX Wi-Fi light over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds bulbs on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect; confirmed matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror) add whole-matrix color and the MORPH / FLAME / SKY firmware effects; confirmed LIFX Clean bulbs add HEV clean cycles. Every capability is unknown until the device proves it, and unproven commands are refused by name.",
+      "summary": "Local Control4 driver for a single LIFX device over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds LIFX devices on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect; confirmed matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror) add whole-matrix color and the MORPH / FLAME / SKY firmware effects; confirmed LIFX Clean bulbs add HEV clean cycles; and a confirmed LIFX Switch adds relay control for the dumb loads wired to it. Every capability is unknown until the device proves it, and unproven commands are refused by name.",
       "category": "others",
       "device_type": "LIFX LAN Protocol",
       "release_status": "release-candidate",
@@ -4429,8 +4570,10 @@
         "MultiZone for LIFX Z / Beam strips: per-zone color over a range and a start-to-end gradient via SetExtendedColorZones (little-endian, auto-chunked at 82 zones), plus the Move effect — capability is detected honestly from the product id / a StateExtendedColorZones reply, and single-zone bulbs refuse zone commands naming the reason",
         "Matrix/Tile for LIFX Tile, Candle, Ceiling, Path, Spot, Tube, Luna and Mirror: paint the whole matrix one color via Set64 (one 522-byte message per tile, and per 64-zone band on wide devices), and run the MORPH, FLAME, or SKY firmware effect via SetTileEffect — capability comes from the product id or a StateDeviceChain reply, which also hands over the real chain geometry",
         "HEV clean cycles for LIFX Clean: Start/Stop over SetHevCycle, the bulb's own stored defaults read and written over Get/SetHevCycleConfiguration, live CLEAN_REMAINING_S countdown, and the bulb's own end-of-cycle vocabulary (SUCCESS / BUSY / INTERRUPTED_BY_RESET / _HOMEKIT / _LAN / _CLOUD / NONE) in CLEAN_LAST_RESULT",
+        "Relay power for the LIFX Switch: Relay On / Off / Toggle over SetRPower with the relay's own position read back over GetRPower, plus a Relay Changed event when someone presses the physical button — a relay switches a DUMB load, so the driver reports the relay's position and never pretends to know the load is lit, and there is no dimming because the protocol defines none",
+        "A confirmed LIFX Switch is treated as what LIFX calls it — a 'non light'. Power, Set Color and Set White are refused by name on it, its poll reads the relay instead of asking for light state it is documented to discard, and its StateUnhandled replies count as proof of life so a perfectly reachable switch never sits at DEVICE_ONLINE false",
         "Polled State (Light Get/State) publishes POWER, HUE, SAT, BRIGHTNESS, KELVIN, and DEVICE_ONLINE; an EchoRequest keepalive proves reachability",
-        "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, Discovery Complete, MultiZone/Matrix/HEV Detected, and Clean Cycle Started/Finished events for Composer programming",
+        "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, Discovery Complete, MultiZone/Matrix/HEV/Relays Detected, Clean Cycle Started/Finished, and Relay Changed events for Composer programming",
         "Replies correlated by source + sequence and de-duplicated against late/duplicate datagrams; no token or key of any kind leaves the controller; MAC-locked IntegrateIT licensing on every control path"
       ],
       "compatibility": [
@@ -4440,7 +4583,7 @@
         },
         {
           "label": "Devices",
-          "value": "LIFX Wi-Fi lights speaking the LAN protocol (lan.developer.lifx.com), on the same subnet as the controller — color bulbs, Z / Beam strips, matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror), and Clean (HEV) bulbs"
+          "value": "LIFX Wi-Fi devices speaking the LAN protocol (lan.developer.lifx.com), on the same subnet as the controller — color bulbs, Z / Beam strips, matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror), Clean (HEV) bulbs, and the LIFX Switch / Switch US / Dimmer Switch for relay control"
         },
         {
           "label": "Transport",
@@ -4448,7 +4591,7 @@
         },
         {
           "label": "State feedback",
-          "value": "Polled (default 10s) via Light Get/State; push (unsolicited state) and mDNS discovery are future work"
+          "value": "Polled (default 10s) via Light Get/State — or GetRPower/StateRPower on a confirmed LIFX Switch, which is documented not to answer light messages at all; push (unsolicited state) and mDNS discovery are future work"
         },
         {
           "label": "Self-update staging",
@@ -4462,11 +4605,14 @@
       ],
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator and the LIFX LAN wire format; acceptance on physical LIFX hardware and a physical controller is not yet attached to this release.",
-        "One LIFX bulb per driver instance — add another instance per bulb. This version does not model bulb groups or scenes.",
+        "One LIFX device per driver instance — add another instance per device. This version does not model device groups or scenes.",
         "LAN broadcast reachability is required: discovery and control are sent to the subnet broadcast address and targeted by the bulb's serial. If the controller and bulb are on different subnets/VLANs, or broadcast is filtered, the bulb will not be found or controlled.",
         "MultiZone covers LIFX Z / Beam strips via SetExtendedColorZones (510): per-zone color, gradients, and the Move effect. Extended zones need recent strip firmware (older LIFX Z may need a firmware update); the legacy SetColorZones (501) path is not written, and zone commands are refused until capability is positively confirmed.",
         "Matrix covers whole-matrix color (Set64, 715) and the MORPH / FLAME / SKY firmware effects (SetTileEffect, 719). Per-zone matrix patterns, animations, and reading the matrix back (Get64/State64, 707/711) are not written — Set Matrix Color paints one color across every zone. SetUserPosition (703) is deliberately excluded: its float tile coordinates have no source the driver can read, the message returns nothing even with res_required set, and a wrong value would corrupt the chain layout other LIFX apps depend on. The driver also does not read a running effect back (StateTileEffect, 720), so no variable claims which effect is active. SKY is documented by LIFX as LIFX Ceiling on firmware 4.4 or newer only; this driver cannot check firmware version, so on other matrix devices the SKY selection is simply ignored by the device.",
-        "HEV covers Start/Stop clean cycles (SetHevCycle, 143) and the stored cycle defaults (Get/SetHevCycleConfiguration, 145/146). The bulb reports last_power (its power state from before the cycle) only while a cycle is running, so that value is logged in Debug rather than published as a variable that would be meaningless between cycles. The end-of-cycle indication is a boolean in the protocol — no brightness or power level for it exists to expose. The LIFX Switch relay (SetRPower, 817) remains out of scope.",
+        "HEV covers Start/Stop clean cycles (SetHevCycle, 143) and the stored cycle defaults (Get/SetHevCycleConfiguration, 145/146). The bulb reports last_power (its power state from before the cycle) only while a cycle is running, so that value is logged in Debug rather than published as a variable that would be meaningless between cycles. The end-of-cycle indication is a boolean in the protocol — no brightness or power level for it exists to expose.",
+        "Relays cover the LIFX Switch's electrical outputs (GetRPower 816 / SetRPower 817 / StateRPower 818) and nothing else. A relay switches a DUMB load: the driver can report the relay's POSITION, which is all the switch tells it, and can never know whether the lamp on the other side is actually lit — a dead bulb, a pulled fixture and a lamp switched off at its own body all read identically. There is no dimming: LIFX documents that current switch models cannot dim and that 0 and 65535 are the only valid levels, so those are the only two this driver sends and no relay-level property is offered.",
+        "The number of relays on a LIFX Switch is not published anywhere official — not in the LAN protocol, not on LIFX's own LIFX Switch page, and not in the products registry, which carries no relay-count field. So the Relay Index property exposes the full 0-255 range the protocol's own u8 relay_index allows rather than inventing a count, and the relay variables only ever report what a real StateRPower reply said. Point Relay Index at a relay that does not exist and the switch simply will not answer.",
+        "The switch's physical BUTTONS are not read. LIFX documents button messages, but this driver implements only the three relay messages, so a button press shows up only as the Relay Changed that follows it when that button is wired to a relay — a button configured to drive a cloud scene produces nothing here at all.",
         "State feedback is by polling, not push: a change made from the LIFX app appears on the next poll (default 10s), not instantly. Unsolicited/streamed state is not subscribed to.",
         "Discovery lists a bulb by its serial (12-hex). Friendly labels (SetLabel/StateLabel) and firmware/version reads are not surfaced in this version.",
         "The LIFX LAN protocol is unauthenticated by design (no token, password, or key on the wire). Use it only on a trusted LAN segment; anyone on the same broadcast domain can address the bulb."
@@ -4531,10 +4677,10 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 25,
-        "commands": 15,
-        "actions": 9,
-        "events": 12
+        "properties": 26,
+        "commands": 18,
+        "actions": 10,
+        "events": 14
       },
       "version": "0.3.0",
       "xml_version": 3,
