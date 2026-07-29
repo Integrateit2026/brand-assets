@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-29T06:09:05.439Z",
+  "generated_at": "2026-07-29T06:10:15.646Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -607,16 +607,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_bond_ceilingfan",
-        "generated_at": "2026-07-26T14:33:24.970Z",
+        "generated_at": "2026-07-29T06:10:15.152Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "b092d83c2919bd36b3eda13ed19ac2ee23f86c8a591f7b47c921a7ac9f6c844f",
-        "artifact_sha256": "e6b6f5c11f30d174d979a164f2a6e457b98727ddd1394fb9212102766776bc8d",
-        "artifact_size_bytes": 98851,
-        "build_version_manifest_sha256": "44d64db88280f8450600073346de863a4ac997948577e9129a1e1bfed518bccd",
-        "version_manifest_sha256": "d5d4c307e62e748b43c702031f631f8e2ac35eb8e0bc05ef857cdd1031b6488c",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "b81c97bf616f05594652e7505b8e886b95027b1880bd1a2dc0c9d6c75d9bf7a2",
+        "artifact_sha256": "98e3bbd86132a3eaefabbc475dced489ccb7bff1d17007f2685a7097c3192814",
+        "artifact_size_bytes": 100100,
+        "build_version_manifest_sha256": "9fdebd89da23124955aba4b471dd3150e1b91485f63ddef8b43098607a68f9c8",
+        "version_manifest_sha256": "92799524212a0cd22a2cebb62fa0ef67ed579aa048cd5d0302b886852d7a638b",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -628,26 +628,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 100
+            "duration_ms": 107
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 72,
+            "duration_ms": 71,
             "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 83,
-            "checks": 261,
+            "duration_ms": 84,
+            "checks": 281,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 57,
+            "duration_ms": 51,
             "files": 2
           }
         ]
@@ -660,11 +660,11 @@
         "actions": 4,
         "events": 10
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 98851,
-      "sha256": "e6b6f5c11f30d174d979a164f2a6e457b98727ddd1394fb9212102766776bc8d",
+      "size_bytes": 100100,
+      "sha256": "98e3bbd86132a3eaefabbc475dced489ccb7bff1d17007f2685a7097c3192814",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/integrateit_bond_ceilingfan.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/CHANGELOG.md",
@@ -675,7 +675,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-26T14:33:25.464Z"
+      "published_at": "2026-07-29T06:10:15.635Z"
     },
     {
       "slug": "integrateit_bond_fireplace",

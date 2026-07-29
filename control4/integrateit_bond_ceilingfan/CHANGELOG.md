@@ -1,5 +1,11 @@
 # Changelog — IntegrateIT Bond Ceiling Fan
 
+## [0.1.1] - 2026-07-29
+- A corrupted Fan Speed or Brightness property can no longer put a malformed body on the wire. Values like nan or inf slipped past the range clamp (every comparison against nan is false) and were transmitted literally as {"argument":nan}, which is not valid JSON.
+- A corrupted Poll Interval (s) can no longer stall state feedback. It became a nan-millisecond timer that never fired again, so the fan's published state silently stopped tracking.
+- A corrupted numeric property now falls back to that property's documented default, in the same spirit as the existing range clamp.
+- The single point where a Bond action is transmitted now refuses a non-finite argument outright, so no future command can reopen this.
+
 ## [Unreleased]
 - Security fix (LAN guard bypass): the boot-time metadata reads FetchProps (GET /properties) and FetchDeviceDoc (GET /v2/devices/<id>) had no LAN-destination check, so a Bond IP pointed at a public/WAN host still received two token-bearing GETs from OnDeviceInit even with Allow WAN Bond = No — leaking the BOND-Token header off-LAN at load. The LAN guard now runs at the single BondHttp transport chokepoint, so every Bond HTTP call (control, poll, and boot reads) is refused for a non-LAN destination unless Allow WAN Bond is Yes. Regression test added (a public IP boots with zero token-bearing requests).
 

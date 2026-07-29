@@ -2,7 +2,7 @@
   "name": "IntegrateIT Bond Ceiling Fan",
   "version": "0.1.1",
   "xml_version": 2,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/integrateit_bond_ceilingfan.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_ceilingfan/releases/0.1.1/integrateit_bond_ceilingfan.c4z",
   "notes": "First-class Control4 control of one Smart by Bond ceiling fan (device type CF) over the Bond Home v2 local HTTP API, with real push state feedback. Learns the fan's max speed and supported features, exposes graded speed, direction, breeze, and light, and reflects remote/app changes over the BPUP UDP push listener (port 30007) with hash-polling fallback.",
   "sha256": "98e3bbd86132a3eaefabbc475dced489ccb7bff1d17007f2685a7097c3192814",
   "size_bytes": 100100,
