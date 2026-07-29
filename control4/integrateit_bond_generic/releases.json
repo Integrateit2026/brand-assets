@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "412b54f8585fd1edd9158932feb7bace098542d7b7cb23e4861d0dbf0a7ef4b4",
+      "size_bytes": 103593,
+      "published_at": "2026-07-29T06:09:05.416Z",
+      "notes": "Points a Bond light at the right driver. A device reporting type LT is now routed to IntegrateIT Bond Light, which shipped after this driver did; the refusal, the Device Type property, and the List Bond Devices listing previously all sent you to the older poll-only IntegrateIT Bond driver. · Closes a gap where a malformed device record could be commanded. Bond marks a device type as required - a record that arrives without one is now refused by name instead of being treated as not-read-yet and blind-commanded off its advertised action list. · A corrupted Poll Interval (s) can no longer stall state feedback (a nan-millisecond timer never fires again), and the single point where a Bond action is transmitted now refuses a non-finite argument outright - the same two-layer hardening the rest of the Bond family receives in today's patches. · The pre-read window is unchanged: before the device record has been read, the four power commands are still attempted once and the bridge's own answer is surfaced. Refusing on no evidence would be inventing a verdict. · Documentation updated for the new routing and the typeless-record refusal.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,

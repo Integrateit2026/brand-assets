@@ -1,5 +1,12 @@
 # Changelog — IntegrateIT Bond Generic Device
 
+## [0.1.1] - 2026-07-29
+- Points a Bond light at the right driver. A device reporting type LT is now routed to IntegrateIT Bond Light, which shipped after this driver did; the refusal, the Device Type property, and the List Bond Devices listing previously all sent you to the older poll-only IntegrateIT Bond driver.
+- Closes a gap where a malformed device record could be commanded. Bond marks a device type as required - a record that arrives without one is now refused by name instead of being treated as not-read-yet and blind-commanded off its advertised action list.
+- A corrupted Poll Interval (s) can no longer stall state feedback (a nan-millisecond timer never fires again), and the single point where a Bond action is transmitted now refuses a non-finite argument outright - the same two-layer hardening the rest of the Bond family receives in today's patches.
+- The pre-read window is unchanged: before the device record has been read, the four power commands are still attempted once and the bridge's own answer is surfaced. Refusing on no evidence would be inventing a verdict.
+- Documentation updated for the new routing and the typeless-record refusal.
+
 ## [0.1.0] - 2026-07-27
 - Initial release candidate: dedicated single-device control of a Bond generic device (device type GX) over the Bond Home local API v2 (github.com/bondhome/api-v2).
 - Advertised-only control surface: GET /v2/devices/<id> supplies the device's own actions array, and once it is known an action absent from it is refused LOCALLY by name with the reason — nothing reaches the wire. Power On/Off, Toggle Power, and Stop map to TurnOn/TurnOff/TogglePower/Stop; Run Advertised Action reaches any other advertised action by name with an optional numeric argument, and requires the list rather than guessing.
