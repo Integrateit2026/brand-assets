@@ -2,7 +2,7 @@
   "name": "IntegrateIT LIFX",
   "version": "0.4.0",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/integrateit_lifx.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/releases/0.4.0/integrateit_lifx.c4z",
   "notes": "Local Control4 driver for a single LIFX device over the vendor's published LAN protocol — UDP binary on port 56700, no cloud and no account. Broadcast discovery finds LIFX devices on the subnet; you bind one, then control power, color (HSBK), and white temperature with polled state feedback. Confirmed LIFX Z / Beam strips add per-zone color, gradients, and the Move effect; confirmed matrix devices (Tile, Candle, Ceiling, Path, Spot, Tube, Luna, Mirror) add whole-matrix color and the MORPH / FLAME / SKY firmware effects; confirmed LIFX Clean bulbs add HEV clean cycles; and a confirmed LIFX Switch adds relay control for the dumb loads wired to it. Every capability is unknown until the device proves it, and unproven commands are refused by name.",
   "sha256": "75c9f7e117e28a0726c3c7a501f8911bd7f7cbe299cb05ede5e70f3ef3a3a398",
   "size_bytes": 129873,
