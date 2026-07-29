@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "e57850ce47ce80c97f4635b226eaded1711c01ddbc223642e99856a4ecda07b0",
+      "size_bytes": 102647,
+      "published_at": "2026-07-29T06:14:05.919Z",
+      "notes": "A corrupted Flame Level can no longer put a malformed body on the wire. Values like nan or inf slipped past the range clamp and were transmitted literally as {\"argument\":nan} - not acceptable at any probability on an appliance that burns gas. · Same fix for Fan Speed and Brightness; a corrupted numeric property now falls back to that property's documented default rather than reaching the bridge. · A corrupted Poll Interval (s) can no longer stall state feedback - published flame and fan state kept looking live while silently frozen. · The transmit chokepoint now refuses a non-finite argument outright, alongside the existing flame/fan/light domain guard - both are invariants of that chokepoint, not of its callers.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,

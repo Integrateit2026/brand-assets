@@ -1,5 +1,11 @@
 # Changelog — IntegrateIT Bond Fireplace
 
+## [0.1.1] - 2026-07-29
+- A corrupted Flame Level can no longer put a malformed body on the wire. Values like nan or inf slipped past the range clamp and were transmitted literally as {"argument":nan} - not acceptable at any probability on an appliance that burns gas.
+- Same fix for Fan Speed and Brightness; a corrupted numeric property now falls back to that property's documented default rather than reaching the bridge.
+- A corrupted Poll Interval (s) can no longer stall state feedback - published flame and fan state kept looking live while silently frozen.
+- The transmit chokepoint now refuses a non-finite argument outright, alongside the existing flame/fan/light domain guard - both are invariants of that chokepoint, not of its callers.
+
 ## [0.1.0] - 2026-07-26
 - Initial release candidate: dedicated single-fireplace control of a Smart by Bond fireplace (device type FP) over the Bond Home local API v2 (github.com/bondhome/api-v2).
 - Flame concern: Flame On/Off/Toggle (TurnOn/TurnOff/TogglePower) always available; Flame Up/Down and Set Flame Level (IncreaseFlame/DecreaseFlame/SetFlame, 1-100) offered only where the fireplace was learned with graded flame.
