@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT ratgdo Garage Controller
 
+## [0.1.1] - 2026-07-30
+- A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
+- A non-finite delay property armed a timer that never fired; the delay now falls back to its documented default.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.1.0] - 2026-07-26
 - Initial release candidate: a clean-room Control4 driver for a ratgdo board
   running stock ESPHome ratgdo firmware, speaking the ESPHome Native API
