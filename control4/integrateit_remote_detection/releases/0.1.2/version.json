@@ -2,7 +2,7 @@
   "name": "IntegrateIT Remote Detection",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/integrateit_remote_detection.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_remote_detection/releases/0.1.2/integrateit_remote_detection.c4z",
   "notes": "Reports which handheld remote class is driving a room, from six explicitly bounded classes (SR-250, SR-260, Halo, Halo Touch, Neeo, Other Remote) detected via button-link bindings or Composer programming. Duplicate-press suppression, a stale-activity timeout, offline and reconnect tracking, low-battery reporting, a privacy mode, and MAC-locked IntegrateIT licensing are built in.",
   "sha256": "77c443c5649f8e49acf03b56387b9fdf613b11e30d99214c797ccfe848d99125",
   "size_bytes": 102683,
