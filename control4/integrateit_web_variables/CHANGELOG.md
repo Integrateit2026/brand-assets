@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Web Variables
 
+## [0.1.1] - 2026-07-30
+- A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
+- The self-re-arming poll could die forever on one corrupted interval while the status property still read OK - the exact silent-freeze this wave's law exists to kill.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [Unreleased]
 - Pre-ship fix: `pathOnly` now strips the ENTIRE URL userinfo before logging or Print Configuration. The prior `://[^/@]*@` strip stopped at the first `@`, so a basic-auth password containing an unencoded `@` left a credential fragment (`ss@host`) in the debug log and diagnostics — violating the stated "no userinfo in the log" guarantee. Now `://[^/]*@`, greedy to the last `@` in the authority. Regression test added.
 - Pre-ship hardening + doc-honesty: the modern `C4:url()` transport is now explicitly told `follow_redirects=false`, so a 3xx surfaces as an honest non-2xx failed poll instead of being chased to an unvalidated (possibly non-http) Location. Corrected the destination-safety comment, which had overstated the driver as "refusing redirect targets with a different scheme" — it never followed or re-validated a redirect at all.
