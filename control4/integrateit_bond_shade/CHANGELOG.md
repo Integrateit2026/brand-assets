@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Bond Shade
 
+## [0.1.3] - 2026-07-30
+- Hard MS type gate inside the single actuation chokepoint, so Open/Close/Hold/Preset/Set Position/Toggle Open and the delayed Hold of an assumed move are all covered by one check: pointing this driver at a Bond fireplace was sending Open to it AND starting a phantom dead-reckoned move with a position the device does not have. Refused by name now, and List Bond Shades lists the whole bridge naming each device's owner instead of hiding non-shades.
+- A rebind or IP change mid-travel now cancels the in-flight assumed move - previously the delayed Hold fired at the NEW device and POSITION published the old shade's target - and the rebind reset no longer stamps a device-reported claim onto a device whose record was never read.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.1.2] - 2026-07-29
 - Fixes a case where an assumed-position shade could be driven and never stopped. A corrupted Set Position made the computed Hold time nan, so the stop command was scheduled and never fired - the shade traveled to its endpoint with the driver still reporting moving.
 - A corrupted Course Time (s) no longer strands a move on a settle timer that never fires, and a corrupted Poll Interval (s) no longer kills polling.
