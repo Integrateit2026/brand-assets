@@ -2,7 +2,7 @@
   "name": "IntegrateIT Hebcal",
   "version": "0.9.4",
   "xml_version": 6,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/integrateit_hebcal.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hebcal/releases/0.9.4/integrateit_hebcal.c4z",
   "notes": "Production-grade Jewish calendar automation with candle lighting, Havdalah, sunset, holidays, Hebrew date, Omer, resilient caching, and safe simulation.",
   "sha256": "fa47c1787b88b2cd24d9e1edea961e26535e39c629f93bfb4d84a359a4b239eb",
   "size_bytes": 76828,
