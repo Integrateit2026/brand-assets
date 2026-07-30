@@ -2,7 +2,7 @@
   "name": "IntegrateIT UniFi Access",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/integrateit_unifi_access.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_access/releases/0.1.2/integrateit_unifi_access.c4z",
   "notes": "Monitors one UniFi Access door — lock relay, position sensor, reachability, and name — from Control4 over Ubiquiti's official local Developer API, and can deliberately unlock it under a double license-and-property gate. An access-convenience surface, not a life-safety system.",
   "sha256": "a2ceb6c4e7f59da7ad03d10f38bc846976bc663f65dfeaf5c279c7de511fd0eb",
   "size_bytes": 105312,
