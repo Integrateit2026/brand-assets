@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-30T13:10:30.294Z",
+  "generated_at": "2026-07-30T13:12:15.846Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7133,16 +7133,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_shelly_rgbw",
-        "generated_at": "2026-07-26T22:59:14.943Z",
+        "generated_at": "2026-07-30T13:12:15.453Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "4051127cc78747e1d41a28c509924d031ae531301342bbc445f32d8a185334c0",
-        "artifact_sha256": "c0b13141831b1edf79268bb092b558c228c8451169f5907513dc7edc0826e325",
-        "artifact_size_bytes": 96477,
-        "build_version_manifest_sha256": "5f2ff3bdb9df86a36f882334e23bc0e5b5b112850d9cebe252f5aa2542d6129f",
-        "version_manifest_sha256": "fe9d5dedfd9151522951d3a6883f1db880220bb2518975526d36fb77d9d2daac",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "3e2c570afcd7e5ac2360cc91e65bdc6fba20b1c87d148ac300bd05ab1ec42184",
+        "artifact_sha256": "ecb1d724c9fdda1d59086fc4acd8c177f97e6f39b4434bcf12a7a4bd7a6bc717",
+        "artifact_size_bytes": 103863,
+        "build_version_manifest_sha256": "f7bfaf6e5e0014c3484aecb3e300d28d3e76b2fa57265f76f1958d0df0df352e",
+        "version_manifest_sha256": "34ac49e0864e607a0e831ee03080348e29a9d5dcd958257d5e23bdd891527329",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -7154,26 +7154,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 113
+            "duration_ms": 122
+          },
+          {
+            "name": "idstability",
+            "status": "pass",
+            "duration_ms": 63
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 80,
-            "checks": 17,
+            "duration_ms": 83,
+            "checks": 20,
             "warnings": 1
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 84,
-            "checks": 350,
+            "duration_ms": 93,
+            "checks": 362,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 55,
+            "duration_ms": 53,
             "files": 2
           }
         ]
@@ -7186,11 +7191,11 @@
         "actions": 9,
         "events": 7
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 96477,
-      "sha256": "c0b13141831b1edf79268bb092b558c228c8451169f5907513dc7edc0826e325",
+      "size_bytes": 103863,
+      "sha256": "ecb1d724c9fdda1d59086fc4acd8c177f97e6f39b4434bcf12a7a4bd7a6bc717",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/integrateit_shelly_rgbw.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly_rgbw/CHANGELOG.md",
@@ -7201,7 +7206,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-26T22:59:15.269Z"
+      "published_at": "2026-07-30T13:12:15.835Z"
     },
     {
       "slug": "integrateit_somfy_urtsii",

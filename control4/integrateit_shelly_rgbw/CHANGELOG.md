@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Shelly RGBW
 
+## [0.1.1] - 2026-07-30
+- A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
+- A non-finite Brightness could ship the literal body {"brightness":0} - a real dim-to-zero command the dealer never asked for.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.1.0] - 2026-07-26
 - Initial release candidate. Dedicated Gen2+ Shelly Light / RGB / RGBW control over the on-device JSON-RPC 2.0 API (`POST /rpc`) — no Shelly Cloud, no issued credentials.
 - Full light surface the generic IntegrateIT Shelly driver cannot model: Power On / Off / Toggle, Set Brightness (1-100% with an optional transition), Set Color (RGB 0-255), and Set White Level (0-255) via Light.Set/Toggle, RGB.Set/Toggle, and RGBW.Set/Toggle. One Light / RGB / RGBW component (id 0-3) per instance; the method prefix follows the configured component type.
