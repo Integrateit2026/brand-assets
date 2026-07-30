@@ -2,7 +2,7 @@
   "name": "IntegrateIT UniFi Network",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_network/integrateit_unifi_network.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_network/releases/0.1.2/integrateit_unifi_network.c4z",
   "notes": "Watch a UniFi Network deployment from Control4 over Ubiquiti's official local Integration API (X-API-KEY, HTTPS): controller reachability and version, site device counts with online/offline health events, named-client presence (up to three watched clients with Came Online / Went Offline events), and one guarded control action — power-cycling a PoE switch port to reboot a stuck camera, AP, or doorbell. LAN-only destination safeguard, the API key never logged, and MAC-locked IntegrateIT licensing.",
   "sha256": "3bc0324276bde0a20e4c360fca3310449a6125de2295dfa863e21d876e2494a2",
   "size_bytes": 105530,
