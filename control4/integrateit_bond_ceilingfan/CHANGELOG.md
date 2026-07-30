@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Bond Ceiling Fan
 
+## [0.1.2] - 2026-07-30
+- Hard CF type gate at the wire chokepoint: a Device ID pointing at a fireplace was sending TurnOn - an ignition command - to a gas appliance. MS/FP/GX/LT devices are now refused by name, naming the IntegrateIT driver that owns them; HT/SW/BD are refused without inventing one; a record with no type field is refused rather than blind-commanded. Test Connection refuses in plain language instead of printing an advisory and commanding anyway.
+- New read-only Device Type property; List Bond Devices annotates every device with its owning driver. The pre-read window is unchanged: in the seconds after load a command is still attempted once and the bridge's own answer surfaced.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.1.1] - 2026-07-29
 - A corrupted Fan Speed or Brightness property can no longer put a malformed body on the wire. Values like nan or inf slipped past the range clamp (every comparison against nan is false) and were transmitted literally as {"argument":nan}, which is not valid JSON.
 - A corrupted Poll Interval (s) can no longer stall state feedback. It became a nan-millisecond timer that never fired again, so the fan's published state silently stopped tracking.

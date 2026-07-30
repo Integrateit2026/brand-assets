@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.1",
+  "latest": "0.1.2",
   "history": [
+    {
+      "version": "0.1.2",
+      "xml_version": 3,
+      "sha256": "cba62b98a9b506b25828915e7dd504f82019f9c583a482989ddd1a560b274278",
+      "size_bytes": 109418,
+      "published_at": "2026-07-30T13:09:03.052Z",
+      "notes": "Hard CF type gate at the wire chokepoint: a Device ID pointing at a fireplace was sending TurnOn - an ignition command - to a gas appliance. MS/FP/GX/LT devices are now refused by name, naming the IntegrateIT driver that owns them; HT/SW/BD are refused without inventing one; a record with no type field is refused rather than blind-commanded. Test Connection refuses in plain language instead of printing an advisory and commanding anyway. · New read-only Device Type property; List Bond Devices annotates every device with its owning driver. The pre-read window is unchanged: in the seconds after load a command is still attempted once and the bridge's own answer surfaced. · Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.1",
       "xml_version": 2,
