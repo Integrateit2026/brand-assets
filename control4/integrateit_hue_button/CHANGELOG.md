@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Hue Button
 
+## [0.2.1] - 2026-07-30
+- A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
+- A reconnect-related timer could arm with a nan interval and never fire; it now falls back to its documented default.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.2.0] - 2026-07-29
 - **Button 1-4 Long Press are now named events** (ids 39-42). `long_press` is the sixth and final value in the CLIP v2 `button.button_report.event` vocabulary; the enum's completeness was established during the 0.1.0 verify wave against two independent mirrors of Signify's login-gated reference — openHAB's `ButtonEventType` and the OpenHue OpenAPI description of the `button` service. 0.1.0 named the other five and deliberately let `long_press` ride the catch-all **Button Event** with `LAST_EVENT` carrying the literal string, because minting a Control4 event for a value confirmed only in third-party mirrors is exactly the invention this driver's hand-written event map exists to prevent. Daniel approved naming it, so the four events are declared and fired.
 - **Nothing in the dispatch changed to do it, and that is the point.** The feature is four new rows in `BUTTON_EVENT`; `FireButton` was not touched. A named value fires its own event *and* the catch-all, so `long_press` now behaves exactly the way `short_release` already did — every existing "when **Button Event** fires, branch on `LAST_EVENT`" reaction keeps seeing every hold. A regression case runs both values through the same button and demands the same shape out of each, rather than asserting the equivalence in a comment.
