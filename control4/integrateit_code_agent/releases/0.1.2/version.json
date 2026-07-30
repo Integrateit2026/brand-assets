@@ -2,7 +2,7 @@
   "name": "IntegrateIT Code Agent",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_code_agent/integrateit_code_agent.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_code_agent/releases/0.1.2/integrateit_code_agent.c4z",
   "notes": "A headless Control4 driver that runs a short, dealer-authored automation script - up to eight steps over a closed, allowlisted verb set - entirely inside Composer programming. It keeps registers, compares and waits, and raises events for your programming to act on; it never evaluates code, drives a device, or touches the network.",
   "sha256": "27c7b7ab3aa6b1bda8a056864e2e0fd765b46c5a3411ba87d2d8868307b35bd0",
   "size_bytes": 105985,
