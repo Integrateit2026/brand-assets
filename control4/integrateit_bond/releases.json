@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.1",
+  "latest": "0.1.2",
   "history": [
+    {
+      "version": "0.1.2",
+      "xml_version": 3,
+      "sha256": "fb80f50395b65d987c5fea9e7526232abf1226cdd5e8b1e7958cf5bd78074b4d",
+      "size_bytes": 102461,
+      "published_at": "2026-07-30T13:44:05.179Z",
+      "notes": "A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name. · The action argument path is now double-hardened: the property reader falls back to its default on non-finite input, and the single transmit chokepoint refuses a non-finite argument by name - the same backstop the rest of the Bond family carries. · Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.1",
       "xml_version": 2,
