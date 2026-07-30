@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_hue_motion",
-  "generated_at": "2026-07-27T17:21:01.058Z",
+  "generated_at": "2026-07-30T13:05:20.539Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "f36f7630280dfb4500352d15153e755195da9df2a9b22ff3ed63d090644c1202",
-  "artifact_sha256": "0b1e9680cfd9f45aeff311d6b0060e9ca81d4f609b52889b26466ac4edec1066",
-  "artifact_size_bytes": 109571,
-  "build_version_manifest_sha256": "fa0db61da09083d9525f2b721550f1f9a8819795d14f6fe22f341d33acfb1a52",
-  "version_manifest_sha256": "09b53122e50c4aaebdfc9d17c9dcedcbb946dee6fa86f54c35f40e3ca27ff7fb",
-  "version": "0.1.0",
-  "xml_version": 1,
+  "build_inputs_sha256": "93d3517fe0b82d62b42c655d85f52247e8486b3fcb78aea4c8ec0c7c34ae4753",
+  "artifact_sha256": "371e1829e69b713addf35d6edb296da741aa5a01841a415f9e4541c9b878d568",
+  "artifact_size_bytes": 130132,
+  "build_version_manifest_sha256": "9dcd62345357b9eda0aaf7f0b66821ddcff4509c9cb6ee668f95152ac3b5c064",
+  "version_manifest_sha256": "0330d6d7a7d373f20518a3076ac47b93220c7970b384ffe3382a948457357a9f",
+  "version": "0.2.0",
+  "xml_version": 2,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,26 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 899
+      "duration_ms": 108
+    },
+    {
+      "name": "idstability",
+      "status": "pass",
+      "duration_ms": 53
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 522,
-      "checks": 18,
+      "duration_ms": 75,
+      "checks": 21,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 707,
-      "checks": 389,
+      "duration_ms": 141,
+      "checks": 527,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 329,
+      "duration_ms": 48,
       "files": 2
     }
   ]

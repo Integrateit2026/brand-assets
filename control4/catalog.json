@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-29T06:14:05.931Z",
+  "generated_at": "2026-07-30T13:05:21.162Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -655,7 +655,7 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 12,
+        "properties": 13,
         "commands": 12,
         "actions": 4,
         "events": 10
@@ -798,10 +798,10 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 13,
+        "properties": 16,
         "commands": 12,
         "actions": 4,
-        "events": 10
+        "events": 11
       },
       "version": "0.1.1",
       "xml_version": 2,
@@ -1213,7 +1213,7 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 12,
+        "properties": 13,
         "commands": 7,
         "actions": 4,
         "events": 6
@@ -2464,7 +2464,7 @@
     {
       "slug": "integrateit_esphome",
       "name": "IntegrateIT Client for the ESPHome Native API",
-      "summary": "Local Control4 client for a single ESPHome device over its Native API (TCP :6053, plaintext protobuf). Enumerates the device's switch, binary_sensor, sensor, and text_sensor entities, maps up to eight of them into labeled Control4 slots with typed variables and Changed events, and drives switch entities On/Off/Toggle. Plaintext + legacy password auth only. MAC-locked IntegrateIT licensing.",
+      "summary": "Local Control4 client for a single ESPHome device over its Native API (TCP :6053, plaintext protobuf). Enumerates the device's switch, binary_sensor, sensor, text_sensor, cover, and light entities, maps up to eight of them into labeled Control4 slots with typed variables and Changed events, and drives switches and lights On/Off/Toggle, light brightness 0-100%, and covers Open/Close/Stop/Set Position. Capability-honest: brightness and position are refused by name on entities that report they do not support them. Plaintext + legacy password auth only. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "ESPHome Native Client",
       "release_status": "release-candidate",
@@ -2472,9 +2472,11 @@
       "featured": false,
       "features": [
         "Speaks the ESPHome Native API wire protocol directly over TCP (default port 6053) — a hand-rolled, minimal plaintext-protobuf client, no third-party library",
-        "Enumerates the device's switch, binary_sensor, sensor, and text_sensor entities and reports them for mapping",
+        "Enumerates the device's switch, binary_sensor, sensor, text_sensor, cover, and light entities and reports them for mapping, each tagged with what it can actually do",
         "Maps up to eight entities into labeled slots, each with STRING / NUMBER / BOOL variables and a Slot Changed event",
-        "Switch slots expose On, Off, and Toggle actions fireable from Composer programming",
+        "Switch and light slots expose On, Off, and Toggle actions fireable from Composer programming",
+        "Dimmable lights take Set Brightness 0-100%; an on/off-only light refuses it by name rather than swallowing a command it cannot honor",
+        "Cover slots expose Open, Close, Stop, and Set Position 0-100%, with position gated on the cover's own supports_position flag",
         "Legacy plaintext password authentication; keepalive pings; bounded-backoff reconnect with automatic entity re-enumeration",
         "Detects a Noise-encryption device that refuses plaintext and says so plainly instead of silently failing",
         "LAN-only destination safeguard, password-typed credential that is never logged, and MAC-locked IntegrateIT licensing on every control path"
@@ -2490,7 +2492,11 @@
         },
         {
           "label": "Entity types",
-          "value": "switch, binary_sensor, sensor, text_sensor"
+          "value": "switch, binary_sensor, sensor, text_sensor, cover, light"
+        },
+        {
+          "label": "Control scope",
+          "value": "switch + light On/Off/Toggle · light brightness 0-100% · cover Open/Close/Stop/Set Position"
         },
         {
           "label": "Authentication",
@@ -2510,8 +2516,12 @@
       "limitations": [
         "Release Candidate: simulator verified; representative-device acceptance on a real controller is still pending.",
         "Plaintext Native API only: a device configured with an api: encryption key (Noise) refuses plaintext and is reported as encryption-required, not connected. Noise/ChaCha20 is deferred to v2.",
-        "Legacy password auth only (ConnectRequest password) — the modern PSK is out of scope in v1.",
-        "Control scope is switch On/Off/Toggle. Read scope is switch, binary_sensor, sensor, and text_sensor. Lights, covers, fans, climate, and services are not driven in v1.",
+        "Legacy password auth only (AuthenticationRequest password) — the modern PSK is out of scope in v1. ESPHome 2026.1.0 REMOVED password authentication (api.proto marks message ids 3/4 deprecated and 'not processed by the server'; the firmware auto-authenticates on Hello). On that firmware and newer the API password does nothing: the driver still sends the request for older devices, waits a bounded 3s, then proceeds and states in Status that the device acknowledged nothing and that any configured password is being ignored. It never reports an authentication it did not receive, and never hangs waiting for one.",
+        "Control scope is switch and light On/Off/Toggle, light brightness, and cover Open/Close/Stop/Set Position. Read scope adds binary_sensor, sensor, and text_sensor. Fans, climate, locks, numbers, selects, and user-defined services are not driven in this version.",
+        "Light control is deliberately bounded to on/off plus brightness. Colour (RGB), colour temperature, white channels, effects, transition and flash lengths all exist in LightCommandRequest and are NOT sent — a colour light is driven as a dimmer. Colour support is a later version, not a hidden half-implementation here.",
+        "Cover tilt is enumerated and reported in Entities Found but is NOT driven: no Set Tilt command is sent in this version, even on a cover whose supports_tilt flag is true.",
+        "Cover Stop is always offered rather than gated on the enumerated supports_stop flag. That field was added late to the proto, and protobuf cannot distinguish a firmware that reports no stop support from one that predates the field, so gating on it would refuse Stop on covers that handle it perfectly.",
+        "A cover with no position support reports only its endpoints: Slot n Level and SLOT_n_NUMBER carry 0 or 100, never an interpolated intermediate position. The driver does not dead-reckon a position the device never reported.",
         "Single device per driver instance, bound by manual IP — no mDNS/DNS-SD discovery in v1.",
         "WAN destinations are refused unless Allow WAN Destinations is explicitly set to Yes."
       ],
@@ -2575,9 +2585,9 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 26,
+        "properties": 34,
         "commands": 0,
-        "actions": 28,
+        "actions": 68,
         "events": 14
       },
       "version": "0.1.0",
@@ -3991,13 +4001,14 @@
       "features": [
         "Binds ONE Philips Hue motion accessory through the bridge's local CLIP API v2 — no cloud hop, no Hue account, works when the internet is down",
         "Link-button pairing built in: press the bridge button, run Pair, and the driver claims and stores the application key itself",
-        "Discover Sensors lists every bridge device that publishes a motion service; pick one by number and bind it — the binding persists across reboots",
+        "Discover Sensors lists every bridge device that publishes a motion service with the ROOM the bridge has it in — pick one by number and bind it, and the binding persists across reboots",
+        "Set Sensitivity writes the motion service's own sensitivity (0 to the sensitivity_max the DEVICE reports), published back as SENSITIVITY / SENSITIVITY_MAX and a Motion Sensitivity property — a value above the sensor's ceiling is refused by name, never silently clamped",
         "Live push feedback from the bridge eventstream: motion, light level, temperature, and battery arrive without polling",
         "Publishes MOTION plus CONTACT_STATE in the Control4 contact vocabulary (OPENED on motion, CLOSED when clear, UNKNOWN before the first observation)",
         "LIGHT_LEVEL in lux converted from the CLIP logarithmic value (lux = 10 ^ ((light_level - 1) / 10000)), with the raw value published alongside it",
         "TEMPERATURE in Fahrenheit or Celsius and BATTERY_LEVEL in percent, with a Battery Low event at a dealer-set threshold",
         "Stream-loss honesty: a dropped eventstream — or an unanswered resync, which is the only signal a build without streaming has — publishes BRIDGE_ONLINE false, sets STATE_STALE, and labels the readings stale instead of freezing them as if they were live",
-        "Enable Sensing / Disable Sensing are the only writes this driver ever makes — everything else is read-only, and both are license-gated at the wire",
+        "Enable Sensing / Disable Sensing / Set Sensitivity are the only writes this driver ever makes — everything else is read-only, and all three are license-gated at the moment of the wire write",
         "LAN-only destination guard on every request including the boot-time reads, and an application key that is never written to the log"
       ],
       "compatibility": [
@@ -4041,7 +4052,9 @@
         "NOT a security, surveillance, or intrusion-detection device. Philips Hue Developer Terms 8.2 forbid that use of the Hue API, and a battery accessory on a consumer mesh is not a listed alarm path. Never bind this driver into a security partition or let it carry a life-safety or intrusion decision.",
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Hue Bridge, a physical motion accessory, and a physical controller is not yet attached to this release (hardwareStatus: simulation-verified, not bench-tested).",
         "One sensor per driver instance. The binding is a single CLIP device resource id; a sensor deleted and re-added on the bridge gets a new id and must be re-bound.",
-        "Enable Sensing / Disable Sensing (the motion service enabled flag) is the only writable surface. Sensitivity, outdoor-sensor daylight thresholds, and Hue-app automations are not exposed.",
+        "The motion service's enabled flag (Enable / Disable Sensing) and its sensitivity (Set Sensitivity) are the only writable surface. Outdoor-sensor daylight thresholds and Hue-app automations are not exposed.",
+        "Sensitivity has a device-reported ceiling. Set Sensitivity refuses until the sensor has reported sensitivity_max on a read — an accessory that never reports it does not expose sensitivity at all, and the driver will not guess a range (the popular Python client defaults the field to 10, which would write a value a 4-step sensor cannot honor). A value outside 0..sensitivity_max is refused by name rather than clamped, so a request the sensor cannot satisfy never reports success.",
+        "Room names are read-only decoration. Discover Sensors annotates each entry with the room the bridge has that device in, and the bound sensor's room appears in Sensor Status — but matching, binding, and every state decision stay keyed on the resource id, so a renamed, deleted, or unreadable room changes what a dealer reads and nothing the driver does. A device in no room, or a room collection that could not be read, prints (no room) rather than a guess.",
         "The driver does not present a bindable Control4 CONTACT_SENSOR connection. Producer-side contact delivery is unverified SDK surface, so motion is published as variables and events instead.",
         "Light level is a conversion, not a calibrated measurement: the bridge reports 10000 * log10(lux) + 1 and the driver inverts it. A reported 0 sits below the formula's meaningful floor — inverting it yields 0.9998 lux — so the driver publishes 0 lux there rather than round that up to 1.",
         "Temperature comes from the accessory's own on-board sensor, which sits inside the sensor housing and reads warm relative to room air. It is a trend signal, not a thermostat reference.",
@@ -4060,16 +4073,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_hue_motion",
-        "generated_at": "2026-07-27T17:21:01.058Z",
+        "generated_at": "2026-07-30T13:05:20.539Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "f36f7630280dfb4500352d15153e755195da9df2a9b22ff3ed63d090644c1202",
-        "artifact_sha256": "0b1e9680cfd9f45aeff311d6b0060e9ca81d4f609b52889b26466ac4edec1066",
-        "artifact_size_bytes": 109571,
-        "build_version_manifest_sha256": "fa0db61da09083d9525f2b721550f1f9a8819795d14f6fe22f341d33acfb1a52",
-        "version_manifest_sha256": "09b53122e50c4aaebdfc9d17c9dcedcbb946dee6fa86f54c35f40e3ca27ff7fb",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "93d3517fe0b82d62b42c655d85f52247e8486b3fcb78aea4c8ec0c7c34ae4753",
+        "artifact_sha256": "371e1829e69b713addf35d6edb296da741aa5a01841a415f9e4541c9b878d568",
+        "artifact_size_bytes": 130132,
+        "build_version_manifest_sha256": "9dcd62345357b9eda0aaf7f0b66821ddcff4509c9cb6ee668f95152ac3b5c064",
+        "version_manifest_sha256": "0330d6d7a7d373f20518a3076ac47b93220c7970b384ffe3382a948457357a9f",
+        "version": "0.2.0",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -4081,26 +4094,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 899
+            "duration_ms": 108
+          },
+          {
+            "name": "idstability",
+            "status": "pass",
+            "duration_ms": 53
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 522,
-            "checks": 18,
+            "duration_ms": 75,
+            "checks": 21,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 707,
-            "checks": 389,
+            "duration_ms": 141,
+            "checks": 527,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 329,
+            "duration_ms": 48,
             "files": 2
           }
         ]
@@ -4108,16 +4126,16 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 11,
-        "commands": 3,
+        "properties": 13,
+        "commands": 4,
         "actions": 8,
         "events": 9
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.2.0",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 109571,
-      "sha256": "0b1e9680cfd9f45aeff311d6b0060e9ca81d4f609b52889b26466ac4edec1066",
+      "size_bytes": 130132,
+      "sha256": "371e1829e69b713addf35d6edb296da741aa5a01841a415f9e4541c9b878d568",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/integrateit_hue_motion.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/CHANGELOG.md",
@@ -4128,7 +4146,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-27T17:21:02.002Z"
+      "published_at": "2026-07-30T13:05:21.153Z"
     },
     {
       "slug": "integrateit_integrator_tools",
@@ -4564,7 +4582,7 @@
       "featured": false,
       "features": [
         "Local LIFX LAN protocol control — UDP binary on port 56700, no cloud, no LIFX account, works when the internet is down",
-        "Broadcast discovery (GetService/StateService) enumerates every LIFX bulb on the subnet; you paste a serial and Bind one to this instance",
+        "Broadcast discovery (GetService/StateService) enumerates every LIFX device on the subnet; you paste a serial and Bind one to this instance",
         "Bound target is persisted, so the driver keeps controlling the same bulb across reboots and driver upgrades",
         "Power on/off/toggle with a transition duration, color by hue/saturation/brightness (HSBK), and white by Kelvin + brightness",
         "MultiZone for LIFX Z / Beam strips: per-zone color over a range and a start-to-end gradient via SetExtendedColorZones (little-endian, auto-chunked at 82 zones), plus the Move effect — capability is detected honestly from the product id / a StateExtendedColorZones reply, and single-zone bulbs refuse zone commands naming the reason",
@@ -4572,6 +4590,7 @@
         "HEV clean cycles for LIFX Clean: Start/Stop over SetHevCycle, the bulb's own stored defaults read and written over Get/SetHevCycleConfiguration, live CLEAN_REMAINING_S countdown, and the bulb's own end-of-cycle vocabulary (SUCCESS / BUSY / INTERRUPTED_BY_RESET / _HOMEKIT / _LAN / _CLOUD / NONE) in CLEAN_LAST_RESULT",
         "Relay power for the LIFX Switch: Relay On / Off / Toggle over SetRPower with the relay's own position read back over GetRPower, plus a Relay Changed event when someone presses the physical button — a relay switches a DUMB load, so the driver reports the relay's position and never pretends to know the load is lit, and there is no dimming because the protocol defines none",
         "A confirmed LIFX Switch is treated as what LIFX calls it — a 'non light'. Power, Set Color and Set White are refused by name on it, its poll reads the relay instead of asking for light state it is documented to discard, and its StateUnhandled replies count as proof of life so a perfectly reachable switch never sits at DEVICE_ONLINE false",
+        "Light effects for any confirmed light — Flash, Pulse and Breathe over SetWaveform (103), packed byte-exactly at its documented 21 bytes with transient set so the light always lands back on the color it started from. Flash and Breathe use the SINE waveform, the only one LIFX documents as returning within every cycle; Pulse adds the documented skew_ratio duty cycle. Effect Channels can route the effect through SetWaveformOptional (119) instead, so you can flash the porch light on brightness alone without turning it a different color",
         "Polled State (Light Get/State) publishes POWER, HUE, SAT, BRIGHTNESS, KELVIN, and DEVICE_ONLINE; an EchoRequest keepalive proves reachability",
         "Turned On/Off, Color Changed, Went Online/Offline, Device Bound, Discovery Complete, MultiZone/Matrix/HEV/Relays Detected, Clean Cycle Started/Finished, and Relay Changed events for Composer programming",
         "Replies correlated by source + sequence and de-duplicated against late/duplicate datagrams; no token or key of any kind leaves the controller; MAC-locked IntegrateIT licensing on every control path"
@@ -4613,6 +4632,7 @@
         "Relays cover the LIFX Switch's electrical outputs (GetRPower 816 / SetRPower 817 / StateRPower 818) and nothing else. A relay switches a DUMB load: the driver can report the relay's POSITION, which is all the switch tells it, and can never know whether the lamp on the other side is actually lit — a dead bulb, a pulled fixture and a lamp switched off at its own body all read identically. There is no dimming: LIFX documents that current switch models cannot dim and that 0 and 65535 are the only valid levels, so those are the only two this driver sends and no relay-level property is offered.",
         "The number of relays on a LIFX Switch is not published anywhere official — not in the LAN protocol, not on LIFX's own LIFX Switch page, and not in the products registry, which carries no relay-count field. So the Relay Index property exposes the full 0-255 range the protocol's own u8 relay_index allows rather than inventing a count, and the relay variables only ever report what a real StateRPower reply said. Point Relay Index at a relay that does not exist and the switch simply will not answer.",
         "The switch's physical BUTTONS are not read. LIFX documents button messages, but this driver implements only the three relay messages, so a button press shows up only as the Relay Changed that follows it when that button is wired to a relay — a button configured to drive a cloud scene produces nothing here at all.",
+        "Light effects (SetWaveform 103 / SetWaveformOptional 119) are fire-and-forget, and deliberately so. LIFX documents both packets as returning a LightState (107) — that is the ordinary response-to-a-Set reporting the light's state at that instant, not a completion report — and the protocol defines no GetWaveform, no StateWaveform, and no message that cancels a running effect. So no variable or event claims an effect is running, finished, or was accepted, and the way to keep an effect short is to keep Effect Cycles x period short. Effect Cycles is whole numbers only (1-255): the protocol carries that field as an IEEE-754 float32 and this driver packs bytes arithmetically in Lua 5.1, so it offers the integer domain it can encode byte-exactly rather than approximating a fraction. SAW and TRIANGLE are documented waveforms that no command here sends. Effects treat a strip or matrix as ONE zone — LIFX documents that plainly — so a whole Z / Beam / Ceiling flashes as a single color.",
         "State feedback is by polling, not push: a change made from the LIFX app appears on the next poll (default 10s), not instantly. Unsolicited/streamed state is not subscribed to.",
         "Discovery lists a bulb by its serial (12-hex). Friendly labels (SetLabel/StateLabel) and firmware/version reads are not surfaced in this version.",
         "The LIFX LAN protocol is unauthenticated by design (no token, password, or key on the wire). Use it only on a trusted LAN segment; anyone on the same broadcast domain can address the bulb."
@@ -4677,8 +4697,8 @@
       "stats": {
         "proxies": 0,
         "connections": 0,
-        "properties": 26,
-        "commands": 18,
+        "properties": 34,
+        "commands": 21,
         "actions": 10,
         "events": 14
       },
