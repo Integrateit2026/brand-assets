@@ -1,5 +1,11 @@
 # Changelog — IntegrateIT Bond Fireplace
 
+## [0.2.0] - 2026-07-30
+- New optional Flame Auto-Off (minutes) watchdog, 0 = off by default: after the flame has been observed on for N minutes the driver sends Flame Off through every gate a keypad press passes (license, LAN, type, domain) and fires Watchdog Turned Flame Off only on a dispatched send. It is a convenience layer and NOT a safety device - a successful PUT is the bridge accepting the action, never confirmation the fire went out, and it is no substitute for the appliance's own listed safety systems.
+- One armed instance per lit period: the clock starts at the first flame-on observation and is never extended by later ones; flame-off, a rebind, or an IP change cancels it; a Blocked expiry never retries on a stable state hash and re-arms at most once per window when state moves.
+- Hard FP type gate at the wire chokepoint: pointing this driver at a Bond shade was sending TurnOn - the flame command - to a window covering. Now refused by name, naming the owning driver, before anything reaches the wire, including the watchdog's own auto-off. A record with no type field is refused rather than guessed at.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.1.1] - 2026-07-29
 - A corrupted Flame Level can no longer put a malformed body on the wire. Values like nan or inf slipped past the range clamp and were transmitted literally as {"argument":nan} - not acceptable at any probability on an appliance that burns gas.
 - Same fix for Fan Speed and Brightness; a corrupted numeric property now falls back to that property's documented default rather than reaching the bridge.

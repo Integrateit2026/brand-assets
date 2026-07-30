@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.1",
+  "latest": "0.2.0",
   "history": [
+    {
+      "version": "0.2.0",
+      "xml_version": 3,
+      "sha256": "ba6c4b780045704dbcca62646950630749c6bcb0422d5433b029704dabb35ddc",
+      "size_bytes": 117165,
+      "published_at": "2026-07-30T13:07:16.261Z",
+      "notes": "New optional Flame Auto-Off (minutes) watchdog, 0 = off by default: after the flame has been observed on for N minutes the driver sends Flame Off through every gate a keypad press passes (license, LAN, type, domain) and fires Watchdog Turned Flame Off only on a dispatched send. It is a convenience layer and NOT a safety device - a successful PUT is the bridge accepting the action, never confirmation the fire went out, and it is no substitute for the appliance's own listed safety systems. · One armed instance per lit period: the clock starts at the first flame-on observation and is never extended by later ones; flame-off, a rebind, or an IP change cancels it; a Blocked expiry never retries on a stable state hash and re-arms at most once per window when state moves. · Hard FP type gate at the wire chokepoint: pointing this driver at a Bond shade was sending TurnOn - the flame command - to a window covering. Now refused by name, naming the owning driver, before anything reaches the wire, including the watchdog's own auto-off. A record with no type field is refused rather than guessed at. · Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.1",
       "xml_version": 2,
