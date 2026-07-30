@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.3",
+  "latest": "0.1.4",
   "history": [
+    {
+      "version": "0.1.4",
+      "xml_version": 5,
+      "sha256": "5ae6e900e7c09da357df32a85d33ca7e3c732deb3751a5d4c5f9aeac8c3d04ed",
+      "size_bytes": 98083,
+      "published_at": "2026-07-30T15:42:44.881Z",
+      "notes": "A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name. · The chime debounce was defeated by a nan window - one press could ring twice. · Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.3",
       "xml_version": 4,
