@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-30T15:44:49.794Z",
+  "generated_at": "2026-07-30T15:46:56.351Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -2040,16 +2040,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_enhanced_lighting",
-        "generated_at": "2026-07-26T02:32:48.276Z",
+        "generated_at": "2026-07-30T15:46:55.824Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "12fb144e19fb0ef2bfda3018a2e1f3ca7d5c9b6119ee4d60e649850df7625830",
-        "artifact_sha256": "3e7a5d384434da70406f04365cd3040145ee91a369f28c6666a307f5d0a0a341",
-        "artifact_size_bytes": 97314,
-        "build_version_manifest_sha256": "2425c68d5e4aa62aa5683209fdde2035f91942f395ebfbd40338a2d41f780cae",
-        "version_manifest_sha256": "999c8e027c78567a1078834aa6e4a8f1ab8a82aa27c30cda1e9690cc34349385",
-        "version": "0.1.1",
-        "xml_version": 2,
+        "build_inputs_sha256": "ba028e9ec7d57d4a2573191ec95509949f5c81b5beaf5260fd3ac0b7f29dc5f9",
+        "artifact_sha256": "7897e4d374ebac99897665b7adf8f5a6824d7b1ff9913a69fb4756d717110091",
+        "artifact_size_bytes": 104259,
+        "build_version_manifest_sha256": "eed6b08fda3828cb04d06a396448a01d865066d319059f9bf8be60671ac864bb",
+        "version_manifest_sha256": "3f26cb987b82b3b7cdf4d35082461cce5e6cdaa94dcbc0c71168d7e8ca40caae",
+        "version": "0.1.2",
+        "xml_version": 3,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -2061,26 +2061,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 113
+            "duration_ms": 89
+          },
+          {
+            "name": "idstability",
+            "status": "pass",
+            "duration_ms": 47
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 78,
-            "checks": 18,
+            "duration_ms": 65,
+            "checks": 21,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 86,
-            "checks": 326,
+            "duration_ms": 80,
+            "checks": 339,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 53,
+            "duration_ms": 44,
             "files": 2
           }
         ]
@@ -2093,11 +2098,11 @@
         "actions": 3,
         "events": 7
       },
-      "version": "0.1.1",
-      "xml_version": 2,
+      "version": "0.1.2",
+      "xml_version": 3,
       "min_os": "3.0.0",
-      "size_bytes": 97314,
-      "sha256": "3e7a5d384434da70406f04365cd3040145ee91a369f28c6666a307f5d0a0a341",
+      "size_bytes": 104259,
+      "sha256": "7897e4d374ebac99897665b7adf8f5a6824d7b1ff9913a69fb4756d717110091",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/integrateit_enhanced_lighting.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_lighting/CHANGELOG.md",
@@ -2108,7 +2113,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-26T02:32:48.602Z"
+      "published_at": "2026-07-30T15:46:56.340Z"
     },
     {
       "slug": "integrateit_enhanced_scheduler",
