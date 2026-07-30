@@ -1,5 +1,173 @@
 # Changelog — IntegrateIT Client for the ESPHome Native API
 
+## [0.2.0] - 2026-07-30
+### Added
+- **Cover entities.** Covers are enumerated (`ListEntitiesCoverResponse`, id 13)
+  with their capability flags — `assumed_state`, `supports_position`,
+  `supports_tilt`, `supports_stop` — and appear in Entities Found tagged
+  `[pos+tilt]`, `[pos]`, or `[open/close]`. Each cover slot gains **Open**,
+  **Close**, **Stop**, and **Set Position**, sent as `CoverCommandRequest` (id 30).
+  Open and Close use the modern `has_position` + `position` 1.0 / 0.0 pair rather
+  than the deprecated legacy command fields, which is the path current clients use
+  and which ESPHome maps to fully-open / fully-closed on a binary cover too.
+- **Light entities.** Lights are enumerated (`ListEntitiesLightResponse`, id 15)
+  and tagged `[dim]` or `[on/off]`. On / Off / Toggle now serve lights as well as
+  switches via `LightCommandRequest` (id 32) `has_state` + `state`, and a dimmable
+  light gains **Set Brightness** 0-100% via `has_brightness` + `brightness`.
+  Setting brightness to 0 sends `state = false` in the same frame, so one action
+  covers both "dim to X" and "off".
+- **Cover and light state.** `CoverStateResponse` (id 22) and `LightStateResponse`
+  (id 24) are decoded and published to the existing slot variables, with the
+  baseline-silence guarantee unchanged: the unknown-to-first-known reading updates
+  the variables and fires no Slot n Changed, and only observed transitions fire.
+- **Per-slot `Slot n Level (%)` property.** Control4 actions carry no arguments,
+  so Set Position and Set Brightness read a staged RANGED_INTEGER setpoint — the
+  same shape the Bond shade and LIFX drivers use.
+- **An exact IEEE-754 float32 encoder.** Cover position and light brightness are
+  `float` on the wire and earlier builds only ever *decoded* floats (for sensors).
+  The new encoder uses integer arithmetic with correct round-to-nearest-even and
+  proper mantissa-carry handling, and the tests assert its output byte for byte
+  against CPython's `struct.pack('<f', v)` for all 101 percents, for a rounding
+  carry, and for both directions of a halfway tie. It refuses non-finite input, so
+  nan / inf can never reach the wire.
+
+### Changed
+- On / Off / Toggle actions are relabelled from "Slot n Switch On" to "Slot n On"
+  now that they drive lights as well as switches. The underlying command strings
+  (`SLOT_n_ON` / `_OFF` / `_TOGGLE`) are unchanged, so existing programming keeps
+  working; the `SwitchCommandRequest` bytes are byte-identical to 0.1.0 and a test
+  pins them.
+- Entities Found now appends a capability tag to every cover and light so an
+  installer can see what an entity will accept before wiring programming to it.
+
+### Fixed
+- **The auth phase could wedge the driver forever on modern firmware.** ESPHome
+  **2026.1.0 removed password authentication**: `api.proto` marks
+  `AuthenticationRequest` / `AuthenticationResponse` (ids 3 / 4) deprecated with
+  "These messages are kept for protocol documentation but are not processed by the
+  server", the firmware's `APIConnection::send_hello_response_` now calls
+  `complete_authentication_()` outright ("Auto-authenticate - password auth was
+  removed in ESPHome 2026.1.0"), and the official client's `_connect_hello_login`
+  awaits *only* HelloResponse — "Never wait for AuthenticationResponse". So the
+  reply this driver blocked on never arrives. And the block was silent, not noisy:
+  the socket was up so no reconnect could fire, the connect timeout had already
+  been cancelled, and the keepalive had not started yet, so the driver sat at
+  `Authenticating…` indefinitely with nothing to break the deadlock. The handshake
+  is now bounded by one timer, re-armed at HelloResponse. No HelloResponse inside
+  10s fails **loudly** — `Handshake timed out`, a Connection Failed event, the
+  socket torn down, and the ordinary reconnect cadence resumes (not a hard stop).
+  HelloResponse but no auth acknowledgement inside 3s takes the documented modern
+  path: the session comes up exactly as a successful acknowledgement would bring
+  it up, and Status says the device acknowledged nothing rather than implying it
+  did. Both bounds sit well inside the firmware's own `HANDSHAKE_TIMEOUT_MS` of
+  60s and the official client's 30s connect-request timeout, so the driver always
+  reaches a verdict before either peer gives up on it. A rejection is still
+  authoritative whenever it lands, including after the driver has proceeded, and
+  the legacy path — a device that *does* answer id 4 — is byte-for-byte and
+  event-for-event what 0.1.0 did. The bound is **absolute, not per-frame**: only
+  the first HelloResponse of a handshake is acted on. Because `StartTimer` cancels
+  before it re-arms, a peer that re-announced itself — or a stream that replayed
+  the frame — used to reset the 3s window on every copy and could park the driver
+  at `Authenticating…` forever, which is the same silent wedge in a different
+  costume; duplicates are now ignored outright and put no second
+  AuthenticationRequest on the wire, matching the official client, which also
+  stops listening after the first HelloResponse. A genuine re-handshake on a new
+  socket still runs, because `beginHandshake` clears the flag. Verified against
+  scripted peers for all five cases; **bench confirmation on real 2026.1.0+
+  hardware remains open** and `hardwareStatus` is unchanged.
+- **The Connect action on a live session wedged the driver.** `Connect` re-opened
+  the socket without going through the disconnect path, so `gConnected` was still
+  true when the controller reported the new socket ONLINE — and the
+  `online == gConnected` guard in `OnConnectionStatusChanged` swallowed that
+  notification whole. The handshake never started on the new socket, the connect
+  timeout had already been cancelled, and no OFFLINE was coming, so the driver sat
+  online-but-unauthenticated until the driver was reloaded; every command answered
+  "not connected". A duplicate ONLINE is now ignored only when the session it
+  belongs to is genuinely already usable or already handshaking; anything else
+  (re)starts the handshake.
+- **A device whose name contained a refusal keyword was hard-stopped as
+  encryption-required.** The Noise-refusal detector substring-matched
+  `indicator` / `Noise` / `handshake` / `encryption` against the raw RX buffer
+  *before* framing and *unconditionally* while unauthenticated. HelloResponse
+  carries `server_info` and the device hostname, so an ESPHome node legitimately
+  named e.g. `indicator-panel` tripped it — reporting "This device requires API
+  encryption", setting the do-not-retry flag, and refusing to connect to a device
+  that was answering perfectly. The sniff now runs last, only on a stalled buffer
+  that made no framing progress and cannot be the start of a real frame, which is
+  exactly the condition it was written to detect. The non-0x00 Noise indicator byte
+  is caught in the frame loop as before, and both original refusal fixtures still
+  pass.
+- **Non-finite property values could reach the wire.** `intProp` fell back with
+  `tonumber(...) or default`, which does not catch a value that parses as a
+  number but is not finite: `tonumber("nan")` succeeds, `tonumber("1e400")` is
+  inf, `math.floor(nan)` is still nan, and *every* clamp comparison against nan is
+  false — so a nan sailed through the range check intact. It now falls back to the
+  default on nil, nan, and ±inf. This was latent in 0.1.0 (it could reach the
+  keepalive and reconnect intervals) and would have become a wire-visible defect
+  the moment a float setpoint existed.
+
+### Notes on scope — bounds, not omissions
+- Light control is on/off plus brightness only. Colour, colour temperature, white
+  channels, effects, and transition / flash timing all exist in
+  `LightCommandRequest` and are deliberately **not** sent; a colour bulb is driven
+  as a dimmer. Colour is a later version, not a half-implementation here.
+- Cover **tilt** is enumerated and surfaced but not driven — no tilt command is
+  sent even when `supports_tilt` is true.
+- Cover **Stop** is always offered rather than gated on the enumerated
+  `supports_stop` flag. That field was added late to the proto and protobuf cannot
+  distinguish "reports no stop support" from "predates the field", so gating on it
+  would refuse Stop on covers that handle it perfectly. `supports_position` is an
+  original field, so a false there *is* the device's answer and Set Position does
+  gate on it.
+- A cover without position support reports only its endpoints (0 / 100). The
+  driver does not dead-reckon a position from travel time.
+- Encryption posture is unchanged: **plaintext + legacy password only.** Noise
+  stays parked, and a device with an `api:` encryption key is still reported as
+  encryption-required rather than retried.
+- On ESPHome **2026.1.0 and newer the API password does nothing** — that release
+  removed password authentication entirely. The driver still sends the auth request
+  for older firmware, proceeds on the documented silence, and says plainly in
+  Status that the device acknowledged nothing and that a configured password is
+  being ignored. It does not pretend to an authentication it did not get, and it
+  does not offer encryption as a substitute in this version.
+
+### Verification
+- Every message id and field number was byte-verified against the official
+  `api.proto` (github.com/esphome/aioesphomeapi, MIT) on the day of the change,
+  read from each message's `option (id)` annotation and field declarations.
+- Repeated `supported_color_modes` is decoded in **both** legal protobuf wire
+  forms — packed (wire type 2) and unpacked repeated (wire type 0) — because
+  ESPHome's encoder is hand-written firmware and assuming one form would bet a
+  light's capability detection on an implementation detail. Both are tested.
+- Runtime suite grew from 305 to 573 checks, and the 0.1.0 suite still passes
+  unchanged (305/305) against this body. The new coverage was validated by
+  mutation: 22 deliberate defects (wrong message ids, wrong field numbers, a wrong
+  ColorMode mask bit, dropped carry handling, dropped nan guards, removed
+  capability gates, each wire form of the colour-mode list) were each confirmed to
+  fail the suite. One probe initially passed — removing the *wire-write-time*
+  license re-check — which exposed a real gap: the ordinary Strict test is caught
+  by the dispatch-time gate and never exercised the second one. A test that denies
+  the license only on the wire-write call now covers all three write paths.
+- A second review pass re-ran that mutation (all three wire-write gates removed,
+  dispatch gates intact: 14 fails, so the test is real) and found one more gap of
+  the same kind. Both round-half-even tie tests happened to be ties that round
+  *up*, so an encoder that always rounded a tie up passed them — the property being
+  claimed was never actually pinned. The two round-*down* midpoints
+  (0.5 + 1·2⁻²⁵ and 0.5 + 5·2⁻²⁵, which CPython packs as `0000003f` and
+  `0200003f`) are now asserted, and the always-round-up mutant fails.
+- All 101 percent-to-float bytes and all 11 expected command frames were
+  re-derived from scratch with CPython during review — an independent encoder, not
+  a re-read of the table — and every byte matched.
+- New adversarial coverage beyond the tie fix: colour modes arriving packed **and**
+  unpacked in the *same* message; unknown fields of all four wire types interleaved
+  inside `CoverStateResponse` and `LightStateResponse`; a position cover ignoring a
+  contradictory `legacy_state`; the documented position-over-legacy_state
+  precedence on a cover without position support; a nil value never stamping a slot
+  variable it does not own (a text / switch / binary reading must not zero a live
+  `SLOT_n_NUMBER`); the encoder refusing an out-of-range magnitude instead of
+  emitting inf; and a proof that the whole 0-100 input domain encodes with no sign
+  bit and no subnormal, so a `-0` setpoint cannot put a signed zero on the wire.
+
 ## [Unreleased]
 ### Fixed
 - Re-baseline a slot when its binding changes. A runtime edit to a Slot n Entity
