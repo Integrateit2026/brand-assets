@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Hue Bridge
 
+## [0.1.2] - 2026-07-30
+- A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
+- A non-finite brightness could ship {"brightness":nan} to the bridge - not JSON, whole PUT rejected.
+- Adds the fleet-standard Run Diagnostics and Run Self-Test dealer actions: read-only, license-independent, cached-state honesty. Diagnostics reports what the driver has already observed - never probing the network, never printing a secret. Self-Test proves the shared layer locally and ends PASS or FAIL.
+
 ## [0.1.1] - 2026-07-27
 - Brightness feedback now follows the right light. The bridge sends object keys in alphabetical order, which the old parser mis-sliced - with several lights in one read each picked up its neighbour's level (10/55/99 arrived as 55/99/blank) and the last got none.
 - Dims made from the Hue app, a wall dimmer, or an accessory are now seen live. A dim-only eventstream update previously parsed as nothing, so SLOT_n_BRI only moved when Control4 itself sent the command.
