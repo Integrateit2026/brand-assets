@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Color Integration
 
+## [0.1.3] - 2026-07-31
+- Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.
+
 ## [0.1.2] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - A poll timer could arm with a nan interval and never fire; it now falls back to its documented default.

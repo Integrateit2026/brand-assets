@@ -2,7 +2,7 @@
   "name": "IntegrateIT Color Integration",
   "version": "0.1.3",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_color_integration/integrateit_color_integration.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_color_integration/releases/0.1.3/integrateit_color_integration.c4z",
   "notes": "A headless color engine for Control4 lighting: give it a color as hex, HSV, Kelvin, or CIE xy and it maps it to the light-proxy color parameters (CIE 1931 xy plus a full-color or color-temperature mode), clamps it into the chosen gamut, ramps it over a transition, and publishes every step as variables and events for programming to apply. MAC-locked IntegrateIT licensing.",
   "sha256": "a9e7aa20bc4827c6ea291b31e7c6c70a2e1f7cc6963fdb7a47527dedb21b2fa8",
   "size_bytes": 106872,
