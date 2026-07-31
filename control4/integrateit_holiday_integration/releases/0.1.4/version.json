@@ -2,7 +2,7 @@
   "name": "IntegrateIT Holiday Integration",
   "version": "0.1.4",
   "xml_version": 5,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/integrateit_holiday_integration.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_holiday_integration/releases/0.1.4/integrateit_holiday_integration.c4z",
   "notes": "Detects US federal (and optional common) holidays plus dealer-defined custom dates using pure on-device date math, and publishes them as variables and events so Composer programming can run holiday scenes — lighting, music, away behavior — with no cloud dependency. MAC-locked IntegrateIT licensing.",
   "sha256": "0515b5d6f17ba6aed3e8b35927279cec67d273be79299d36b77e4b1c24d74902",
   "size_bytes": 101401,
