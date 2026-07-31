@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-31T06:53:50.504Z",
+  "generated_at": "2026-07-31T06:57:56.208Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -8312,16 +8312,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_unifi_nvr_hdmi",
-        "generated_at": "2026-07-27T00:19:35.155Z",
+        "generated_at": "2026-07-31T06:57:55.835Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "c7e2bfd34f4d2582293c3eaac732a2c630cf6cccd2cb1734b9dbd976433e9e4d",
-        "artifact_sha256": "e606e6bef724095dd4d4dd1154c83491a5ed3d3a1f32f8088cc2578f4f58c360",
-        "artifact_size_bytes": 988199,
-        "build_version_manifest_sha256": "8661c3a1281685af097b09900cfa97e4a84e64938ab01ad1c9ef3fb213bd0e29",
-        "version_manifest_sha256": "1eec261a560c6ddb38e63e8d50a1c3fa49c42f4cb92143b78860de3120eb83f5",
-        "version": "3.0.0",
-        "xml_version": 5,
+        "build_inputs_sha256": "a71bfcec9f566ff4316c488d61f01a67afa65c95c94e9671b33fbda6eab433b3",
+        "artifact_sha256": "0b13ba68489a2af3140228deb7a07d554ed5c8db04847b3f95bc807e65e5a7c8",
+        "artifact_size_bytes": 995679,
+        "build_version_manifest_sha256": "ee681ff925dbd2aff6b2887e87630aa35009a1dc0dc26de4890296e1b20134a4",
+        "version_manifest_sha256": "16c78ab111ce548d99507bac8edd4da02081fe74782ce451b0f1111ca8af91f2",
+        "version": "3.0.1",
+        "xml_version": 6,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "bench-tested",
         "channel_verification": {
@@ -8333,26 +8333,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 133
+            "duration_ms": 110
+          },
+          {
+            "name": "idstability",
+            "status": "pass",
+            "duration_ms": 49
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 81,
-            "checks": 16,
+            "duration_ms": 65,
+            "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 68,
-            "checks": 154,
+            "duration_ms": 58,
+            "checks": 156,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 54,
+            "duration_ms": 45,
             "files": 2
           }
         ]
@@ -8365,11 +8370,11 @@
         "actions": 0,
         "events": 0
       },
-      "version": "3.0.0",
-      "xml_version": 5,
+      "version": "3.0.1",
+      "xml_version": 6,
       "min_os": "3.0.0",
-      "size_bytes": 988199,
-      "sha256": "e606e6bef724095dd4d4dd1154c83491a5ed3d3a1f32f8088cc2578f4f58c360",
+      "size_bytes": 995679,
+      "sha256": "0b13ba68489a2af3140228deb7a07d554ed5c8db04847b3f95bc807e65e5a7c8",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/integrateit_unifi_nvr_hdmi.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/CHANGELOG.md",
@@ -8380,7 +8385,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-27T00:19:35.891Z"
+      "published_at": "2026-07-31T06:57:56.196Z"
     },
     {
       "slug": "integrateit_unifi_protect",
