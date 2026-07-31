@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_lifestyle_buttons",
-  "generated_at": "2026-07-30T14:20:27.564Z",
+  "generated_at": "2026-07-31T06:37:11.042Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "c79ee1976642b071da09c43284ce6e0c964ab9ac2e2bb0a5b43f1eaa2e901489",
-  "artifact_sha256": "085c5850b31d63ac062fc5a459a45f93c947c3f598ad0e606891cf399a0b93bc",
-  "artifact_size_bytes": 345599,
-  "build_version_manifest_sha256": "25ce733566094febdea57420df2c9cefaa1888c259d6bbb8c060e9638942b7b4",
-  "version_manifest_sha256": "806101e394bcd0419a3e894e6fc519d78fce15daef3647963611d6e086ee883b",
-  "version": "0.1.2",
-  "xml_version": 3,
+  "build_inputs_sha256": "1dc39336986b212970ee1e9f4f7d8bd33f5626fb28ef498b5ffdf5ce6b5a27c2",
+  "artifact_sha256": "b798c606242af652b271c593c4edb974c1b1f74069b348c696f3fe5f1a098734",
+  "artifact_size_bytes": 345918,
+  "build_version_manifest_sha256": "391619b7af44f47f6e20754a838cff3eed4342c8c267af68eb1ae74ea9a54e7e",
+  "version_manifest_sha256": "4df4184913f32a918ae7e7b6ce466bcf82fd8875cfc1e0c72a1da76159d996ad",
+  "version": "0.1.3",
+  "xml_version": 4,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 150
+      "duration_ms": 140
     },
     {
       "name": "idstability",
       "status": "pass",
-      "duration_ms": 56
+      "duration_ms": 51
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 75,
+      "duration_ms": 73,
       "checks": 24,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 79,
+      "duration_ms": 78,
       "checks": 326,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 46,
+      "duration_ms": 48,
       "files": 2
     }
   ]
