@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.3",
+  "latest": "0.1.4",
   "history": [
+    {
+      "version": "0.1.4",
+      "xml_version": 5,
+      "sha256": "cf8c719921441fec0c776fa166d0d4a86227654c3a02bb3ac0a88c4c9d5441c4",
+      "size_bytes": 101264,
+      "published_at": "2026-07-31T06:42:45.136Z",
+      "notes": "The six sends shipped as Composer ACTIONS only, so Composer Programming could not fire them: an <action> is an Actions-tab button, not a programming command, and this driver's entire purpose is \"a programming event pushes an alert\". Every documented recipe (\"when a door contact reports left open -> Send Message 1\") issued a name OnDeviceCommand did not know, and nothing was sent. Each send is now also declared as a programming command and dispatches under both spellings — the command name Director sends from programming and the SEND_* string the Actions-tab button sends. · Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.3",
       "xml_version": 4,
