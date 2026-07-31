@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Hue Motion Sensor
 
+## [0.2.1] - 2026-07-31
+- Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.2.0] - 2026-07-30
 - Sensitivity, read and written. The CLIP v2 motion service carries `sensitivity: {status, sensitivity, sensitivity_max}` — re-confirmed for this release against the OpenHue OpenAPI mirror (`src/motion/schemas/MotionGet.yaml`, `MotionPut.yaml`) and aiohue's `MotionSensingFeatureSensitivity` / `MotionSensingFeatureSensitivityPut`, since Signify's own reference for the resource is behind a developer login. The driver publishes `SENSITIVITY` and `SENSITIVITY_MAX` plus a **Motion Sensitivity** property reading `2 of 4`, adopted silently on a read or an eventstream frame like every other reading — including when the Hue app is what changed it.
 - Sensitivity fires no event, deliberately. It is a configuration value on the sensor, not something that happened in the room, so there is nothing for Composer to trigger on; the variables and the property carry it.
