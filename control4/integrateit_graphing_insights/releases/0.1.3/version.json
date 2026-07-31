@@ -2,7 +2,7 @@
   "name": "IntegrateIT Metrics & Insights",
   "version": "0.1.3",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/integrateit_graphing_insights.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_graphing_insights/releases/0.1.3/integrateit_graphing_insights.c4z",
   "notes": "Samples any Control4 device variable into a bounded three-tier ledger (recent samples, hourly buckets, daily buckets), publishes min/max/average/trend insight variables plus new-extreme, significant-change, and rollover events, and exports CSV or JSON for external charting. Local-calendar bucketing, an explicit privacy mode, a capped project-backup footprint, and MAC-locked IntegrateIT licensing.",
   "sha256": "f6f8d7975481c42e93c2cc7d19acd22ead97e0fc457315fe9bbea08922f34261",
   "size_bytes": 109199,

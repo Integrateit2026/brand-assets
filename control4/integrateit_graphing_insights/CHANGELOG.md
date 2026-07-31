@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Metrics & Insights
 
+## [0.1.3] - 2026-07-31
+- Programming-recipe honesty (per research/briefs-2026-07-26/actions-vs-commands-verdict.md, interim rule): the recipe "on a scene or door event -> call Record Sample Now" fired an Actions-tab entry from programming, which this driver declares no command for. Replaced with a Sample Recorded event recipe; the Actions-tab entries are now labelled as the dealer pokes they are, with Record Sample Now's behaviour kept.
+- The guide documented no events at all: ten are declared and fired, but only a few were named in passing prose and Sample Recorded was never mentioned. Programming could not be written against events a dealer could not find. Adds the full event table, including which events are edge-triggered (Source Unavailable fires once per outage, Retention Limit Reached once per ring).
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.1.2] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - Non-finite inputs crashed rendering with 'table index is NaN' and a bad format specifier; both paths are now guarded.
