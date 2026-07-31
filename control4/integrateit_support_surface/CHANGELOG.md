@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Support Surface
 
+## [0.1.2] - 2026-07-31
+- The privacy disclosure claimed the support contact name, phone, and email "stay on the controller and are never transmitted". What the driver can actually prove is narrower: its one outbound request carries no headers or body and none of those fields, so IT never transmits them — but it publishes them to the SUPPORT_CONTACT variable precisely so programming can display them, which is not the same as never leaving the controller. The disclosure a dealer shows a client, and the guide, now scope the claim to what the code proves and name where the values actually go.
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.1.1] - 2026-07-26
 - Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
 
