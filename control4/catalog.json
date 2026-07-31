@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-31T06:19:45.032Z",
+  "generated_at": "2026-07-31T06:20:30.211Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -1346,16 +1346,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_circadian_lighting",
-        "generated_at": "2026-07-30T15:26:58.270Z",
+        "generated_at": "2026-07-31T06:20:29.743Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "55ac033b323dfc45672aae0daa0b3ab833d9f38fef9cb72f89ef4c26a20cd5e8",
-        "artifact_sha256": "f8e15967d3059ac197c4414d525881355e3edb8238c7b30cf16f64dead19f4f1",
-        "artifact_size_bytes": 99272,
-        "build_version_manifest_sha256": "e3f2e8ba9f2fa63ed32a3ec28af8558d174100b4f02bbdc34c4788895cd3bcd2",
-        "version_manifest_sha256": "298776e757aa1f8943e49748f77d8c7662e48a610e983ad808fb905773a501a8",
-        "version": "0.1.3",
-        "xml_version": 4,
+        "build_inputs_sha256": "9722597c8bf803800e61368cfc9b4417b2e707b67b018ca4b1b65fc6c5dd2388",
+        "artifact_sha256": "0a86ecb2711a65b1f90efae57aaafe6468000b1937957b43de3b0fb532d4e26b",
+        "artifact_size_bytes": 99866,
+        "build_version_manifest_sha256": "73243058d48a6e71d121fdc111a49ba7ba3cda648ebe0e271c6f5f008ad05a12",
+        "version_manifest_sha256": "8f78af107df307e59c5307898add5a9600939a452b9110a6466dbff1ed63bc90",
+        "version": "0.1.4",
+        "xml_version": 5,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -1367,12 +1367,12 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 95
+            "duration_ms": 93
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 51
+            "duration_ms": 48
           },
           {
             "name": "static",
@@ -1384,14 +1384,14 @@
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 71,
-            "checks": 215,
+            "duration_ms": 76,
+            "checks": 220,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 45,
             "files": 2
           }
         ]
@@ -1404,11 +1404,11 @@
         "actions": 5,
         "events": 4
       },
-      "version": "0.1.3",
-      "xml_version": 4,
+      "version": "0.1.4",
+      "xml_version": 5,
       "min_os": "3.0.0",
-      "size_bytes": 99272,
-      "sha256": "f8e15967d3059ac197c4414d525881355e3edb8238c7b30cf16f64dead19f4f1",
+      "size_bytes": 99866,
+      "sha256": "0a86ecb2711a65b1f90efae57aaafe6468000b1937957b43de3b0fb532d4e26b",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_circadian_lighting/integrateit_circadian_lighting.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_circadian_lighting/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_circadian_lighting/CHANGELOG.md",
@@ -1419,7 +1419,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-30T15:26:58.734Z"
+      "published_at": "2026-07-31T06:20:30.200Z"
     },
     {
       "slug": "integrateit_code_agent",
