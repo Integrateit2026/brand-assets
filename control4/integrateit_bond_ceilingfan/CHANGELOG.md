@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Bond Ceiling Fan
 
+## [0.1.3] - 2026-07-31
+- Security fix (LAN guard bypass): the boot-time metadata reads FetchProps (GET /properties) and FetchDeviceDoc (GET /v2/devices/<id>) had no LAN-destination check, so a Bond IP pointed at a public/WAN host still received two token-bearing GETs from OnDeviceInit even with Allow WAN Bond = No — leaking the BOND-Token header off-LAN at load. The LAN guard now runs at the single BondHttp transport chokepoint, so every Bond HTTP call (control, poll, and boot reads) is refused for a non-LAN destination unless Allow WAN Bond is Yes. Regression test added (a public IP boots with zero token-bearing requests).
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.1.2] - 2026-07-30
 - Hard CF type gate at the wire chokepoint: a Device ID pointing at a fireplace was sending TurnOn - an ignition command - to a gas appliance. MS/FP/GX/LT devices are now refused by name, naming the IntegrateIT driver that owns them; HT/SW/BD are refused without inventing one; a record with no type field is refused rather than blind-commanded. Test Connection refuses in plain language instead of printing an advisory and commanding anyway.
 - New read-only Device Type property; List Bond Devices annotates every device with its owning driver. The pre-read window is unchanged: in the seconds after load a command is still attempted once and the bridge's own answer surfaced.
@@ -10,9 +14,6 @@
 - A corrupted Poll Interval (s) can no longer stall state feedback. It became a nan-millisecond timer that never fired again, so the fan's published state silently stopped tracking.
 - A corrupted numeric property now falls back to that property's documented default, in the same spirit as the existing range clamp.
 - The single point where a Bond action is transmitted now refuses a non-finite argument outright, so no future command can reopen this.
-
-## [Unreleased]
-- Security fix (LAN guard bypass): the boot-time metadata reads FetchProps (GET /properties) and FetchDeviceDoc (GET /v2/devices/<id>) had no LAN-destination check, so a Bond IP pointed at a public/WAN host still received two token-bearing GETs from OnDeviceInit even with Allow WAN Bond = No — leaking the BOND-Token header off-LAN at load. The LAN guard now runs at the single BondHttp transport chokepoint, so every Bond HTTP call (control, poll, and boot reads) is refused for a non-LAN destination unless Allow WAN Bond is Yes. Regression test added (a public IP boots with zero token-bearing requests).
 
 ## [0.1.0] - 2026-07-26
 - Initial release candidate: dedicated single-fan control of a Smart by Bond ceiling fan (device type CF) over the Bond Home local API v2 (github.com/bondhome/api-v2).
