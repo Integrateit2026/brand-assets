@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Bond Fireplace
 
+## [0.2.1] - 2026-07-31
+- Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.2.0] - 2026-07-30
 - New optional Flame Auto-Off (minutes) watchdog, 0 = off by default: after the flame has been observed on for N minutes the driver sends Flame Off through every gate a keypad press passes (license, LAN, type, domain) and fires Watchdog Turned Flame Off only on a dispatched send. It is a convenience layer and NOT a safety device - a successful PUT is the bridge accepting the action, never confirmation the fire went out, and it is no substitute for the appliance's own listed safety systems.
 - One armed instance per lit period: the clock starts at the first flame-on observation and is never extended by later ones; flame-off, a rebind, or an IP change cancels it; a Blocked expiry never retries on a stable state hash and re-arms at most once per window when state moves.

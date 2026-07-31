@@ -2,7 +2,7 @@
   "name": "IntegrateIT Bond Fireplace",
   "version": "0.2.1",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/integrateit_bond_fireplace.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_fireplace/releases/0.2.1/integrateit_bond_fireplace.c4z",
   "notes": "Convenience control of one Smart by Bond fireplace (device type FP) over the Bond Home v2 local HTTP API, with real push state feedback. Flame on/off with level stepping where the device exposes it, an independent FpFan (on/off/speed) that is never touched by a flame command, and light where the fireplace was learned with one. This is convenience control of an appliance that keeps its own listed safety systems — the driver claims no flame supervision, ignition safety, or auto-off it does not have.",
   "sha256": "50de914ebe543aa33c1f3ba42dff9da5008a2210c8bc29d95f9e1a025492f72d",
   "size_bytes": 117562,
