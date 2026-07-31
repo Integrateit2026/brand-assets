@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_benq_projector",
-  "generated_at": "2026-07-26T02:19:45.857Z",
+  "generated_at": "2026-07-31T06:09:17.939Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "6de31b05df86cc14f79ffa00eb85483886f369e4e1f7b50c703fa7d4dc237661",
-  "artifact_sha256": "e2715ec2fc46e23d775aa2fc5428300ff8fa943adbdbbd41fde23a07ffabff4b",
-  "artifact_size_bytes": 97123,
-  "build_version_manifest_sha256": "550c55ec88e512376c61107ef50f25e8d217a1e9ac0100cd249432ce069439d6",
-  "version_manifest_sha256": "40c1a19fcdf3b13eca0c04a63224e4647b8691a231339464a4a20a9ef91eb24b",
-  "version": "0.1.1",
-  "xml_version": 2,
+  "build_inputs_sha256": "881854027520e41c98bc6a07c75e78e158fb97ce40309efd3ab152d438bfdac0",
+  "artifact_sha256": "eae6f3ceb78e8ce93cae6f9fb104cc2510ea105d68e62170a08c9d0b973ea8e8",
+  "artifact_size_bytes": 103548,
+  "build_version_manifest_sha256": "2358098e0a414ddd5a4c00a802c2882c3526d6656c80563f78a968340cf8bff8",
+  "version_manifest_sha256": "c5ed1cad428f0b45acf01d5d08aa8b5d3385aa939498032d166e742dfc2b272f",
+  "version": "0.1.2",
+  "xml_version": 3,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,26 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 108
+      "duration_ms": 94
+    },
+    {
+      "name": "idstability",
+      "status": "pass",
+      "duration_ms": 49
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 75,
-      "checks": 19,
+      "duration_ms": 67,
+      "checks": 21,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 78,
-      "checks": 284,
+      "duration_ms": 74,
+      "checks": 286,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 62,
+      "duration_ms": 46,
       "files": 2
     }
   ]
