@@ -1,5 +1,8 @@
 # Changelog: IntegrateIT Garage
 
+## [0.9.4] - 2026-07-31
+- Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.
+
 ## [0.9.3] - 2026-07-26
 - Documentation rebuilt to the IntegrateIT commissioning-guide standard: uniform sections, honest contracts, verified claim-by-claim against the code.
 

@@ -1,6 +1,16 @@
 {
-  "latest": "0.9.3",
+  "latest": "0.9.4",
   "history": [
+    {
+      "version": "0.9.4",
+      "xml_version": 6,
+      "sha256": "c2846783b0f6ab24407ba659f6b94f502531ea1163443e298734b4ac462f7454",
+      "size_bytes": 289585,
+      "published_at": "2026-07-31T06:30:53.233Z",
+      "notes": "Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.9.3",
       "xml_version": 5,
