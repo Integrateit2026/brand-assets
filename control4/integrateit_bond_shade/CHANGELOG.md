@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Bond Shade
 
+## [0.1.4] - 2026-07-31
+- Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.
+
 ## [0.1.3] - 2026-07-30
 - Hard MS type gate inside the single actuation chokepoint, so Open/Close/Hold/Preset/Set Position/Toggle Open and the delayed Hold of an assumed move are all covered by one check: pointing this driver at a Bond fireplace was sending Open to it AND starting a phantom dead-reckoned move with a position the device does not have. Refused by name now, and List Bond Shades lists the whole bridge naming each device's owner instead of hiding non-shades.
 - A rebind or IP change mid-travel now cancels the in-flight assumed move - previously the delayed Hold fired at the NEW device and POSITION published the old shade's target - and the rebind reset no longer stamps a device-reported claim onto a device whose record was never read.
