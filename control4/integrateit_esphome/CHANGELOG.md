@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Client for the ESPHome Native API
 
+## [0.2.1] - 2026-07-31
+- Re-baseline a slot when its binding changes. A runtime edit to a Slot n Entity
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.2.0] - 2026-07-30
 ### Added
 - **Cover entities.** Covers are enumerated (`ListEntitiesCoverResponse`, id 13)
@@ -167,21 +171,6 @@
   `SLOT_n_NUMBER`); the encoder refusing an out-of-range magnitude instead of
   emitting inf; and a proof that the whole 0-100 input domain encodes with no sign
   bit and no subnormal, so a `-0` setpoint cannot put a signed zero on the wire.
-
-## [Unreleased]
-### Fixed
-- Re-baseline a slot when its binding changes. A runtime edit to a Slot n Entity
-  property (or a rebind after re-enumeration) previously rebound the slot's key
-  but kept the PREVIOUSLY bound entity's known-state, cached display, typed
-  variables, and State property. Two consequences on hardware: SLOT_n_BOOL /
-  SLOT_n_NUMBER kept driving automation with the old entity's value under the new
-  entity's identity until the new one happened to report, and the new entity's
-  first reading fired a phantom Slot n Changed — breaking the documented
-  baseline-silence guarantee. resolveSlots now detects a changed binding and
-  resets that slot to unknown (clearing its variables and State) so the new
-  entity's first reading is a silent baseline; slots whose binding is unchanged
-  are left untouched, so re-resolving after an unrelated property edit never
-  swallows a real pending change.
 
 ## [0.1.0] - 2026-07-26
 - Initial release candidate: a clean-room Control4 client for the ESPHome Native
