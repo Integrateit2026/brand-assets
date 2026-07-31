@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Appliance Status
 
+## [0.1.5] - 2026-07-31
+- Programming-recipe honesty (per research/briefs-2026-07-26/actions-vs-commands-verdict.md, interim rule): the recipes told a dealer to "call Reset Runtime" / "call Acknowledge Maintenance" from programming. Both are Actions-tab entries and this driver declares no programming commands, so those lines are now Actions-tab phrasing and the section states plainly that programming reacts to the events instead.
+- Acknowledge Maintenance latches and survives a reboot, so once run, Maintenance Due can never fire again until Reset Runtime clears it. The guide called this "snooze" and the troubleshooting table's "Maintenance never fires" row listed only the threshold and the meter — a dealer whose reminder went permanently silent had no way to find the cause. Both now state the latch and name Reset Runtime as the only thing that re-arms it.
+- Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
+
 ## [0.1.4] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - A poll timer could arm with a nan interval and never fire; it now falls back to its documented default.

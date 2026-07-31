@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-07-30T21:39:22.922Z",
+  "generated_at": "2026-07-31T06:08:33.776Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -65,16 +65,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_appliance_status",
-        "generated_at": "2026-07-30T15:31:58.506Z",
+        "generated_at": "2026-07-31T06:08:33.283Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "1289c4bcea49842d04f6fe6c2d40d091f61c6e07be06e438ffd3019c0cdb9813",
-        "artifact_sha256": "8968b0b32bdd50a80cd3cb68ecbe363341c204e15333f44eab54f984e4ea7fe9",
-        "artifact_size_bytes": 98121,
-        "build_version_manifest_sha256": "66ef4dcc19a2ef2836565bf0417a0be47f7d150599ea8c3fbfce1180f9df57b2",
-        "version_manifest_sha256": "e1e413e1620dcfcca6ddcc5ccbf5994f95ab200aa48ca5415528f28dfe41841f",
-        "version": "0.1.4",
-        "xml_version": 5,
+        "build_inputs_sha256": "fcc7ee9cccf3e81038967db15e82048656828b0ecf5be456a68349fb907ffc3d",
+        "artifact_sha256": "389b8ba054c59aceb29f069073e8f6f41da9a891b2d73c948baf5c21016a8063",
+        "artifact_size_bytes": 98847,
+        "build_version_manifest_sha256": "795a3712150a98b40de67347fbe4cca8705705850bec75ab0dc559668844a074",
+        "version_manifest_sha256": "11c6f9c8386bf268dc1e60ab679cd0f49888df9d7265b51e9276672bd4deb9f3",
+        "version": "0.1.5",
+        "xml_version": 6,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -86,7 +86,7 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 89
+            "duration_ms": 92
           },
           {
             "name": "idstability",
@@ -96,21 +96,21 @@
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 65,
+            "duration_ms": 67,
             "checks": 22,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 62,
+            "duration_ms": 64,
             "checks": 191,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 46,
+            "duration_ms": 47,
             "files": 2
           }
         ]
@@ -123,11 +123,11 @@
         "actions": 3,
         "events": 4
       },
-      "version": "0.1.4",
-      "xml_version": 5,
+      "version": "0.1.5",
+      "xml_version": 6,
       "min_os": "3.0.0",
-      "size_bytes": 98121,
-      "sha256": "8968b0b32bdd50a80cd3cb68ecbe363341c204e15333f44eab54f984e4ea7fe9",
+      "size_bytes": 98847,
+      "sha256": "389b8ba054c59aceb29f069073e8f6f41da9a891b2d73c948baf5c21016a8063",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/integrateit_appliance_status.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/CHANGELOG.md",
@@ -138,7 +138,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-30T15:31:59.030Z"
+      "published_at": "2026-07-31T06:08:33.765Z"
     },
     {
       "slug": "integrateit_assistance_button",
@@ -464,7 +464,7 @@
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond and controller is not yet attached to this release.",
         "One Bond device per driver instance — add another instance for each fan, light, or shade you want to control.",
-        "State feedback is by polling, not push: a change made from a Bond remote or the Bond app is reflected on the next poll (default 5s), not instantly. BPUP UDP push (port 30007) and mDNS (_bond._tcp) discovery are documented by Bond but out of scope for v0.1.0.",
+        "State feedback is by polling, not push: a change made from a Bond remote or the Bond app is reflected on the next poll (default 5s), not instantly. BPUP UDP push (port 30007) and mDNS (_bond._tcp) discovery are documented by Bond but out of scope for this driver — the dedicated per-type IntegrateIT Bond drivers (Ceiling Fan, Light, Shade, Fireplace, Generic Device) carry BPUP push.",
         "The Bond local API is plain, unencrypted HTTP on port 80 — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes.",
         "Which actions a device accepts depends on how it was learned by Bond; an action the device does not support returns a Bond error that the driver surfaces in Status."
       ],
@@ -605,7 +605,7 @@
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and fan is not yet attached to this release.",
         "One ceiling fan per driver instance — add another instance for each additional fan.",
-        "Ceiling fans only (device type CF). Bond shades, fireplaces, and generic remotes are out of scope for this driver.",
+        "Ceiling fans only (device type CF). A shade (MS), fireplace (FP), generic device (GX), or light (LT) is refused by name and belongs on its dedicated IntegrateIT driver; a heater (HT), smart switch (SW), or bidet (BD) is refused without naming a driver, because no IntegrateIT driver models those yet.",
         "Push feedback needs the bridge's BPUP service reachable on UDP 30007; where it is blocked or disabled, set State Feedback to 'Poll only' and the driver runs on hash-gated HTTP polling.",
         "Breeze, light, brightness, and direction are offered only when the fan was learned with those actions; on a fan without them the command is refused honestly rather than silently dropped.",
         "The Bond local API is plain, unencrypted HTTP on port 80 (and unencrypted UDP for BPUP) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes."
@@ -751,7 +751,7 @@
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and fireplace is not yet attached to this release.",
         "Convenience control only. The driver does NOT provide flame supervision, ignition safety, flame-failure detection, gas-valve interlock, or timer-based auto-off — it cannot observe or guarantee any of those. The fireplace's own listed safety mechanisms remain the only safety layer, and must remain fully in service.",
         "One fireplace per driver instance — add another instance for each additional fireplace.",
-        "Fireplaces only (device type FP). Bond fans, shades, and generic remotes are out of scope for this driver.",
+        "Fireplaces only (device type FP). A ceiling fan (CF), shade (MS), generic device (GX), or light (LT) is refused by name and belongs on its dedicated IntegrateIT driver; a heater (HT), smart switch (SW), or bidet (BD) is refused without naming a driver, because no IntegrateIT driver models those yet.",
         "No thermostat, setpoint, or auxiliary-heat modeling in this version — flame, fan, and light are the only concerns exposed.",
         "Flame level stepping (Flame Up / Down / Set Flame Level) is offered only when the fireplace was learned with those actions; a flame appliance that only supports on/off is controlled honestly as on/off, and the graded commands are refused rather than faked.",
         "The FpFan is modeled as fully independent of the flame, matching the Bond FP contract: turning the fan on or off, or changing its speed, issues only FpFan actions and never a flame action, and vice versa.",
@@ -858,7 +858,7 @@
         "Dedicated Bond generic-device (GX) control over the local v2 HTTP API — no cloud dependency",
         "Power On / Power Off / Toggle Power / Stop, each gated on the actions the device actually advertises",
         "Run Advertised Action reaches any other action this device advertises, by name, with an optional argument",
-        "Refuses a non-GX device by name and points at the dedicated ceiling-fan, shade, or fireplace driver instead",
+        "Refuses a non-GX device by name and points at the dedicated ceiling-fan, shade, fireplace, or light driver instead",
         "Real push state feedback via the Bond Push UDP Protocol (BPUP) listener on port 30007, with hash-gated HTTP polling fallback",
         "Publishes POWER, POWER_ASSUMED, and DEVICE_ONLINE with transition-only Turned On/Off and Went Online/Offline events",
         "Assumed-state honesty: a GX device is a learned one-way RF target, so Bond reports its tracked belief and this driver labels it assumed",
@@ -896,7 +896,7 @@
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond bridge and a learned generic device is not yet attached to this release.",
         "One generic device per driver instance — add another instance for each additional GX device.",
-        "Generic devices only (device type GX). A ceiling fan (CF), shade (MS), or fireplace (FP) is refused by name and belongs on its dedicated IntegrateIT driver.",
+        "Generic devices only (device type GX). A ceiling fan (CF), shade (MS), fireplace (FP), or light (LT) is refused by name and belongs on its dedicated IntegrateIT driver; a heater (HT), smart switch (SW), or bidet (BD) is refused without naming a driver, because no IntegrateIT driver models those yet.",
         "Power state is ASSUMED, never measured. Bond reports the state it believes it transmitted; the original hand-held remote bypasses Bond entirely, so a press on that remote silently desyncs the belief and neither Bond nor this driver can detect it.",
         "Provenance only ever sharpens the claim downward. Bond's Bridge-only markers prove the one-way path from Bond's own record, so that device gets the stricter label; a device without those markers keeps the default assumed label unchanged and is never described as measured, native, or confirmed.",
         "Only the actions the device advertises are sent. Once the action list is known, anything absent from it is refused locally by name and never reaches the wire.",
@@ -1187,6 +1187,7 @@
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Bond and controller is not yet attached to this release.",
         "One Bond shade per driver instance — add another instance for each shade you want to control.",
+        "Motorized shades only (device type MS). A ceiling fan (CF), fireplace (FP), generic device (GX), or light (LT) is refused by name and belongs on its dedicated IntegrateIT driver; a heater (HT), smart switch (SW), or bidet (BD) is refused without naming a driver, because no IntegrateIT driver models those yet.",
         "Set Position is only sent as a real action when the shade reports position support (native, or Bridge Pro CourseTime). On a shade that reports nothing, position is ASSUMED: dead-reckoned from the Course Time property, Unknown at boot, and a partial move needs a known endpoint (send Open or Close first).",
         "A shade moved by a Bond remote or the Bond app is reflected by BPUP push when subscribed, or on the next poll otherwise — an assumed-position shade cannot report a remote move at all until the next driver command.",
         "The Bond local API is plain, unencrypted HTTP on port 80 (and BPUP is unauthenticated UDP on 30007) — use it only on a trusted LAN segment. Non-LAN Bond addresses are refused unless Allow WAN Bond is explicitly set to Yes.",
@@ -4610,7 +4611,7 @@
         "The loop guard counts activations from every source (Navigator, programming, keypad). A legitimately busy sequence can trip it; raise Loop Guard Limit or set it to 0 to disable.",
         "Reset is a state change plus an All Modes Reset event. It does not restore any load to a prior level on its own - the dealer's Reset programming does that.",
         "Advance to Next Mode cycles through the enabled mode slots only. It never lands on the resting state, so it cannot be used to reach Reset - program Reset All Modes for that.",
-        "Repeat Press Toggle Off applies to the mode buttons. A Reset press while the house is already at rest is always ignored, whatever the policy.",
+        "Repeat Press Toggle Off applies to the mode buttons only - it never turns a Reset press into something else. A Reset press while the house is already at rest is ignored under Ignore and Toggle Off; under Re-activate it re-fires All Modes Reset, which re-runs the dealer's return-to-normal programming.",
         "Fire Events on Boot = Yes re-fires only a restored MODE. A restart that lands at rest - Boot Mode None, nothing persisted, or a persisted slot now above Modes Enabled - is silent by design, so the dealer's Reset programming does not run on every reboot."
       ],
       "screenshots": [
@@ -6506,7 +6507,7 @@
         "proxies": 0,
         "connections": 0,
         "properties": 17,
-        "commands": 0,
+        "commands": 6,
         "actions": 6,
         "events": 2
       },
