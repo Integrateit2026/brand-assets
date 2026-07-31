@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_lifx",
-  "generated_at": "2026-07-30T13:46:23.468Z",
+  "generated_at": "2026-07-31T06:39:36.387Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "b9cb36772d76000e668e9e723f1eefa83dd47d95e7cc4a3255d3998af18c6dcd",
-  "artifact_sha256": "18a3af0ca38512063a95ade257e708fb2eec8ba5cd49551ec203cc06b3dd28d6",
-  "artifact_size_bytes": 154602,
-  "build_version_manifest_sha256": "2fac93fb7d0c0110e6c2010968c7b65e5824a61cbeccca2d385e079a87ca9d16",
-  "version_manifest_sha256": "abac709dd7c6e8c589ee8e07cd0f3548b1cb2dbd85b38b29fe9512a899cadf8b",
-  "version": "0.5.0",
-  "xml_version": 5,
+  "build_inputs_sha256": "4747e321cd21e5b51db930c9f88c7c22ac7bc1fd8cc79e5a10257d529e968377",
+  "artifact_sha256": "e1d0ad90065d80b46adcabcbb9b8a053613e203a0b47ec7bc010c322e9065b97",
+  "artifact_size_bytes": 154950,
+  "build_version_manifest_sha256": "2fc953ba559db9a85b4d668ae6c9d52167f8466488fb2f7128cf7883946c785e",
+  "version_manifest_sha256": "f6c47a35d8861ebf5344f0f4d7e5068b40eda06ecb8cb507399e434aad28496d",
+  "version": "0.5.1",
+  "xml_version": 6,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,7 +22,7 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 95
+      "duration_ms": 97
     },
     {
       "name": "idstability",
@@ -32,21 +32,21 @@
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 74,
+      "duration_ms": 73,
       "checks": 21,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 175,
+      "duration_ms": 177,
       "checks": 848,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 44,
+      "duration_ms": 46,
       "files": 2
     }
   ]
