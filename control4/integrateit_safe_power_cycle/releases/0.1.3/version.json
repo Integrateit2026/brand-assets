@@ -2,7 +2,7 @@
   "name": "IntegrateIT Safe Power Cycle",
   "version": "0.1.3",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/integrateit_safe_power_cycle.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_safe_power_cycle/releases/0.1.3/integrateit_safe_power_cycle.c4z",
   "notes": "Dealer tool that safely power-cycles bound relays: turn OFF, wait a configurable delay, turn ON — with a two-step confirmation guard, an hourly rate limit, and full audit events for rebooting AV racks, network gear, and headless appliances from Control4.",
   "sha256": "b8127cb06fc9fefb882959e15bc955d67693a4e9f061d06a717906be52e9a1b5",
   "size_bytes": 99353,
