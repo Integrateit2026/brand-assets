@@ -1,6 +1,16 @@
 {
-  "latest": "2.3.8",
+  "latest": "2.4.0",
   "history": [
+    {
+      "version": "2.4.0",
+      "xml_version": 20260641,
+      "sha256": "30794931b62c35279eeb5b7538b3942597b1f771ae80e138895cebea223fbfdc",
+      "size_bytes": 175635,
+      "published_at": "2026-08-02T20:40:00.930Z",
+      "notes": "My System reported a hardcoded OS version (\"4.2\") for every controller. The relay compares that number against the latest shipping OS, so the app was recommending an OS update off a constant. The driver now reads the real version via C4:GetVersionInfo(), and when the controller won't report one it omits the field entirely rather than substituting a default — the relay hides the update card when the version is absent. · The customer app's My System page carried a Network tile fed by `sys.network`, a field only the development simulator ever set. On a real site it drew an em-dash under a hardcoded 96%-full green bar — a network health reading nothing had measured. Removed, same as the CPU and RAM tiles. Uptime, the one gauge with a controller behind it, now spans the row. App-page change only; the driver is unaffected. `tools/qa-relay-app.mjs` is the gate that keeps that class of tile from coming back. · The state push carried `frontDoor.locked = true` as a frozen literal that nothing ever wrote, so every push and every support-ticket snapshot asserted the front door was locked whether or not a lock had been read. Removed; the honest lock reading is the LOCK_STATE variable on the configured Lock Device ID.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "2.3.8",
       "xml_version": 20260640,

@@ -2,7 +2,7 @@
   "name": "IntegrateIT Optimus AI",
   "version": "2.4.0",
   "xml_version": 20260641,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/integrateit_optimus.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_optimus/releases/2.4.0/integrateit_optimus.c4z",
   "notes": "An in-Navigator AI assistant, Service Requests, and My System experience for Control4 — the assistant drives lighting, scenes, climate, shades, fans, locks, garage, and announcements through the IntegrateIT relay, with an optional quick-control panel and a sensitive-action confirmation gate.",
   "sha256": "30794931b62c35279eeb5b7538b3942597b1f771ae80e138895cebea223fbfdc",
   "size_bytes": 175635,

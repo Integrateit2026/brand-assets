@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Optimus AI
 
+## [2.4.0] - 2026-08-02
+- My System reported a hardcoded OS version ("4.2") for every controller. The relay compares that number against the latest shipping OS, so the app was recommending an OS update off a constant. The driver now reads the real version via C4:GetVersionInfo(), and when the controller won't report one it omits the field entirely rather than substituting a default — the relay hides the update card when the version is absent.
+- The customer app's My System page carried a Network tile fed by `sys.network`, a field only the development simulator ever set. On a real site it drew an em-dash under a hardcoded 96%-full green bar — a network health reading nothing had measured. Removed, same as the CPU and RAM tiles. Uptime, the one gauge with a controller behind it, now spans the row. App-page change only; the driver is unaffected. `tools/qa-relay-app.mjs` is the gate that keeps that class of tile from coming back.
+- The state push carried `frontDoor.locked = true` as a frozen literal that nothing ever wrote, so every push and every support-ticket snapshot asserted the front door was locked whether or not a lock had been read. Removed; the honest lock reading is the LOCK_STATE variable on the configured Lock Device ID.
+
 ## [2.3.8] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - The relay poll could die on a nan interval while status stayed healthy, and SendToDevice could receive inf; both are now finite by construction.
