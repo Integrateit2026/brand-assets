@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-02T19:29:43.747Z",
+  "generated_at": "2026-08-02T19:57:04.406Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -8248,7 +8248,7 @@
     {
       "slug": "integrateit_unifi_nvr_hdmi",
       "name": "IntegrateIT UniFi NVR HDMI",
-      "summary": "Display-only Control4 AV source for the Ubiquiti UniFi NVR G2 HDMI live-view output. Exposes an HDMI OUT binding so the NVR feed can be routed through an AV matrix and selected in Watch. Controls nothing and reports nothing by design; the binding is the whole point. 3.1.0 additionally declares an experimental ONSCREEN_SELECTION room binding so the NVR can be offered as a room's On-Screen Device — untested against real hardware, and Control4 documents a precondition this source does not meet. Field-proven routing video on an AVPro Edge matrix; factory build adds self-update, validation, tests, and packaged docs the hand-built v1-v3 never had.",
+      "summary": "Display-only Control4 AV source for the Ubiquiti UniFi NVR G2 HDMI live-view output. Exposes an HDMI OUT binding so the NVR feed can be routed through an AV matrix and selected in Watch. Controls nothing and reports nothing by design; the binding is the whole point. 3.1.0 shipped an ONSCREEN_SELECTION room binding as a live experiment; installed on real hardware, Composer never offered this device in a room's On-Screen Device list, so 3.2.0 retires it — the documented precondition (the room must also be able to select the device as its video endpoint) is one a source feeding a matrix can never meet. Field-proven routing video on an AVPro Edge matrix; factory build adds self-update, validation, tests, and packaged docs the hand-built v1-v3 never had.",
       "category": "others",
       "device_type": "UNVR-G2 HDMI Out",
       "release_status": "stable",
@@ -8258,8 +8258,7 @@
         "Exposes the Ubiquiti UniFi NVR G2 live-view HDMI output as a Control4 AV source via a single HDMI OUT binding (video + audio) that drops onto any matrix input in Composer Connections",
         "Appears as a selectable source in Watch, skinned with a branded IntegrateIT aperture-tile icon that renders in Composer and on OS3 Navigators",
         "Display-only dummy source: it commands nothing and reports nothing, exactly as designed — Control4 has no native driver for the NVR, and this provides the binding that was otherwise missing",
-        "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes; 3.1.0 adds a third connection, the experimental ONSCREEN_SELECTION room binding (see Limitations)",
-        "Declares an ONSCREEN_SELECTION room binding (id 7500, type 7, facing 6) so the NVR can be offered in a room's On-Screen Device list beside the CORE processors — shipped as a live experiment, not as a proven capability",
+        "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes, and as of 3.2.0 nothing else",
         "Self-updating from the IntegrateIT channel, a capability the hand-built v1-v3 predecessors never had",
         "No network connection, no credentials, no logging — there is nothing for a dummy source to leak"
       ],
@@ -8278,7 +8277,7 @@
         },
         {
           "label": "Bindings",
-          "value": "HDMI OUT (type 5), classes HDMI + STEREO — plus the experimental Onscreen Navigator room binding (type 7, class ONSCREEN_SELECTION)"
+          "value": "HDMI OUT (type 5), classes HDMI + STEREO — the only AV binding; no room binding (the 3.1.0 ONSCREEN_SELECTION experiment was retired in 3.2.0)"
         },
         {
           "label": "Control / feedback",
@@ -8300,7 +8299,7 @@
         "v2 is field-proven routing video on Daniel's own AVPro Edge matrix; the v3 branded-icon render on live Navigators is awaiting field confirmation. If the icon is blank, verify the .c4z filename, then Update Driver, Refresh Navigators, and force-close the app or reboot T3-T4 panels.",
         "EDID: if a display blanks when the source is selected, set the matrix input's EDID to 4K30 or 1080p — the NVR pushes 4K and can out-run a display or a long HDMI run.",
         "Not a UniFi Protect integration: there are no per-camera streams, snapshots, or doorbell events here — this is the full-grid HDMI live view as one source. Pair with a Protect driver if you need native events.",
-        "The ONSCREEN_SELECTION binding added in 3.1.0 is UNPROVEN. Control4's DriverWorks documentation conditions an onscreen binding on a video path also existing — the room must be able to select the same device as its video endpoint — and this driver is a source feeding a matrix, never an endpoint. Whether Composer offers it in the On-Screen Device list at all is the open question this release exists to answer on real hardware. If a room does accept it, the room enters navigation mode and forwards arrows, ENTER and BACK to a driver with no control path, so those keys are swallowed until the room leaves navigation; the remedy is to unbind it. Selecting Security Cameras as the room's VIDEO SOURCE remains the supported, working path and is unchanged."
+        "This driver cannot be a room's On-Screen Device, and that is now a measured result rather than an argument. 3.1.0 declared the ONSCREEN_SELECTION room binding exactly as Control4's DriverWorks example shapes it (id 7500, type 7, facing 6, consumer and all three source flags False), published it, and Daniel installed it on his own live system: Composer still did not list this device in any room's On-Screen Device Output Devices list. The documented precondition is why — that section conditions the binding on a video path also existing, the room must be able to select the device as its VIDEO ENDPOINT — and a source feeding a matrix is the opposite end of the wire, so the binding is never valid and never offered. 3.2.0 retires it. Selecting Security Cameras as the room's VIDEO SOURCE is the supported path for cameras on a TV; it is field-proven and was untouched throughout."
       ],
       "screenshots": [
         {
@@ -8314,16 +8313,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_unifi_nvr_hdmi",
-        "generated_at": "2026-08-02T19:29:43.191Z",
+        "generated_at": "2026-08-02T19:57:03.881Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "b2b250dfa2cc1e9a8363f75c3f8878ef8f84a0d6cc974ff4391eb4695c60cec7",
-        "artifact_sha256": "32313aeca404895f7c74c40d56be9c3d578fa013f9b335426447ff98555b8598",
-        "artifact_size_bytes": 1007309,
-        "build_version_manifest_sha256": "aeb114de5073b304c7c8f1400c6397d8dfb05a7e38420934adad2abb272d12a6",
-        "version_manifest_sha256": "04581b8a894b2c896aa92e8629daf3dcf9ba503eba0043e22b81cf6ab1842dc1",
-        "version": "3.1.0",
-        "xml_version": 8,
+        "build_inputs_sha256": "be89d2794fb45305d7b99cc73b815549797c30977863f398a26b720d4c3cabc9",
+        "artifact_sha256": "4a4936fc54ca604b3997be206c0ee0612c9c40075661b442231191c937532637",
+        "artifact_size_bytes": 1008719,
+        "build_version_manifest_sha256": "512645ecf2d4a85e05be3e59fa4213c1b54c8e453817ca2b8fc0b45652a7950f",
+        "version_manifest_sha256": "25996344e7a5fbaf8d6fad14cfa7518f866847fc3a6769a53eb7c75967365ac1",
+        "version": "3.2.0",
+        "xml_version": 9,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "bench-tested",
         "channel_verification": {
@@ -8335,48 +8334,48 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 122
+            "duration_ms": 126
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 54
+            "duration_ms": 62
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 66,
+            "duration_ms": 82,
             "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 60,
-            "checks": 196,
+            "duration_ms": 68,
+            "checks": 198,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 51,
             "files": 2
           }
         ]
       },
       "stats": {
         "proxies": 1,
-        "connections": 1,
+        "connections": 0,
         "properties": 0,
         "commands": 0,
         "actions": 0,
         "events": 0
       },
-      "version": "3.1.0",
-      "xml_version": 8,
+      "version": "3.2.0",
+      "xml_version": 9,
       "min_os": "3.0.0",
-      "size_bytes": 1007309,
-      "sha256": "32313aeca404895f7c74c40d56be9c3d578fa013f9b335426447ff98555b8598",
+      "size_bytes": 1008719,
+      "sha256": "4a4936fc54ca604b3997be206c0ee0612c9c40075661b442231191c937532637",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/integrateit_unifi_nvr_hdmi.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/CHANGELOG.md",
@@ -8387,7 +8386,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-02T19:29:43.725Z"
+      "published_at": "2026-08-02T19:57:04.384Z"
     },
     {
       "slug": "integrateit_unifi_protect",
