@@ -1,6 +1,16 @@
 {
-  "latest": "3.0.1",
+  "latest": "3.0.2",
   "history": [
+    {
+      "version": "3.0.2",
+      "xml_version": 7,
+      "sha256": "44b2f95e21de6338998f05863f163a2e840a8d3eb64f50c031ccf3c48ce2153c",
+      "size_bytes": 1005194,
+      "published_at": "2026-08-02T18:57:47.931Z",
+      "notes": "The guide now states plainly why this source can never be the room's On-Screen Device, and why that is not a missing feature. Control4's own driver documentation (DriverWorks, *Receiver with Onscreen Binding*) makes a video path the condition of that binding: the room must be able to select the same device as its **video endpoint**. That row holds an endpoint — the controller pushing Navigator out its HDMI, or an AV receiver. This driver is the opposite end of the wire: a provider that hands video to the matrix. Bound there anyway, the room would enter navigation mode and forward every arrow, ENTER and BACK to a driver with no control path; the keys would vanish and the TV would show the same camera grid it already shows. Adding a room-binding connection to make it appear in that list was designed, costed, and declined — an entry that swallows the remote is a fabrication, and a wrong binding id is expensive to retire once it is fielded. · The camera-on-TV workflow is pointed at the row that already works: select **Security Cameras** as the room's **video source**. That path is field-proven, and the doc now says outright that no Control4 UI renders on this feed — no menus, no cursor, no per-camera picker — so nobody goes hunting for one. · Tests pin the refusal rather than trusting it: the rendered package is now asserted to carry exactly two connections, no `ONSCREEN_SELECTION` class, nothing in the 7000–7999 room-binding range, no type-7 connection, and the unchanged **HDMI OUT** output — plus the standing truth that this driver declares no commands, no device events and no variables of its own. Landing the declined binding turns those cases red.",
+      "qa_status": "pass",
+      "hardware_status": "bench-tested"
+    },
     {
       "version": "3.0.1",
       "xml_version": 6,
