@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>IntegrateIT Watchdog</title>
+<style>
+/* IntegrateIT driver documentation tokens. These are intentionally self-contained
+   and use sRGB values for compatibility with Control4's embedded browser. */
+:root{
+  --bg:#0A0D13;
+  --bg-deep:#070A0F;
+  --surface:#141A26;
+  --surface-raised:#1A2332;
+  --surface-strong:#222D3D;
+  --line:#2B3749;
+  --line-strong:#3B4B63;
+  --text:#EDF2F9;
+  --text-soft:#A7B2C3;
+  --text-faint:#77859A;
+  --blue:#0157FF;
+  --blue-light:#7FB2FF;
+  --blue-tint:rgba(1,87,255,.13);
+  --brass:#B89968;
+  --good:#34D399;
+  --good-tint:rgba(52,211,153,.11);
+  --warn:#FBBF24;
+  --warn-tint:rgba(251,191,36,.10);
+  --bad:#F87171;
+  --bad-tint:rgba(248,113,113,.10);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:18px;
+  --ease:cubic-bezier(.25,1,.5,1);
+}
+
+/* IntegrateIT Documentation tab: The Commissioning Book */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--blue-light);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--text)}
+a:focus-visible{outline:2px solid var(--blue-light);outline-offset:3px;border-radius:4px}
+.shell{min-height:100vh;background:
+  radial-gradient(900px 420px at 86% -10%,rgba(1,87,255,.14),transparent 68%),
+  linear-gradient(180deg,var(--bg-deep) 0,var(--bg) 360px)}
+.wrap{width:min(1040px,100%);margin:0 auto;padding:0 28px}
+
+/* masthead */
+.mast{padding:30px 0 34px;border-bottom:1px solid var(--line)}
+.brandbar{display:flex;align-items:center;gap:18px;min-height:42px}
+.brandbar img{display:block;width:auto;height:30px;max-width:210px;object-fit:contain}
+.version{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line-strong);
+  border-radius:999px;background:var(--surface);color:var(--text-soft);font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.version::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-tint)}
+.eyebrow{margin:32px 0 12px;color:var(--brass);font-size:11px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+h1{max-width:760px;margin:0;font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.035em;font-weight:780;text-wrap:balance}
+.sub{max-width:68ch;margin:16px 0 0;color:var(--text-soft);font-size:16px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;color:var(--text-faint);font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+.meta span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--brass)}
+.readiness{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ready{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(20,26,38,.76);color:var(--text-soft);font-size:12px;font-weight:700}
+.ready b{color:var(--good);font-size:13px}
+
+/* task navigation */
+.toc-wrap{position:sticky;top:0;z-index:10;background:rgba(10,13,19,.97);border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px rgba(0,0,0,.20)}
+.toc{display:flex;gap:7px;overflow-x:auto;padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.toc a{flex:none;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text-soft);
+  font-size:12px;font-weight:720;text-decoration:none;transition:color 180ms var(--ease),border-color 180ms var(--ease),background 180ms var(--ease)}
+.toc a:hover{color:var(--text);border-color:var(--blue);background:var(--blue-tint)}
+
+/* document */
+main{padding:34px 0 24px}
+.card{scroll-margin-top:80px;margin:0 0 18px;padding:26px 28px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface)}
+.card h2{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:20px;line-height:1.2;letter-spacing:-.018em;font-weight:760}
+.card h2 .n{display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--blue);
+  color:var(--text);font-size:12px;font-weight:820;font-variant-numeric:tabular-nums}
+.card h3{margin:24px 0 10px;color:var(--text);font-size:15px;line-height:1.35;font-weight:760}
+.card p{max-width:74ch;margin:10px 0;color:#D7DFEA}
+.card ul,.card ol{max-width:76ch;margin:12px 0;padding-left:23px}
+.card li{margin:7px 0;color:#D7DFEA}
+.card li::marker{color:var(--blue-light);font-weight:800}
+.card b{color:var(--text);font-weight:750}
+
+/* operational callouts */
+.note{margin:16px 0;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--surface-raised);
+  color:#D7DFEA;font-size:14px}
+.note::before{content:"INFO";display:block;margin-bottom:4px;color:var(--blue-light);font-size:10px;font-weight:800;letter-spacing:.12em}
+.note.good{border-color:rgba(52,211,153,.36);background:var(--good-tint)}
+.note.good::before{content:"READY";color:var(--good)}
+.note.warn{border-color:rgba(251,191,36,.38);background:var(--warn-tint)}
+.note.warn::before{content:"CHECK";color:var(--warn)}
+.pill{display:inline-flex;align-items:center;margin-left:6px;padding:3px 8px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--surface-raised);color:var(--text-soft);font-size:10px;font-weight:800;letter-spacing:.04em;vertical-align:middle}
+.pill.blue{border-color:rgba(127,178,255,.34);background:var(--blue-tint);color:var(--blue-light)}
+.pill.green{border-color:rgba(52,211,153,.34);background:var(--good-tint);color:var(--good)}
+.pill.amber{border-color:rgba(251,191,36,.34);background:var(--warn-tint);color:var(--warn)}
+.pill.red{border-color:rgba(248,113,113,.34);background:var(--bad-tint);color:var(--bad)}
+
+/* steps, code, and reference data */
+.steps{counter-reset:step;list-style:none!important;padding:0!important}
+.steps li{counter-increment:step;position:relative;padding:11px 0 11px 46px;margin:0!important;border-top:1px solid var(--line)}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(step);position:absolute;left:0;top:9px;display:grid;place-items:center;width:30px;height:30px;
+  border:1px solid var(--line-strong);border-radius:9px;background:var(--surface-raised);color:var(--blue-light);font-size:12px;font-weight:820}
+code{padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface-raised);color:#8DE2D6;
+  font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere}
+pre{max-width:100%;overflow:auto;margin:14px 0;padding:15px 17px;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:var(--bg-deep);color:#BCEDE6;font-family:var(--mono);font-size:12.5px;line-height:1.6}
+pre code{padding:0;border:0;background:transparent;color:inherit}
+table{display:block;width:100%;max-width:100%;overflow-x:auto;border-spacing:0;border-collapse:separate;margin:14px 0 20px;
+  border:1px solid var(--line);border-radius:var(--radius-md);font-size:13px}
+tbody{display:table;width:100%;border-collapse:collapse}
+th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-raised);color:var(--text-soft);font-size:11px;font-weight:780;letter-spacing:.035em;white-space:nowrap}
+td{color:#D7DFEA}
+td:first-child{color:var(--text)}
+td code{white-space:normal}
+
+/* release history */
+.chg{margin-top:4px}
+.chg .rel{padding:15px 0;border-top:1px solid var(--line)}
+.chg .rel:first-child{padding-top:0;border-top:0}
+.chg .rel b{font-variant-numeric:tabular-nums}
+.chg .rel .d{margin-left:8px;color:var(--text-faint);font-size:12px}
+.chg .rel ul{margin:7px 0 0}
+
+/* brand sign-off */
+.powered{margin-top:22px;padding:42px 24px 46px;border-top:1px solid var(--line);text-align:center;background:var(--bg-deep)}
+.powered .hairline{width:40px;height:1px;margin:0 auto 18px;background:var(--brass)}
+.powered .pb{margin:0 0 14px;padding-left:.32em;color:var(--text-soft);font-size:10px;font-weight:650;letter-spacing:.32em;text-transform:uppercase}
+.powered img{display:block;width:auto;height:28px;max-width:min(270px,80vw);margin:0 auto;object-fit:contain}
+.powered .places{margin:22px 0 0;color:var(--text-faint);font-size:10px;font-weight:650;letter-spacing:.22em;text-transform:uppercase}
+.powered .places b{padding:0 8px;color:var(--brass);font-weight:700}
+.powered .support{margin:18px 0 0;color:var(--text-soft);font-size:12px}
+
+@media(max-width:700px){
+  .wrap{padding:0 18px}
+  .mast{padding:22px 0 28px}
+  .brandbar img{height:24px;max-width:170px}
+  .eyebrow{margin-top:26px}
+  h1{font-size:32px}
+  .sub{font-size:15px}
+  main{padding-top:24px}
+  .card{padding:21px 19px;border-radius:var(--radius-md)}
+  .card h2{font-size:18px}
+  th,td{min-width:130px;padding:10px 11px}
+}
+@media(max-width:420px){
+  .wrap{padding:0 14px}
+  .version{padding:5px 8px}
+  .version .word{display:none}
+  h1{font-size:29px}
+  .ready{font-size:11px}
+  .card{padding:18px 15px}
+  .card h2{align-items:flex-start}
+  .powered{padding-left:14px;padding-right:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc a{transition:none}}
+@media print{
+  :root{--bg:#F7F8FA;--bg-deep:#FFFFFF;--surface:#FFFFFF;--surface-raised:#F0F3F7;--line:#CCD3DD;--line-strong:#AEB8C6;
+    --text:#101722;--text-soft:#3D4A5E;--text-faint:#59677B;--blue-light:#0049D8}
+  .shell{background:#F7F8FA}.toc-wrap{position:static;box-shadow:none}.card{break-inside:avoid}.powered img{filter:invert(1)}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <div class="wrap">
+      <div class="brandbar">
+        <img src="data:image/png;base64,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" alt="IntegrateIT">
+        <span class="version"><span class="word">Driver</span> v0.1.0</span>
+      </div>
+      <p class="eyebrow">Control4 commissioning guide</p>
+      <h1>IntegrateIT Watchdog</h1>
+      <p class="sub">Watches the targets you name, decides with hysteresis, and cuts power only under budgets you set. Powered by IntegrateIT.</p>
+      <div class="meta">
+        <span>Updated 2026-08-03</span>
+        <span>Supported by IntegrateIT</span>
+      </div>
+      <div class="readiness" aria-label="Driver capabilities">
+        <span class="ready"><b aria-hidden="true">✓</b> Control4 DriverWorks</span>
+        <span class="ready"><b aria-hidden="true">✓</b> OS 3.0.0+</span>
+        <span class="ready"><b aria-hidden="true">✓</b> License framework</span>
+        <span class="ready"><b aria-hidden="true">✓</b> Self-update ready</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toc-wrap">
+    <nav class="toc wrap" aria-label="Documentation sections"><a href="#overview">1 Start here</a><a href="#contract">2 What a probe can and cannot prove</a><a href="#safety">3 Safety boundary</a><a href="#setup">4 Wire and commission</a><a href="#connections">5 The Control4 connection map</a><a href="#verdicts">6 How a verdict is made</a><a href="#programming">7 Program the project</a><a href="#status">8 Read status at a glance</a><a href="#troubleshooting">9 Troubleshoot methodically</a><a href="#trust">10 Ownership, privacy, and licensing</a><a href="#reference">R Reference</a><a href="#licensing">L Licensing</a><a href="#updates">U Automatic updates</a><a href="#diagnostics">D Diagnostics and self-test</a><a href="#changelog">V Version history</a></nav>
+  </div>
+
+  <main class="wrap">
+    <section class="card" id="overview" data-card="overview">
+  <h2><span class="n">1</span> Start here</h2>
+  <p>IntegrateIT Watchdog watches up to six LAN targets you name — a switch, an access point, a head-end server, a rack appliance — decides whether each is up with real hysteresis instead of a single ping, and can cut and restore power to one bound Control4 relay per target when a fault survives a verified recovery. It uses the controller's own network stack: the ping client when this OS build exposes one, otherwise one outbound TCP connect, otherwise one HTTP GET. Nothing is ever written to a watched device — the driver has no command vocabulary for anything it monitors.</p>
+  <div class="note warn">This driver can remove mains power from whatever its relay controls. Read <b>Safety boundary</b> before you set any target's Ladder to <code>Cycle Relay</code>. Everything else in the driver is observation and can be commissioned safely at any time.</div>
+  <div class="note good">Ready for controlled commissioning — package, runtime, Control4 surfaces, probe tiers, state machine, suppression, budgets, quiet hours, licensing and persistence all pass automated QA in the simulator. Every hardware behavior described here is <b>simulation-verified</b>, never bench-tested: a dealer must still do a fresh install and an observed relay cycle on the real controller.</div>
+  <p><b>What you get</b></p>
+  <ul>
+    <li>Six declared targets on one schedule, each with a friendly name used in every event</li>
+    <li>N-of-M hysteresis: <b>Fail Streak</b> consecutive misses to call Down, two clean probes to call Up</li>
+    <li>Declared dependency suppression — a target behind a Down upstream goes Suppressed and stays quiet</li>
+    <li>Flap classification as a fault of its own: three transitions inside the window is Flapping, not Down</li>
+    <li>A first-fault snapshot (target states, upstream, probe class, one optional context device's variables) written into a persistent audit ring that survives a reboot</li>
+    <li>Verified recovery, then a per-target ladder — Observe, Fire Event, Cycle Relay — advanced only by a failed recovery, under hard daily budgets that survive a restart, quiet hours and a maintenance hold</li>
+    <li>Ten events, six <code>WD_</code> variables, five live Navigator state icons</li>
+  </ul>
+</section>
+
+<section class="card" id="contract" data-card="contract">
+  <h2><span class="n">2</span> What a probe can and cannot prove</h2>
+  <p>A probe answers exactly one question: <b>did something at that address answer this probe?</b></p>
+  <ul>
+    <li>A <b>hit</b> means something accepted the connection (or the ping, or served an HTTP status) — not that the device is healthy. A wedged server still completes a TCP handshake; a switch with a dead uplink still answers on its management address. This reports reachability, never health.</li>
+    <li>A <b>miss</b> means nothing answered inside the probe window — not that the device is off. A firewall rule, a closed port, a saturated link or a controller network problem produce the same silence, which is precisely why a single miss changes nothing here.</li>
+  </ul>
+  <p>From those two facts and your thresholds it builds every verdict, and publishes nothing it cannot defend:</p>
+  <ul>
+    <li>It never diagnoses and never discovers: no cause is offered or invented, and <code>Target N Upstream</code> is a <b>declaration</b> you make — a wrong one produces wrong suppression the driver cannot detect.</li>
+    <li>It never reports latency in milliseconds — DriverWorks exposes no monotonic clock accessor — so a probe is classed <code>fast</code>, <code>slow</code> or <code>none</code> and the snapshot records the class, not a number.</li>
+    <li>It cannot announce, email, text or push. No DriverWorks API gives a driver those channels; notification is Composer programming on the events below, and claiming otherwise would be faking it.</li>
+    <li>It does not persist verdicts. After a reboot every target is Unknown until it is probed again. Two things deliberately DO survive a restart: the audit ring, and the daily cycle budget — a ceiling a reboot resets is not a ceiling, and the reboot in question can be one this driver's own relay caused.</li>
+  </ul>
+</section>
+
+<section class="card" id="safety" data-card="safety">
+  <h2><span class="n">3</span> Safety boundary</h2>
+  <div class="note warn">A relay cycle removes power from live equipment. Wire it only to loads that tolerate an abrupt interruption, never to anything with a documented shutdown sequence, and never to life-safety, medical or egress equipment. A qualified installer owns the wiring, the load rating, and any inrush or contactor protection.</div>
+  <p>Nine conditions must ALL hold before a relay opens; every refusal fires <b>Cycle Blocked</b> and names itself in <b>Last Event</b> and the audit ring.</p>
+  <table>
+    <tr><th>#</th><th>Condition</th></tr>
+    <tr><td>1</td><td>The target reached the <code>Cycle Relay</code> rung — <b>Fail Streak</b> misses <b>and</b> a failed verified recovery</td></tr>
+    <tr><td>2</td><td>A relay is bound to that target (targets 1-4 only; there are four relay bindings)</td></tr>
+    <tr><td>3</td><td>The probe subsystem is healthy — three probes that cannot be built set every target Unknown and disable actuation, so the driver never cycles a rack on the strength of its own blindness</td></tr>
+    <tr><td>4</td><td><b>Maintenance Hold</b> is off</td></tr>
+    <tr><td>5</td><td>The clock is outside quiet hours</td></tr>
+    <tr><td>6</td><td>No other cycle is in flight anywhere in the driver</td></tr>
+    <tr><td>7</td><td>The target is under its <b>Max Cycles Per Day</b> ceiling. Every cycle is written down and the ledger is persisted, so a controller restart — including one the relay itself caused — does not hand the next episode a fresh budget. A stamp the driver cannot age (no clock, or a clock that has moved backwards) is kept, never discarded</td></tr>
+    <tr><td>8</td><td>The fleet is under the fixed ceiling of four cycles per day across all targets, from the same persisted ledger</td></tr>
+    <tr><td>9</td><td>The license gate passes, re-checked at the instant of the relay write</td></tr>
+  </table>
+  <p>Two paths are deliberately <b>exempt</b> from the license gate, because a licensing problem must never be the reason a rack stays dark: the CLOSE leg that restores power at the end of a cycle, and the boot-time recovery that closes a relay left open by a controller reboot mid-cycle.</p>
+</section>
+
+<section class="card" id="setup" data-card="setup">
+  <h2><span class="n">4</span> Wire and commission</h2>
+  <ol class="steps">
+    <li>Add <b>IntegrateIT Watchdog</b> to a room. Leave <b>Enabled</b> at <code>No</code> — nothing goes on the wire yet.</li>
+    <li>Fill in <b>Target 1 Name</b> and <b>Target 1 Address</b> (<code>host</code> or <code>host:port</code>; without a port it probes port 80). Use a LAN IPv4, a bare hostname or a <code>.local</code> name; anything routable is refused unless <b>Allow WAN Targets</b> is <code>Yes</code>.</li>
+    <li>Add the targets behind it and set each one's <b>Upstream</b> — if <code>T1</code> is the switch and <code>T2</code> hangs off it, <b>Target 2 Upstream</b> is <code>T1</code>.</li>
+    <li>Leave every <b>Ladder</b> at <code>Observe</code> for the first day: the driver watches, publishes and logs without firing Down events or touching a relay.</li>
+    <li>Set <b>Enabled</b> to <code>Yes</code>. <b>Fleet Status</b> moves off <code>Disabled</code> within one probe interval and each target adopts its first verdict silently — no events, by design.</li>
+    <li>Run <b>Print Audit Log</b> from the Actions tab. Expect one <code>adopt</code> line per configured target.</li>
+    <li>Only once a full day of entries looks right: bind a relay to <b>Target N Cycle Relay</b>, confirm it is isolated and rated for the load, then raise that target's Ladder.</li>
+    <li>Prove it end to end — unplug the watched device, watch <b>Fleet Status</b> reach <code>Down</code> after <code>Fail Streak</code> intervals, then watch the log record the snapshot, the recovery attempt, and either the cycle or the named block.</li>
+  </ol>
+</section>
+
+<section class="card" id="connections" data-card="connections">
+  <h2><span class="n">5</span> The Control4 connection map</h2>
+  <table>
+    <tr><th>Binding</th><th>Name</th><th>Use</th></tr>
+    <tr><td><code>1</code>-<code>4</code></td><td>Target N Cycle Relay</td><td>Latching relay powering target N: opened for <b>Cycle Off Duration (s)</b>, then closed. A momentary front-panel-button topology is not supported in this version</td></tr>
+    <tr><td><code>5001</code></td><td>Navigator button</td><td>Optional experience button; one press probes every target once</td></tr>
+    <tr><td>—</td><td>Targets 5 and 6</td><td>No relay, so their ladder ceiling is capped at <code>Fire Event</code>; a <code>Cycle Relay</code> setting on them is refused by name</td></tr>
+  </table>
+</section>
+
+<section class="card" id="verdicts" data-card="verdicts">
+  <h2><span class="n">6</span> How a verdict is made</h2>
+  <table>
+    <tr><th>State</th><th>What it means</th><th>What it does</th></tr>
+    <tr><td><code>Unknown</code></td><td>Nothing settled yet, or probing is degraded</td><td>Nothing</td></tr>
+    <tr><td><code>Up</code></td><td>Answered — one probe from Unknown, two consecutive from a fault</td><td>Clears the fault, resets the ladder</td></tr>
+    <tr><td><code>Down</code></td><td>Missed <b>Fail Streak</b> consecutive probes</td><td>Snapshot, audit, then the current rung</td></tr>
+    <tr><td><code>Flapping</code></td><td>Three or more transitions inside <b>Flap Window (min)</b></td><td>Fires <b>Target Flapping</b>; no Down event, no actuation</td></tr>
+    <tr><td><code>Suppressed</code></td><td>Its declared upstream is Down, Recovering, or itself Suppressed</td><td>Fires <b>Target Suppressed</b> once; nothing else. No verification runs, no <b>Recovery Failed</b>, no rung of escalation — a dependent never climbs a ladder on its upstream's fault</td></tr>
+    <tr><td><code>Recovering</code></td><td>The grace expired and the verification probe is running</td><td>Nothing until the verification settles</td></tr>
+  </table>
+  <p>The <b>first</b> settled verdict after a boot, an address edit or a probe-subsystem recovery is <b>adopted silently</b>: properties, variables, the icon and the audit ring update, and no event fires — nothing changed, the driver simply opened its eyes. An adoption is not a transition either, so one outage and its recovery can never be mistaken for a flap.</p>
+  <p>The ladder is a ceiling, not a starting point: every fault begins at <code>Observe</code>. When the grace expires the driver opens a fresh probe of its own — never a scheduled one that happened to be in flight, which would decide a "verified" recovery on evidence gathered before the verification began — and a clean streak means <b>Target Recovered</b> while a miss means <b>Recovery Failed</b> and one rung of escalation. A verification whose probe never went on the wire decides nothing at all, and an episode that was acknowledged, withdrawn by an address edit, or suppressed behind an upstream is not verified in the first place. At the ceiling a further failed recovery stops the ladder for that episode (no new grace, no repeated event, no second cycle), so a permanently dead target produces a bounded number of decisions rather than an endless drumbeat, and scheduled probes still bring it back on their own. Flap windows and daily budgets are measured against driver uptime accumulated by the probe scheduler, not the wall clock, so a drifting or unset controller clock cannot skew a flap verdict.</p>
+</section>
+
+<section class="card" id="programming" data-card="programming">
+  <h2><span class="n">7</span> Program the project</h2>
+  <ul>
+    <li><b>When Target Down, announce it.</b> The driver deliberately has no notification channel of its own; this event is how you get one, using whatever announcement, push or email agent the project has.</li>
+    <li><b>When Target Flapping, log it and do not act.</b> A flapping link is an intermittent-cable problem and rebooting it hides the evidence — a different alarm from Down.</li>
+    <li><b>When Cycle Blocked, tell the dealer.</b> Read <code>WD_LAST_EVENT</code> in the same script: it carries the reason (<code>budget</code>, <code>quiet hours</code>, <code>maintenance hold</code>, <code>no relay</code>, <code>unlicensed</code>, <code>probe subsystem degraded</code>).</li>
+    <li><b>When All Targets Up, clear the dashboard flag.</b> It fires once per outage, on the edge.</li>
+    <li>Use <b>Maintenance Hold On/Off</b> around a planned rack shutdown, so a scheduled outage never triggers a cycle while monitoring keeps logging.</li>
+  </ul>
+</section>
+
+<section class="card" id="status" data-card="status">
+  <h2><span class="n">8</span> Read status at a glance</h2>
+  <table>
+    <tr><th>Readback</th><th>What it means</th></tr>
+    <tr><td><b>Fleet Status</b></td><td>The worst state across every watched target and how many are watched, or <code>Disabled</code> when <b>Enabled</b> is <code>No</code>. Worst runs <code>Down</code> &gt; <code>Flapping</code> &gt; <code>Recovering</code> &gt; <code>Unknown</code> &gt; <code>Suppressed</code> &gt; <code>Up</code>, so a target that has not settled — or is held quiet behind an upstream — never lets the fleet read <code>Up</code></td></tr>
+    <tr><td><b>Last Event</b></td><td>The most recent decision in plain words, including the reason a cycle was blocked</td></tr>
+    <tr><td><b>Cycle Budget</b></td><td>Cycles used today against both ceilings, from the persisted ledger — the figure survives a restart</td></tr>
+    <tr><td><code>WD_STATE</code></td><td>The aggregate state as a string. Safe to key automation off</td></tr>
+    <tr><td><code>WD_DOWN_COUNT</code> / <code>WD_SUPPRESSED_COUNT</code></td><td>Targets Down, and targets held quiet behind an upstream. A rising suppressed count with one Down target is a healthy dependency map</td></tr>
+    <tr><td><code>WD_WORST_TARGET</code></td><td>The name of the target driving the aggregate state</td></tr>
+    <tr><td><code>WD_LAST_EVENT</code></td><td>The same text as <b>Last Event</b>, for programming</td></tr>
+    <tr><td><code>WD_AUDIT_COUNT</code></td><td>Entries currently in the ring</td></tr>
+  </table>
+  <p>Every decision also lands in a persistent ring bounded by <b>Audit Log Size</b> — adoptions, state changes, the target that suppressed another, snapshots, cycle starts and ends, every named block, budget resets, acknowledgements, reboot recovery — because the fault worth reading about is the one nobody was awake for. <b>Print Audit Log</b> dumps it to the Lua output window. <b>Clear Audit Log</b> is deliberately awkward: the first run arms a 30-second window and records who asked, and only a second run inside it erases anything. Evidence anything can wipe in one click is not evidence.</p>
+</section>
+
+<section class="card" id="troubleshooting" data-card="troubleshooting">
+  <h2><span class="n">9</span> Troubleshoot methodically</h2>
+  <table>
+    <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+    <tr><td><b>Fleet Status</b> reads <code>Disabled</code></td><td><b>Enabled</b> is <code>No</code></td><td>Set it to <code>Yes</code>; nothing probes until you do</td></tr>
+    <tr><td>A target never leaves <code>Unknown</code></td><td>Its address is empty, or refused by the LAN guard</td><td><b>Last Event</b> names the refusal; use a private IPv4, a bare host or <code>.local</code>, or set <b>Allow WAN Targets</b></td></tr>
+    <tr><td>A target reads <code>Up</code> but the device is unusable</td><td>It answers the probe while its service is wedged</td><td>Expected: this driver reports reachability, not health. Probe a port the service itself serves</td></tr>
+    <tr><td>A target flaps between Up and Down</td><td>Marginal link, duplicate IP, or a device that sleeps</td><td>The driver classes it <code>Flapping</code> and refuses to act — fix the link, not the symptom</td></tr>
+    <tr><td>A dependent target stays <code>Suppressed</code></td><td>Its declared upstream is Down or Suppressed</td><td>Correct the upstream first; suppression clears on its own</td></tr>
+    <tr><td><b>Cycle Blocked</b> every time</td><td>One of the nine safety conditions</td><td><b>Last Event</b> names which one; budget and quiet-hours refusals clear with time</td></tr>
+    <tr><td>The relay never closes again</td><td>Off duration still running, or the controller rebooted mid-cycle</td><td>Wait <b>Cycle Off Duration (s)</b>; after a reboot the driver closes it on init and logs <code>reboot-recovery</code></td></tr>
+    <tr><td>Every target went <code>Unknown</code> at once</td><td>Three consecutive probes could not be built</td><td><b>Probe Subsystem Degraded</b> fired; check the controller's network, then watch for the recovery line</td></tr>
+    <tr><td>Events fire but no relay ever opens</td><td>Strict enforcement with no valid license — every power-removal path is blocked at the wire write, while probing, verdicts, events, variables and the audit ring carry on unchanged</td><td><b>Last Event</b> reads <code>unlicensed</code>; enter a <b>License Key</b>, or use Lenient during commissioning</td></tr>
+  </table>
+  <p>If a symptom survives every check above, turn on <b>Debug Mode → Print</b>, capture the Lua output window and a <b>Print Audit Log</b> dump, and send both to support@integrateit.tech · (913) 804-7575.</p>
+</section>
+
+<section class="card" id="trust" data-card="trust">
+  <h2><span class="n">10</span> Ownership, privacy, and licensing</h2>
+  <p>This package is an original IntegrateIT implementation built on documented Control4 DriverWorks contracts. It bundles no other vendor's runtime, source, brand assets, trial system or license, and engineering, documentation, QA, licensing, updates and support are all provided by IntegrateIT.</p>
+  <p>Nothing about a watched target leaves the controller. Probes go only to the addresses typed into the Target Address properties — no discovery, no subnet enumeration, no way to reach a host that is not in that list — and the driver sends no target list, no verdict and no audit entry anywhere. The shared license and update services use the controller identity, driver slug, version, license key and update channel documented in the reference below; the key is never logged, and a transient license-server error will not de-license a controller that has already validated.</p>
+  <p>Lenient mode (the default) allows commissioning without an activated key and keeps <b>License Status</b> visible. Strict mode blocks the relay write on every power-removal path; monitoring, state, events, variables and the audit log continue exactly as normal, and the two power-restore paths in the safety boundary still run. Installing this package does not itself mint or activate a license.</p>
+<section class="card" id="reference" data-card="reference">
+  <h2><span class="n">R</span> Reference</h2>
+  <p>Generated from the driver manifest at build time — always matches this build (v0.1.0).</p>
+  <h3>Properties</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Enabled</code></td><td>LIST</td><td><code>No</code></td><td>No keeps the driver completely idle: no probe leaves the controller and no relay is ever driven. Set Yes when the targets below are configured. One of: No · Yes</td></tr>
+    <tr><td><code>Probe Mode</code></td><td>LIST</td><td><code>Auto</code></td><td>How a target is tested. Auto tries the controller's ping client first and falls back to a TCP connect; ICMP requires that ping client; TCP opens and closes one connection; HTTP issues one GET and treats any HTTP status as an answer. One of: Auto · ICMP · TCP · HTTP</td></tr>
+    <tr><td><code>Probe Interval (s)</code></td><td>INTEGER 30–3600</td><td><code>120</code></td><td>Seconds between automatic probe rounds of every configured target.</td></tr>
+    <tr><td><code>Fail Streak</code></td><td>INTEGER 2–10</td><td><code>3</code></td><td>Consecutive missed probes before a target is called Down. Two consecutive clean probes are always required to call it Up again.</td></tr>
+    <tr><td><code>Flap Window (min)</code></td><td>INTEGER 5–120</td><td><code>15</code></td><td>Three or more up/down transitions inside this window classify a target as Flapping instead of Down. A flapping target fires no Down event and is never actuated.</td></tr>
+    <tr><td><code>Recovery Grace (s)</code></td><td>INTEGER 15–600</td><td><code>90</code></td><td>How long the driver waits after a fault or a relay cycle before re-probing to decide whether the target actually came back.</td></tr>
+    <tr><td><code>Cycle Off Duration (s)</code></td><td>INTEGER 5–300</td><td><code>15</code></td><td>How long the relay is held open (load de-energized) during a power cycle before it is closed again.</td></tr>
+    <tr><td><code>Quiet Hours Start</code></td><td>LIST</td><td><code>22</code></td><td>Local hour when quiet hours begin. Inside quiet hours the driver still probes, publishes, and logs, but never drives a relay. Set Start equal to End to disable quiet hours. One of: 00 · 01 · 02 · 03 · 04 · 05 · 06 · 07 · 08 · 09 · 10 · 11 · 12 · 13 · 14 · 15 · 16 · 17 · 18 · 19 · 20 · 21 · 22 · 23</td></tr>
+    <tr><td><code>Quiet Hours End</code></td><td>LIST</td><td><code>07</code></td><td>Local hour when quiet hours end. A window that wraps midnight (22 to 07) is supported. One of: 00 · 01 · 02 · 03 · 04 · 05 · 06 · 07 · 08 · 09 · 10 · 11 · 12 · 13 · 14 · 15 · 16 · 17 · 18 · 19 · 20 · 21 · 22 · 23</td></tr>
+    <tr><td><code>Max Cycles Per Day</code></td><td>INTEGER 0–6</td><td><code>2</code></td><td>Hard ceiling on relay cycles per target per rolling 24 hours. 0 disables cycling for every target. A separate fleet-wide ceiling of 4 cycles per day always applies on top of this.</td></tr>
+    <tr><td><code>Audit Log Size</code></td><td>INTEGER 5–200</td><td><code>25</code></td><td>How many audit entries the persistent ring keeps. Oldest entries are discarded first.</td></tr>
+    <tr><td><code>Maintenance Hold</code></td><td>LIST</td><td><code>No</code></td><td>Yes suspends every relay cycle while monitoring, state, events, and the audit ring continue exactly as normal. One of: No · Yes</td></tr>
+    <tr><td><code>Allow WAN Targets</code></td><td>LIST</td><td><code>No</code></td><td>No refuses any target that is not a private-range IPv4 address or a bare/mDNS LAN hostname. Set Yes only when you genuinely intend to watch something off-LAN. One of: No · Yes</td></tr>
+    <tr><td><code>Snapshot Device ID</code></td><td>INTEGER 0–99999999</td><td><code>0</code></td><td>Optional Control4 device id whose variables are captured into the first-fault snapshot. 0 captures no device context. A device that cannot be read is omitted from the snapshot, never faked.</td></tr>
+    <tr><td><code>Target 1 Name</code></td><td>STRING</td><td><code></code></td><td>Friendly name for target 1 in status, events, and the audit log.</td></tr>
+    <tr><td><code>Target 1 Address</code></td><td>STRING</td><td><code></code></td><td>Target 1 LAN address as host or host:port. Empty means the slot is unused.</td></tr>
+    <tr><td><code>Target 1 Upstream</code></td><td>LIST</td><td><code>None</code></td><td>The one target 1 depends on. While that upstream is Down (or itself suppressed), target 1 is reported Suppressed, fires no events, and is never actuated. Declared, never discovered. One of: None · T1 · T2 · T3 · T4 · T5 · T6</td></tr>
+    <tr><td><code>Target 1 Ladder</code></td><td>LIST</td><td><code>Observe</code></td><td>Highest escalation rung target 1 may reach. Every fault starts at Observe; a failed verified recovery advances one rung, never past this ceiling. Cycle Relay requires relay binding 1 and only applies to targets 1-4. One of: Observe · Fire Event · Cycle Relay</td></tr>
+    <tr><td><code>Target 2 Name</code></td><td>STRING</td><td><code></code></td><td>Friendly name for target 2 in status, events, and the audit log.</td></tr>
+    <tr><td><code>Target 2 Address</code></td><td>STRING</td><td><code></code></td><td>Target 2 LAN address as host or host:port. Empty means the slot is unused.</td></tr>
+    <tr><td><code>Target 2 Upstream</code></td><td>LIST</td><td><code>None</code></td><td>The one target 2 depends on. While that upstream is Down (or itself suppressed), target 2 is reported Suppressed, fires no events, and is never actuated. Declared, never discovered. One of: None · T1 · T2 · T3 · T4 · T5 · T6</td></tr>
+    <tr><td><code>Target 2 Ladder</code></td><td>LIST</td><td><code>Observe</code></td><td>Highest escalation rung target 2 may reach. Every fault starts at Observe; a failed verified recovery advances one rung, never past this ceiling. Cycle Relay requires relay binding 2 and only applies to targets 1-4. One of: Observe · Fire Event · Cycle Relay</td></tr>
+    <tr><td><code>Target 3 Name</code></td><td>STRING</td><td><code></code></td><td>Friendly name for target 3 in status, events, and the audit log.</td></tr>
+    <tr><td><code>Target 3 Address</code></td><td>STRING</td><td><code></code></td><td>Target 3 LAN address as host or host:port. Empty means the slot is unused.</td></tr>
+    <tr><td><code>Target 3 Upstream</code></td><td>LIST</td><td><code>None</code></td><td>The one target 3 depends on. While that upstream is Down (or itself suppressed), target 3 is reported Suppressed, fires no events, and is never actuated. Declared, never discovered. One of: None · T1 · T2 · T3 · T4 · T5 · T6</td></tr>
+    <tr><td><code>Target 3 Ladder</code></td><td>LIST</td><td><code>Observe</code></td><td>Highest escalation rung target 3 may reach. Every fault starts at Observe; a failed verified recovery advances one rung, never past this ceiling. Cycle Relay requires relay binding 3 and only applies to targets 1-4. One of: Observe · Fire Event · Cycle Relay</td></tr>
+    <tr><td><code>Target 4 Name</code></td><td>STRING</td><td><code></code></td><td>Friendly name for target 4 in status, events, and the audit log.</td></tr>
+    <tr><td><code>Target 4 Address</code></td><td>STRING</td><td><code></code></td><td>Target 4 LAN address as host or host:port. Empty means the slot is unused.</td></tr>
+    <tr><td><code>Target 4 Upstream</code></td><td>LIST</td><td><code>None</code></td><td>The one target 4 depends on. While that upstream is Down (or itself suppressed), target 4 is reported Suppressed, fires no events, and is never actuated. Declared, never discovered. One of: None · T1 · T2 · T3 · T4 · T5 · T6</td></tr>
+    <tr><td><code>Target 4 Ladder</code></td><td>LIST</td><td><code>Observe</code></td><td>Highest escalation rung target 4 may reach. Every fault starts at Observe; a failed verified recovery advances one rung, never past this ceiling. Cycle Relay requires relay binding 4 and only applies to targets 1-4. One of: Observe · Fire Event · Cycle Relay</td></tr>
+    <tr><td><code>Target 5 Name</code></td><td>STRING</td><td><code></code></td><td>Friendly name for target 5 in status, events, and the audit log.</td></tr>
+    <tr><td><code>Target 5 Address</code></td><td>STRING</td><td><code></code></td><td>Target 5 LAN address as host or host:port. Empty means the slot is unused.</td></tr>
+    <tr><td><code>Target 5 Upstream</code></td><td>LIST</td><td><code>None</code></td><td>The one target 5 depends on. While that upstream is Down (or itself suppressed), target 5 is reported Suppressed, fires no events, and is never actuated. Declared, never discovered. One of: None · T1 · T2 · T3 · T4 · T5 · T6</td></tr>
+    <tr><td><code>Target 5 Ladder</code></td><td>LIST</td><td><code>Observe</code></td><td>Highest escalation rung target 5 may reach. Every fault starts at Observe; a failed verified recovery advances one rung, never past this ceiling. Cycle Relay requires relay binding 5 and only applies to targets 1-4. One of: Observe · Fire Event · Cycle Relay</td></tr>
+    <tr><td><code>Target 6 Name</code></td><td>STRING</td><td><code></code></td><td>Friendly name for target 6 in status, events, and the audit log.</td></tr>
+    <tr><td><code>Target 6 Address</code></td><td>STRING</td><td><code></code></td><td>Target 6 LAN address as host or host:port. Empty means the slot is unused.</td></tr>
+    <tr><td><code>Target 6 Upstream</code></td><td>LIST</td><td><code>None</code></td><td>The one target 6 depends on. While that upstream is Down (or itself suppressed), target 6 is reported Suppressed, fires no events, and is never actuated. Declared, never discovered. One of: None · T1 · T2 · T3 · T4 · T5 · T6</td></tr>
+    <tr><td><code>Target 6 Ladder</code></td><td>LIST</td><td><code>Observe</code></td><td>Highest escalation rung target 6 may reach. Every fault starts at Observe; a failed verified recovery advances one rung, never past this ceiling. Cycle Relay requires relay binding 6 and only applies to targets 1-4. One of: Observe · Fire Event · Cycle Relay</td></tr>
+    <tr><td><code>Fleet Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Idle</code></td><td>Worst non-suppressed target state and how many targets are configured.</td></tr>
+    <tr><td><code>Last Event</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>The most recent watchdog decision, with the target it applies to.</td></tr>
+    <tr><td><code>Cycle Budget</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>none used</code></td><td>Relay cycles used against the per-target and fleet daily ceilings.</td></tr>
+  </table>
+  <p><b>Standard IntegrateIT properties</b> — licensing, self-update, and diagnostics, auto-injected into every IntegrateIT driver:</p>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Driver Version</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>Debug Mode</code></td><td>LIST</td><td><code>Off</code></td><td>One of: Off · Print</td></tr>
+    <tr><td><code>Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Idle</code></td><td></td></tr>
+    <tr><td><code>License Key</code></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>License Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not activated - Lenient mode (control enabled)</code></td><td></td></tr>
+    <tr><td><code>License Enforcement</code></td><td>LIST</td><td><code>Lenient (recommended)</code></td><td>One of: Lenient (recommended) · Strict</td></tr>
+    <tr><td><code>License Server URL</code></td><td>STRING</td><td><code>https://relay.integrateit.dev</code></td><td></td></tr>
+    <tr><td><code>Update Manifest URL</code></td><td>STRING</td><td><code>https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/version.json</code></td><td></td></tr>
+    <tr><td><code>Automatic Update Check</code></td><td>LIST</td><td><code>Daily</code></td><td>One of: Daily · Off</td></tr>
+    <tr><td><code>Update Available</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td></td></tr>
+    <tr><td><code>About</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Powered by IntegrateIT - integrateit.tech</code></td><td></td></tr>
+  </table>
+  <h3>Programming commands</h3>
+  <table>
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><code>Probe Now</code></td><td>Probe every configured target once, now.</td></tr>
+    <tr><td><code>Acknowledge Fault</code></td><td>Clear the outstanding fault flag so a standing Down stops being reported as new. State keeps tracking.</td></tr>
+    <tr><td><code>Maintenance Hold On</code></td><td>Suspend every relay cycle. Monitoring, events, and the audit log continue.</td></tr>
+    <tr><td><code>Maintenance Hold Off</code></td><td>Resume relay cycling under the normal budget, quiet-hours, and license rules.</td></tr>
+  </table>
+  <h3>Actions (Composer Actions tab)</h3>
+  <table>
+    <tr><th>Action</th><th>Command</th></tr>
+    <tr><td>Probe Now</td><td><code>PROBE_NOW</code></td></tr>
+    <tr><td>Print Audit Log</td><td><code>PRINT_AUDIT</code></td></tr>
+    <tr><td>Clear Audit Log</td><td><code>CLEAR_AUDIT</code></td></tr>
+    <tr><td>Reset Cycle Budget</td><td><code>RESET_BUDGET</code></td></tr>
+    <tr><td>Acknowledge Fault</td><td><code>ACK_FAULT</code></td></tr>
+    <tr><td>Activate License Now <span class="pill blue">shared</span></td><td><code>ACTIVATE_LICENSE</code></td></tr>
+    <tr><td>Check for Update Now <span class="pill blue">shared</span></td><td><code>CHECK_UPDATE</code></td></tr>
+    <tr><td>Download &amp; Stage Update <span class="pill blue">shared</span></td><td><code>DOWNLOAD_UPDATE</code></td></tr>
+    <tr><td>Run Diagnostics <span class="pill blue">shared</span></td><td><code>RUN_DIAGNOSTICS</code></td></tr>
+    <tr><td>Run Self-Test <span class="pill blue">shared</span></td><td><code>RUN_SELF_TEST</code></td></tr>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tr><th>ID</th><th>Event</th><th>Fires when</th></tr>
+    <tr><td>31</td><td>Target Down</td><td>A target missed Fail Streak consecutive probes and is not suppressed by its upstream. Fires from the Fire Event rung upward; the Observe rung records the fault without this event.</td></tr>
+    <tr><td>32</td><td>Target Recovered</td><td>A target that was Down or Recovering answered two consecutive probes after the recovery grace.</td></tr>
+    <tr><td>33</td><td>Recovery Failed</td><td>The verified re-probe after a fault or a relay cycle still failed. This is the only thing that advances the escalation ladder.</td></tr>
+    <tr><td>34</td><td>Target Flapping</td><td>A target crossed three or more transitions inside the flap window. Flapping is a distinct fault from Down: no Down event fires and nothing is actuated.</td></tr>
+    <tr><td>35</td><td>Target Suppressed</td><td>A target was held silent because the upstream it declares is Down or itself suppressed.</td></tr>
+    <tr><td>36</td><td>Cycle Started</td><td>A relay cycle began for a target: its bound relay was opened.</td></tr>
+    <tr><td>37</td><td>Cycle Blocked</td><td>A relay cycle was refused. The reason is named in Last Event and the audit log: budget, quiet hours, maintenance hold, no relay, license, probes degraded, or a cycle already in flight.</td></tr>
+    <tr><td>38</td><td>All Targets Up</td><td>Every configured, non-suppressed target is Up.</td></tr>
+    <tr><td>39</td><td>Snapshot Captured</td><td>A first-fault snapshot was written to the audit ring on entry to Down.</td></tr>
+    <tr><td>40</td><td>Probe Subsystem Degraded</td><td>Three consecutive probes could not be constructed at all. Every target is set to unknown and all actuation is disabled until a probe builds again.</td></tr>
+    <tr><td>1001</td><td>Update Available <span class="pill blue">shared</span></td><td>A newer driver version is available from IntegrateIT</td></tr>
+    <tr><td>1002</td><td>License Problem <span class="pill blue">shared</span></td><td>License key invalid, revoked, or bound to a different controller</td></tr>
+  </table>
+</section>
+</section>
+<section class="card" id="licensing" data-card="licensing">
+  <h2><span class="n">L</span> Licensing</h2>
+  <p>This driver is licensed <b>per controller</b>. Each license key locks to one controller's
+  MAC address the first time it activates, exactly like other professional Control4 vendors.</p>
+  <ol>
+    <li>Generate a key for the customer in the IntegrateIT Ops Portal → <b>Licenses</b>.</li>
+    <li>Paste it into the driver's <code>License Key</code> property in Composer.</li>
+    <li>On activation the key binds to this controller; the <code>License Status</code> property
+      shows <span class="pill green">Licensed</span>.</li>
+  </ol>
+  <p><b>Enforcement.</b> <code>License Enforcement</code> defaults to
+  <span class="pill blue">Lenient (recommended)</span>: the driver works the moment it is wired,
+  so you can stage and verify a job before a key is minted, and a paid site keeps running if the
+  license server is ever unreachable. <code>License Status</code> still nags until a key activates.
+  Set it to <span class="pill amber">Strict</span> to disable all control until a valid key binds.</p>
+  <table>
+    <tr><th>License Status</th><th>What it means</th></tr>
+    <tr><td><span class="pill green">Licensed</span></td><td>Bound to this controller and activated.</td></tr>
+    <tr><td>Not activated, Lenient mode</td><td>No valid key yet. Control still works in Lenient mode; enter a key for production.</td></tr>
+    <tr><td><span class="pill amber">Bound elsewhere</span></td><td>The key is active on another controller. Unbind it in the Ops Portal to move it here.</td></tr>
+    <tr><td><span class="pill red">Revoked / Invalid</span></td><td>Contact IntegrateIT. Under Strict enforcement control stays disabled until a valid key is entered.</td></tr>
+  </table>
+  <div class="note">Replaced the controller? Click <b>Unbind</b> in the Ops Portal. The next controller
+  to activate with the key becomes its new home. The driver re-checks on boot and every 12 hours, and
+  keeps working through brief internet outages (it re-validates when the relay is reachable again).</div>
+</section>
+
+<section class="card" id="updates" data-card="updates">
+  <h2><span class="n">U</span> Automatic updates</h2>
+  <p>The driver checks IntegrateIT for a newer version on boot and once a day. There is <b>no need to
+  re-add the driver</b>. When an update is available the <code>Update Available</code> property
+  shows the new version and the driver fires its <span class="pill blue">Update Available</span> event.</p>
+  <ol class="steps">
+    <li>The driver flags <code>Update Available: vX.Y.Z</code> in its properties (or run the
+      <b>Check for Update Now</b> action).</li>
+    <li>Run the <b>Download &amp; Stage Update</b> action. The new <code>.c4z</code> is fetched
+      onto the controller.</li>
+    <li>In Composer, right-click the device, then choose <b>Update Driver</b>. Your settings, bindings,
+      and programming are preserved.</li>
+  </ol>
+  <div class="note good">Tip: wire the <b>Update Available</b> event to a notification so you know the
+  moment a new build ships.</div>
+</section>
+
+<section class="card" id="diagnostics" data-card="diagnostics">
+  <h2><span class="n">D</span> Diagnostics and self-test</h2>
+  <p>Every IntegrateIT driver carries two read-only Actions for the field. <b>Run Diagnostics</b> prints
+  a report of what the driver has <i>already observed</i> — version and Lua runtime, license mode and
+  cached activation, update channel and any staged build, every armed timer with its interval, which
+  dealer-supplied properties are still empty, and the last few <code>Status</code> messages. It probes
+  nothing, sends nothing, and changes nothing, so it is safe on a live job.
+  <b>Run Self-Test</b> checks the shared layer itself — string and URL encoding, version comparison,
+  the non-finite number guard, the timer registry, and the persistence store — and ends with
+  <code>SELF-TEST PASS</code> or a per-check failure. It stays local: no network, no device commands.</p>
+  <div class="note">Neither Action is license gated, on purpose: you reach for them when a site is
+  broken, and the license may be the broken thing. Values are never printed — a key or secret is
+  reported only as <span class="pill blue">set</span> or <span class="pill amber">NOT SET</span>, so the
+  output is safe to paste into a support ticket. Both print to the Lua output window
+  (Composer &rarr; the driver's <b>Lua</b> tab).</div>
+</section>
+
+    <section class="card" id="changelog" data-card="changelog">
+  <h2><span class="n">V</span> Version history</h2>
+  <div class="chg">
+    <div class="rel"><b>v0.1.0</b> <span class="pill green">current</span><span class="d">2026-08-03</span>
+      <ul><li>Initial release. Six declared LAN targets with per-target name, address, upstream, and escalation ladder.</li><li>N-of-M hysteresis (Fail Streak misses to Down, two clean probes to Up) with silent adoption of the first settled verdict after boot, an address edit, or a probe-subsystem recovery.</li><li>Declared dependency suppression with a bounded chain walk; a dealer-typed dependency cycle suppresses nothing rather than looping.</li><li>Flap classification as a distinct fault: three transitions inside the flap window fire Target Flapping, never Target Down, and never actuate.</li><li>First-fault snapshot into a persistent audit ring: every target state, the upstream, the probe class, and one optional context device's variables (pcall'd, omitted when unreadable).</li><li>Verified recovery — a recovery grace, then a probe of its own; a failure fires Recovery Failed and advances the ladder one rung instead of re-cycling blindly. The verification never adopts a scheduled probe that happened to be in flight (that decided a "verified" recovery on evidence gathered before the verification began, and when the adopted probe was at the end of its window it decided instantly, having verified nothing), never runs for an episode an operator acknowledged or an address edit withdrew, and never runs — or takes a verdict — behind a faulted upstream, where the miss it would report is the upstream's outage wearing this target's name.</li><li>The daily cycle budget is a persisted ledger, not a counter. Both ceilings are derived from stamps that survive a controller restart, so a reboot — including one the relay itself caused — cannot hand the next fault episode a fresh set of cycles. A stamp the driver cannot age (no clock, or a clock that moved backwards) is kept rather than discarded: over-counting a budget only ever refuses a cycle.</li><li>An upstream that is mid-verification still suppresses its dependents; without that, every dependent dropped out of suppression for the length of the window and re-announced a fault nobody had established.</li><li>Relay cycling on bindings 1-4 behind nine independent guards: rung, relay presence, probe health, maintenance hold, quiet hours, one-in-flight, per-target daily budget, fleet daily budget of four, and the license gate re-checked at the wire write. Restore legs are license-exempt so a lapse can never leave a rack dark.</li><li>Quiet hours through an injectable clock; reboot recovery closes a relay left open mid-cycle.</li><li>Ten events (31-40), six WD_ variables, a persistent audit ring with a two-step confirmed clear, and five Navigator state icons on the new Sentinel Pulse motif.</li></ul></div>
+  </div>
+</section>
+  </main>
+
+  <footer class="powered">
+    <div class="hairline" aria-hidden="true"></div>
+    <div class="pb">Powered by</div>
+    <img src="data:image/png;base64,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" alt="IntegrateIT">
+    <p class="places">Kansas City <b>·</b> South Florida</p>
+    <p class="support">support@integrateit.tech · (913) 804-7575</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -59,5 +59,6 @@
   "integrateit_unifi_network",
   "integrateit_unifi_nvr_hdmi",
   "integrateit_unifi_protect",
+  "integrateit_watchdog",
   "integrateit_web_variables"
 ]

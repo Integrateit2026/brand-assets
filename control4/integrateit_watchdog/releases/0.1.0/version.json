@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Watchdog",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/releases/0.1.0/integrateit_watchdog.c4z",
+  "notes": "A dependency-aware watchdog for up to six named LAN targets: it probes what you list, decides Up, Flapping, Down, Suppressed, or Recovering with hysteresis, and can cut and restore power to one bound relay per target under hard daily budgets, quiet hours, and a maintenance hold.",
+  "sha256": "c9c2429804ecbacc2227e078bf59c91a045c8e9dc1297c7d860b0799740ccf6c",
+  "size_bytes": 257759,
+  "min_os": "3.0.0",
+  "published_at": "2026-08-03T17:13:57.741Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/qa-report.json"
+}

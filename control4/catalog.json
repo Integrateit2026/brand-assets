@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-02T21:13:35.229Z",
+  "generated_at": "2026-08-03T17:13:57.758Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -8531,6 +8531,156 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-07-31T06:53:50.493Z"
+    },
+    {
+      "slug": "integrateit_watchdog",
+      "name": "IntegrateIT Watchdog",
+      "summary": "A dependency-aware watchdog for up to six named LAN targets: it probes what you list, decides Up, Flapping, Down, Suppressed, or Recovering with hysteresis, and can cut and restore power to one bound relay per target under hard daily budgets, quiet hours, and a maintenance hold.",
+      "category": "others",
+      "device_type": "Watchdog",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Six declared LAN targets, each probed on its own schedule with ICMP, TCP, or HTTP as the controller allows",
+        "N-of-M hysteresis: Fail Streak consecutive misses to call Down, two clean probes to call Up",
+        "Declared dependency suppression - a target behind a Down or Recovering upstream goes Suppressed, fires no events, runs no recovery verification, climbs no ladder, and is never actuated",
+        "Flap classification as a fault in its own right: three transitions inside the flap window is Flapping, not Down",
+        "First-fault snapshot of every target state, the upstream, the probe class, and one optional context device's variables",
+        "Verified recovery: a recovery grace then a fresh probe of its own decides, so a target is never declared recovered - or failed - on evidence it did not gather",
+        "Per-target escalation ladder Observe to Fire Event to Cycle Relay, advanced only by a failed verified recovery",
+        "Hard per-target and fleet-wide daily cycle budgets kept as a persisted ledger that survives a controller restart, plus quiet hours and a maintenance hold on every actuation path",
+        "Persistent audit ring that survives a reboot, printable from the Actions tab",
+        "WD_ variables and ten events for programming, plus five Navigator state icons",
+        "MAC-locked IntegrateIT licensing re-checked at the moment of every relay write"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Targets",
+          "value": "1-6 declared LAN hosts, one upstream each"
+        },
+        {
+          "label": "Actuation",
+          "value": "Up to 4 latching RELAY bindings, one per target 1-4"
+        },
+        {
+          "label": "Probes",
+          "value": "Controller ping client when present, otherwise a TCP connect or one HTTP GET"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "Each target must be reachable from the controller's own network",
+        "Relay cycling requires a Control4 relay bound to the matching Target Cycle Relay connection, wired by a qualified installer",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified end to end; representative hardware commissioning on a controller is still pending.",
+        "A probe answers one question only: did something at that address answer this probe. A device that answers a TCP connect can still be wedged, and a probe that gets no answer is not proof the device is off.",
+        "The driver never diagnoses why a target is down. It reports the verdict it can defend and nothing more.",
+        "Dependencies are declared in the Upstream property, never discovered. A wrong Upstream produces wrong suppression.",
+        "Responsiveness is classed fast, slow, or none against fixed internal thresholds; no millisecond latency figure is reported, because the driver has no monotonic clock accessor.",
+        "The flap window and the daily cycle budget are measured against driver uptime accumulated by the probe scheduler, not against wall-clock time; a controller reboot restarts both.",
+        "Cycling is latching-only: the bound relay is opened for the off duration and then closed. A momentary front-panel-button topology is not supported in this version.",
+        "Only targets 1 to 4 can be cycled - there are four relay bindings. Targets 5 and 6 escalate to Fire Event and stop there, and a Cycle Relay ladder on them is refused by name.",
+        "The driver cannot announce, email, text, or push. No DriverWorks API gives a driver those channels; notification is Composer programming on these events.",
+        "IPv6 targets are refused in this version.",
+        "Verdicts do not survive a reboot. After a restart every target is unknown and re-adopts its first settled verdict silently, without firing events."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT Watchdog commissioning guide included inside the C4Z package.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_watchdog",
+        "generated_at": "2026-08-03T17:13:57.122Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "e39127e57fc2894cbc7f45d4b7a7e9620fd1df9d9fdcf7e931f685ca8b17913c",
+        "artifact_sha256": "c9c2429804ecbacc2227e078bf59c91a045c8e9dc1297c7d860b0799740ccf6c",
+        "artifact_size_bytes": 257759,
+        "build_version_manifest_sha256": "cc2639820ce0d30f0b9ffa20c3188daa2b35a693f7004db04b718a980ff320f2",
+        "version_manifest_sha256": "ee07b53a5564826695b7b47a8c1212e4b5618461464aee1626e53c31bf33a647",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 125
+          },
+          {
+            "name": "idstability",
+            "status": "pass",
+            "duration_ms": 51
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 82,
+            "checks": 24,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 172,
+            "checks": 513,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 4,
+        "properties": 41,
+        "commands": 4,
+        "actions": 5,
+        "events": 10
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 257759,
+      "sha256": "c9c2429804ecbacc2227e078bf59c91a045c8e9dc1297c7d860b0799740ccf6c",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/integrateit_watchdog.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-08-03T17:13:57.741Z"
     },
     {
       "slug": "integrateit_web_variables",
