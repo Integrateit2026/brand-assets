@@ -1,5 +1,14 @@
 # Changelog — IntegrateIT Watchdog
 
+## [0.2.0] - 2026-08-03
+- Per-target variables WD_T1_STATE..WD_T6_STATE — program against one target, not the fleet worst
+- Relay confirmation: reads the relay proxy reports it always ignored; a relay that has proven it reports and then stays silent past a write fires Relay Unconfirmed (event 41, observational, retries nothing)
+- Test Relay 1-4 commissioning actions through the real guard chain minus only the fault requirement; refused while that target's recovery verification is pending
+- Cycle outcomes on the record plus Print Target Report forensics action
+- Maintenance Hold Auto-Release (h): a forgotten hold can no longer disarm the watchdog forever
+- Reset Budget takes two presses inside 30s — a ceiling one click can lift is not a ceiling
+- Safety condition 0: Enabled=No now enforces that no relay is ever driven; in-flight cycles render the recovering glyph
+
 ## [0.1.0] - 2026-08-03
 - Initial release. Six declared LAN targets with per-target name, address, upstream, and
   escalation ladder.

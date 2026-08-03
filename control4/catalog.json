@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-03T17:13:57.758Z",
+  "generated_at": "2026-08-03T18:41:36.448Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -8550,8 +8550,9 @@
         "Verified recovery: a recovery grace then a fresh probe of its own decides, so a target is never declared recovered - or failed - on evidence it did not gather",
         "Per-target escalation ladder Observe to Fire Event to Cycle Relay, advanced only by a failed verified recovery",
         "Hard per-target and fleet-wide daily cycle budgets kept as a persisted ledger that survives a controller restart, plus quiet hours and a maintenance hold on every actuation path",
-        "Persistent audit ring that survives a reboot, printable from the Actions tab",
-        "WD_ variables and ten events for programming, plus five Navigator state icons",
+        "Persistent audit ring that survives a reboot, printable from the Actions tab alongside a full target report",
+        "Manual Test Relay actions that walk the whole safety chain minus the fault requirement, so a dealer proves the wiring before trusting the automation",
+        "Twelve WD_ variables (including one per target) and eleven events for programming, plus five Navigator state icons",
         "MAC-locked IntegrateIT licensing re-checked at the moment of every relay write"
       ],
       "compatibility": [
@@ -8607,16 +8608,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_watchdog",
-        "generated_at": "2026-08-03T17:13:57.122Z",
+        "generated_at": "2026-08-03T18:41:35.696Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "e39127e57fc2894cbc7f45d4b7a7e9620fd1df9d9fdcf7e931f685ca8b17913c",
-        "artifact_sha256": "c9c2429804ecbacc2227e078bf59c91a045c8e9dc1297c7d860b0799740ccf6c",
-        "artifact_size_bytes": 257759,
-        "build_version_manifest_sha256": "cc2639820ce0d30f0b9ffa20c3188daa2b35a693f7004db04b718a980ff320f2",
-        "version_manifest_sha256": "ee07b53a5564826695b7b47a8c1212e4b5618461464aee1626e53c31bf33a647",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "ce6532f3d9c1ea70e4dd44b97b8b529a955999fd04eb0090e776b6a05e8814d8",
+        "artifact_sha256": "adf3240af56ea2b204fd00cb0acfda471d3d5b565e7fa0e54245cdbb3d99d6f5",
+        "artifact_size_bytes": 266787,
+        "build_version_manifest_sha256": "5bbe795838747ecb25e5bf3e64bac7f3c62d970f5388a08aec639519c504de16",
+        "version_manifest_sha256": "95fb39fbde33e78875aacd9ca3290c6b15693d12fb2f4e2fddad993ec7a4b33c",
+        "version": "0.2.0",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -8628,25 +8629,25 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 125
+            "duration_ms": 130
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 51
+            "duration_ms": 55
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 82,
+            "duration_ms": 83,
             "checks": 24,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 172,
-            "checks": 513,
+            "duration_ms": 232,
+            "checks": 655,
             "violations": 0
           },
           {
@@ -8660,16 +8661,16 @@
       "stats": {
         "proxies": 1,
         "connections": 4,
-        "properties": 41,
+        "properties": 42,
         "commands": 4,
-        "actions": 5,
-        "events": 10
+        "actions": 10,
+        "events": 11
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.2.0",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 257759,
-      "sha256": "c9c2429804ecbacc2227e078bf59c91a045c8e9dc1297c7d860b0799740ccf6c",
+      "size_bytes": 266787,
+      "sha256": "adf3240af56ea2b204fd00cb0acfda471d3d5b565e7fa0e54245cdbb3d99d6f5",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/integrateit_watchdog.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_watchdog/CHANGELOG.md",
@@ -8680,7 +8681,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-03T17:13:57.741Z"
+      "published_at": "2026-08-03T18:41:36.439Z"
     },
     {
       "slug": "integrateit_web_variables",
