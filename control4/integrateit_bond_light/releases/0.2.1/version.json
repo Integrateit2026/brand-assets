@@ -2,7 +2,7 @@
   "name": "IntegrateIT Bond Light",
   "version": "0.2.1",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/integrateit_bond_light.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_light/releases/0.2.1/integrateit_bond_light.c4z",
   "notes": "First-class Control4 control of one Bond light (device type LT) over the Bond Home v2 local HTTP API, with BPUP push state. Sends only the actions the light actually advertises, resolves on/off and brightness from whichever state fields the light reports, and labels that state assumed because the local API never says whether it is measured.",
   "sha256": "43c919a33a052971325e153b7023502f23e3991636d3b331941bc917f280fba1",
   "size_bytes": 121845,

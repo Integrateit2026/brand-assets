@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Bond Light
 
+## [0.2.1] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.2.0] - 2026-07-30
 - Per-device state provenance, read from Bond's own schema markers. 0.1.0's documentation promised this and said what it would never do: "A future version may sharpen the label per-device from those Bridge-only markers; it will never claim measured." This is that version, and the second half still holds.
 - Bond's devices/schemas.yaml documents five device properties as "(Bridge-only)": addr, freq, bps, zero_gap, and trust_state ("whether or not the Bond should trust its toggleable state belief ... and is `false` by default"). A light publishing any of them is therefore PROVEN to be a hand-held RF remote learned into a Bridge — a one-way target. For exactly that light, the new read-only State Provenance property reads "Bridge-learned RF (Bond-tracked belief)" and the state label tightens from "On (assumed - Bond's reported state, which it never marks as measured)" to "On (assumed - a one-way RF belief the bridge tracks; the hand-held remote bypasses it undetectably)".
