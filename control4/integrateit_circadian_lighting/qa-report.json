@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_circadian_lighting",
-  "generated_at": "2026-07-31T06:20:29.743Z",
+  "generated_at": "2026-08-15T04:01:27.364Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "9722597c8bf803800e61368cfc9b4417b2e707b67b018ca4b1b65fc6c5dd2388",
-  "artifact_sha256": "0a86ecb2711a65b1f90efae57aaafe6468000b1937957b43de3b0fb532d4e26b",
-  "artifact_size_bytes": 99866,
-  "build_version_manifest_sha256": "73243058d48a6e71d121fdc111a49ba7ba3cda648ebe0e271c6f5f008ad05a12",
-  "version_manifest_sha256": "8f78af107df307e59c5307898add5a9600939a452b9110a6466dbff1ed63bc90",
-  "version": "0.1.4",
-  "xml_version": 5,
+  "build_inputs_sha256": "67b1d0612c9c2638c2f3a2ae937b3cc174acff13ce5d3e2b39e92273d918ab2a",
+  "artifact_sha256": "8ed814cacca372728040f40a47fc07da4cff2442835c90a18819c0f8604c0cea",
+  "artifact_size_bytes": 99937,
+  "build_version_manifest_sha256": "e6cf88a16dabf75a6936264be61b4a853cf2324bfa7cc16c05dfff600f96712b",
+  "version_manifest_sha256": "8901caad38a728d032c22a9f72b25e8bd8b718bd6fa4e85f4d7fdf0a6d2a131b",
+  "version": "0.1.5",
+  "xml_version": 6,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 93
+      "duration_ms": 323
     },
     {
       "name": "idstability",
       "status": "pass",
-      "duration_ms": 48
+      "duration_ms": 145
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 67,
+      "duration_ms": 258,
       "checks": 21,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 76,
-      "checks": 220,
+      "duration_ms": 299,
+      "checks": 244,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 45,
+      "duration_ms": 121,
       "files": 2
     }
   ]
