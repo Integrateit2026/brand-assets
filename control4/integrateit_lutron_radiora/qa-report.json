@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_lutron_radiora",
-  "generated_at": "2026-07-26T03:04:10.291Z",
+  "generated_at": "2026-08-15T04:46:47.930Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "1263faca89b31f7fee1c5b412565980305db48f12db23070bd3428e4d86a21b2",
-  "artifact_sha256": "d02b92ed9621d4e22d1e791c08a30651f76dcd065375fb38f034296e5544d068",
-  "artifact_size_bytes": 99038,
-  "build_version_manifest_sha256": "dd80d93a30dd31b7efecb6b3b9749084faa67304b8e60e0e4c4374780db7bf1f",
-  "version_manifest_sha256": "b5c2f59a0ebb6b6236cc9feaba86a1bdf16569033e0ff0155951fd9a0d4b72e6",
-  "version": "0.1.2",
-  "xml_version": 3,
+  "build_inputs_sha256": "0f4c4023fa976c1abec836b16ad4d9917752f76e23bc7c164d75cc3d33ec0fbd",
+  "artifact_sha256": "4671e7651939710f8acf934759d8e84e84550a13c741b55cfd080efab0ed585a",
+  "artifact_size_bytes": 105429,
+  "build_version_manifest_sha256": "cea42de6d527a6c1750132e1406297b2a78f2a2e1430eb93443da1b342bf54d9",
+  "version_manifest_sha256": "c91e2580fb86610f5a0a45e7538fc5094c09a9ddf38381782db07e182b9aa11a",
+  "version": "0.1.3",
+  "xml_version": 4,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,26 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 144
+      "duration_ms": 94
+    },
+    {
+      "name": "idstability",
+      "status": "pass",
+      "duration_ms": 50
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 99,
-      "checks": 19,
+      "duration_ms": 69,
+      "checks": 21,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 114,
-      "checks": 314,
+      "duration_ms": 78,
+      "checks": 353,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 75,
+      "duration_ms": 55,
       "files": 2
     }
   ]
