@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-15T05:23:39.710Z",
+  "generated_at": "2026-08-15T05:25:24.916Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -8507,16 +8507,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_unifi_protect",
-        "generated_at": "2026-07-31T06:53:50.091Z",
+        "generated_at": "2026-08-15T05:25:24.468Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "e8b6f89a894aece60f9fb5ac8b2678a3cbf6ed65b64ff1b04bed8ff34cee1cce",
-        "artifact_sha256": "8a144f45e002b34d3fc0dfec16b6b45b2afb8977eeae2ced86edfeb72d170395",
-        "artifact_size_bytes": 107268,
-        "build_version_manifest_sha256": "8d304304a68c44653ad3382064ad17f1480355fa4d4540de4934712a938f4d13",
-        "version_manifest_sha256": "fc019a1f35306dac80e4f955539cb7516f7054608b7d3376c48acaaa3a068863",
-        "version": "0.1.3",
-        "xml_version": 4,
+        "build_inputs_sha256": "91ca159da0a5929a0ad79224441872832cc21f0847006f1a2fa0181e7367505f",
+        "artifact_sha256": "2db1a77a42838f42a444bc006e6f186032ea6878a1ecd7c9f3ec9fb14125aea1",
+        "artifact_size_bytes": 107332,
+        "build_version_manifest_sha256": "d2167be7edea45c759847c9928474838fd0793992ead11791c73f240e83237c8",
+        "version_manifest_sha256": "bca8c6b7220bcabd6cd0d037e22a53b40c6734af7fb7106de3bfdd60cf083d02",
+        "version": "0.1.4",
+        "xml_version": 5,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -8528,31 +8528,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 92
+            "duration_ms": 98
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 50
+            "duration_ms": 52
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 68,
+            "duration_ms": 75,
             "checks": 21,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 76,
-            "checks": 277,
+            "duration_ms": 84,
+            "checks": 308,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 48,
+            "duration_ms": 52,
             "files": 2
           }
         ]
@@ -8565,11 +8565,11 @@
         "actions": 3,
         "events": 12
       },
-      "version": "0.1.3",
-      "xml_version": 4,
+      "version": "0.1.4",
+      "xml_version": 5,
       "min_os": "3.0.0",
-      "size_bytes": 107268,
-      "sha256": "8a144f45e002b34d3fc0dfec16b6b45b2afb8977eeae2ced86edfeb72d170395",
+      "size_bytes": 107332,
+      "sha256": "2db1a77a42838f42a444bc006e6f186032ea6878a1ecd7c9f3ec9fb14125aea1",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/integrateit_unifi_protect.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_protect/CHANGELOG.md",
@@ -8580,7 +8580,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-31T06:53:50.493Z"
+      "published_at": "2026-08-15T05:25:24.905Z"
     },
     {
       "slug": "integrateit_watchdog",
