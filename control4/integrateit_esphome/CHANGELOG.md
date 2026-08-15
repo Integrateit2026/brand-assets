@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Client for the ESPHome Native API
 
+## [0.2.2] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.2.1] - 2026-07-31
 - Re-baseline a slot when its binding changes. A runtime edit to a Slot n Entity
 - Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
