@@ -2,7 +2,7 @@
   "name": "IntegrateIT Hue Button",
   "version": "0.2.2",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/integrateit_hue_button.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_button/releases/0.2.2/integrateit_hue_button.c4z",
   "notes": "Turns one Philips Hue button accessory — dimmer switch, smart button, wall switch module, or tap dial including its rotary ring — into Control4 programming events over the bridge's local CLIP API v2 eventstream. Events only: it relays presses, it does not control lights.",
   "sha256": "a50f6048eb7b9fbe49659492a67ed6e5aab332dc7f5f1e8cebe6350eae76e0bd",
   "size_bytes": 120561,
