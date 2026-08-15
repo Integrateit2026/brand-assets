@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-14T05:12:44.065Z",
+  "generated_at": "2026-08-15T03:47:13.948Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -65,16 +65,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_appliance_status",
-        "generated_at": "2026-07-31T06:08:33.283Z",
+        "generated_at": "2026-08-15T03:47:13.011Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "fcc7ee9cccf3e81038967db15e82048656828b0ecf5be456a68349fb907ffc3d",
-        "artifact_sha256": "389b8ba054c59aceb29f069073e8f6f41da9a891b2d73c948baf5c21016a8063",
-        "artifact_size_bytes": 98847,
-        "build_version_manifest_sha256": "795a3712150a98b40de67347fbe4cca8705705850bec75ab0dc559668844a074",
-        "version_manifest_sha256": "11c6f9c8386bf268dc1e60ab679cd0f49888df9d7265b51e9276672bd4deb9f3",
-        "version": "0.1.5",
-        "xml_version": 6,
+        "build_inputs_sha256": "8a9efdca8b6fd835c7db5299a0fd9c02cccd50d4fbf9eba180a501f1e3b059ea",
+        "artifact_sha256": "bc2d1a5f048838fd209ca6d68bf1a77dbd3724b522300fedcd09afba3d7bcce4",
+        "artifact_size_bytes": 98936,
+        "build_version_manifest_sha256": "90ce6c69b675e19750dfd53c99022bce4e5403ed5980b1b842bba458ef95e722",
+        "version_manifest_sha256": "f7f10330df83ac97a3611f0a99225a7947c1f1ee0040fab7fef05ae304857f5a",
+        "version": "0.1.6",
+        "xml_version": 7,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -86,31 +86,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 92
+            "duration_ms": 187
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 48
+            "duration_ms": 74
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 67,
+            "duration_ms": 123,
             "checks": 22,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 64,
-            "checks": 191,
+            "duration_ms": 113,
+            "checks": 211,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 81,
             "files": 2
           }
         ]
@@ -123,11 +123,11 @@
         "actions": 3,
         "events": 4
       },
-      "version": "0.1.5",
-      "xml_version": 6,
+      "version": "0.1.6",
+      "xml_version": 7,
       "min_os": "3.0.0",
-      "size_bytes": 98847,
-      "sha256": "389b8ba054c59aceb29f069073e8f6f41da9a891b2d73c948baf5c21016a8063",
+      "size_bytes": 98936,
+      "sha256": "bc2d1a5f048838fd209ca6d68bf1a77dbd3724b522300fedcd09afba3d7bcce4",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/integrateit_appliance_status.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_appliance_status/CHANGELOG.md",
@@ -138,7 +138,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-31T06:08:33.765Z"
+      "published_at": "2026-08-15T03:47:13.921Z"
     },
     {
       "slug": "integrateit_assistance_button",
@@ -3421,7 +3421,7 @@
         },
         {
           "label": "Source",
-          "value": "Any device variable readable by device id and variable name, or programming calling Record Sample Now"
+          "value": "Any numeric device variable readable by device id and variable name"
         },
         {
           "label": "Output",
@@ -3442,7 +3442,7 @@
       ],
       "requirements": [
         "Control4 OS 3.0.0 or newer",
-        "A numeric device variable to sample, or Composer programming that calls Record Sample Now",
+        "A numeric device variable to sample — programming can trigger a sample with Record Sample Now, but cannot hand the driver a value",
         "For an HTTP export, a reachable endpoint that accepts a POST body",
         "For production, an IntegrateIT license key bound to this controller"
       ],
@@ -3592,6 +3592,9 @@
       "limitations": [
         "Release Candidate: API contract and simulator verified; a release-bound live-service check and representative Control4 controller acceptance are still pending.",
         "Scheduled religious times depend on the configured location and Hebcal service data.",
+        "Cloud dependency: every refresh reaches www.hebcal.com over HTTPS. A controller with no route to the internet keeps its last good result and retries, but cannot load new calendar data.",
+        "Each refresh loads a 15-day window (Selected Date plus 14 days). Candle lighting, Havdalah, Parsha, and holiday values beyond that range read \"None in loaded range\" until the window advances.",
+        "Timed events are only as accurate as the controller clock. Hebcal timestamps carry the location UTC offset and the driver honors it, but an incorrect controller clock still fires events at the wrong real-world moment.",
         "Test Mode is for inspection and simulation; it intentionally disables real timed event firing."
       ],
       "screenshots": [
@@ -3737,7 +3740,9 @@
         "Release Candidate: simulator verified; representative controller acceptance is still pending.",
         "Holiday dates are only as correct as the controller's local date and time zone — a wrong clock yields wrong holidays.",
         "Covers US civil/federal and the listed common holidays plus your custom dates; it is not a general religious or international calendar (see the IntegrateIT Hebcal driver for the Jewish calendar).",
-        "Headless: it publishes holiday state for programming and dashboards, it does not itself control loads."
+        "Headless: it publishes holiday state for programming and dashboards, it does not itself control loads.",
+        "Holiday Approaching tracks only the nearest upcoming holiday. If a closer holiday sits inside the notice window, a farther one landing on the same boundary is not separately announced.",
+        "Holidays are evaluated once per day at local midnight, not re-checked within the day. A reboot republishes state but deliberately fires no transition events."
       ],
       "screenshots": [
         {
@@ -3875,7 +3880,7 @@
       ],
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator; acceptance on a physical Hue Bridge and a physical controller is not yet attached to this release (hardwareStatus: simulation-verified, not bench-tested).",
-        "No entertainment / streaming API: the DTLS entertainment channel and per-frame light streaming are out of scope for v0.1.0 (the pairing clientkey is claimed but not used).",
+        "No entertainment / streaming API: the DTLS entertainment channel and per-frame light streaming are out of scope for this release (the pairing clientkey is claimed but not used).",
         "No accessories yet: motion sensors, buttons, dials, and contact sensors are not surfaced in this version — lights, grouped_lights, and scenes only.",
         "Up to eight mapped slots per driver instance; add another instance for a ninth mapping.",
         "The bridge presents a self-signed certificate, so the driver connects over HTTPS with CA chain verification disabled and trusts the bridge by its LAN address plus the application key — a genuinely broken TLS negotiation still fails closed and never downgrades to plaintext.",
@@ -5053,7 +5058,7 @@
         "Release Candidate: simulator verified against the published protocol; acceptance on a physical HomeWorks QS processor is still pending.",
         "Classic HomeWorks QS (LIP) only — HomeWorks QSX / Athena / RadioRA 3 use the LEAP API and are NOT supported by this driver.",
         "Telnet is plaintext with no TLS: credentials and commands cross the wire in the clear, so keep the processor on a trusted LAN segment.",
-        "v0.1.0 covers OUTPUT level / raise / lower / stop for up to 8 integration IDs. Venetian tilt (actions 9-16), SHADEGRP, keypads (DEVICE), HVAC, and scenes are not yet exposed.",
+        "This release covers OUTPUT level / raise / lower / stop for up to 8 integration IDs. Venetian tilt (actions 9-16), SHADEGRP, keypads (DEVICE), HVAC, and scenes are not yet exposed.",
         "No Navigator UI: control is via Composer programming commands and variables (combo driver).",
         "Fade / delay parameters have no effect on shades — Lutron runs shades at fixed speeds."
       ],
@@ -5604,13 +5609,13 @@
       ],
       "limitations": [
         "Release Candidate: verified against the Control4 API simulator; acceptance on physical Nanoleaf hardware and a physical controller is not yet attached to this release.",
-        "Manual IP entry only — mDNS (_nanoleafapi._tcp) and SSDP discovery are documented by Nanoleaf but out of scope for v0.1.0. Reserve the device's IP in your router's DHCP table.",
+        "Manual IP entry only — mDNS (_nanoleafapi._tcp) and SSDP discovery are documented by Nanoleaf but out of scope for this version. Reserve the device's IP in your router's DHCP table.",
         "Built against the legacy panel line (Light Panels / Canvas / Shapes / Elements / Lines) on port 16021. Matter WiFi Essentials products share the /api/v1/<token>/ path shape but open the pairing window from the Nanoleaf app and may use a different port — the Port property is editable, but Essentials is untested in this version.",
         "State feedback is by polling, not push: a change made from the Nanoleaf app appears on the next poll (default 5s), not instantly.",
         "One Nanoleaf device per driver instance — add another instance for each device.",
-        "Forget Token clears the stored token locally only; the token remains valid on the device until revoked via the vendor's Delete User endpoint or a device reset (not sent by v0.1.0).",
+        "Forget Token clears the stored token locally only; the token remains valid on the device until revoked via the vendor's Delete User endpoint or a device reset (not sent by this version).",
         "The Open API is plain, unencrypted HTTP — use it only on a trusted LAN segment. Non-LAN addresses are refused unless Allow WAN Nanoleaf is explicitly set to Yes.",
-        "Per-panel external-control streaming, panel layout, rhythm, and identify endpoints are documented by Nanoleaf but out of scope for v0.1.0."
+        "Per-panel external-control streaming, panel layout, rhythm, and identify endpoints are documented by Nanoleaf but out of scope for this version."
       ],
       "screenshots": [
         {
