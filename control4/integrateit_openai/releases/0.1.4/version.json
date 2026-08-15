@@ -2,7 +2,7 @@
   "name": "IntegrateIT OpenAI Assistant",
   "version": "0.1.4",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/integrateit_openai.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_openai/releases/0.1.4/integrateit_openai.c4z",
   "notes": "Runs OpenAI chat completions from Control4 programming on the customer's own API key — an Ask command turns a prompt into an answer your programming can speak, display, or act on, bounded by a per-hour spend guard and a BYO-key design that never logs the key.",
   "sha256": "c4ab643071a2f66f969fcb9dc884a3493c5c0a94ebe4559e7e841e66d35159a7",
   "size_bytes": 102864,
