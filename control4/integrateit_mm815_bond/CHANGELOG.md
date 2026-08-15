@@ -1,5 +1,8 @@
 # Changelog — MantelMount MM815 (Bond Bridge)
 
+## [1.5.8] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [1.5.7] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - Four timers could arm with nan-millisecond intervals and never fire - including the shade hold repeat, so a held button stopped repeating.
