@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-15T05:13:07.357Z",
+  "generated_at": "2026-08-15T05:14:53.036Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7651,16 +7651,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_soundfx",
-        "generated_at": "2026-07-31T06:48:19.472Z",
+        "generated_at": "2026-08-15T05:14:52.629Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "c296d016fc304f3fa24b5b8e7c710e73b3c11d47e1042d9340941a4fae34085e",
-        "artifact_sha256": "f05645ed78ea9b18f532a6cc925f55c6c6c4f5867af8b4805e468edfa324c83e",
-        "artifact_size_bytes": 104823,
-        "build_version_manifest_sha256": "06811c57f57862de12e1507093cc08a261bb2cc8772103a3dd451742c7684b1f",
-        "version_manifest_sha256": "cdbf0c857517fe55f265a73fa8e40670e406da3081b79e2056309ecb47fd09ed",
-        "version": "0.1.4",
-        "xml_version": 4,
+        "build_inputs_sha256": "51215a3ffbaaa07ad5d1812d846df1e6ae9ffed94e99efa6f33fb3b8b6221fcb",
+        "artifact_sha256": "7624c3a81c1b5df170b49b654192e090379dd2c8bf835f647060128fd738ff2e",
+        "artifact_size_bytes": 104886,
+        "build_version_manifest_sha256": "91b5bc4e8af05eb872dfcf9b7fbe438e27f3956b37e0197a740de43393fcc97a",
+        "version_manifest_sha256": "25b741548151d313a9684840ded72dee909818ccaa4e2e93c554bd67e28e9484",
+        "version": "0.1.5",
+        "xml_version": 5,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -7672,31 +7672,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 92
+            "duration_ms": 98
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 48
+            "duration_ms": 51
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 67,
+            "duration_ms": 70,
             "checks": 21,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 76,
-            "checks": 326,
+            "duration_ms": 79,
+            "checks": 365,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 55,
             "files": 2
           }
         ]
@@ -7709,11 +7709,11 @@
         "actions": 10,
         "events": 7
       },
-      "version": "0.1.4",
-      "xml_version": 4,
+      "version": "0.1.5",
+      "xml_version": 5,
       "min_os": "3.0.0",
-      "size_bytes": 104823,
-      "sha256": "f05645ed78ea9b18f532a6cc925f55c6c6c4f5867af8b4805e468edfa324c83e",
+      "size_bytes": 104886,
+      "sha256": "7624c3a81c1b5df170b49b654192e090379dd2c8bf835f647060128fd738ff2e",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/integrateit_soundfx.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_soundfx/CHANGELOG.md",
@@ -7724,7 +7724,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-31T06:48:19.811Z"
+      "published_at": "2026-08-15T05:14:53.025Z"
     },
     {
       "slug": "integrateit_support_surface",
