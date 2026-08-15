@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_unifi_nvr_hdmi",
-  "generated_at": "2026-08-02T19:57:03.881Z",
+  "generated_at": "2026-08-15T05:23:39.077Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "be89d2794fb45305d7b99cc73b815549797c30977863f398a26b720d4c3cabc9",
-  "artifact_sha256": "4a4936fc54ca604b3997be206c0ee0612c9c40075661b442231191c937532637",
-  "artifact_size_bytes": 1008719,
-  "build_version_manifest_sha256": "512645ecf2d4a85e05be3e59fa4213c1b54c8e453817ca2b8fc0b45652a7950f",
-  "version_manifest_sha256": "25996344e7a5fbaf8d6fad14cfa7518f866847fc3a6769a53eb7c75967365ac1",
-  "version": "3.2.0",
-  "xml_version": 9,
+  "build_inputs_sha256": "8d9c3c25a7cb7c9642b14f4a37b10ae4ab00218556699ead66540a67756eb1d5",
+  "artifact_sha256": "73f5d382b2279a5105a6c1045ae8410f5058b5a4431c467b155eb860fbf286ba",
+  "artifact_size_bytes": 1008851,
+  "build_version_manifest_sha256": "2ff98343d3f97231d97aa9c6e8c96b4a54ba6474193382584a0ad85653c58276",
+  "version_manifest_sha256": "17f7d9cd74a85454985502afd27ca476903c585e8f8bafa9318aa512565fe1de",
+  "version": "3.2.1",
+  "xml_version": 10,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "bench-tested",
   "channel_verification": {
@@ -22,31 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 126
+      "duration_ms": 141
     },
     {
       "name": "idstability",
       "status": "pass",
-      "duration_ms": 62
+      "duration_ms": 51
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 82,
+      "duration_ms": 69,
       "checks": 18,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 68,
-      "checks": 198,
+      "duration_ms": 59,
+      "checks": 209,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 51,
+      "duration_ms": 54,
       "files": 2
     }
   ]

@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT UniFi NVR HDMI
 
+## [3.2.1] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [3.2.0] - 2026-08-01
 - `ID RETIRE OK` — connection id 7500 (**Onscreen Navigator**, `ONSCREEN_SELECTION`) is published in the channel as of 3.1.0 and is deliberately removed by this release. The marker is the Update Sentinel's required authorization for retiring a fielded id, and it is here because the retire is intended, not because a gate was in the way. Nothing can be bound to 7500 in a live project — Composer never offered the binding to begin with, which is the whole finding below — so the fielded-programming risk the marker normally guards is, in this one case, empty.
 - **The experiment is over and it answered no.** 3.1.0 added the `ONSCREEN_SELECTION` room binding that 3.0.2 had declined on documentation grounds, so that the NVR could be offered in a room's **On-Screen Device** row beside the CORE processors. It was declared field for field against Control4's own DriverWorks example — snap-one/docs-driverworks-api, branch **master**, `source/includes/19_media_management_miscellaneous/_1-Receiver_with_Onscreen_Binding.md` (note `main` 404s; `master` is the live branch) — id 7500, type 7, facing 6, consumer False, `audiosource`/`videosource`/`linelevel` all rendered False. Daniel asked for it, reaffirmed it after the refusal, and authorized publishing it into his own test house so the question could be settled on hardware instead of on paper.

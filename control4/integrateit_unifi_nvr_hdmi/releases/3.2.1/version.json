@@ -2,7 +2,7 @@
   "name": "IntegrateIT UniFi NVR HDMI",
   "version": "3.2.1",
   "xml_version": 10,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/integrateit_unifi_nvr_hdmi.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_unifi_nvr_hdmi/releases/3.2.1/integrateit_unifi_nvr_hdmi.c4z",
   "notes": "Display-only Control4 AV source for the Ubiquiti UniFi NVR G2 HDMI live-view output. Exposes an HDMI OUT binding so the NVR feed can be routed through an AV matrix and selected in Watch. Controls nothing and reports nothing by design; the binding is the whole point. 3.1.0 shipped an ONSCREEN_SELECTION room binding as a live experiment; installed on real hardware, Composer never offered this device in a room's On-Screen Device list, so 3.2.0 retires it — the documented precondition (the room must also be able to select the device as its video endpoint) is one a source feeding a matrix can never meet. Field-proven routing video on an AVPro Edge matrix; factory build adds self-update, validation, tests, and packaged docs the hand-built v1-v3 never had.",
   "sha256": "73f5d382b2279a5105a6c1045ae8410f5058b5a4431c467b155eb860fbf286ba",
   "size_bytes": 1008851,
