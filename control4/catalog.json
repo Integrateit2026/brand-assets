@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-15T04:39:48.222Z",
+  "generated_at": "2026-08-15T04:41:33.084Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4819,16 +4819,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_lifx",
-        "generated_at": "2026-07-31T06:39:36.387Z",
+        "generated_at": "2026-08-15T04:41:32.639Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "4747e321cd21e5b51db930c9f88c7c22ac7bc1fd8cc79e5a10257d529e968377",
-        "artifact_sha256": "e1d0ad90065d80b46adcabcbb9b8a053613e203a0b47ec7bc010c322e9065b97",
-        "artifact_size_bytes": 154950,
-        "build_version_manifest_sha256": "2fc953ba559db9a85b4d668ae6c9d52167f8466488fb2f7128cf7883946c785e",
-        "version_manifest_sha256": "f6c47a35d8861ebf5344f0f4d7e5068b40eda06ecb8cb507399e434aad28496d",
-        "version": "0.5.1",
-        "xml_version": 6,
+        "build_inputs_sha256": "b02d14a32ebe3ebbfd9e8d891521c10f8c8a87bd2978be2709eebcc4aab1b226",
+        "artifact_sha256": "633e47d25a5b1d699fc075817f0a37a83151be6ef34d495d1491edc5b078b207",
+        "artifact_size_bytes": 155521,
+        "build_version_manifest_sha256": "352c24e6c9d8bbd14955b3c4f5e092fa63af38746d7050ae9f3a579558de3617",
+        "version_manifest_sha256": "623f3ac8a58b8dd8272562c1af04d871a75d0be3908bcc529ddee3d909ee55f6",
+        "version": "0.5.2",
+        "xml_version": 7,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -4840,31 +4840,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 97
+            "duration_ms": 105
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 49
+            "duration_ms": 53
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 73,
+            "duration_ms": 85,
             "checks": 21,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 177,
-            "checks": 848,
+            "duration_ms": 187,
+            "checks": 963,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 46,
+            "duration_ms": 52,
             "files": 2
           }
         ]
@@ -4877,11 +4877,11 @@
         "actions": 10,
         "events": 14
       },
-      "version": "0.5.1",
-      "xml_version": 6,
+      "version": "0.5.2",
+      "xml_version": 7,
       "min_os": "3.0.0",
-      "size_bytes": 154950,
-      "sha256": "e1d0ad90065d80b46adcabcbb9b8a053613e203a0b47ec7bc010c322e9065b97",
+      "size_bytes": 155521,
+      "sha256": "633e47d25a5b1d699fc075817f0a37a83151be6ef34d495d1491edc5b078b207",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/integrateit_lifx.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifx/CHANGELOG.md",
@@ -4892,7 +4892,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-31T06:39:36.748Z"
+      "published_at": "2026-08-15T04:41:33.073Z"
     },
     {
       "slug": "integrateit_lock_integration",
