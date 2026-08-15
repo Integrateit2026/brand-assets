@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Code Agent
 
+## [0.1.4] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.1.3] - 2026-07-31
 - ID RETIRE OK — the three declared command names change in this release, deliberately. Read the next bullet before updating a project that already programs this driver.
 - The three programming commands were declared as RUN_SCRIPT / ABORT_RUN / SET_REGISTER, so Composer Programming listed them in SCREAMING_SNAKE while the guide called them Run Script / Abort Run / Set Register — a dealer following the documentation looked for a command that was not in the list under that name. The declared names are now the human ones, the convention every other driver in the fleet follows. **If an existing project has RUN_SCRIPT, ABORT_RUN, or SET_REGISTER dragged into a programming script, re-drag it as Run Script / Abort Run / Set Register after the update** — Composer binds programming to the declared name, so a renamed command leaves the old line orphaned. Nothing else breaks: the runtime still answers the old spellings, so any driver-to-driver call and any queued command keeps working, and there was no way to hold both names in the list without leaving every dealer a permanently duplicated command tree.
