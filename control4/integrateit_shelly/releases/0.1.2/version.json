@@ -2,7 +2,7 @@
   "name": "IntegrateIT Shelly",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/integrateit_shelly.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_shelly/releases/0.1.2/integrateit_shelly.c4z",
   "notes": "Local-LAN control of a single Shelly component — one relay/switch or one roller/cover channel — over the device's own HTTP API on Gen1 and Gen2+ hardware, with confirmed two-way state and no Shelly Cloud account.",
   "sha256": "e421640b8b2aee4e4b494f82a57ed59bc9648a6b75447cb7b68aff5588228ffe",
   "size_bytes": 103015,
