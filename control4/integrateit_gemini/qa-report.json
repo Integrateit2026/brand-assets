@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_gemini",
-  "generated_at": "2026-07-30T13:18:47.517Z",
+  "generated_at": "2026-08-15T04:25:46.152Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "41550400137b3228ec5fff0921ddb085d45ed3b685c19b846b4b8d2be6f0482d",
-  "artifact_sha256": "ea486edcbb22f53a032c90cd24fa9de5cec956114bc6c216b898eb2373856dd4",
-  "artifact_size_bytes": 103527,
-  "build_version_manifest_sha256": "b005407c900611a7a73ad7ea55b46814e0ad49940a22944829dafbf1f6519980",
-  "version_manifest_sha256": "e25cde2535a12ee62d6cc0b31c04caa37bf13a0e0ab19729d6b9d1449a1f5733",
-  "version": "0.1.3",
-  "xml_version": 3,
+  "build_inputs_sha256": "d363b76236a7b829f62b27f51c4a258c036f7d850dfabd90f0f668aee57dfeb9",
+  "artifact_sha256": "458e166b4d384160b7ed90fabbf0a09e8d44cd7e5fda6ab95cd07f99376fc38d",
+  "artifact_size_bytes": 103361,
+  "build_version_manifest_sha256": "1301b5a501f173cb6027fc8cd248341d3bd350d2497bf4430126704da99a5d43",
+  "version_manifest_sha256": "2742b663438f28a51fed019d410d4b9a58583c60b5b7eff684e429fb45014033",
+  "version": "0.1.4",
+  "xml_version": 4,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 91
+      "duration_ms": 99
     },
     {
       "name": "idstability",
       "status": "pass",
-      "duration_ms": 48
+      "duration_ms": 50
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 31031,
+      "duration_ms": 68,
       "checks": 21,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 77,
-      "checks": 227,
+      "duration_ms": 71,
+      "checks": 253,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 135,
+      "duration_ms": 54,
       "files": 2
     }
   ]

@@ -2,7 +2,7 @@
   "name": "IntegrateIT Gemini Assistant",
   "version": "0.1.4",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gemini/integrateit_gemini.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_gemini/releases/0.1.4/integrateit_gemini.c4z",
   "notes": "A bring-your-own-key Control4 driver for the official Google Gemini API. Ask Gemini a question from any programming event and act on the bounded answer — shaped by an optional system instruction and a max-token cap, all on the customer's own API key.",
   "sha256": "458e166b4d384160b7ed90fabbf0a09e8d44cd7e5fda6ab95cd07f99376fc38d",
   "size_bytes": 103361,
