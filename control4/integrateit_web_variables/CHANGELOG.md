@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Web Variables
 
+## [0.1.2] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.1.1] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - The self-re-arming poll could die forever on one corrupted interval while the status property still read OK - the exact silent-freeze this wave's law exists to kill.
