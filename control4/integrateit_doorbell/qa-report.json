@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_doorbell",
-  "generated_at": "2026-07-30T15:42:44.512Z",
+  "generated_at": "2026-08-15T04:08:14.892Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "d835f3c9bbcd72f0744b35f23c42358173b048467e716fe243752571c0f7bc7d",
-  "artifact_sha256": "5ae6e900e7c09da357df32a85d33ca7e3c732deb3751a5d4c5f9aeac8c3d04ed",
-  "artifact_size_bytes": 98083,
-  "build_version_manifest_sha256": "2328026941b5ec10580ff8c7da94261b8e3ad2c212c2e7551018799dfe4126fe",
-  "version_manifest_sha256": "4058769ec124e255cd53ebc0fc02a65e4c7a523c8c6ebf9e09e20f10e11bec59",
-  "version": "0.1.4",
-  "xml_version": 5,
+  "build_inputs_sha256": "c540127430ae423b487e9db874281392f3be7962cc35e5bb62d9c684466337f0",
+  "artifact_sha256": "7275e003cbef2d0c2ed764802fb5cbe14b3e690a8c9f9217ad092ba79072ac69",
+  "artifact_size_bytes": 98278,
+  "build_version_manifest_sha256": "7cadc04a20d9b4b6baab470e22359a0fa05af403d79367bd8c2ec3544ed8e18c",
+  "version_manifest_sha256": "1b8056377c51d58de663dfa2b68df614fb65c73b626ad6cd393c9600d30bb85e",
+  "version": "0.1.5",
+  "xml_version": 6,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,31 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 95
+      "duration_ms": 97
     },
     {
       "name": "idstability",
       "status": "pass",
-      "duration_ms": 52
+      "duration_ms": 54
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 71,
+      "duration_ms": 72,
       "checks": 22,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 67,
-      "checks": 197,
+      "duration_ms": 69,
+      "checks": 221,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 44,
+      "duration_ms": 48,
       "files": 2
     }
   ]
