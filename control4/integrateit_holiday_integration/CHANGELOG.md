@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Holiday Integration
 
+## [0.1.5] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.1.4] - 2026-07-31
 - Certification pass: this driver was read end to end against its own manifest and code — every command, action, event, variable and property name checked for a single spelling across the manifest, the code and this guide; every programming recipe rebuilt from names that actually exist; the commissioning path checked to end in something a dealer can observe; and every claim in the documentation verified against what the code does rather than what it intended.
 
