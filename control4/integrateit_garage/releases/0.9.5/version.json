@@ -2,7 +2,7 @@
   "name": "IntegrateIT Garage",
   "version": "0.9.5",
   "xml_version": 7,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/integrateit_garage.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_garage/releases/0.9.5/integrateit_garage.c4z",
   "notes": "Universal relay garage-door control with contact feedback, travel supervision, left-open alerts, close warnings, safe simulation, and resilient state handling.",
   "sha256": "109178e4c0bec16c687c2924f1c89c616836daf0c38be862b26890bc7943031b",
   "size_bytes": 289657,
