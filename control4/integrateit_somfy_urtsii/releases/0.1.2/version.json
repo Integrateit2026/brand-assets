@@ -2,7 +2,7 @@
   "name": "IntegrateIT Somfy URTSI II",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/integrateit_somfy_urtsii.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_somfy_urtsii/releases/0.1.2/integrateit_somfy_urtsii.c4z",
   "notes": "Drives Somfy RTS shades, awnings, and tilt blinds through a Somfy URTSI II serial interface: per-channel up/down/stop, 10-step tilt in both directions, a paced command queue, and honest assumed-state tracking over a strictly one-way RS-232/RS-485 link.",
   "sha256": "077330ff0afbc71bd7157ed9c4e14569e5a6e0e7ea909918e2ad709594e3dd95",
   "size_bytes": 100491,
