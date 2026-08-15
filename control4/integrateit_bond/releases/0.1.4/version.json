@@ -2,7 +2,7 @@
   "name": "IntegrateIT Bond",
   "version": "0.1.4",
   "xml_version": 5,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/integrateit_bond.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond/releases/0.1.4/integrateit_bond.c4z",
   "notes": "Local Control4 control of one Smart by Bond device — a ceiling fan, light, shade, or generic remote — over the Bond Home v2 HTTP API on your LAN, with no cloud dependency. A background poll publishes power, speed, light, brightness, direction, and reachability as Control4 variables and events.",
   "sha256": "b6038c2a0d44c0f6ab16b18ad693b0bb12e67465c7d056cd4490a1cc1feaecd8",
   "size_bytes": 103218,
