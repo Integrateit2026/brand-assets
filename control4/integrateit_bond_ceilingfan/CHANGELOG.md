@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Bond Ceiling Fan
 
+## [0.1.4] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.1.3] - 2026-07-31
 - Security fix (LAN guard bypass): the boot-time metadata reads FetchProps (GET /properties) and FetchDeviceDoc (GET /v2/devices/<id>) had no LAN-destination check, so a Bond IP pointed at a public/WAN host still received two token-bearing GETs from OnDeviceInit even with Allow WAN Bond = No — leaking the BOND-Token header off-LAN at load. The LAN guard now runs at the single BondHttp transport chokepoint, so every Bond HTTP call (control, poll, and boot reads) is refused for a non-LAN destination unless Allow WAN Bond is Yes. Regression test added (a public IP boots with zero token-bearing requests).
 - Documentation rendering: emphasis written as *emphasis* in the source now renders as emphasis in the packaged Documentation tab instead of shipping as literal asterisks. Protocol strings that legitimately contain a star, quoted inside code, stay exactly as written.
