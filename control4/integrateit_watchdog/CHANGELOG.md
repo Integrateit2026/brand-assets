@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Watchdog
 
+## [0.2.1] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.2.0] - 2026-08-03
 - Per-target variables WD_T1_STATE..WD_T6_STATE — program against one target, not the fleet worst
 - Relay confirmation: reads the relay proxy reports it always ignored; a relay that has proven it reports and then stays silent past a write fires Relay Unconfirmed (event 41, observational, retries nothing)
