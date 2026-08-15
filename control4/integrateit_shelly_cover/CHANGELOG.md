@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Shelly Cover
 
+## [0.1.1] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.1.0] - 2026-07-26
 - Initial release candidate. Dedicated Gen2+ Shelly Cover control over the on-device JSON-RPC 2.0 API (`POST /rpc`) — no Shelly Cloud, no issued credentials.
 - Full roller/cover control the generic IntegrateIT Shelly driver cannot model: Open, Close, Stop, Go To Position (0-100), and Calibrate via Cover.Open/Close/Stop/GoToPosition/Calibrate.
