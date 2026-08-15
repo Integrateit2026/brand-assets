@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-15T03:47:19.140Z",
+  "generated_at": "2026-08-15T03:49:04.277Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -345,16 +345,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_benq_projector",
-        "generated_at": "2026-07-31T06:09:17.939Z",
+        "generated_at": "2026-08-15T03:49:03.792Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "881854027520e41c98bc6a07c75e78e158fb97ce40309efd3ab152d438bfdac0",
-        "artifact_sha256": "eae6f3ceb78e8ce93cae6f9fb104cc2510ea105d68e62170a08c9d0b973ea8e8",
-        "artifact_size_bytes": 103548,
-        "build_version_manifest_sha256": "2358098e0a414ddd5a4c00a802c2882c3526d6656c80563f78a968340cf8bff8",
-        "version_manifest_sha256": "c5ed1cad428f0b45acf01d5d08aa8b5d3385aa939498032d166e742dfc2b272f",
-        "version": "0.1.2",
-        "xml_version": 3,
+        "build_inputs_sha256": "16788556dcd9294c7d9b4f2c2ccab808f66b08ae571089bee7507ba642ff34ac",
+        "artifact_sha256": "b24f04adbb2a62eac3bd9c1de6f771503760d3b851cfc6f4ff4595aea1e7a7c6",
+        "artifact_size_bytes": 103639,
+        "build_version_manifest_sha256": "e52f6e32c5864d42871aaf080f733760dc30dbbeed3f31ee787280e011010703",
+        "version_manifest_sha256": "c269db56d7523d500d9d6a44e8f003f5854243d10a49f671031f9b6d28493dfb",
+        "version": "0.1.3",
+        "xml_version": 4,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -366,31 +366,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 94
+            "duration_ms": 117
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 49
+            "duration_ms": 54
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 67,
+            "duration_ms": 78,
             "checks": 21,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 74,
-            "checks": 286,
+            "duration_ms": 101,
+            "checks": 317,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 46,
+            "duration_ms": 64,
             "files": 2
           }
         ]
@@ -403,11 +403,11 @@
         "actions": 10,
         "events": 6
       },
-      "version": "0.1.2",
-      "xml_version": 3,
+      "version": "0.1.3",
+      "xml_version": 4,
       "min_os": "3.0.0",
-      "size_bytes": 103548,
-      "sha256": "eae6f3ceb78e8ce93cae6f9fb104cc2510ea105d68e62170a08c9d0b973ea8e8",
+      "size_bytes": 103639,
+      "sha256": "b24f04adbb2a62eac3bd9c1de6f771503760d3b851cfc6f4ff4595aea1e7a7c6",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_benq_projector/integrateit_benq_projector.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_benq_projector/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_benq_projector/CHANGELOG.md",
@@ -418,7 +418,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-31T06:09:18.386Z"
+      "published_at": "2026-08-15T03:49:04.267Z"
     },
     {
       "slug": "integrateit_bond",
