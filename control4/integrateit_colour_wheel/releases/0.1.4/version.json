@@ -2,7 +2,7 @@
   "name": "IntegrateIT Colour Wheel",
   "version": "0.1.4",
   "xml_version": 4,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/integrateit_colour_wheel.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_colour_wheel/releases/0.1.4/integrateit_colour_wheel.c4z",
   "notes": "An accessible colour picker for Control4 colour-capable lights: twelve named hue stops you step with a single button, a colour-vision-safe subset, a full sRGB/HSV/CCT conversion engine, and four recallable presets, pushed to up to six bound lights over the Control4 colour proxy contract with MAC-locked IntegrateIT licensing.",
   "sha256": "b4656ccf29b02c484f9ed317d7a996b4292ea1bd465254e39eaa14c497e160c1",
   "size_bytes": 107889,
