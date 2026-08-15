@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-15T04:38:02.329Z",
+  "generated_at": "2026-08-15T04:39:48.222Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4666,16 +4666,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_lifestyle_buttons",
-        "generated_at": "2026-07-31T06:37:11.042Z",
+        "generated_at": "2026-08-15T04:39:47.550Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "1dc39336986b212970ee1e9f4f7d8bd33f5626fb28ef498b5ffdf5ce6b5a27c2",
-        "artifact_sha256": "b798c606242af652b271c593c4edb974c1b1f74069b348c696f3fe5f1a098734",
-        "artifact_size_bytes": 345918,
-        "build_version_manifest_sha256": "391619b7af44f47f6e20754a838cff3eed4342c8c267af68eb1ae74ea9a54e7e",
-        "version_manifest_sha256": "4df4184913f32a918ae7e7b6ce466bcf82fd8875cfc1e0c72a1da76159d996ad",
-        "version": "0.1.3",
-        "xml_version": 4,
+        "build_inputs_sha256": "9ec6f209b824a15fa321db3457a79ee31699c1650bc0b7f79661b24ffcac277f",
+        "artifact_sha256": "e10efd6af1fa0c73f3dbd5c0053e13afb298cd924bc8c760e322b3cea8d93950",
+        "artifact_size_bytes": 345701,
+        "build_version_manifest_sha256": "52fc2ac22d2cf1feae73e5f5e3fdf7da8d853988e4cbd577b5449ee93bc83232",
+        "version_manifest_sha256": "6e1adb1f97602b979aace791de5898f5fda7b32c444b5ba334cb17f1668e2b4e",
+        "version": "0.1.4",
+        "xml_version": 5,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -4687,17 +4687,17 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 140
+            "duration_ms": 130
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 51
+            "duration_ms": 50
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 73,
+            "duration_ms": 69,
             "checks": 24,
             "warnings": 0
           },
@@ -4705,13 +4705,13 @@
             "name": "runtime",
             "status": "pass",
             "duration_ms": 78,
-            "checks": 326,
+            "checks": 365,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 48,
+            "duration_ms": 52,
             "files": 2
           }
         ]
@@ -4724,11 +4724,11 @@
         "actions": 9,
         "events": 11
       },
-      "version": "0.1.3",
-      "xml_version": 4,
+      "version": "0.1.4",
+      "xml_version": 5,
       "min_os": "3.0.0",
-      "size_bytes": 345918,
-      "sha256": "b798c606242af652b271c593c4edb974c1b1f74069b348c696f3fe5f1a098734",
+      "size_bytes": 345701,
+      "sha256": "e10efd6af1fa0c73f3dbd5c0053e13afb298cd924bc8c760e322b3cea8d93950",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/integrateit_lifestyle_buttons.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/CHANGELOG.md",
@@ -4739,7 +4739,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-31T06:37:11.502Z"
+      "published_at": "2026-08-15T04:39:48.211Z"
     },
     {
       "slug": "integrateit_lifx",
