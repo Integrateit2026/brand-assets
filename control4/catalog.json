@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-15T04:29:17.958Z",
+  "generated_at": "2026-08-15T04:31:02.407Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -3920,16 +3920,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_hue_bridge",
-        "generated_at": "2026-07-30T13:15:36.108Z",
+        "generated_at": "2026-08-15T04:31:01.988Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "16512cb53bf751bd366c6f89f8339b462e94d23e7601ef17bc2ff44d0ac0b453",
-        "artifact_sha256": "523c454159b1b7e83cdb9bf7010fa7d8fdb428086a4dd94ba1e5a6a9892951c2",
-        "artifact_size_bytes": 110133,
-        "build_version_manifest_sha256": "61b66efe645f97e78d9a225152518b14e2737bb328fbc1775043ea64346ad335",
-        "version_manifest_sha256": "dd0fbc76b62203a3eef2b592a851819c455571cb977e0d4e2fb10161af39f142",
-        "version": "0.1.2",
-        "xml_version": 3,
+        "build_inputs_sha256": "1e01bdf8df4bd9053d2715fa67d0670b7da93143dd88532b68c6f45e95c8e5fb",
+        "artifact_sha256": "796edda2e826714f0ed3ebf9f79c9590609e287f84ff87005e4b44ebb081d6e8",
+        "artifact_size_bytes": 110235,
+        "build_version_manifest_sha256": "b8f39aa4c1b7e01bdf576d7252699b9788e6fb504fa8642edfde3a804829364b",
+        "version_manifest_sha256": "38e1714fd239a8bbc6b5db71db155e1e4bf4736f2923610b9f5e1d1cbf0e01ff",
+        "version": "0.1.3",
+        "xml_version": 4,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -3941,31 +3941,31 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 208
+            "duration_ms": 96
           },
           {
             "name": "idstability",
             "status": "pass",
-            "duration_ms": 110
+            "duration_ms": 50
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 153,
+            "duration_ms": 69,
             "checks": 20,
             "warnings": 8
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 205,
-            "checks": 336,
+            "duration_ms": 93,
+            "checks": 384,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 109,
+            "duration_ms": 53,
             "files": 2
           }
         ]
@@ -3978,11 +3978,11 @@
         "actions": 5,
         "events": 6
       },
-      "version": "0.1.2",
-      "xml_version": 3,
+      "version": "0.1.3",
+      "xml_version": 4,
       "min_os": "3.0.0",
-      "size_bytes": 110133,
-      "sha256": "523c454159b1b7e83cdb9bf7010fa7d8fdb428086a4dd94ba1e5a6a9892951c2",
+      "size_bytes": 110235,
+      "sha256": "796edda2e826714f0ed3ebf9f79c9590609e287f84ff87005e4b44ebb081d6e8",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/integrateit_hue_bridge.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_bridge/CHANGELOG.md",
@@ -3993,7 +3993,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-07-30T13:15:37.080Z"
+      "published_at": "2026-08-15T04:31:02.396Z"
     },
     {
       "slug": "integrateit_hue_button",
