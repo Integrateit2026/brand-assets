@@ -1,6 +1,16 @@
 {
-  "latest": "0.9.4",
+  "latest": "0.9.5",
   "history": [
+    {
+      "version": "0.9.5",
+      "xml_version": 7,
+      "sha256": "78e866ac3fdea12c24d59979109309633dd2ff3072bc37fa1845c3943efd1652",
+      "size_bytes": 76923,
+      "published_at": "2026-08-15T04:27:32.178Z",
+      "notes": "Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.9.4",
       "xml_version": 6,

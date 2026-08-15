@@ -1,5 +1,8 @@
 # Changelog: IntegrateIT Hebcal
 
+## [0.9.5] - 2026-08-15
+- Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
+
 ## [0.9.4] - 2026-07-30
 - A numeric property containing nan or inf (possible through a hand-edited project file) passed tonumber, defeated every range clamp (all nan comparisons are false), and could reach a timer interval or the wire. Numeric properties now fall back to their documented default when non-finite, and the transmit chokepoint refuses a non-finite value by name.
 - A corrupted candle-offset reached the API URL as &b=nan and two phantom event fires could follow; the request is now built from finite values only.
