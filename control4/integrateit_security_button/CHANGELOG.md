@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.7] - 2026-08-26
+- THE FIX: the shield never changed on real hardware because the Navigator icon states were custom names. Control4 uibutton proxies only honour the reserved states Idle and Selected - ICON_CHANGED with anything else is silently ignored, so the tile rendered once and then froze. Idle is now Disarmed (blue) and Selected is Armed (red), matching the hardware-proven mm815 driver
+- new QA gate refuses any uibutton proxy declaring icon states outside Idle/Selected, so this class cannot ship again
+
 ## [0.1.6] - 2026-08-26
 - Request Only now credits a confirmation to the person who asked for it: Last Change reads 'Programming (Navigator request)' instead of attributing every homeowner press to automation. The credit expires after 2 minutes, so a panel arming itself later is not mistaken for a press
 - new Clear Loop Guard command + action releases a tripped guard on demand, so a dealer who just fixed a feedback loop can prove it instead of reaching for a driver reload
