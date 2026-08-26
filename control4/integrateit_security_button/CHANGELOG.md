@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.5] - 2026-08-26
+- Composer device-tree tiles are 16x16 and 32x32, not 32 and 300 - a 300px tile made the tree row render as an oversized smear
+
 ## [0.1.4] - 2026-08-26
 - P0: Set Armed / Set Disarmed / Toggle / Refresh are now Composer PROGRAMMING commands, not just Actions-tab buttons - Request Only mode was uncompletable without them
 - P1: panel confirmations are treated as ground truth and bypass the loop-guard rate ceiling, so a storm can no longer strand the shield showing the wrong state with no way back

@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.4",
+  "latest": "0.1.5",
   "history": [
+    {
+      "version": "0.1.5",
+      "xml_version": 6,
+      "sha256": "a742b193e504df3c92e6ca2da4d898fca5fdd0a7197f8588d72034a26269c92a",
+      "size_bytes": 3293247,
+      "published_at": "2026-08-26T04:57:30.696Z",
+      "notes": "Composer device-tree tiles are 16x16 and 32x32, not 32 and 300 - a 300px tile made the tree row render as an oversized smear",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.4",
       "xml_version": 5,
