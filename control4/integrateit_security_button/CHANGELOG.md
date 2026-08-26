@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.8] - 2026-08-26
+- hardware status: bench-tested. Confirmed on Daniel's live controller 2026-08-26 - the tile renders in Navigator, a press arms and disarms, and the shield follows the state blue <-> red. This is the first release of this driver whose primary path has been proven on real silicon rather than in the simulator
+
 ## [0.1.7] - 2026-08-26
 - THE FIX: the shield never changed on real hardware because the Navigator icon states were custom names. Control4 uibutton proxies only honour the reserved states Idle and Selected - ICON_CHANGED with anything else is silently ignored, so the tile rendered once and then froze. Idle is now Disarmed (blue) and Selected is Armed (red), matching the hardware-proven mm815 driver
 - new QA gate refuses any uibutton proxy declaring icon states outside Idle/Selected, so this class cannot ship again

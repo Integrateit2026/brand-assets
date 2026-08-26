@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-26T23:09:39.574Z",
+  "generated_at": "2026-08-26T23:12:23.074Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7024,7 +7024,7 @@
       "category": "others",
       "device_type": "Security Button",
       "release_status": "release-candidate",
-      "hardware_status": "simulation-verified",
+      "hardware_status": "bench-tested",
       "featured": false,
       "features": [
         "One Navigator experience button that arms and disarms the security system: blue glossy IntegrateIT shield = Disarmed, red = Armed",
@@ -7043,7 +7043,7 @@
         },
         {
           "label": "Navigator",
-          "value": "One primary UI button with distinct disarmed (blue) and armed (red) shield icons"
+          "value": "One primary UI button; Idle/Selected icon states confirmed flipping on hardware"
         },
         {
           "label": "Output",
@@ -7061,7 +7061,7 @@
         "For production, an IntegrateIT license key bound to this controller"
       ],
       "limitations": [
-        "Release Candidate: simulator verified; acceptance on a physical controller and the Navigator touch screens is still pending.",
+        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Not yet field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
         "The button publishes a state - it drives no panel by itself. Arming and disarming real hardware is programming the dealer writes.",
         "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Request Only plus panel-feedback confirmation.",
         "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State."
@@ -7085,18 +7085,18 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_security_button",
-        "generated_at": "2026-08-26T23:09:38.963Z",
+        "generated_at": "2026-08-26T23:12:22.529Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "a2fe750128d183bb6bc760d171e8f06cbeeb8f7d0a4cbbfdcc94d3d6b9214eee",
-        "artifact_sha256": "f552bf5349a01ace0820f1bbf92b8d78003ea45759934ed7c28f3de5f0cdedd5",
-        "artifact_size_bytes": 3141896,
-        "build_version_manifest_sha256": "4ef6331282110ba0df73777ac0a81d734978271f2d970545daaabe3829b22812",
-        "version_manifest_sha256": "53338c4f187d94f832d75bc609f9cbc58004cf5cfe2f56399ccf04579b846e8d",
-        "version": "0.1.7",
-        "xml_version": 8,
+        "build_inputs_sha256": "de4d9e16ab1614c9ecab5d5fe0401498dfa39164e6bdbd8e664176947f2674d6",
+        "artifact_sha256": "5d386e4633cec39c8baa556b07cecc89eb7da3c50aea6e0038f9d411920cc98c",
+        "artifact_size_bytes": 3142022,
+        "build_version_manifest_sha256": "835df2189cb67c89dcd8747ad841b00e7d1976687cecb84831d5d44de95ceca2",
+        "version_manifest_sha256": "3e970e5751d02fd627a38f3c9d012321c6c11241f7413cf672459087322c35f9",
+        "version": "0.1.8",
+        "xml_version": 9,
         "environment": "Control4 API simulator + deterministic package validators",
-        "hardware_status": "simulation-verified",
+        "hardware_status": "bench-tested",
         "channel_verification": {
           "status": "pending",
           "checked_at": null,
@@ -7106,26 +7106,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 151
+            "duration_ms": 145
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 69,
+            "duration_ms": 73,
             "checks": 23,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 82,
+            "duration_ms": 85,
             "checks": 635,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 51,
             "files": 2
           }
         ]
@@ -7138,11 +7138,11 @@
         "actions": 6,
         "events": 6
       },
-      "version": "0.1.7",
-      "xml_version": 8,
+      "version": "0.1.8",
+      "xml_version": 9,
       "min_os": "3.0.0",
-      "size_bytes": 3141896,
-      "sha256": "f552bf5349a01ace0820f1bbf92b8d78003ea45759934ed7c28f3de5f0cdedd5",
+      "size_bytes": 3142022,
+      "sha256": "5d386e4633cec39c8baa556b07cecc89eb7da3c50aea6e0038f9d411920cc98c",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/integrateit_security_button.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/CHANGELOG.md",
@@ -7153,7 +7153,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-26T23:09:39.546Z"
+      "published_at": "2026-08-26T23:12:23.058Z"
     },
     {
       "slug": "integrateit_shelly",
