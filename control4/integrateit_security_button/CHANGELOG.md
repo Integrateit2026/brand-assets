@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.3] - 2026-08-26
+- premium shield rebuild: machined platinum band, radially-lit face, satin-steel padlock, and a wordmark FITTED to the face instead of clipped by it (the logo was being cut); small tiles get a crisp lock-only cut
+
 ## [0.1.2] - 2026-08-26
 - describe the shipped art accurately: platinum band + state-aware padlock (docs/catalog only)
 
