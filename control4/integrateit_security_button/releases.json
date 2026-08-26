@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.5",
+  "latest": "0.1.6",
   "history": [
+    {
+      "version": "0.1.6",
+      "xml_version": 7,
+      "sha256": "d320ba58ab8d0d3b0dd186a9059da0cade59638cdc8e53ca43a0e76063e255fb",
+      "size_bytes": 3294419,
+      "published_at": "2026-08-26T05:43:17.774Z",
+      "notes": "Request Only now credits a confirmation to the person who asked for it: Last Change reads 'Programming (Navigator request)' instead of attributing every homeowner press to automation. The credit expires after 2 minutes, so a panel arming itself later is not mistaken for a press · new Clear Loop Guard command + action releases a tripped guard on demand, so a dealer who just fixed a feedback loop can prove it instead of reaching for a driver reload · the commissioning guide no longer ships factory build instructions a dealer cannot act on",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.5",
       "xml_version": 6,

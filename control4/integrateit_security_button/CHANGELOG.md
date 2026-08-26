@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.6] - 2026-08-26
+- Request Only now credits a confirmation to the person who asked for it: Last Change reads 'Programming (Navigator request)' instead of attributing every homeowner press to automation. The credit expires after 2 minutes, so a panel arming itself later is not mistaken for a press
+- new Clear Loop Guard command + action releases a tripped guard on demand, so a dealer who just fixed a feedback loop can prove it instead of reaching for a driver reload
+- the commissioning guide no longer ships factory build instructions a dealer cannot act on
+
 ## [0.1.5] - 2026-08-26
 - Composer device-tree tiles are 16x16 and 32x32, not 32 and 300 - a 300px tile made the tree row render as an oversized smear
 
