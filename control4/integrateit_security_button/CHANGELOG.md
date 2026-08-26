@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.2] - 2026-08-26
+- describe the shipped art accurately: platinum band + state-aware padlock (docs/catalog only)
+
 ## [0.1.1] - 2026-08-26
 - premium shield art: platinum band with shine sweeping all the way around, IntegrateIT-blue glossy face, open padlock when disarmed and closed when armed
 

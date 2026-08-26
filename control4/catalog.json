@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-26T02:23:13.131Z",
+  "generated_at": "2026-08-26T02:23:52.671Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7033,7 +7033,7 @@
         "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed events, plus SECURITY_STATE and IS_ARMED variables for one-line programming conditions",
         "Silent reboot restore - a Director restart can never arm or disarm anything",
         "SELECT+DO_CLICK press debounce and a three-layer loop guard keep self-referential programming safe",
-        "Branded shield art: chrome rim, glossy body, keyhole, and the IntegrateIT wordmark on a center plaque, rendered at 70-1024 px",
+        "Premium shield art: a platinum band with shine sweeping all the way around, a glossy IntegrateIT-blue (or alarm-red) face, a padlock that opens and closes with the state, and the IntegrateIT wordmark - rendered at 70-1024 px",
         "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
       ],
       "compatibility": [
@@ -7070,24 +7070,24 @@
         {
           "file": "catalog/navigator-shields.png",
           "title": "The two shield states",
-          "caption": "Blue = Disarmed, red = Armed: chrome-rimmed glossy shields with the IntegrateIT wordmark, shown at full size and at the 70/90/300 px Navigator ladder.",
-          "alt": "Two glossy shield icons side by side - a blue disarmed shield and a red armed shield - each with a keyhole and the IntegrateIT wordmark on a dark center plaque, with smaller copies below showing how they render at touchscreen sizes.",
+          "caption": "Blue = Disarmed (open padlock), red = Armed (closed padlock): platinum-bordered glossy shields with the IntegrateIT wordmark, shown at full size and at the 70/90/300 px Navigator ladder.",
+          "alt": "Two platinum-bordered shield icons side by side - a glossy IntegrateIT-blue disarmed shield with an open padlock and a red armed shield with a closed padlock, each carrying the IntegrateIT wordmark, with smaller copies below showing how they render at touchscreen sizes.",
           "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/catalog/navigator-shields.png"
         }
       ],
       "qa": {
         "schema": 1,
         "slug": "integrateit_security_button",
-        "generated_at": "2026-08-26T02:23:12.517Z",
+        "generated_at": "2026-08-26T02:23:52.204Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "59ffdbc5ccda5f808353e1b7a801a88d45a6d036ed08a6f087430e30057a79ce",
-        "artifact_sha256": "76e7974a8905b8f8dc33121389b41e7a4f4e67f7b80b43e482a637ba795bde7d",
-        "artifact_size_bytes": 4739837,
-        "build_version_manifest_sha256": "740cd7e14b365b48c84c115f9105a7168e8997900abcb917470caf0b1850bb71",
-        "version_manifest_sha256": "02343d74590a1385bb36525cf5fd884158679fac2cb81b715ff2333420e36c86",
-        "version": "0.1.1",
-        "xml_version": 2,
+        "build_inputs_sha256": "bfcc6d441a8134bcc2db08a93538629f1f81bbbb4e812948bcf6612c3a783d89",
+        "artifact_sha256": "5395d6cd9647ed5c690567b7a05b5469ad97fda06b790ad3900ef683d97fd26d",
+        "artifact_size_bytes": 4748385,
+        "build_version_manifest_sha256": "3e22fdb4812de80d8dacbf1c683d9bcad25171bf0e00dac5cd5f928a47fd78ba",
+        "version_manifest_sha256": "726430da5cd2ca1ef175c60755a4e7d691ae69256a898eb96d634e9711e27098",
+        "version": "0.1.2",
+        "xml_version": 3,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -7099,26 +7099,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 220
+            "duration_ms": 204
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 91,
+            "duration_ms": 84,
             "checks": 23,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 89,
+            "duration_ms": 78,
             "checks": 190,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 64,
+            "duration_ms": 56,
             "files": 2
           }
         ]
@@ -7131,11 +7131,11 @@
         "actions": 5,
         "events": 6
       },
-      "version": "0.1.1",
-      "xml_version": 2,
+      "version": "0.1.2",
+      "xml_version": 3,
       "min_os": "3.0.0",
-      "size_bytes": 4739837,
-      "sha256": "76e7974a8905b8f8dc33121389b41e7a4f4e67f7b80b43e482a637ba795bde7d",
+      "size_bytes": 4748385,
+      "sha256": "5395d6cd9647ed5c690567b7a05b5469ad97fda06b790ad3900ef683d97fd26d",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/integrateit_security_button.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/CHANGELOG.md",
@@ -7146,7 +7146,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-26T02:23:13.086Z"
+      "published_at": "2026-08-26T02:23:52.651Z"
     },
     {
       "slug": "integrateit_shelly",
