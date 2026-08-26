@@ -1,5 +1,13 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.4] - 2026-08-26
+- P0: Set Armed / Set Disarmed / Toggle / Refresh are now Composer PROGRAMMING commands, not just Actions-tab buttons - Request Only mode was uncompletable without them
+- P1: panel confirmations are treated as ground truth and bypass the loop-guard rate ceiling, so a storm can no longer strand the shield showing the wrong state with no way back
+- P1: the update check now refuses a manifest pointing at a different driver's .c4z, which would otherwise stage a foreign package under this driver's filename
+- one physical press is now de-duplicated by identity rather than a time window, so its SELECT+DO_CLICK pair can no longer double-toggle; Press Debounce minimum raised to 250 ms
+- update checks report failures in the Update Available property instead of only the console, and Automatic Update Check now actually starts and stops the daily poll
+- auto-updates now come from the relay read-through mirror; docs rewritten to the DOC-CONTRACT spine with a Safety boundary section, and the package is 46% smaller
+
 ## [0.1.3] - 2026-08-26
 - premium shield rebuild: machined platinum band, radially-lit face, satin-steel padlock, and a wordmark FITTED to the face instead of clipped by it (the logo was being cut); small tiles get a crisp lock-only cut
 
@@ -14,8 +22,8 @@
   system. Blue glossy IntegrateIT shield = Disarmed, red = Armed; the icon flips
   on every toggle (`ICON_CHANGED` icon states).
 - Three press behaviors: Toggle Armed / Disarmed (default), Request Only
-  (programming confirms from real panel feedback — the shield never lies), and
-  Disabled (status-only mirror).
+  (programming confirms from real panel feedback), and Disabled (status-only
+  mirror).
 - Events: Pressed, Arm Requested, Disarm Requested, Armed, Disarmed, Loop Guard
   Tripped. Variables: SECURITY_STATE, IS_ARMED, LAST_CHANGE_SOURCE. Actions:
   Set Armed / Set Disarmed / Toggle / Refresh Navigator State / Print Configuration.
