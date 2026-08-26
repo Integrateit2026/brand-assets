@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Security Button
 
+## [0.1.1] - 2026-08-26
+- premium shield art: platinum band with shine sweeping all the way around, IntegrateIT-blue glossy face, open padlock when disarmed and closed when armed
+
 ## [0.1.0] - 2026-08-26
 - Initial release: one Navigator experience button that arms/disarms the security
   system. Blue glossy IntegrateIT shield = Disarmed, red = Armed; the icon flips

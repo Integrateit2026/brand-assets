@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "76e7974a8905b8f8dc33121389b41e7a4f4e67f7b80b43e482a637ba795bde7d",
+      "size_bytes": 4739837,
+      "published_at": "2026-08-26T02:23:13.086Z",
+      "notes": "premium shield art: platinum band with shine sweeping all the way around, IntegrateIT-blue glossy face, open padlock when disarmed and closed when armed",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,
