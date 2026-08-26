@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-17T05:11:31.839Z",
+  "generated_at": "2026-08-26T00:27:10.219Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7016,6 +7016,137 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-08-15T05:06:06.628Z"
+    },
+    {
+      "slug": "integrateit_security_button",
+      "name": "IntegrateIT Security Button",
+      "summary": "One branded Navigator experience button that arms and disarms the security system. Blue shield = disarmed, red shield = armed; the icon flips on every toggle. Press it to toggle instantly, or run it in Request Only mode where programming confirms against the real panel state. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
+      "category": "others",
+      "device_type": "Security Button",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "One Navigator experience button that arms and disarms the security system: blue glossy IntegrateIT shield = Disarmed, red = Armed",
+        "The shield flips the instant the state changes - from a press or from programming (uibutton icon states)",
+        "Three press behaviors: Toggle Armed / Disarmed, Request Only (programming confirms from real panel feedback so the shield never lies), and Disabled (status-only mirror)",
+        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed events, plus SECURITY_STATE and IS_ARMED variables for one-line programming conditions",
+        "Silent reboot restore - a Director restart can never arm or disarm anything",
+        "SELECT+DO_CLICK press debounce and a three-layer loop guard keep self-referential programming safe",
+        "Branded shield art: chrome rim, glossy body, keyhole, and the IntegrateIT wordmark on a center plaque, rendered at 70-1024 px",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Navigator",
+          "value": "One primary UI button with distinct disarmed (blue) and armed (red) shield icons"
+        },
+        {
+          "label": "Output",
+          "value": "Events + variables for programming; the button itself drives no panel hardware"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "A room to place the button in so Navigator renders it",
+        "Programming that reacts to the Armed / Disarmed (or Arm Requested / Disarm Requested) events, or reads SECURITY_STATE / IS_ARMED",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "Release Candidate: simulator verified; acceptance on a physical controller and the Navigator touch screens is still pending.",
+        "The button publishes a state - it drives no panel by itself. Arming and disarming real hardware is programming the dealer writes.",
+        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Request Only plus panel-feedback confirmation.",
+        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/navigator-shields.png",
+          "title": "The two shield states",
+          "caption": "Blue = Disarmed, red = Armed: chrome-rimmed glossy shields with the IntegrateIT wordmark, shown at full size and at the 70/90/300 px Navigator ladder.",
+          "alt": "Two glossy shield icons side by side - a blue disarmed shield and a red armed shield - each with a keyhole and the IntegrateIT wordmark on a dark center plaque, with smaller copies below showing how they render at touchscreen sizes.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/catalog/navigator-shields.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_security_button",
+        "generated_at": "2026-08-26T00:27:09.459Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "0bdae500b4f8601363f3b486aeb54c36d5b0ac09d6ec7fdc0c9802b05c8efc76",
+        "artifact_sha256": "27a1e5f965bb494a8ba8094a3ceefb63dd0756b51b16de5825b073ccec59fbbe",
+        "artifact_size_bytes": 2892723,
+        "build_version_manifest_sha256": "8225d545aba4cbe05f73cf83866f4f71dab6e996d748c48ff1a885f7b84e3440",
+        "version_manifest_sha256": "a7d04d2f033f4b46220471793593e370b0b8449d52afff95a555858ad3947b4f",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 175
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 75,
+            "checks": 23,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 77,
+            "checks": 190,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 55,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 9,
+        "commands": 0,
+        "actions": 5,
+        "events": 6
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 2892723,
+      "sha256": "27a1e5f965bb494a8ba8094a3ceefb63dd0756b51b16de5825b073ccec59fbbe",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/integrateit_security_button.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-08-26T00:13:55.116Z"
     },
     {
       "slug": "integrateit_shelly",

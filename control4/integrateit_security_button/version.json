@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Security Button",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/integrateit_security_button.c4z",
+  "notes": "One branded Navigator experience button that arms and disarms the security system. Blue shield = disarmed, red shield = armed; the icon flips on every toggle. Press it to toggle instantly, or run it in Request Only mode where programming confirms against the real panel state. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
+  "sha256": "27a1e5f965bb494a8ba8094a3ceefb63dd0756b51b16de5825b073ccec59fbbe",
+  "size_bytes": 2892723,
+  "min_os": "3.0.0",
+  "published_at": "2026-08-26T00:13:55.116Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_button/qa-report.json"
+}
