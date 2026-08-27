@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-26T23:12:23.074Z",
+  "generated_at": "2026-08-27T14:48:27.988Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7020,18 +7020,20 @@
     {
       "slug": "integrateit_security_button",
       "name": "IntegrateIT Security Button",
-      "summary": "One branded Navigator experience button that arms and disarms the security system. Blue shield = disarmed, red shield = armed; the icon flips on every toggle. Press it to toggle instantly, or run it in Request Only mode where programming confirms against the real panel state. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
+      "summary": "One branded Navigator experience button that shows whether the security system is armed, in every room. Blue shield = disarmed, red shield = armed - two icon states, one honest bit, and the tile never claims a state the panel did not confirm. Run it standalone as a toggle, or set Panel Mode to Follows Panel and slave it to a real security panel: a press only asks, and Set Armed / Set Disarmed / Set Alarm / Set Not Ready keep every room's shield in sync from one line of programming per panel event. Not-ready and alarm ride the icon description, the Panel Condition property and the IS_ALARM / IS_NOT_READY variables. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Security Button",
       "release_status": "release-candidate",
       "hardware_status": "bench-tested",
       "featured": false,
       "features": [
-        "One Navigator experience button that arms and disarms the security system: blue glossy IntegrateIT shield = Disarmed, red = Armed",
-        "The shield flips the instant the state changes - from a press or from programming (uibutton icon states)",
+        "The same shield in every room: blue glossy IntegrateIT shield = Disarmed, red = Armed. One glance answers \"is it on?\" without opening the Security screen",
+        "Panel-slave mode (Panel Mode = Follows Panel): the tile mirrors a real security panel instead of toggling itself - a press only REQUESTS, the Toggle command is refused, and the shield moves only on the panel's own Set Armed / Set Disarmed",
+        "Set Alarm / Set Not Ready / Set Ready let the panel push its condition with one line of programming per event, keeping every room's tile in sync",
+        "Honest about its own limits: the tile carries TWO icon states, so armed vs not-armed is the colour and alarm / not-ready ride the icon description (which List Navigator renders in place of the icon, and screen readers announce), the Panel Condition property, and the IS_ALARM / IS_NOT_READY variables",
         "Three press behaviors: Toggle Armed / Disarmed, Request Only (the shield follows the panel's own confirmation rather than the press, subject to the refusal conditions in the guide's Safety boundary), and Disabled (status-only mirror)",
-        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed events, plus SECURITY_STATE and IS_ARMED variables for one-line programming conditions",
-        "Silent reboot restore - a Director restart can never arm or disarm anything",
+        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed / Alarm / Not Ready / Ready events, plus SECURITY_STATE, IS_ARMED, PANEL_CONDITION, IS_ALARM and IS_NOT_READY variables for one-line programming conditions",
+        "Silent reboot restore - a Director restart can never arm or disarm anything, and a stale ALARM is never restored",
         "SELECT+DO_CLICK press debounce and a three-layer loop guard keep self-referential programming safe",
         "Premium shield art: a platinum band with shine sweeping all the way around, a glossy IntegrateIT-blue (or alarm-red) face, a padlock that opens and closes with the state, and the IntegrateIT wordmark - rendered at 70-1024 px",
         "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
@@ -7043,7 +7045,7 @@
         },
         {
           "label": "Navigator",
-          "value": "One primary UI button; Idle/Selected icon states confirmed flipping on hardware"
+          "value": "One primary UI button, TWO icon states (Idle/Selected) confirmed flipping on hardware 2026-08-26. Armed vs not-armed is the colour; richer detail rides the icon description and variables"
         },
         {
           "label": "Output",
@@ -7061,10 +7063,12 @@
         "For production, an IntegrateIT license key bound to this controller"
       ],
       "limitations": [
-        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Not yet field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
+        "THE TILE SHOWS TWO STATES, NOT FOUR. Red = armed, blue = not armed (disarmed, not-ready, arming, unknown, or alarming while disarmed). Control4's own sample drivers declare many more custom icon states on a uibutton, so more colours are very likely possible - but the only hardware trial we have of a custom-state build on Daniel's controller did not flip, and that trial was confounded by an xmlVersion bump and a Navigator refresh. Until someone re-runs it deliberately, this driver ships the configuration that is PROVEN on his hardware and carries the rest in words.",
+        "Alarm never turns the shield red. A panic or medical alarm fires on a disarmed system, so red-for-alarm would claim the house is armed when it is not. Alarm reaches you through the icon description, Panel Condition, IS_ALARM, and the Alarm event.",
+        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Panel-slave mode is simulation-tested only and has not been run against a real panel yet. Not field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
         "The button publishes a state - it drives no panel by itself. Arming and disarming real hardware is programming the dealer writes.",
-        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Request Only plus panel-feedback confirmation.",
-        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State."
+        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Follows Panel (or Request Only) plus panel-feedback confirmation.",
+        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State, and the panel condition always starts at Not Reported."
       ],
       "screenshots": [
         {
@@ -7133,10 +7137,10 @@
       "stats": {
         "proxies": 1,
         "connections": 0,
-        "properties": 9,
-        "commands": 5,
-        "actions": 6,
-        "events": 6
+        "properties": 11,
+        "commands": 8,
+        "actions": 9,
+        "events": 9
       },
       "version": "0.1.8",
       "xml_version": 9,
@@ -7154,6 +7158,183 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-08-26T23:12:23.058Z"
+    },
+    {
+      "slug": "integrateit_security_panel",
+      "name": "IntegrateIT Security Panel",
+      "summary": "A real Control4 security panel built out of sensors you already own. 32 zones that name themselves from the sensor bound to them, entry delay selectable on any zone, up to 4 garage doors as first-class doors with fully-closed and fully-open limit inputs, the native Navigator Security screen with arm Home and Away, Clear Alarm and per-garage open and close on the functions button, an activity log that survives a reboot, Control4 history records for the push and email notification agents, and a panic button wired to Fire, Medical, Police and Panic. This driver drives no alarm hardware, fires no garage relay, and is not listed alarm signalling.",
+      "category": "others",
+      "device_type": "Security Panel",
+      "release_status": "internal",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "The NATIVE Control4 Security screen - not a custom button. One securitypanel proxy plus one security partition proxy, with the type-7 SECURITY_SYSTEM room binding that is what actually puts the Security tile in a room's Navigator.",
+        "32 zones. Each is a Composer CONTACT_SENSOR binding plus two properties: a name and a zone type. Nothing else per zone.",
+        "Zones name themselves. Leave Zone N Name blank and the driver adopts the name of the sensor bound to that zone's CONTACT_SENSOR connection, so 32 zones do not need 32 typed names.",
+        "ENTRY DELAY ON ANY SENSOR. The delay is a property of the zone, not of its type: Perimeter, Interior Follower and Glass Break each have a (Delayed) variant, so a back door wired as a window or a hallway motion you walk past on the way in can give you time to disarm. 24-Hour deliberately has no delayed variant.",
+        "FOUR GARAGE DOORS as first-class doors, not zones. Each has its own fully-closed and fully-open CONTACT_SENSOR limit inputs plus an optional obstruction input, and the two limits let the driver tell Closed from Open from MOVING from Unknown - anything that is not Closed counts as open.",
+        "Open and close each garage door from the Security screen itself, next to Arm, through the partition's functions button. THE DRIVER NEVER FIRES A GARAGE RELAY: it raises an Open/Close Garage N Requested event and your own garage door driver moves the door, keeping its obstruction detection, limit switches and pre-movement warning in the path where they belong.",
+        "Arm with a garage open and the driver refuses and offers the bypass dialog by name, or asks you to close it, or closes every open door and arms once they all report shut - your choice, one property, safe default.",
+        "CLEAR ALARM ON THE SECURITY SCREEN. It is the first entry on the functions button, because an alarm you can only silence from Composer is an alarm nobody can silence.",
+        "ARM-STATE HONESTY. This driver holds the arm state and nothing tells it when something else disarms the real system, so it says so: an arm nobody has confirmed reads UNCONFIRMED in the display text, the ARM_CONFIRMED variable and the Arm Confirmation State property, and a Confirm Armed / Confirm Disarmed command upgrades it the moment any feedback source appears. A reboot never restores a confident ARMED.",
+        "AN ACTIVITY LOG THAT SURVIVES A REBOOT. Arms, disarms, alarms, panics, bypasses, troubles, low battery, zone faults and garage movement, each timestamped and each carrying what caused it - Navigator, Programming, Binding, Restore or Driver. A bounded PersistData ring buffer you can read in a property and print in full, plus the same moments written to Control4's own system history with C4:RecordHistory under category Security.",
+        "Push and email notifications the documented way: granular events for the Push Notification and Email Notification agents to hang off, plus history records at the right severity. Both channels need 4Sight, a lapsed 4Sight silently kills them, and there is no supported way to query that - so a Notification Status property reports what CAN be proven and never quietly no-ops.",
+        "Announcements for arm, disarm, alarm and panic. Every announcement moment has its own event, and each event's description names the matching file in the IntegrateIT security audio pack, so wiring the Announcement agent is a lookup rather than a guess.",
+        "Six zone behaviours plus three delayed variants: Disabled (inert, never blocks arming), Entry/Exit, Perimeter, Interior Follower (auto-bypassed when armed Home), Glass Break, and 24-Hour (never bypassable, reports even while disarmed).",
+        "A panic button. EXECUTE_EMERGENCY is wired for all four Navigator emergencies - Fire, Medical, Police and Panic - each firing its own programming event, and none of them gated on the licence.",
+        "Per-zone battery and signal, reported to the driver and never guessed or polled. Battery drives the low-battery threshold, the Low Battery Zones readout and a panel trouble condition; signal has no field anywhere in the Control4 security proxy, so it appears in the Signal column of Print Zone Table and nowhere else. Both exist so a dying sensor is visible before it goes silent.",
+        "Failed arms use ARM_FAILED with ACTION=bypass, so Navigator lists the faulted zones and offers to bypass and retry instead of just refusing.",
+        "TWO zone-state input paths feeding one state machine - bound CONTACT_SENSOR bindings, and ordinary programming commands - and a Zone State Source property plus a Show Zone State Source action that tell you in 30 seconds which one your hardware is actually using. Garage doors take state the same two ways.",
+        "37 programming events and 29 programming commands, including per-zone and per-garage commands that take their number as a real Composer parameter.",
+        "MAC-locked IntegrateIT licensing with lenient or strict enforcement, and a deliberate carve-out: panic, the emergencies, disarm during an alarm and Clear Alarm are never refused for a licence reason."
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Navigator",
+          "value": "Native Security screen via the securitypanel + security proxies; declaration matched to Control4's own security_proxy_template driver.xml"
+        },
+        {
+          "label": "Partitions",
+          "value": "One partition (binding 5002). Adding a partition later requires a NEW driver - Control4 forbids changing a driver's proxy set in place."
+        },
+        {
+          "label": "Zones",
+          "value": "32, ids 1-32"
+        },
+        {
+          "label": "Garage doors",
+          "value": "4, published to the panel as zone ids 33-36 with Control4 zone type GARAGE_DOOR (15). Bindings 41/42/43, 51/52/53, 61/62/63, 71/72/73 = fully closed, fully open, obstruction."
+        },
+        {
+          "label": "Delays",
+          "value": "Entry and exit both 0-300 s. Exit defaults to 30 s. Nothing in the partition proxy contract caps them below that."
+        },
+        {
+          "label": "Panel hardware",
+          "value": "None. The driver holds the state; arming, sirens, garage movement and notification are programming you write against the panel, hub and garage drivers you already have."
+        },
+        {
+          "label": "Notifications",
+          "value": "Control4 Push Notification and Email Notification agents, wired in Composer programming against this driver's events, plus C4:RecordHistory under category Security. Both agents require an active 4Sight subscription."
+        },
+        {
+          "label": "Announcements",
+          "value": "Control4 Announcement agent, wired in programming against the announcement events. Audio pack: 24 files, IntegrateIT-Security-Audio."
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer",
+        "A room to bind the partition to, so Navigator renders the Security screen. The room binding is autobind, so this normally happens on its own.",
+        "Zone state has to reach the driver one of two ways: bind a Control4 CONTACT_SENSOR output to a Zone N connection, or call the Zone Opened / Zone Closed commands from programming. Set at least one up or every zone stays closed forever.",
+        "For each garage door you want: your own garage door driver, its Garage Door Fully Closed and Garage Door Fully Open CONTACT_SENSOR outputs bound to that door's two limit connections, and the Garage N Mode property moved off Disabled. Obstruction is optional. Then check Garage Limit Switch Polarity against Print Garage Table before you trust it.",
+        "Programming that reacts to Open Garage N Requested / Close Garage N Requested by calling your garage door driver's own open and close commands. This driver moves nothing by itself and has no relay binding to move it with.",
+        "Programming that reacts to Armed Home / Armed Away / Disarmed (or Arm Requested / Disarm Requested) to actually arm the panel or hub you own - this driver arms nothing by itself.",
+        "For push or email: an active 4Sight subscription and the Push Notification / Email Notification agents wired in Composer programming against this driver's events. There is no direct send API in DriverWorks and this driver does not pretend otherwise.",
+        "For announcements: the Announcement agent wired in programming against the announcement events, and the audio pack loaded into the project.",
+        "For production, an IntegrateIT license key bound to this controller"
+      ],
+      "limitations": [
+        "NOT TESTED ON HARDWARE. Every claim here is from Control4's own security_proxy_template driver.xml and its documentation.rtf, the DriverWorks proxy protocol guide, and the factory simulator. Nothing in this driver has been in front of a real Navigator yet.",
+        "THIS IS NOT AN ALARM SYSTEM. It is not listed alarm signalling, it does not dispatch, and it does not call a monitoring station. The panic button fires a Control4 programming event - what happens next is entirely programming you write. Do not represent it as life-safety equipment.",
+        "THIS DRIVER NEVER MOVES A GARAGE DOOR. There is deliberately no RELAY binding anywhere in it. It raises Open / Close Garage N Requested and your garage door driver decides - that driver owns the obstruction sensor, the limit switches and the pre-movement warning, and a security panel reaching around those onto a pinch hazard would be indefensible. If you wire those events to a bare relay driver instead, you have removed the protections yourself.",
+        "UNVERIFIED: how many entries Navigator will draw on the partition's functions button. Control4 documents the capability as a comma-separated list and specifies no cap, but no reference driver we have declares more than two, and this driver declares twelve. They are ordered so that a truncation loses the ability to OPEN a garage before it loses Clear Alarm, Close Garages And Arm, the siren controls, or any door's close. Check the button on hardware and cut the list if it truncates.",
+        "UNVERIFIED: how Navigator draws REQUEST_ADDITIONAL_INFO. The notify is fully specified in Control4's template and the driver sends it exactly as specified, but nobody here has seen it rendered, so the Open Garage On Arm setting that uses it is opt-in and not the default. If it draws nothing, the arm is still refused - the failure lands on the safe side.",
+        "UNVERIFIED: whether Navigator renders an entry or exit countdown above 255 seconds correctly. Nothing in the proxy contract caps the delay - it travels as a plain number through SetPartitionState - so 300 is this driver's ceiling and not Control4's. If a long countdown draws wrong, the drawn number is wrong and the behaviour is not: the driver's own timer owns the transition.",
+        "UNVERIFIED: the direct-to-agent notification and announcement path. C4:GetDevicesByC4iName and C4:SendToDevice are real, but the agent names and command strings are not confirmed. That path is off by default, never replaces the documented event-plus-agent wiring, logs exactly what it resolved and sent, and reports the result in Notification Status.",
+        "NOTIFICATION DELIVERY CANNOT BE PROVEN FROM A DRIVER. Push and email both need 4Sight, a lapsed 4Sight silently kills both, and there is no supported way to ask whether it is current. Notification Status reports history records written, agents resolved, last attempt and last error - none of that is a delivery receipt.",
+        "UNVERIFIED: whether a consumer CONTACT_SENSOR binding actually delivers OPENED / CLOSED into ReceivedFromProxy on this controller has never been confirmed on hardware. The driver therefore accepts zone and garage state from BOTH the bindings and from programming commands, publishes which one is really arriving in the Zone State Source property, and works correctly either way. Check that property after commissioning before trusting the bindings.",
+        "Garage limit-switch polarity is a project setting, not something the driver can detect. The default reading fails loud and safe - a wrongly-wired closed door reads as in transit, which blocks arming and raises a trouble - but the opposite miswiring could let an open door read closed. Prove it with one open-and-close cycle against Print Garage Table before you arm the house on it.",
+        "The driver holds the arm state; it has no panel to read back from. Arm here and disarm somewhere else and nothing tells this driver - which is why an unconfirmed arm says so rather than claiming certainty, and why Confirm Armed / Confirm Disarmed exist for whatever feedback source you do have. A reboot restores an arm as UNCONFIRMED, never as Confirmed.",
+        "The Navigator arm menu (Home, Away) and which emergency buttons appear come from static capabilities in driver.xml and cannot be changed at runtime. The Arm Modes property decides which of those the driver will carry out, not which ones Navigator draws. The functions list is static the same way, so all four doors' buttons appear whether or not those doors are enabled; a disabled door refuses its button and says why in the display text.",
+        "The Arm/Disarm Code property is stored in the Composer project. It is a convenience check, not a graded security credential. Left blank, the driver does not validate codes at all.",
+        "The activity log is bounded and lives in PersistData. It is a driver-local convenience, not an audit trail: it can be cleared by an action, it does not survive a driver reinstall, and Control4's own history under category Security is the record that outlives this driver.",
+        "The four garage state events are shared across all four doors, with Last Garage Door Event naming the door. Per-door state events would have been unambiguous but would have put sixteen more rows on the event list; the per-door OPEN and CLOSE REQUEST events are per-door precisely because routing a control request to the wrong door is the failure that matters.",
+        "One partition only. Control4 forbids adding or removing a proxy in an update, so a two-partition version would have to be a separate driver.",
+        "The panel proxy also carries a PGM / relay surface (PANEL_ADD_PGM, PGM_OPEN, PGM_CLOSE, PGM_TOGGLE). Garage doors are deliberately NOT published as PGMs: PGM_TOGGLE arrives with no confirmation step, and we have no evidence of where Navigator draws PGM controls. The functions button is the documented Security-screen control surface, so that is the one this driver uses.",
+        "Zone and garage auto-naming reads the name of the device bound to the connection. If nothing is bound, or the controller does not report a name, it falls back to Zone N / Garage N and you type a name."
+      ],
+      "screenshots": [],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_security_panel",
+        "generated_at": "2026-08-27T14:47:34.997Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "3d14c09a0f4431d8727ae64ee83c738a2f6bc1dff8a64fbf520461b863f30e17",
+        "artifact_sha256": "98a9d2bddc4cf255357e49df4832be16ae272730d4959bfefa8341cc93a39846",
+        "artifact_size_bytes": 202285,
+        "build_version_manifest_sha256": "bb8e4e210f6d862b470ded708311a7e54d1477623d5429e6461a58803882f044",
+        "version_manifest_sha256": "612f136f4a17ed712d44d3b6cda446f12d2316ea5badcc84f04377f3b7050033",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 136
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 103,
+            "checks": 22,
+            "warnings": 9
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 1078,
+            "checks": 3433,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 64,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 2,
+        "connections": 47,
+        "properties": 102,
+        "commands": 29,
+        "actions": 27,
+        "events": 37
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 202285,
+      "sha256": "98a9d2bddc4cf255357e49df4832be16ae272730d4959bfefa8341cc93a39846",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/integrateit_security_panel.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-08-27T14:48:27.979Z"
     },
     {
       "slug": "integrateit_shelly",
