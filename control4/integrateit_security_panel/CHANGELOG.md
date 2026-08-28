@@ -1,5 +1,9 @@
 # Changelog — IntegrateIT Security Panel
 
+## [0.1.1] - 2026-08-28
+- The panel's own screen now ships inside the driver: a second Navigator tile opens a driver-hosted WebView (controller://, proxy 5003) that works on touchscreens and in the phone app — live partition state, arm Home and Away, disarm with code, the functions menu and the emergency row. Every command the page sends is forwarded to the same PARTITION_PROXY handlers Navigator itself calls, so the licence gate, state guards and user-code check cannot be bypassed; with no bridge present the page declares itself a preview and controls nothing.
+- The security engine is unchanged — 0.1.1 is 0.1.0's engine plus the in-driver UI.
+
 ## [0.1.0] - 2026-08-27
 - Initial scaffold (template: blank).
 - Added a deterministic invariant fuzzer to `tests.lua` — three seeded walks over

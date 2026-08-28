@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T14:48:27.988Z",
+  "generated_at": "2026-08-28T15:11:00.551Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7020,20 +7020,18 @@
     {
       "slug": "integrateit_security_button",
       "name": "IntegrateIT Security Button",
-      "summary": "One branded Navigator experience button that shows whether the security system is armed, in every room. Blue shield = disarmed, red shield = armed - two icon states, one honest bit, and the tile never claims a state the panel did not confirm. Run it standalone as a toggle, or set Panel Mode to Follows Panel and slave it to a real security panel: a press only asks, and Set Armed / Set Disarmed / Set Alarm / Set Not Ready keep every room's shield in sync from one line of programming per panel event. Not-ready and alarm ride the icon description, the Panel Condition property and the IS_ALARM / IS_NOT_READY variables. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
+      "summary": "One branded Navigator experience button that arms and disarms the security system. Blue shield = disarmed, red shield = armed; the icon flips on every toggle. Press it to toggle instantly, or run it in Request Only mode where programming confirms against the real panel state. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Security Button",
       "release_status": "release-candidate",
       "hardware_status": "bench-tested",
       "featured": false,
       "features": [
-        "The same shield in every room: blue glossy IntegrateIT shield = Disarmed, red = Armed. One glance answers \"is it on?\" without opening the Security screen",
-        "Panel-slave mode (Panel Mode = Follows Panel): the tile mirrors a real security panel instead of toggling itself - a press only REQUESTS, the Toggle command is refused, and the shield moves only on the panel's own Set Armed / Set Disarmed",
-        "Set Alarm / Set Not Ready / Set Ready let the panel push its condition with one line of programming per event, keeping every room's tile in sync",
-        "Honest about its own limits: the tile carries TWO icon states, so armed vs not-armed is the colour and alarm / not-ready ride the icon description (which List Navigator renders in place of the icon, and screen readers announce), the Panel Condition property, and the IS_ALARM / IS_NOT_READY variables",
+        "One Navigator experience button that arms and disarms the security system: blue glossy IntegrateIT shield = Disarmed, red = Armed",
+        "The shield flips the instant the state changes - from a press or from programming (uibutton icon states)",
         "Three press behaviors: Toggle Armed / Disarmed, Request Only (the shield follows the panel's own confirmation rather than the press, subject to the refusal conditions in the guide's Safety boundary), and Disabled (status-only mirror)",
-        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed / Alarm / Not Ready / Ready events, plus SECURITY_STATE, IS_ARMED, PANEL_CONDITION, IS_ALARM and IS_NOT_READY variables for one-line programming conditions",
-        "Silent reboot restore - a Director restart can never arm or disarm anything, and a stale ALARM is never restored",
+        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed events, plus SECURITY_STATE and IS_ARMED variables for one-line programming conditions",
+        "Silent reboot restore - a Director restart can never arm or disarm anything",
         "SELECT+DO_CLICK press debounce and a three-layer loop guard keep self-referential programming safe",
         "Premium shield art: a platinum band with shine sweeping all the way around, a glossy IntegrateIT-blue (or alarm-red) face, a padlock that opens and closes with the state, and the IntegrateIT wordmark - rendered at 70-1024 px",
         "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
@@ -7045,7 +7043,7 @@
         },
         {
           "label": "Navigator",
-          "value": "One primary UI button, TWO icon states (Idle/Selected) confirmed flipping on hardware 2026-08-26. Armed vs not-armed is the colour; richer detail rides the icon description and variables"
+          "value": "One primary UI button; Idle/Selected icon states confirmed flipping on hardware"
         },
         {
           "label": "Output",
@@ -7063,12 +7061,10 @@
         "For production, an IntegrateIT license key bound to this controller"
       ],
       "limitations": [
-        "THE TILE SHOWS TWO STATES, NOT FOUR. Red = armed, blue = not armed (disarmed, not-ready, arming, unknown, or alarming while disarmed). Control4's own sample drivers declare many more custom icon states on a uibutton, so more colours are very likely possible - but the only hardware trial we have of a custom-state build on Daniel's controller did not flip, and that trial was confounded by an xmlVersion bump and a Navigator refresh. Until someone re-runs it deliberately, this driver ships the configuration that is PROVEN on his hardware and carries the rest in words.",
-        "Alarm never turns the shield red. A panic or medical alarm fires on a disarmed system, so red-for-alarm would claim the house is armed when it is not. Alarm reaches you through the icon description, Panel Condition, IS_ALARM, and the Alarm event.",
-        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Panel-slave mode is simulation-tested only and has not been run against a real panel yet. Not field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
+        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Not yet field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
         "The button publishes a state - it drives no panel by itself. Arming and disarming real hardware is programming the dealer writes.",
-        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Follows Panel (or Request Only) plus panel-feedback confirmation.",
-        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State, and the panel condition always starts at Not Reported."
+        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Request Only plus panel-feedback confirmation.",
+        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State."
       ],
       "screenshots": [
         {
@@ -7137,10 +7133,10 @@
       "stats": {
         "proxies": 1,
         "connections": 0,
-        "properties": 11,
-        "commands": 8,
-        "actions": 9,
-        "events": 9
+        "properties": 9,
+        "commands": 5,
+        "actions": 6,
+        "events": 6
       },
       "version": "0.1.8",
       "xml_version": 9,
@@ -7266,16 +7262,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_security_panel",
-        "generated_at": "2026-08-27T14:47:34.997Z",
+        "generated_at": "2026-08-28T15:10:55.925Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "3d14c09a0f4431d8727ae64ee83c738a2f6bc1dff8a64fbf520461b863f30e17",
-        "artifact_sha256": "98a9d2bddc4cf255357e49df4832be16ae272730d4959bfefa8341cc93a39846",
-        "artifact_size_bytes": 202285,
-        "build_version_manifest_sha256": "bb8e4e210f6d862b470ded708311a7e54d1477623d5429e6461a58803882f044",
-        "version_manifest_sha256": "612f136f4a17ed712d44d3b6cda446f12d2316ea5badcc84f04377f3b7050033",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "a846fa19070f770d885181d0c85dcb6df6d3ecf49c95a5d4abba7538eba3c1c8",
+        "artifact_sha256": "9f0c7060d23f3bc5b261f6d1394e2e3c26a77d2d055f560a597ee643d61abf42",
+        "artifact_size_bytes": 1645175,
+        "build_version_manifest_sha256": "ca0f8c21f13ac12f68f3c851ea0eadd47c0c78c71bbd564a40ed0dbf4b9cca8d",
+        "version_manifest_sha256": "8473c90f672507b2fbf6118430ad39c1aef08ec4df47a9a5298b494d8528a74b",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -7287,43 +7283,43 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 136
+            "duration_ms": 151
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 103,
-            "checks": 22,
+            "duration_ms": 97,
+            "checks": 25,
             "warnings": 9
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 1078,
-            "checks": 3433,
+            "duration_ms": 1321,
+            "checks": 3435,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 64,
+            "duration_ms": 51,
             "files": 2
           }
         ]
       },
       "stats": {
-        "proxies": 2,
+        "proxies": 3,
         "connections": 47,
         "properties": 102,
         "commands": 29,
         "actions": 27,
         "events": 37
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 202285,
-      "sha256": "98a9d2bddc4cf255357e49df4832be16ae272730d4959bfefa8341cc93a39846",
+      "size_bytes": 1645175,
+      "sha256": "9f0c7060d23f3bc5b261f6d1394e2e3c26a77d2d055f560a597ee643d61abf42",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/integrateit_security_panel.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/CHANGELOG.md",
@@ -7334,7 +7330,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-27T14:48:27.979Z"
+      "published_at": "2026-08-28T15:11:00.542Z"
     },
     {
       "slug": "integrateit_shelly",
