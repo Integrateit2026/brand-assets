@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_ps5",
+  "generated_at": "2026-08-29T04:14:00.285Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "f8ca9483b5bde695344a84aeb041b90e59376bbf88d26b80d224ba71ec9ac1a9",
+  "artifact_sha256": "47ae08a0edd1da7493b233b4db4ff1d99c3a51e546d33a1bf5837e8fdca2dd00",
+  "artifact_size_bytes": 1263628,
+  "build_version_manifest_sha256": "c45b7c7254349f8c148b95baab4e3e44074bd9fd223f821cb6a43be46445839d",
+  "version_manifest_sha256": "d815124a59244171103f191f57e0a0032edcc6562c47846c33894b3ea1350373",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 123
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 71,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 63,
+      "checks": 160,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 51,
+      "files": 2
+    }
+  ]
+}

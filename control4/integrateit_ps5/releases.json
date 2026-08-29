@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "47ae08a0edd1da7493b233b4db4ff1d99c3a51e546d33a1bf5837e8fdca2dd00",
+      "size_bytes": 1263628,
+      "published_at": "2026-08-29T04:18:58.041Z",
+      "notes": "First release. Display-only AV source (branded-av-source template): satellite proxy named \"PlayStation 5\" + one HDMI OUT binding (HDMI + STEREO), so selecting the console in Watch switches the room's video input and audio path. · Branded PS5 tile across the full Navigator AV icon ladder (driver-local generator; distinct from the Xbox sibling at every size). · Deliberately NO power control: consoles have no reliable one-cable power protocol — wake from the DualSense / HDMI-CEC. Network wake-on-select is a roadmap item, append-only if it can be made reliable.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

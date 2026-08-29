@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-29T04:13:37.994Z",
+  "generated_at": "2026-08-29T04:18:58.063Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -6454,6 +6454,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-08-15T05:00:50.065Z"
+    },
+    {
+      "slug": "integrateit_ps5",
+      "name": "IntegrateIT PlayStation 5",
+      "summary": "Display-only Control4 AV source for a Sony PlayStation 5 (or any HDMI PlayStation). Exposes an HDMI OUT binding so the console can be wired to a TV, AVR, or matrix input and selected in Watch — one tap switches the room's video input and audio path to the PlayStation. Controls nothing and reports nothing by design: there is no reliable one-cable power protocol for a console, so the driver does not pretend to have one. Wake the console from the controller (or HDMI-CEC); a future version may add network wake-on-demand.",
+      "category": "others",
+      "device_type": "PlayStation 5 (HDMI source)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Puts a PlayStation 5 in the Watch menu as a first-class Control4 source: selecting it routes the room's video input AND audio path to the console in one tap",
+        "A single HDMI OUT AV binding (video + audio) that drops onto any TV, AVR, or matrix input in Composer Connections — works with a PS5, PS4, or any HDMI PlayStation",
+        "Branded PS5 tile rendered across the full Navigator icon ladder, distinct at a glance from its Xbox sibling even at the smallest Watch-tile sizes",
+        "Honest display-only contract: the driver commands nothing and reports nothing — consoles expose no reliable one-cable power/input protocol, and this driver does not fake one",
+        "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes",
+        "Self-updating from the IntegrateIT channel; no network connection, no credentials, no logging otherwise — there is nothing for a dummy source to leak"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Source device",
+          "value": "Sony PlayStation 5 (any edition); equally valid for a PS4 / PS4 Pro or any HDMI PlayStation"
+        },
+        {
+          "label": "Sink",
+          "value": "Any TV, AVR, or AV matrix input Control4 can route — proven pattern on AVPro Edge MX Pro"
+        },
+        {
+          "label": "Bindings",
+          "value": "HDMI OUT (type 5), classes HDMI + STEREO — the only AV binding"
+        },
+        {
+          "label": "Control / feedback",
+          "value": "None — display-only by design; wake the console from its controller or HDMI-CEC"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer with Composer Pro",
+        "A PlayStation whose HDMI output feeds a Control4-routable input (TV, AVR, or matrix)",
+        "The .c4z kept at its shipped filename — the icon URLs embed the driver name; a renamed file loads but shows a blank icon",
+        "For self-update, the IntegrateIT driver channel reachable from the controller"
+      ],
+      "limitations": [
+        "Display-only dummy source: NO control and NO feedback. The driver cannot power the PS5 on or off, launch games, or read its state — it only exposes the HDMI OUT binding so the room can switch its video input and audio path to the console. Anything claiming otherwise would be faking it.",
+        "Power stays with the player: press the DualSense PS button to wake the console (leave Rest Mode enabled so it wakes instantly), or let the TV's HDMI-CEC do it where enabled. Sony's network wake rides the Remote Play protocol and needs per-account pairing credentials, so this version deliberately leaves power alone rather than shipping a wake that breaks at every firmware bump — a network wake-on-select is on the roadmap as an append-only update if it can be made reliable.",
+        "EDID: if a display blanks when the source is selected, set the matrix input's EDID to 4K30 or 1080p — a PS5 pushes 4K60/120 with HDR and can out-run a display or a long HDMI run. Gaming features that ride HDMI signaling (VRR, ALLM, 4K120) pass through only if every hop in the routed path supports them.",
+        "Release Candidate: the rendered package passes the full automated QA (binding classes, icon ladder, name-equals-filename law, clean simulator lifecycle); routing on a physical matrix and the Navigator icon render on live touchscreens await field confirmation."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained commissioning guide inside the C4Z: the display-only contract, the power honesty section (the DualSense is the power button), wire-and-commission steps, the field refresh order, and the EDID fix.",
+          "alt": "IntegrateIT PlayStation 5 commissioning guide showing the display-only contract, the power honesty section, wire-and-commission steps, the Navigator field-refresh order, and the EDID troubleshooting note.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_ps5",
+        "generated_at": "2026-08-29T04:14:00.285Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "f8ca9483b5bde695344a84aeb041b90e59376bbf88d26b80d224ba71ec9ac1a9",
+        "artifact_sha256": "47ae08a0edd1da7493b233b4db4ff1d99c3a51e546d33a1bf5837e8fdca2dd00",
+        "artifact_size_bytes": 1263628,
+        "build_version_manifest_sha256": "c45b7c7254349f8c148b95baab4e3e44074bd9fd223f821cb6a43be46445839d",
+        "version_manifest_sha256": "d815124a59244171103f191f57e0a0032edcc6562c47846c33894b3ea1350373",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 123
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 71,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 63,
+            "checks": 160,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 0,
+        "commands": 0,
+        "actions": 0,
+        "events": 0
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 1263628,
+      "sha256": "47ae08a0edd1da7493b233b4db4ff1d99c3a51e546d33a1bf5837e8fdca2dd00",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/integrateit_ps5.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-08-29T04:18:58.041Z"
     },
     {
       "slug": "integrateit_push_pushover",
