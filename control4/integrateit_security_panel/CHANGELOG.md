@@ -1,5 +1,10 @@
 # Changelog — IntegrateIT Security Panel
 
+## [0.2.0] - 2026-08-29
+- The second screen grows up: the in-driver page now shows the whole house — a live zone list with types and bypass, both garage doors as first-class tiles with open and close, a history tab fed by the activity log, wrong-code feedback on the keypad, hold-to-fire emergency buttons, a cancel button on every countdown, and a proper landscape layout for wall touchscreens — at an eighth of its former size, with no external requests of any kind.
+- The engine underneath survived three adversarial review fleets: a mode change on an armed house can no longer open an unprotected window in either direction, a panic raised while the driver is still booting keeps its alarm, every refusal now routes back to the exact press that earned it, the disarm code can no longer reach any log under any debug setting, and a controller reboot while armed announces itself with its own event and trouble instead of quietly rendering a green screen over an unknown house.
+- New and off by default until you turn them on: a door chime with its own event for announcement agents, homeowner zone bypass from the page and the functions menu, and a garage obstruction polarity setting for sensors that signal by opening the circuit — with guidance in the documentation for telling which kind you have.
+
 ## [0.1.1] - 2026-08-28
 - The panel's own screen now ships inside the driver: a second Navigator tile opens a driver-hosted WebView (controller://, proxy 5003) that works on touchscreens and in the phone app — live partition state, arm Home and Away, disarm with code, the functions menu and the emergency row. Every command the page sends is forwarded to the same PARTITION_PROXY handlers Navigator itself calls, so the licence gate, state guards and user-code check cannot be bypassed; with no bridge present the page declares itself a preview and controls nothing.
 - The security engine is unchanged — 0.1.1 is 0.1.0's engine plus the in-driver UI.

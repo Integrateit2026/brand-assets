@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.1",
+  "latest": "0.2.0",
   "history": [
+    {
+      "version": "0.2.0",
+      "xml_version": 3,
+      "sha256": "b3f0d556b6c346ed6a6f0459b05d94068a50358d103f58ac7d2fd2efe88443f0",
+      "size_bytes": 1379550,
+      "published_at": "2026-08-29T20:06:07.816Z",
+      "notes": "The second screen grows up: the in-driver page now shows the whole house — a live zone list with types and bypass, both garage doors as first-class tiles with open and close, a history tab fed by the activity log, wrong-code feedback on the keypad, hold-to-fire emergency buttons, a cancel button on every countdown, and a proper landscape layout for wall touchscreens — at an eighth of its former size, with no external requests of any kind. · The engine underneath survived three adversarial review fleets: a mode change on an armed house can no longer open an unprotected window in either direction, a panic raised while the driver is still booting keeps its alarm, every refusal now routes back to the exact press that earned it, the disarm code can no longer reach any log under any debug setting, and a controller reboot while armed announces itself with its own event and trouble instead of quietly rendering a green screen over an unknown house. · New and off by default until you turn them on: a door chime with its own event for announcement agents, homeowner zone bypass from the page and the functions menu, and a garage obstruction polarity setting for sensors that signal by opening the circuit — with guidance in the documentation for telling which kind you have.",
+      "qa_status": "pass",
+      "hardware_status": "bench-tested"
+    },
     {
       "version": "0.1.1",
       "xml_version": 2,

@@ -2,7 +2,7 @@
   "name": "IntegrateIT Security Panel",
   "version": "0.2.0",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/integrateit_security_panel.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_security_panel/releases/0.2.0/integrateit_security_panel.c4z",
   "notes": "A real Control4 security panel built out of sensors you already own. 32 zones that name themselves from the sensor bound to them, entry delay selectable on any zone, up to 4 garage doors as first-class doors with fully-closed and fully-open limit inputs, the native Navigator Security screen with arm Home and Away, Clear Alarm and per-garage open and close on the functions button, an activity log that survives a reboot, Control4 history records for the push and email notification agents, and a panic button wired to Fire, Medical, Police and Panic. This driver drives no alarm hardware, fires no garage relay, and is not listed alarm signalling.",
   "sha256": "b3f0d556b6c346ed6a6f0459b05d94068a50358d103f58ac7d2fd2efe88443f0",
   "size_bytes": 1379550,
