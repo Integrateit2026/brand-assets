@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-29T18:21:39.197Z",
+  "generated_at": "2026-08-29T19:01:25.198Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -6467,7 +6467,7 @@
       "features": [
         "Puts a PlayStation 5 in the Watch menu as a first-class Control4 source: selecting it routes the room's video input AND audio path to the console in one tap",
         "A single HDMI OUT AV binding (video + audio) that drops onto any TV, AVR, or matrix input in Composer Connections — works with a PS5, PS4, or any HDMI PlayStation",
-        "Branded PS5 tile rendered across the full Navigator icon ladder, distinct at a glance from its Xbox sibling even at the smallest Watch-tile sizes",
+        "Two selectable tile arts via the Icon Set property — Device Only (No Logo, the default: just the PS5 itself) or IntegrateIT Branded (adds the IntegrateIT wordmark on the large tiles) — swapped in place through Control4's own File Interface and re-asserted automatically after every driver update; both stay distinct from the sibling console at the smallest Watch-tile sizes",
         "Honest display-only contract: the driver commands nothing and reports nothing — consoles expose no reliable one-cable power/input protocol, and this driver does not fake one",
         "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes",
         "Self-updating from the IntegrateIT channel; no network connection, no credentials, no logging otherwise — there is nothing for a dummy source to leak"
@@ -6570,7 +6570,7 @@
       "stats": {
         "proxies": 1,
         "connections": 0,
-        "properties": 0,
+        "properties": 1,
         "commands": 0,
         "actions": 0,
         "events": 0
@@ -9344,7 +9344,7 @@
       "features": [
         "Puts an Xbox in the Watch menu as a first-class Control4 source: selecting it routes the room's video input AND audio path to the console in one tap",
         "A single HDMI OUT AV binding (video + audio) that drops onto any TV, AVR, or matrix input in Composer Connections — works with any HDMI-generation Xbox",
-        "Branded Xbox tile rendered across the full Navigator icon ladder, distinct at a glance from its PlayStation sibling even at the smallest Watch-tile sizes",
+        "Two selectable tile arts via the Icon Set property — Device Only (No Logo, the default: just the Xbox itself) or IntegrateIT Branded (adds the IntegrateIT wordmark on the large tiles) — swapped in place through Control4's own File Interface and re-asserted automatically after every driver update; both stay distinct from the sibling console at the smallest Watch-tile sizes",
         "Honest display-only contract: the driver commands nothing and reports nothing — consoles expose no reliable one-cable power/input protocol, and this driver does not fake one",
         "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes",
         "Self-updating from the IntegrateIT channel; no network connection, no credentials, no logging otherwise — there is nothing for a dummy source to leak"
@@ -9399,16 +9399,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_xbox",
-        "generated_at": "2026-08-29T18:21:29.800Z",
+        "generated_at": "2026-08-29T19:01:23.588Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "e28e10a404b536c7cadcee7398e8c88c9feace4cfb224d62bd3ba88da85b6f7c",
-        "artifact_sha256": "d8794f18ab088d9393b45fa576ac1c57b88e48624d5209fbf0767e8575ee34b6",
-        "artifact_size_bytes": 1011611,
-        "build_version_manifest_sha256": "a265e7bcc95262fd5c6a42c96c62bb4b5f643cc3353b2b4977be370ace6bc02f",
-        "version_manifest_sha256": "f148434d0f4a109d6bc050b4733dc7f855787ee1f53921413fbe343ae9eeef52",
-        "version": "0.1.1",
-        "xml_version": 2,
+        "build_inputs_sha256": "de1739e6d6b3afcc3167b4b178a81b9754f64db29070fba00f82501005e4b69b",
+        "artifact_sha256": "2023e5929a0692476c51629d12253d33c0fd2a7da11666522749f1aaa45503ae",
+        "artifact_size_bytes": 1816994,
+        "build_version_manifest_sha256": "df9794e80acb41db259fe278267468e8d6013c7540e363a8a0bea799d6b0f8e2",
+        "version_manifest_sha256": "a237c111d389a5ffed00e165d52dd6240cf4ba7a4501d9fc00ab66eaf7fa2ce4",
+        "version": "0.1.2",
+        "xml_version": 3,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -9420,26 +9420,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 117
+            "duration_ms": 137
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 67,
-            "checks": 18,
+            "duration_ms": 72,
+            "checks": 19,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 61,
-            "checks": 160,
+            "duration_ms": 71,
+            "checks": 192,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 47,
+            "duration_ms": 51,
             "files": 2
           }
         ]
@@ -9447,16 +9447,16 @@
       "stats": {
         "proxies": 1,
         "connections": 0,
-        "properties": 0,
+        "properties": 1,
         "commands": 0,
         "actions": 0,
         "events": 0
       },
-      "version": "0.1.1",
-      "xml_version": 2,
+      "version": "0.1.2",
+      "xml_version": 3,
       "min_os": "3.0.0",
-      "size_bytes": 1011611,
-      "sha256": "d8794f18ab088d9393b45fa576ac1c57b88e48624d5209fbf0767e8575ee34b6",
+      "size_bytes": 1816994,
+      "sha256": "2023e5929a0692476c51629d12253d33c0fd2a7da11666522749f1aaa45503ae",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/integrateit_xbox.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/CHANGELOG.md",
@@ -9467,7 +9467,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-29T18:21:30.301Z"
+      "published_at": "2026-08-29T19:01:25.174Z"
     }
   ]
 }
