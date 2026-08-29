@@ -6461,7 +6461,7 @@
       "summary": "Display-only Control4 AV source for a Sony PlayStation 5 (or any HDMI PlayStation). Exposes an HDMI OUT binding so the console can be wired to a TV, AVR, or matrix input and selected in Watch \u2014 one tap switches the room's video input and audio path to the PlayStation. Controls nothing and reports nothing by design: there is no reliable one-cable power protocol for a console, so the driver does not pretend to have one. Wake the console from the controller (or HDMI-CEC); a future version may add network wake-on-demand.",
       "category": "others",
       "device_type": "PlayStation 5 (AV Source)",
-      "release_status": "release-candidate",
+      "release_status": "internal",
       "hardware_status": "simulation-verified",
       "featured": false,
       "features": [
@@ -9338,7 +9338,7 @@
       "summary": "Display-only Control4 AV source for an Xbox console (Series X|S, One \u2014 any HDMI Xbox). Exposes an HDMI OUT binding so the console can be wired to a TV, AVR, or matrix input and selected in Watch \u2014 one tap switches the room's video input and audio path to the Xbox. Controls nothing and reports nothing by design: there is no reliable one-cable power protocol for a console, so the driver does not pretend to have one. Wake the console from the controller (or HDMI-CEC); a future version may add network wake-on-demand.",
       "category": "others",
       "device_type": "Xbox (AV Source)",
-      "release_status": "release-candidate",
+      "release_status": "internal",
       "hardware_status": "simulation-verified",
       "featured": false,
       "features": [
