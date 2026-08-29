@@ -2,7 +2,7 @@
   "name": "IntegrateIT PlayStation 5",
   "version": "0.1.2",
   "xml_version": 3,
-  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/integrateit_ps5.c4z",
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/releases/0.1.2/integrateit_ps5.c4z",
   "notes": "Display-only Control4 AV source for a Sony PlayStation 5 (or any HDMI PlayStation). Exposes an HDMI OUT binding so the console can be wired to a TV, AVR, or matrix input and selected in Watch — one tap switches the room's video input and audio path to the PlayStation. Controls nothing and reports nothing by design: there is no reliable one-cable power protocol for a console, so the driver does not pretend to have one. Wake the console from the controller (or HDMI-CEC); a future version may add network wake-on-demand.",
   "sha256": "10487280ecbb219243ef2688df0001cf2c05a30b5772a5cbba019e871884fb15",
   "size_bytes": 1940035,
