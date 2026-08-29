@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_xbox",
+  "generated_at": "2026-08-29T04:13:37.526Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "2d2c4ec82fe8585a245fb8d179e065b5229fa3464f2149fac942444cf9ad6146",
+  "artifact_sha256": "3f622367fa62bf3605657288b3911dd21f5f2be67b0e5c4eec6d3453bfd63a27",
+  "artifact_size_bytes": 1208005,
+  "build_version_manifest_sha256": "4dff727c922703d64e2f1c8ea8342a1064d3a6113444868ce07be759d2f941e3",
+  "version_manifest_sha256": "1a94a45b0b2911d00d735463209bea8135d1672538ee0c2d9f7659b26037685d",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 128
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 74,
+      "checks": 18,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 64,
+      "checks": 160,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 51,
+      "files": 2
+    }
+  ]
+}

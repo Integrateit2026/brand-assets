@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Xbox",
+  "version": "0.1.0",
+  "xml_version": 1,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/releases/0.1.0/integrateit_xbox.c4z",
+  "notes": "Display-only Control4 AV source for an Xbox console (Series X|S, One — any HDMI Xbox). Exposes an HDMI OUT binding so the console can be wired to a TV, AVR, or matrix input and selected in Watch — one tap switches the room's video input and audio path to the Xbox. Controls nothing and reports nothing by design: there is no reliable one-cable power protocol for a console, so the driver does not pretend to have one. Wake the console from the controller (or HDMI-CEC); a future version may add network wake-on-demand.",
+  "sha256": "3f622367fa62bf3605657288b3911dd21f5f2be67b0e5c4eec6d3453bfd63a27",
+  "size_bytes": 1208005,
+  "min_os": "3.0.0",
+  "published_at": "2026-08-29T04:12:20.061Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/qa-report.json"
+}

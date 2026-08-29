@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T15:11:00.551Z",
+  "generated_at": "2026-08-29T04:13:37.994Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -7020,18 +7020,20 @@
     {
       "slug": "integrateit_security_button",
       "name": "IntegrateIT Security Button",
-      "summary": "One branded Navigator experience button that arms and disarms the security system. Blue shield = disarmed, red shield = armed; the icon flips on every toggle. Press it to toggle instantly, or run it in Request Only mode where programming confirms against the real panel state. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
+      "summary": "One branded Navigator experience button that shows whether the security system is armed, in every room. Blue shield = disarmed, red shield = armed - two icon states, one honest bit, and the tile never claims a state the panel did not confirm. Run it standalone as a toggle, or set Panel Mode to Follows Panel and slave it to a real security panel: a press only asks, and Set Armed / Set Disarmed / Set Alarm / Set Not Ready keep every room's shield in sync from one line of programming per panel event. Not-ready and alarm ride the icon description, the Panel Condition property and the IS_ALARM / IS_NOT_READY variables. Reboot persistence, press debounce, and a loop guard keep it safe to program against. MAC-locked IntegrateIT licensing.",
       "category": "others",
       "device_type": "Security Button",
       "release_status": "release-candidate",
       "hardware_status": "bench-tested",
       "featured": false,
       "features": [
-        "One Navigator experience button that arms and disarms the security system: blue glossy IntegrateIT shield = Disarmed, red = Armed",
-        "The shield flips the instant the state changes - from a press or from programming (uibutton icon states)",
+        "The same shield in every room: blue glossy IntegrateIT shield = Disarmed, red = Armed. One glance answers \"is it on?\" without opening the Security screen",
+        "Panel-slave mode (Panel Mode = Follows Panel): the tile mirrors a real security panel instead of toggling itself - a press only REQUESTS, the Toggle command is refused, and the shield moves only on the panel's own Set Armed / Set Disarmed",
+        "Set Alarm / Set Not Ready / Set Ready let the panel push its condition with one line of programming per event, keeping every room's tile in sync",
+        "Honest about its own limits: the tile carries TWO icon states, so armed vs not-armed is the colour and alarm / not-ready ride the icon description (which List Navigator renders in place of the icon, and screen readers announce), the Panel Condition property, and the IS_ALARM / IS_NOT_READY variables",
         "Three press behaviors: Toggle Armed / Disarmed, Request Only (the shield follows the panel's own confirmation rather than the press, subject to the refusal conditions in the guide's Safety boundary), and Disabled (status-only mirror)",
-        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed events, plus SECURITY_STATE and IS_ARMED variables for one-line programming conditions",
-        "Silent reboot restore - a Director restart can never arm or disarm anything",
+        "Pressed / Arm Requested / Disarm Requested / Armed / Disarmed / Alarm / Not Ready / Ready events, plus SECURITY_STATE, IS_ARMED, PANEL_CONDITION, IS_ALARM and IS_NOT_READY variables for one-line programming conditions",
+        "Silent reboot restore - a Director restart can never arm or disarm anything, and a stale ALARM is never restored",
         "SELECT+DO_CLICK press debounce and a three-layer loop guard keep self-referential programming safe",
         "Premium shield art: a platinum band with shine sweeping all the way around, a glossy IntegrateIT-blue (or alarm-red) face, a padlock that opens and closes with the state, and the IntegrateIT wordmark - rendered at 70-1024 px",
         "MAC-locked IntegrateIT licensing with lenient or strict enforcement"
@@ -7043,7 +7045,7 @@
         },
         {
           "label": "Navigator",
-          "value": "One primary UI button; Idle/Selected icon states confirmed flipping on hardware"
+          "value": "One primary UI button, TWO icon states (Idle/Selected) confirmed flipping on hardware 2026-08-26. Armed vs not-armed is the colour; richer detail rides the icon description and variables"
         },
         {
           "label": "Output",
@@ -7061,10 +7063,12 @@
         "For production, an IntegrateIT license key bound to this controller"
       ],
       "limitations": [
-        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Not yet field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
+        "THE TILE SHOWS TWO STATES, NOT FOUR. Red = armed, blue = not armed (disarmed, not-ready, arming, unknown, or alarming while disarmed). Control4's own sample drivers declare many more custom icon states on a uibutton, so more colours are very likely possible - but the only hardware trial we have of a custom-state build on Daniel's controller did not flip, and that trial was confounded by an xmlVersion bump and a Navigator refresh. Until someone re-runs it deliberately, this driver ships the configuration that is PROVEN on his hardware and carries the rest in words.",
+        "Alarm never turns the shield red. A panic or medical alarm fires on a disarmed system, so red-for-alarm would claim the house is armed when it is not. Alarm reaches you through the icon description, Panel Condition, IS_ALARM, and the Alarm event.",
+        "Bench-tested 2026-08-26 on a live controller: the tile renders in Navigator, a press arms and disarms, and the shield follows the state (blue <-> red). Panel-slave mode is simulation-tested only and has not been run against a real panel yet. Not field-validated over time, and the panel-side programming that arms real hardware is per-site dealer work.",
         "The button publishes a state - it drives no panel by itself. Arming and disarming real hardware is programming the dealer writes.",
-        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Request Only plus panel-feedback confirmation.",
-        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State."
+        "In Toggle mode the shield shows what was toggled, not what a real panel actually did; installs with a real panel should use Follows Panel (or Request Only) plus panel-feedback confirmation.",
+        "Reboot restore depends on Director persistence. A driver that is removed and re-added starts at the Default State, and the panel condition always starts at Not Reported."
       ],
       "screenshots": [
         {
@@ -7133,10 +7137,10 @@
       "stats": {
         "proxies": 1,
         "connections": 0,
-        "properties": 9,
-        "commands": 5,
-        "actions": 6,
-        "events": 6
+        "properties": 11,
+        "commands": 8,
+        "actions": 9,
+        "events": 9
       },
       "version": "0.1.8",
       "xml_version": 9,
@@ -9190,6 +9194,143 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-08-15T05:28:55.466Z"
+    },
+    {
+      "slug": "integrateit_xbox",
+      "name": "IntegrateIT Xbox",
+      "summary": "Display-only Control4 AV source for an Xbox console (Series X|S, One — any HDMI Xbox). Exposes an HDMI OUT binding so the console can be wired to a TV, AVR, or matrix input and selected in Watch — one tap switches the room's video input and audio path to the Xbox. Controls nothing and reports nothing by design: there is no reliable one-cable power protocol for a console, so the driver does not pretend to have one. Wake the console from the controller (or HDMI-CEC); a future version may add network wake-on-demand.",
+      "category": "others",
+      "device_type": "Xbox (HDMI source)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "Puts an Xbox in the Watch menu as a first-class Control4 source: selecting it routes the room's video input AND audio path to the console in one tap",
+        "A single HDMI OUT AV binding (video + audio) that drops onto any TV, AVR, or matrix input in Composer Connections — works with any HDMI-generation Xbox",
+        "Branded Xbox tile rendered across the full Navigator icon ladder, distinct at a glance from its PlayStation sibling even at the smallest Watch-tile sizes",
+        "Honest display-only contract: the driver commands nothing and reports nothing — consoles expose no reliable one-cable power/input protocol, and this driver does not fake one",
+        "satellite proxy class (field-confirmed 2026-07-26: Navigator skins satellite/cable/dvd sources from the icon ladder; media_player renders blank) with the proven AV anatomy — the proxy-binding connection plus the fixed HDMI OUT output carrying the HDMI and STEREO classes",
+        "Self-updating from the IntegrateIT channel; no network connection, no credentials, no logging otherwise — there is nothing for a dummy source to leak"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Source device",
+          "value": "Any Xbox with HDMI output (Series X, Series S, One family, 360 w/ HDMI)"
+        },
+        {
+          "label": "Sink",
+          "value": "Any TV, AVR, or AV matrix input Control4 can route — proven pattern on AVPro Edge MX Pro"
+        },
+        {
+          "label": "Bindings",
+          "value": "HDMI OUT (type 5), classes HDMI + STEREO — the only AV binding"
+        },
+        {
+          "label": "Control / feedback",
+          "value": "None — display-only by design; wake the console from its controller or HDMI-CEC"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "Control4 OS 3.0.0 or newer with Composer Pro",
+        "An Xbox whose HDMI output feeds a Control4-routable input (TV, AVR, or matrix)",
+        "The .c4z kept at its shipped filename — the icon URLs embed the driver name; a renamed file loads but shows a blank icon",
+        "For self-update, the IntegrateIT driver channel reachable from the controller"
+      ],
+      "limitations": [
+        "Display-only dummy source: NO control and NO feedback. The driver cannot power the Xbox on or off, launch games, or read its state — it only exposes the HDMI OUT binding so the room can switch its video input and audio path to the console. Anything claiming otherwise would be faking it.",
+        "Power stays with the player: press the controller's Xbox button to wake the console (set the console's power mode to Sleep so it wakes instantly), or let the TV's HDMI-CEC do it where enabled. Microsoft's network wake protocol is undocumented and session-bound, so this version deliberately leaves power alone rather than shipping a wake that works one week in three — a network wake-on-select is on the roadmap as an append-only update if it can be made reliable.",
+        "EDID: if a display blanks when the source is selected, set the matrix input's EDID to 4K30 or 1080p — a Series X pushes 4K60/120 with HDR and can out-run a display or a long HDMI run. Gaming features that ride HDMI signaling (VRR, ALLM, 4K120) pass through only if every hop in the routed path supports them.",
+        "Release Candidate: the rendered package passes the full automated QA (binding classes, icon ladder, name-equals-filename law, clean simulator lifecycle); routing on a physical matrix and the Navigator icon render on live touchscreens await field confirmation."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The self-contained commissioning guide inside the C4Z: the display-only contract, the power honesty section (the controller is the power button), wire-and-commission steps, the field refresh order, and the EDID fix.",
+          "alt": "IntegrateIT Xbox commissioning guide showing the display-only contract, the power honesty section, wire-and-commission steps, the Navigator field-refresh order, and the EDID troubleshooting note.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_xbox",
+        "generated_at": "2026-08-29T04:13:37.526Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "2d2c4ec82fe8585a245fb8d179e065b5229fa3464f2149fac942444cf9ad6146",
+        "artifact_sha256": "3f622367fa62bf3605657288b3911dd21f5f2be67b0e5c4eec6d3453bfd63a27",
+        "artifact_size_bytes": 1208005,
+        "build_version_manifest_sha256": "4dff727c922703d64e2f1c8ea8342a1064d3a6113444868ce07be759d2f941e3",
+        "version_manifest_sha256": "1a94a45b0b2911d00d735463209bea8135d1672538ee0c2d9f7659b26037685d",
+        "version": "0.1.0",
+        "xml_version": 1,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 128
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 74,
+            "checks": 18,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 64,
+            "checks": 160,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 51,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 0,
+        "properties": 0,
+        "commands": 0,
+        "actions": 0,
+        "events": 0
+      },
+      "version": "0.1.0",
+      "xml_version": 1,
+      "min_os": "3.0.0",
+      "size_bytes": 1208005,
+      "sha256": "3f622367fa62bf3605657288b3911dd21f5f2be67b0e5c4eec6d3453bfd63a27",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/integrateit_xbox.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_xbox/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-08-29T04:12:20.061Z"
     }
   ]
 }

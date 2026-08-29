@@ -1,0 +1,15 @@
+{
+  "latest": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "xml_version": 1,
+      "sha256": "3f622367fa62bf3605657288b3911dd21f5f2be67b0e5c4eec6d3453bfd63a27",
+      "size_bytes": 1208005,
+      "published_at": "2026-08-29T04:12:20.061Z",
+      "notes": "First release. Display-only AV source (branded-av-source template): satellite proxy named \"Xbox\" + one HDMI OUT binding (HDMI + STEREO), so selecting the console in Watch switches the room's video input and audio path. · Branded Xbox tile across the full Navigator AV icon ladder (driver-local generator; distinct from the PlayStation sibling at every size). · Deliberately NO power control: consoles have no reliable one-cable power protocol — wake from the controller / HDMI-CEC. Network wake-on-select is a roadmap item, append-only if it can be made reliable.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}
