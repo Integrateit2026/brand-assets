@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "31e9ad99b3b40119b8d2a0a934c93902a8b110020b6ffee26bc42fa33b580d9f",
+      "size_bytes": 1107075,
+      "published_at": "2026-08-29T18:21:39.183Z",
+      "notes": "Navigator tile is now the device itself: an original vector render of the PlayStation 5 tower — white flared fins, black core, blue light seam, round stand — replacing the 0.1.0 typographic PS5 mark. No manufacturer logo artwork; xml_version bump forces the Navigator icon refresh.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,

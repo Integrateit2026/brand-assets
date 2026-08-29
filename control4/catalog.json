@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-29T18:21:30.335Z",
+  "generated_at": "2026-08-29T18:21:39.197Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -6522,16 +6522,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_ps5",
-        "generated_at": "2026-08-29T04:14:00.285Z",
+        "generated_at": "2026-08-29T18:21:38.783Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "f8ca9483b5bde695344a84aeb041b90e59376bbf88d26b80d224ba71ec9ac1a9",
-        "artifact_sha256": "47ae08a0edd1da7493b233b4db4ff1d99c3a51e546d33a1bf5837e8fdca2dd00",
-        "artifact_size_bytes": 1263628,
-        "build_version_manifest_sha256": "c45b7c7254349f8c148b95baab4e3e44074bd9fd223f821cb6a43be46445839d",
-        "version_manifest_sha256": "d815124a59244171103f191f57e0a0032edcc6562c47846c33894b3ea1350373",
-        "version": "0.1.0",
-        "xml_version": 1,
+        "build_inputs_sha256": "0da6d532cdf680754c3d0f77255a51d5979ba63092705ff6aeef10a277285d9d",
+        "artifact_sha256": "31e9ad99b3b40119b8d2a0a934c93902a8b110020b6ffee26bc42fa33b580d9f",
+        "artifact_size_bytes": 1107075,
+        "build_version_manifest_sha256": "923f5a91652677d214ff350660652e8e6a349a7835591c4927d7a382a5cf93da",
+        "version_manifest_sha256": "fe099a7946245f8568670a6d976a29756cfde1306b4b9210f48061c2ae9605d7",
+        "version": "0.1.1",
+        "xml_version": 2,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -6543,26 +6543,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 123
+            "duration_ms": 118
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 71,
+            "duration_ms": 66,
             "checks": 18,
             "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 63,
+            "duration_ms": 60,
             "checks": 160,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 51,
+            "duration_ms": 49,
             "files": 2
           }
         ]
@@ -6575,11 +6575,11 @@
         "actions": 0,
         "events": 0
       },
-      "version": "0.1.0",
-      "xml_version": 1,
+      "version": "0.1.1",
+      "xml_version": 2,
       "min_os": "3.0.0",
-      "size_bytes": 1263628,
-      "sha256": "47ae08a0edd1da7493b233b4db4ff1d99c3a51e546d33a1bf5837e8fdca2dd00",
+      "size_bytes": 1107075,
+      "sha256": "31e9ad99b3b40119b8d2a0a934c93902a8b110020b6ffee26bc42fa33b580d9f",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/integrateit_ps5.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_ps5/CHANGELOG.md",
@@ -6590,7 +6590,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-08-29T04:18:58.041Z"
+      "published_at": "2026-08-29T18:21:39.183Z"
     },
     {
       "slug": "integrateit_push_pushover",
