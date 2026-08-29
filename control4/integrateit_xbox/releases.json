@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.0",
+  "latest": "0.1.1",
   "history": [
+    {
+      "version": "0.1.1",
+      "xml_version": 2,
+      "sha256": "d8794f18ab088d9393b45fa576ac1c57b88e48624d5209fbf0767e8575ee34b6",
+      "size_bytes": 1011611,
+      "published_at": "2026-08-29T18:21:30.301Z",
+      "notes": "Navigator tile is now the device itself: an original vector render of the Xbox Series X monolith — green vent-dot glow on the top face, power dot, disc slot — replacing the 0.1.0 typographic XBOX mark. No manufacturer logo artwork; xml_version bump forces the Navigator icon refresh.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.0",
       "xml_version": 1,
