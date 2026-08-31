@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT PlayStation 5
 
+## [0.1.4] - 2026-08-31
+- Auto-update, fleet-wide: new 'Automatic Update Install' property — Auto-stage (the default) downloads new releases onto the controller by itself; they install at the next Director restart. Bench-learned truth baked into every message and doc: Composer's right-click Update Driver reads the PC's local file, not the controller-staged one — the staged version loads when Director restarts. Manual local-file update remains the immediate path. 'Notify only' keeps the old announce-don't-touch behavior.
+
 ## [0.1.3] - 2026-08-31
 - Third tile art + new default: Floating Device — the console alone on a transparent background with a soft shadow, the same style as Control4's stock source icons, approved from preview. Icon Set now offers Floating Device (default) | Device Only (No Logo) | IntegrateIT Branded; every set ships as a full 16-size ladder and the switch swaps the whole ladder in place, re-asserting after updates as before. Device art fidelity pass rides along (glow halos un-clipped on transparency; PS5 tower slimmed to true proportions; Xbox gains eject dot + front USB detail).
 
