@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT PlayStation 5
 
+## [0.1.3] - 2026-08-31
+- Third tile art + new default: Floating Device — the console alone on a transparent background with a soft shadow, the same style as Control4's stock source icons, approved from preview. Icon Set now offers Floating Device (default) | Device Only (No Logo) | IntegrateIT Branded; every set ships as a full 16-size ladder and the switch swaps the whole ladder in place, re-asserting after updates as before. Device art fidelity pass rides along (glow halos un-clipped on transparency; PS5 tower slimmed to true proportions; Xbox gains eject dot + front USB detail).
+
 ## [0.1.2] - 2026-08-29
 - New Icon Set property (Composer > driver properties): Device Only (No Logo) — now the default, every tile is just the console — or IntegrateIT Branded (adds the IntegrateIT wordmark on the 300px+ tiles). The switch swaps the live tile files in place through Control4's File Interface (OS 3.3.0 C4Z alias), tells you the Navigator refresh order in Status, and re-asserts your choice after every driver update. Only the large tiles differ; watch-tile sizes are identical device-only art in both sets.
 
