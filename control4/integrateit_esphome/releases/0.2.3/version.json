@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Client for the ESPHome Native API",
+  "version": "0.2.3",
+  "xml_version": 5,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/releases/0.2.3/integrateit_esphome.c4z",
+  "notes": "Local Control4 client for a single ESPHome device over its Native API (TCP :6053, plaintext protobuf). Enumerates the device's switch, binary_sensor, sensor, text_sensor, cover, and light entities, maps up to eight of them into labeled Control4 slots with typed variables and Changed events, and drives switches and lights On/Off/Toggle, light brightness 0-100%, and covers Open/Close/Stop/Set Position. Capability-honest: brightness and position are refused by name on entities that report they do not support them. Plaintext + legacy password auth only. MAC-locked IntegrateIT licensing.",
+  "sha256": "b2bd0aab267ab136d62afdc6079aede581db018c710abca01d8411db909b0666",
+  "size_bytes": 97457,
+  "min_os": "3.0.0",
+  "published_at": "2026-10-30T05:49:57.501Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_esphome/qa-report.json"
+}

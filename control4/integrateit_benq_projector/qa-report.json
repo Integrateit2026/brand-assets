@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "slug": "integrateit_benq_projector",
-  "generated_at": "2026-10-30T05:48:40.239Z",
+  "generated_at": "2026-10-30T05:48:51.174Z",
   "status": "pass",
   "failed_stage": null,
   "build_inputs_sha256": "228837631aecc36e0866796beb7b7d3cd07461fe3afe266cb7eb7b388adbc0dd",
@@ -22,26 +22,26 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 136
+      "duration_ms": 150
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 104,
+      "duration_ms": 115,
       "checks": 23,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 126,
+      "duration_ms": 121,
       "checks": 318,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 82,
+      "duration_ms": 99,
       "files": 2
     }
   ]

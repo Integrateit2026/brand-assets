@@ -1,13 +1,13 @@
 {
   "name": "IntegrateIT Lifestyle Buttons",
-  "version": "0.1.4",
-  "xml_version": 5,
+  "version": "0.1.5",
+  "xml_version": 6,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/integrateit_lifestyle_buttons.c4z",
   "notes": "A six-slot lifestyle mode selector with its own Navigator control pad: one mode active at a time, a Reset button that clears back to normal, per-mode programming events, debounced presses, explicit repeat-press semantics, and a loop guard that stops runaway programming. MAC-locked IntegrateIT licensing.",
-  "sha256": "e10efd6af1fa0c73f3dbd5c0053e13afb298cd924bc8c760e322b3cea8d93950",
-  "size_bytes": 345701,
+  "sha256": "3daea4384d5d8fc6d2984022a25cf0b8046acb86c57c02cd23a5f87a5c9aa15e",
+  "size_bytes": 348735,
   "min_os": "3.0.0",
-  "published_at": "2026-08-15T04:39:48.211Z",
+  "published_at": "2026-10-30T05:49:57.533Z",
   "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/CHANGELOG.md",
   "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/releases.json",
   "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lifestyle_buttons/qa-report.json"

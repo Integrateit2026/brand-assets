@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_soundfx",
-  "generated_at": "2026-08-15T05:14:52.629Z",
+  "generated_at": "2026-10-30T05:49:08.989Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "51215a3ffbaaa07ad5d1812d846df1e6ae9ffed94e99efa6f33fb3b8b6221fcb",
-  "artifact_sha256": "7624c3a81c1b5df170b49b654192e090379dd2c8bf835f647060128fd738ff2e",
-  "artifact_size_bytes": 104886,
-  "build_version_manifest_sha256": "91b5bc4e8af05eb872dfcf9b7fbe438e27f3956b37e0197a740de43393fcc97a",
-  "version_manifest_sha256": "25b741548151d313a9684840ded72dee909818ccaa4e2e93c554bd67e28e9484",
-  "version": "0.1.5",
-  "xml_version": 5,
+  "build_inputs_sha256": "c5801e68dea571aa70d0a28d08fec0a1809990f9df664fd6bdc1b91ebbaae553",
+  "artifact_sha256": "956e3325d0a6ead43584b4f92ce9df2fb625014bb591945ead798dafaf8f6f61",
+  "artifact_size_bytes": 76686,
+  "build_version_manifest_sha256": "b6eee69e0980091d4e22980594575bf6d2340e4cf90b04f419d0c34f712acb4a",
+  "version_manifest_sha256": "2ea1af053cca2cee720225700a238387fb7dcf82139dce9060bc1b4690c54f29",
+  "version": "0.1.6",
+  "xml_version": 6,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,26 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 98
-    },
-    {
-      "name": "idstability",
-      "status": "pass",
-      "duration_ms": 51
+      "duration_ms": 179
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 70,
-      "checks": 21,
+      "duration_ms": 141,
+      "checks": 22,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 79,
-      "checks": 365,
+      "duration_ms": 163,
+      "checks": 366,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 55,
+      "duration_ms": 101,
       "files": 2
     }
   ]

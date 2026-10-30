@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Enhanced Scheduler",
+  "version": "0.1.5",
+  "xml_version": 6,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_scheduler/releases/0.1.5/integrateit_enhanced_scheduler.c4z",
+  "notes": "A headless recurring-time scheduler for Control4 with up to six independent slots, each with its own time-of-day, weekday mask, and enable switch. Every slot fires Composer events so project programming can react to flexible recurring schedules the built-in scheduler cannot express.",
+  "sha256": "6226ad80cab5b60d34f03a3bc52b00479a7574f19504f2442d3d06aa8ef1a9b9",
+  "size_bytes": 70666,
+  "min_os": "3.0.0",
+  "published_at": "2026-10-30T05:49:57.495Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_scheduler/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_scheduler/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_enhanced_scheduler/qa-report.json"
+}

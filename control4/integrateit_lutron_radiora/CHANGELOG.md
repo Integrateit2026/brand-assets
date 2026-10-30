@@ -1,5 +1,11 @@
 # Changelog — IntegrateIT Lutron RadioRA Classic
 
+## [0.1.5] - 2026-10-30
+- Fix: Composer's System Design tree could show this driver as a blank row with no name. Composer draws the device tiles at 16 and 32 px and this build shipped 32 and 300 px ones, so the row rendered as an oversized blank smear. The tiles are re-cut at 16/32 px from the same art. No control changes.
+
+## [0.1.4] - 2026-10-29
+- Declares `<serialsettings>9600 8 none 1 none 232</serialsettings>`, so the controller sets the bound RS-232 port to 9600 8N1 (per Lutron's RadioRA RS232 Protocol and Programming Guide, P/N 044-038 Rev. A) instead of leaving it at whatever it was last set to. Hardware handshaking stays off, matching the TX/RX/GND wiring Lutron allows.
+
 ## [0.1.3] - 2026-08-15
 - Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
 

@@ -1,13 +1,13 @@
 {
   "name": "IntegrateIT Hue Motion Sensor",
-  "version": "0.2.2",
-  "xml_version": 4,
+  "version": "0.2.3",
+  "xml_version": 5,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/integrateit_hue_motion.c4z",
   "notes": "Local Control4 driver for one Philips Hue motion accessory over the on-bridge CLIP API v2, with push feedback from the eventstream for motion, light level, temperature, and battery. Lighting and comfort automation only — not a security or intrusion device.",
-  "sha256": "59f828abfb7e9a5342201615c8d0f4a0f6fad4963afb235007368a63cd91e832",
-  "size_bytes": 130259,
+  "sha256": "593f1c3d1f1cf265593149629c161bffcfb2ffb95c04d25bafe6fbc5d54de34a",
+  "size_bytes": 102124,
   "min_os": "3.0.0",
-  "published_at": "2026-08-15T04:34:32.692Z",
+  "published_at": "2026-10-30T05:49:57.525Z",
   "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/CHANGELOG.md",
   "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/releases.json",
   "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_hue_motion/qa-report.json"

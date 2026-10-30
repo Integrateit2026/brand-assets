@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Security Panel
 
+## [0.2.1] - 2026-10-30
+- Fix: Composer's System Design tree could show this driver as a blank row with no name. Composer draws the device tiles at 16 and 32 px and this build shipped 32 and 300 px ones, so the row rendered as an oversized blank smear. The tiles are re-cut at 16/32 px from the same art. No control changes.
+
 ## [0.2.0] - 2026-08-29
 - The second screen grows up: the in-driver page now shows the whole house — a live zone list with types and bypass, both garage doors as first-class tiles with open and close, a history tab fed by the activity log, wrong-code feedback on the keypad, hold-to-fire emergency buttons, a cancel button on every countdown, and a proper landscape layout for wall touchscreens — at an eighth of its former size, with no external requests of any kind.
 - The engine underneath survived three adversarial review fleets: a mode change on an armed house can no longer open an unprotected window in either direction, a panic raised while the driver is still booting keeps its alarm, every refusal now routes back to the exact press that earned it, the disarm code can no longer reach any log under any debug setting, and a controller reboot while armed announces itself with its own event and trouble instead of quietly rendering a green screen over an unknown house.

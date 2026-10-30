@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Metrics & Insights
 
+## [0.1.5] - 2026-10-30
+- Fix: Composer's System Design tree could show this driver as a blank row with no name. Composer draws the device tiles at 16 and 32 px and this build shipped 32 and 300 px ones, so the row rendered as an oversized blank smear. The tiles are re-cut at 16/32 px from the same art. No control changes.
+
 ## [0.1.4] - 2026-08-17
 - Certification pass: the packaged Version history now renders its formatting instead of shipping raw markdown, plus documentation corrections verified line by line against the driver's own manifest and code.
 

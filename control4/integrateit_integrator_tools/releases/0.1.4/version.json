@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT Integrator Tools",
+  "version": "0.1.4",
+  "xml_version": 5,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/releases/0.1.4/integrateit_integrator_tools.c4z",
+  "notes": "A dealer utility surface that puts three labelled privileged maintenance tasks behind an explicit confirmation step and writes every request, authorization, denial and lock change to a persistent on-controller audit log with an optional webhook. MAC-locked IntegrateIT licensing.",
+  "sha256": "03b9fa09ed5c009cc6cbdb16298d275c60ceb6be97d15471d3fed27b3502ec26",
+  "size_bytes": 75605,
+  "min_os": "3.0.0",
+  "published_at": "2026-10-30T05:49:57.527Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_integrator_tools/qa-report.json"
+}

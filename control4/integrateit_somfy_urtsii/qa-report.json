@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_somfy_urtsii",
-  "generated_at": "2026-08-15T05:13:06.690Z",
+  "generated_at": "2026-10-30T05:49:08.332Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "9174088363c72768184e09ecc6ae857ae013e44535f2ead82ae40b94fcecdc76",
-  "artifact_sha256": "077330ff0afbc71bd7157ed9c4e14569e5a6e0e7ea909918e2ad709594e3dd95",
-  "artifact_size_bytes": 100491,
-  "build_version_manifest_sha256": "885e571ed597bcec907827d81e18d099eb22021f4f7260869dee4856776811a3",
-  "version_manifest_sha256": "e25b5e6e1daeddd0d1945073c715ea0c8f2f6807a3cf1339dcfb6129514a0537",
-  "version": "0.1.2",
-  "xml_version": 3,
+  "build_inputs_sha256": "a530a9780027536fb219317f7936bb2127ba06b9a7bc6cf73251b79565de5960",
+  "artifact_sha256": "521b91131e71cbe004de4f228f9ac487dc2e6faf8dab42f69acee33cbe456d78",
+  "artifact_size_bytes": 72299,
+  "build_version_manifest_sha256": "71a7fa103cc18aae84e0fc49b6d1956e9393b767c2e6930dd78fb9547a1f08a6",
+  "version_manifest_sha256": "b2295003fd327de41e49ec0d2fbf5dc4a644282bf9eaf8aa18b58a45ba8dc120",
+  "version": "0.1.4",
+  "xml_version": 5,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,26 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 97
-    },
-    {
-      "name": "idstability",
-      "status": "pass",
-      "duration_ms": 51
+      "duration_ms": 163
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 69,
-      "checks": 21,
+      "duration_ms": 126,
+      "checks": 23,
       "warnings": 0
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 71,
-      "checks": 307,
+      "duration_ms": 143,
+      "checks": 308,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 54,
+      "duration_ms": 93,
       "files": 2
     }
   ]

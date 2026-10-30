@@ -1,13 +1,13 @@
 {
   "name": "IntegrateIT Nanoleaf",
-  "version": "0.1.3",
-  "xml_version": 4,
+  "version": "0.1.4",
+  "xml_version": 5,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/integrateit_nanoleaf.c4z",
   "notes": "Local Control4 driver for a Nanoleaf light — Light Panels, Canvas, Shapes, Elements, or Lines — over the vendor's on-device Open API, with built-in power-button pairing and polled state feedback. No cloud dependency: control stays on the LAN.",
-  "sha256": "38bffdeec2a5da542b908b51ab96484b8076c7d83f18990b30459d57bea0f52b",
-  "size_bytes": 104636,
+  "sha256": "d408128d05eb0cf1599e44e01be6780266c26e1e052025a4fd7e01b08ee2a2a9",
+  "size_bytes": 76184,
   "min_os": "3.0.0",
-  "published_at": "2026-08-15T04:52:04.783Z",
+  "published_at": "2026-10-30T05:49:57.554Z",
   "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/CHANGELOG.md",
   "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/releases.json",
   "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_nanoleaf/qa-report.json"

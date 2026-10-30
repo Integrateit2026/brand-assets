@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "slug": "integrateit_watchdog",
-  "generated_at": "2026-08-15T05:27:10.065Z",
+  "generated_at": "2026-10-30T05:49:11.153Z",
   "status": "pass",
   "failed_stage": null,
-  "build_inputs_sha256": "c0cc3a0522a9439c13ed253c2490608c20e1ab4b0dffe9227161e5660e15ca8f",
-  "artifact_sha256": "1f2784ff0a4cd09ee3485cf9e5098b4f80fdff6b8d8ba44180866fce73b25944",
-  "artifact_size_bytes": 267010,
-  "build_version_manifest_sha256": "2d3af6284387d5c60a821b663853cef6862faa4aec1d571f8773dc6e079100d9",
-  "version_manifest_sha256": "aeb336f45a8c669a2e225e1c28fd7cdffe215565ee8891f7ebcc3af1ae36797b",
-  "version": "0.2.1",
-  "xml_version": 3,
+  "build_inputs_sha256": "3043e9937f237ac0ea35ccb77a57c07db4ec203eabc19151628bab82c0b665c5",
+  "artifact_sha256": "cb2bb2351273b95a939d51cfe060bc95c1d211bd1a37daeac17d6d8d3bb34e1a",
+  "artifact_size_bytes": 269070,
+  "build_version_manifest_sha256": "72cbf1aa600463a82935537913f4793c3556a93cdd1e8c346696c88c0b670bd5",
+  "version_manifest_sha256": "af71cbb507d9a6083157352d189dbd6cd521eb0b7fb0320b8792ddb0e290c859",
+  "version": "0.2.2",
+  "xml_version": 4,
   "environment": "Control4 API simulator + deterministic package validators",
   "hardware_status": "simulation-verified",
   "channel_verification": {
@@ -22,31 +22,26 @@
     {
       "name": "build",
       "status": "pass",
-      "duration_ms": 129
-    },
-    {
-      "name": "idstability",
-      "status": "pass",
-      "duration_ms": 55
+      "duration_ms": 227
     },
     {
       "name": "static",
       "status": "pass",
-      "duration_ms": 82,
-      "checks": 24,
-      "warnings": 0
+      "duration_ms": 160,
+      "checks": 25,
+      "warnings": 1
     },
     {
       "name": "runtime",
       "status": "pass",
-      "duration_ms": 272,
-      "checks": 750,
+      "duration_ms": 333,
+      "checks": 751,
       "violations": 0
     },
     {
       "name": "golden",
       "status": "pass",
-      "duration_ms": 66,
+      "duration_ms": 93,
       "files": 2
     }
   ]

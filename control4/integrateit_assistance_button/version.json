@@ -1,13 +1,13 @@
 {
   "name": "IntegrateIT Assistance Button",
-  "version": "0.1.4",
-  "xml_version": 4,
+  "version": "0.1.5",
+  "xml_version": 5,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/integrateit_assistance_button.c4z",
   "notes": "Turns 1-4 wired help/panic buttons into one latching, per-station assistance call for elderly-care, accessibility, pool-alarm, and staff-call use. A press latches the call and records which station asked for help until a caregiver clears it.",
-  "sha256": "38795190b2c2a1ef219a1fd3be0fbf909d464e00ec94fd9ee9770313952ee8be",
-  "size_bytes": 98987,
+  "sha256": "d0dd5656d6d19018f50646a44b661ee8a465d760e1acfeddbe69a99d72252daf",
+  "size_bytes": 70848,
   "min_os": "3.0.0",
-  "published_at": "2026-08-15T03:47:19.128Z",
+  "published_at": "2026-10-30T05:49:57.462Z",
   "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/CHANGELOG.md",
   "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/releases.json",
   "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_assistance_button/qa-report.json"

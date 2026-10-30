@@ -1,6 +1,16 @@
 {
-  "latest": "0.2.2",
+  "latest": "0.2.3",
   "history": [
+    {
+      "version": "0.2.3",
+      "xml_version": 5,
+      "sha256": "593f1c3d1f1cf265593149629c161bffcfb2ffb95c04d25bafe6fbc5d54de34a",
+      "size_bytes": 102124,
+      "published_at": "2026-10-30T05:49:57.525Z",
+      "notes": "Fix: Composer's System Design tree could show this driver as a blank row with no name. Composer draws the device tiles at 16 and 32 px and this build shipped 32 and 300 px ones, so the row rendered as an oversized blank smear. The tiles are re-cut at 16/32 px from the same art. No control changes.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.2.2",
       "xml_version": 4,

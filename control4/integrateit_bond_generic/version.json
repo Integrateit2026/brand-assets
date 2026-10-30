@@ -1,13 +1,13 @@
 {
   "name": "IntegrateIT Bond Generic Device",
-  "version": "0.2.2",
-  "xml_version": 5,
+  "version": "0.2.3",
+  "xml_version": 6,
   "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/integrateit_bond_generic.c4z",
   "notes": "First-class Control4 control of one Bond generic device (device type GX) over the Bond Home v2 local HTTP API, with BPUP push state. Exposes only the actions the device actually advertises, and labels its power state assumed because a learned one-way RF device never reports back.",
-  "sha256": "67abe9b8667382a71e79f45a588442ec8ccdc2138a4406128fce5d30d6708711",
-  "size_bytes": 116962,
+  "sha256": "77e42f2b9653b9d6df617a5f9d5fcf72fffe45e0fd49a208538be11abd1501a5",
+  "size_bytes": 88904,
   "min_os": "3.0.0",
-  "published_at": "2026-08-15T03:56:08.227Z",
+  "published_at": "2026-10-30T05:49:57.472Z",
   "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/CHANGELOG.md",
   "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/releases.json",
   "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_bond_generic/qa-report.json"
