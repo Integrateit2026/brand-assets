@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-10-30T05:49:57.618Z",
+  "generated_at": "2026-11-01T04:56:16.452Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -6125,7 +6125,7 @@
         },
         {
           "label": "Control",
-          "value": "One RS-232 serial binding, 8N1, at the baud programmed in PRT3 section [016] (2400 / 9600 / 19200 / 57600)"
+          "value": "One RS-232 serial binding at 2400 baud 8N1, the PRT3 factory default (section [016] options [2] and [3] OFF); the driver sets the controller port itself"
         },
         {
           "label": "Areas / zones",
@@ -6138,7 +6138,7 @@
       ],
       "requirements": [
         "An APR3-PRT3 Printer Module on the panel combus with its serial port enabled (section [016] option [1]), Home Automation usage selected (option [4]), and the ASCII protocol selected (options [5] and [6] OFF)",
-        "A Control4 controller or IO extender RS-232 port wired to the PRT3's 9-pin serial port at the PRT3's programmed baud rate, 8N1, no flow control",
+        "A Control4 controller or IO extender RS-232 port wired to the PRT3's 9-pin serial port, with the PRT3 left at its factory-default 2400 baud (section [016] options [2] and [3] OFF)",
         "A programmed panel user code with arming rights for the target areas, entered in the User Code property",
         "One-Touch arming enabled on the panel if the Quick Arm Area command will be used",
         "Composer Pro access for the serial binding and future in-place updates"
@@ -6165,16 +6165,16 @@
       "qa": {
         "schema": 1,
         "slug": "integrateit_paradox_evo",
-        "generated_at": "2026-10-30T05:49:05.726Z",
+        "generated_at": "2026-11-01T04:56:15.482Z",
         "status": "pass",
         "failed_stage": null,
-        "build_inputs_sha256": "5dc65346339f6ae44d8d9278803a3cb0bfe7d0a294220d58604cc00ed3742521",
-        "artifact_sha256": "9b339ee9fb175ac785abdee678a90334c58060814234166e83fa9583ecfb0c3d",
-        "artifact_size_bytes": 77249,
-        "build_version_manifest_sha256": "080db7485e46f9f5299ee46c84ae82131244a061c52cbaa990d0c5df2bf1f9cf",
-        "version_manifest_sha256": "a1245acf819fcb990531435054172bee7bad511330b956074e49fcd4ff5eabbd",
-        "version": "0.1.4",
-        "xml_version": 4,
+        "build_inputs_sha256": "062bddd5a824f6f383b810d59640ed4eca4fd828eb4714042444ec8244ba9cad",
+        "artifact_sha256": "1e12fdfffb59433174f9952cccd5d9add033b64b8570abbc22eb74660ce09165",
+        "artifact_size_bytes": 77522,
+        "build_version_manifest_sha256": "230229a73f39d382f625bb3b4a4191f39a1475f55dd7bef3edc6f2dc9eee3ee1",
+        "version_manifest_sha256": "e5490899448a2e71de4f6021368162f184972fc0064e5c15f07583e6a99cfddc",
+        "version": "0.1.5",
+        "xml_version": 5,
         "environment": "Control4 API simulator + deterministic package validators",
         "hardware_status": "simulation-verified",
         "channel_verification": {
@@ -6186,26 +6186,26 @@
           {
             "name": "build",
             "status": "pass",
-            "duration_ms": 155
+            "duration_ms": 141
           },
           {
             "name": "static",
             "status": "pass",
-            "duration_ms": 126,
-            "checks": 22,
-            "warnings": 1
+            "duration_ms": 104,
+            "checks": 23,
+            "warnings": 0
           },
           {
             "name": "runtime",
             "status": "pass",
-            "duration_ms": 148,
+            "duration_ms": 118,
             "checks": 365,
             "violations": 0
           },
           {
             "name": "golden",
             "status": "pass",
-            "duration_ms": 102,
+            "duration_ms": 83,
             "files": 2
           }
         ]
@@ -6218,11 +6218,11 @@
         "actions": 6,
         "events": 11
       },
-      "version": "0.1.4",
-      "xml_version": 4,
+      "version": "0.1.5",
+      "xml_version": 5,
       "min_os": "3.0.0",
-      "size_bytes": 77249,
-      "sha256": "9b339ee9fb175ac785abdee678a90334c58060814234166e83fa9583ecfb0c3d",
+      "size_bytes": 77522,
+      "sha256": "1e12fdfffb59433174f9952cccd5d9add033b64b8570abbc22eb74660ce09165",
       "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/integrateit_paradox_evo.c4z",
       "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/version.json",
       "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_paradox_evo/CHANGELOG.md",
@@ -6233,7 +6233,7 @@
       "update_min_os": "3.3.1",
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
-      "published_at": "2026-10-30T05:49:57.566Z"
+      "published_at": "2026-11-01T04:56:16.420Z"
     },
     {
       "slug": "integrateit_ps5",

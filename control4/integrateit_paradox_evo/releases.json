@@ -1,6 +1,16 @@
 {
-  "latest": "0.1.4",
+  "latest": "0.1.5",
   "history": [
+    {
+      "version": "0.1.5",
+      "xml_version": 5,
+      "sha256": "1e12fdfffb59433174f9952cccd5d9add033b64b8570abbc22eb74660ce09165",
+      "size_bytes": 77522,
+      "published_at": "2026-11-01T04:56:16.420Z",
+      "notes": "Declares `<serialsettings>2400 8 none 1 none 232</serialsettings>`, so the controller sets the bound RS-232 port to 2400 8N1, the PRT3's factory default (section [016] options [2] and [3] OFF, per Paradox's APR3-PRT3 ASCII Protocol Programming Instructions), instead of leaving it at whatever it was last set to. The guide now requires 2400 instead of letting the dealer pick a baud: a PRT3 programmed to 9600, 19200 or 57600 must be set back to 2400.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    },
     {
       "version": "0.1.4",
       "xml_version": 4,

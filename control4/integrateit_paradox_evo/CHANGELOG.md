@@ -1,5 +1,8 @@
 # Changelog — IntegrateIT Paradox EVO
 
+## [0.1.5] - 2026-11-01
+- Declares `<serialsettings>2400 8 none 1 none 232</serialsettings>`, so the controller sets the bound RS-232 port to 2400 8N1, the PRT3's factory default (section [016] options [2] and [3] OFF, per Paradox's APR3-PRT3 ASCII Protocol Programming Instructions), instead of leaving it at whatever it was last set to. The guide now requires 2400 instead of letting the dealer pick a baud: a PRT3 programmed to 9600, 19200 or 57600 must be set back to 2400.
+
 ## [0.1.4] - 2026-10-30
 - Fix: Composer's System Design tree could show this driver as a blank row with no name. Composer draws the device tiles at 16 and 32 px and this build shipped 32 and 300 px ones, so the row rendered as an oversized blank smear. The tiles are re-cut at 16/32 px from the same art. No control changes.
 
