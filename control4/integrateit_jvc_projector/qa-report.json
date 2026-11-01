@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_jvc_projector",
+  "generated_at": "2026-11-01T14:12:29.113Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "804558e057a0824a3af29ebe6ebe79618231f06e5ecec81204a6b7c233435b91",
+  "artifact_sha256": "d76a6cf10e3027126110d02130c30f4505011b8a06b34547d8b72c89280f4fa3",
+  "artifact_size_bytes": 127272,
+  "build_version_manifest_sha256": "9b468eb38fe950dfb3eaa47dd54773ddfbd77064f600a2cfd23d6bb5a24c91c0",
+  "version_manifest_sha256": "ba211a43a385fa5304e67aca5f39573d01c17d189b4e325cc46d47029260e30f",
+  "version": "0.2.0",
+  "xml_version": 5,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 176
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 123,
+      "checks": 23,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 1470,
+      "checks": 1780,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 78,
+      "files": 2
+    }
+  ]
+}

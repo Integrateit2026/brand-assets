@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-11-01T04:56:16.452Z",
+  "generated_at": "2026-11-01T14:12:29.545Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4304,6 +4304,158 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-10-30T05:49:57.527Z"
+    },
+    {
+      "slug": "integrateit_jvc_projector",
+      "name": "IntegrateIT JVC D-ILA Projector",
+      "summary": "Two-way RS-232 or LAN control of JVC D-ILA projectors (built for the DLA-RS49U / X500R family) on JVC's published binary protocol (19200 8N1 serial, or TCP port 20554 behind JVC's PJ_OK / PJREQ / PJACK handshake), with an optional IR Power On for sites that keep ECO Mode on and a one-way IR fallback: a real Control4 video endpoint with Watch and Room Off, HDMI 1/2 switching, ACK-paced commands, power-state polling, picture mode, lens memory, anamorphic, lamp hours and full remote-key pass-through.",
+      "category": "others",
+      "device_type": "JVC D-ILA Projector (RS-232 / LAN / IR)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "A real Control4 video endpoint: Watch powers the projector and selects the right HDMI input, Room Off powers it down, and the room tracks input changes made from the JVC remote",
+        "LAN control: choose LAN and the same two-way control runs over TCP port 20554 to the projector's IP address, through JVC's PJ_OK / PJREQ / PJACK handshake before every command - no serial cable, baud rate or port gender to get wrong",
+        "IR Power On assist: RS-232 + IR Power On and LAN + IR Power On also send JVC's discrete IR Power On code, so a projector whose port sleeps in standby (ECO Mode On) still turns on, and the two-way link takes over once the lamp is lit; a Test IR action proves the emitter",
+        "IR fallback: choose IR as the Control Method and the same commands go out as JVC remote codes through a Control4 IR emitter, with power modeled by warmup and cooldown times",
+        "JVC's published binary RS-232 protocol (19200 8N1): every command waits for the projector's ACK before the next is sent, exactly as JVC's spec requires",
+        "Power On / Off with warmup modeling and cooldown read back from the projector: a Power On during cooling and a Power Off during warmup are held and released when the projector can accept them",
+        "Input selection held through warmup: a Watch press on a cold projector lands on the right HDMI input once the lamp is up",
+        "Picture mode, lens memory 1-5, anamorphic Off/A/B, aspect, and lamp power as programming commands",
+        "Lamp hours, model code, and picture mode read back into properties and variables",
+        "More read-backs over RS-232 and LAN: ECO Mode (flagged when it would leave the projector deaf in standby, with a Set ECO Mode command), the video input signal with Signal Present / Signal Lost events, anamorphic, aspect, lamp power, and the projector's own remote code checked against the Remote Code setting",
+        "An installer Lamp Alert Hours threshold that fires a Lamp Hours Alert event once, and a Diagnose Link action that ranks the likely causes of a silent or misbehaving link and stores a one-line verdict",
+        "Full Navigator remote: menu, cursor, OK, back, info and aspect from the room remote, plus a Send Remote Key programming command covering the JVC remote's setup keys",
+        "Remote Code A / B selectable so pass-through keys match the projector's IR code setting"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "RS-232: the projector's D-Sub 9 RS-232C port (the driver declares 19200 8N1; verify the live port setting in Composer). LAN: the projector's RJ45 port, TCP 20554 (Function > Communication Terminal = LAN, if the projector's menu has that item). IR: any Control4 IR output with an emitter on the projector's IR window (JVC codes A or B), alone or as the Power On assist."
+        },
+        {
+          "label": "Projectors",
+          "value": "Built and verified against JVC's protocol for the DLA-RS49U / DLA-RS4910 / DLA-X500R family (model code XHK1/XHK2). Other D-ILA models on the same command family work for power, input and remote keys; their picture-mode and lens-memory ranges differ."
+        },
+        {
+          "label": "Feedback",
+          "value": "Bidirectional over RS-232 or LAN - power state, input, picture mode, lamp hours, model, ECO Mode, input signal, anamorphic, aspect, lamp power and the projector's remote code are read back from the projector. IR alone is one-way."
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "RS-232 Control Methods: a JVC D-ILA projector wired to a Control4 controller or IO extender serial port with a crossover (null-modem) D-Sub 9 cable - JVC's spec calls for a crossover cable from a PC-style controller",
+        "RS-232 (without IR Power On): the projector's Function > ECO Mode set to Off - the IR Power On methods exist for sites that keep ECO Mode On; JVC's RS49 / X500R user guide (manual3.jvckenwood.com/projector/mobile/dla/lch60830-001en/QUDFSYuraxfcif.php) says to set ECO Mode to Off if RS-232C or LAN communication is used in Standby mode",
+        "RS-232 Control Methods: if the projector's Function menu has a Communication Terminal item, it set to RS-232C (the factory default on the models JVC's guide lists); in LAN mode the serial port is ignored",
+        "RS-232 Control Methods: the controller serial port at 19200 baud, 8N1, no flow control - read the port's live setting in Composer and set it by hand if it differs; after a driver update, re-binding Projector RS-232 Port is a cheap thing to try",
+        "LAN Control Methods: the projector's Function > Communication Terminal set to LAN if its menu has that item (exclusive with RS-232C on the models JVC's LAN guide lists, which does not list the RS49 / X500R) and its Network menu IP address set; enter that address in Projector IP Address and give it a DHCP reservation so it never moves",
+        "LAN (without IR Power On): the projector's Function > ECO Mode set to Off if it must be controlled from standby - the same JVC user guide rule as RS-232C (manual3.jvckenwood.com/projector/mobile/dla/lch60830-001en/QUDFSYuraxfcif.php)",
+        "LAN Control Methods: the controller and projector on the same network with TCP port 20554 open between them; nothing else holding the projector's one LAN connection",
+        "IR Control Method (and the IR Power On methods): a Control4 IR output with an emitter on the projector's IR window, bound to Projector IR; run Test IR to prove the emitter",
+        "Composer Pro access to bind the serial port or IR output, the HDMI inputs and the room"
+      ],
+      "limitations": [
+        "In IR mode nothing is read back: power state is modeled from Warmup Time and Cooldown Time, inputs are assumed, and ECO Mode, the input signal, lamp power and lamp hours are unavailable.",
+        "Lens memory is written but not read back: JVC's 2015 command table lists a recall but no reference for it. Over LAN a lens recall also cannot be confirmed: the projector ACKs it when the lens stops, after it has closed the connection (about 5 s after the command), so the driver shows a status note instead of an ACK. Set Aspect offers 4:3, 16:9 and Zoom; Auto, Just and Full are shown if the projector reports them but are not offered as commands.",
+        "Settings read back are read when the projector reaches On, on Refresh Status and after the driver's own write; a change made on the JVC remote shows after the next refresh (only the input signal is asked with every poll). Over LAN each query is its own connection.",
+        "On the models JVC's LAN guide lists, LAN and RS-232C are exclusive: the projector serves one or the other (Function > Communication Terminal). That guide does not list the RS49 / X500R, so check your projector's menu and pick the Control Method that matches what it is set to.",
+        "LAN opens a fresh connection and handshake for every command and spaces connections at least 0.75 s apart, so a burst of menu cursor presses is slower than over RS-232; the driver does not reuse a socket, because JVC's guide requires the handshake before each command.",
+        "LAN sends no password: a projector that answers PJREQ with PJNAK (a LAN password set, or a handshake this driver does not speak) is reported but not supported. A busy projector (PJ_NG, another app holds its one LAN connection) is treated as alive, not Lost.",
+        "The IR Power On methods need an emitter over the projector's IR window, and IR only ever powers on. With ECO Mode On the projector's port is deaf in standby, so after a Room Off (while it cools down, or once it reads standby) Power State reads Off with Communication Lost (a note, not an error) until the next Power On wakes it.",
+        "Warmup length is a configurable estimate (never shorter than 25 s): this JVC generation is assumed to report Lamp On as soon as the lamp strikes (JVC's command table does not say; to be confirmed on the bench), so the driver models the warmup window and holds input changes until it closes.",
+        "The projector silently ignores a command it cannot act on (an unsupported parameter, or anything but power while in standby). The driver reports that as No ACK in Last Error rather than pretending it worked.",
+        "No audio: the projector has no speakers, so the room's volume and mute stay with your audio device.",
+        "Release Candidate: simulator verified against JVC's published protocol; representative projector hardware acceptance is still pending."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT JVC D-ILA Projector commissioning guide showing the Control Method choices (RS-232, RS-232 + IR Power On, LAN, LAN + IR Power On, IR), the JVC binary protocol and the RS49U / RS4910 / X500R model codes.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_jvc_projector",
+        "generated_at": "2026-11-01T14:12:29.113Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "804558e057a0824a3af29ebe6ebe79618231f06e5ecec81204a6b7c233435b91",
+        "artifact_sha256": "d76a6cf10e3027126110d02130c30f4505011b8a06b34547d8b72c89280f4fa3",
+        "artifact_size_bytes": 127272,
+        "build_version_manifest_sha256": "9b468eb38fe950dfb3eaa47dd54773ddfbd77064f600a2cfd23d6bb5a24c91c0",
+        "version_manifest_sha256": "ba211a43a385fa5304e67aca5f39573d01c17d189b4e325cc46d47029260e30f",
+        "version": "0.2.0",
+        "xml_version": 5,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 176
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 123,
+            "checks": 23,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 1470,
+            "checks": 1780,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 78,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 6,
+        "properties": 29,
+        "commands": 13,
+        "actions": 8,
+        "events": 11
+      },
+      "version": "0.2.0",
+      "xml_version": 5,
+      "min_os": "3.0.0",
+      "size_bytes": 127272,
+      "sha256": "d76a6cf10e3027126110d02130c30f4505011b8a06b34547d8b72c89280f4fa3",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/integrateit_jvc_projector.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-11-01T14:10:40.541Z"
     },
     {
       "slug": "integrateit_leak_detection",

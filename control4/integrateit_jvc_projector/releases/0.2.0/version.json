@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT JVC D-ILA Projector",
+  "version": "0.2.0",
+  "xml_version": 5,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/releases/0.2.0/integrateit_jvc_projector.c4z",
+  "notes": "Two-way RS-232 or LAN control of JVC D-ILA projectors (built for the DLA-RS49U / X500R family) on JVC's published binary protocol (19200 8N1 serial, or TCP port 20554 behind JVC's PJ_OK / PJREQ / PJACK handshake), with an optional IR Power On for sites that keep ECO Mode on and a one-way IR fallback: a real Control4 video endpoint with Watch and Room Off, HDMI 1/2 switching, ACK-paced commands, power-state polling, picture mode, lens memory, anamorphic, lamp hours and full remote-key pass-through.",
+  "sha256": "d76a6cf10e3027126110d02130c30f4505011b8a06b34547d8b72c89280f4fa3",
+  "size_bytes": 127272,
+  "min_os": "3.0.0",
+  "published_at": "2026-11-01T14:10:40.541Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/qa-report.json"
+}

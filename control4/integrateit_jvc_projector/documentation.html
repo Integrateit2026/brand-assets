@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>IntegrateIT JVC D-ILA Projector</title>
+<style>
+/* IntegrateIT driver documentation tokens. These are intentionally self-contained
+   and use sRGB values for compatibility with Control4's embedded browser. */
+:root{
+  --bg:#0A0D13;
+  --bg-deep:#070A0F;
+  --surface:#141A26;
+  --surface-raised:#1A2332;
+  --surface-strong:#222D3D;
+  --line:#2B3749;
+  --line-strong:#3B4B63;
+  --text:#EDF2F9;
+  --text-soft:#A7B2C3;
+  --text-faint:#77859A;
+  --blue:#0157FF;
+  --blue-light:#7FB2FF;
+  --blue-tint:rgba(1,87,255,.13);
+  --brass:#B89968;
+  --good:#34D399;
+  --good-tint:rgba(52,211,153,.11);
+  --warn:#FBBF24;
+  --warn-tint:rgba(251,191,36,.10);
+  --bad:#F87171;
+  --bad-tint:rgba(248,113,113,.10);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:18px;
+  --ease:cubic-bezier(.25,1,.5,1);
+}
+
+/* IntegrateIT Documentation tab: The Commissioning Book */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--blue-light);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--text)}
+a:focus-visible{outline:2px solid var(--blue-light);outline-offset:3px;border-radius:4px}
+.shell{min-height:100vh;background:
+  radial-gradient(900px 420px at 86% -10%,rgba(1,87,255,.14),transparent 68%),
+  linear-gradient(180deg,var(--bg-deep) 0,var(--bg) 360px)}
+.wrap{width:min(1040px,100%);margin:0 auto;padding:0 28px}
+
+/* masthead */
+.mast{padding:30px 0 34px;border-bottom:1px solid var(--line)}
+.brandbar{display:flex;align-items:center;gap:18px;min-height:42px}
+.brandbar img{display:block;width:auto;height:30px;max-width:210px;object-fit:contain}
+.version{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line-strong);
+  border-radius:999px;background:var(--surface);color:var(--text-soft);font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.version::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-tint)}
+.eyebrow{margin:32px 0 12px;color:var(--brass);font-size:11px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+h1{max-width:760px;margin:0;font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.035em;font-weight:780;text-wrap:balance}
+.sub{max-width:68ch;margin:16px 0 0;color:var(--text-soft);font-size:16px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;color:var(--text-faint);font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+.meta span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--brass)}
+.readiness{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ready{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(20,26,38,.76);color:var(--text-soft);font-size:12px;font-weight:700}
+.ready b{color:var(--good);font-size:13px}
+
+/* task navigation */
+.toc-wrap{position:sticky;top:0;z-index:10;background:rgba(10,13,19,.97);border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px rgba(0,0,0,.20)}
+.toc{display:flex;gap:7px;overflow-x:auto;padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.toc a{flex:none;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text-soft);
+  font-size:12px;font-weight:720;text-decoration:none;transition:color 180ms var(--ease),border-color 180ms var(--ease),background 180ms var(--ease)}
+.toc a:hover{color:var(--text);border-color:var(--blue);background:var(--blue-tint)}
+
+/* document */
+main{padding:34px 0 24px}
+.card{scroll-margin-top:80px;margin:0 0 18px;padding:26px 28px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface)}
+.card h2{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:20px;line-height:1.2;letter-spacing:-.018em;font-weight:760}
+.card h2 .n{display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--blue);
+  color:var(--text);font-size:12px;font-weight:820;font-variant-numeric:tabular-nums}
+.card h3{margin:24px 0 10px;color:var(--text);font-size:15px;line-height:1.35;font-weight:760}
+.card p{max-width:74ch;margin:10px 0;color:#D7DFEA}
+.card ul,.card ol{max-width:76ch;margin:12px 0;padding-left:23px}
+.card li{margin:7px 0;color:#D7DFEA}
+.card li::marker{color:var(--blue-light);font-weight:800}
+.card b{color:var(--text);font-weight:750}
+
+/* operational callouts */
+.note{margin:16px 0;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--surface-raised);
+  color:#D7DFEA;font-size:14px}
+.note::before{content:"INFO";display:block;margin-bottom:4px;color:var(--blue-light);font-size:10px;font-weight:800;letter-spacing:.12em}
+.note.good{border-color:rgba(52,211,153,.36);background:var(--good-tint)}
+.note.good::before{content:"READY";color:var(--good)}
+.note.warn{border-color:rgba(251,191,36,.38);background:var(--warn-tint)}
+.note.warn::before{content:"CHECK";color:var(--warn)}
+.pill{display:inline-flex;align-items:center;margin-left:6px;padding:3px 8px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--surface-raised);color:var(--text-soft);font-size:10px;font-weight:800;letter-spacing:.04em;vertical-align:middle}
+.pill.blue{border-color:rgba(127,178,255,.34);background:var(--blue-tint);color:var(--blue-light)}
+.pill.green{border-color:rgba(52,211,153,.34);background:var(--good-tint);color:var(--good)}
+.pill.amber{border-color:rgba(251,191,36,.34);background:var(--warn-tint);color:var(--warn)}
+.pill.red{border-color:rgba(248,113,113,.34);background:var(--bad-tint);color:var(--bad)}
+
+/* steps, code, and reference data */
+.steps{counter-reset:step;list-style:none!important;padding:0!important}
+.steps li{counter-increment:step;position:relative;padding:11px 0 11px 46px;margin:0!important;border-top:1px solid var(--line)}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(step);position:absolute;left:0;top:9px;display:grid;place-items:center;width:30px;height:30px;
+  border:1px solid var(--line-strong);border-radius:9px;background:var(--surface-raised);color:var(--blue-light);font-size:12px;font-weight:820}
+code{padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface-raised);color:#8DE2D6;
+  font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere}
+pre{max-width:100%;overflow:auto;margin:14px 0;padding:15px 17px;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:var(--bg-deep);color:#BCEDE6;font-family:var(--mono);font-size:12.5px;line-height:1.6}
+pre code{padding:0;border:0;background:transparent;color:inherit}
+table{display:block;width:100%;max-width:100%;overflow-x:auto;border-spacing:0;border-collapse:separate;margin:14px 0 20px;
+  border:1px solid var(--line);border-radius:var(--radius-md);font-size:13px}
+tbody{display:table;width:100%;border-collapse:collapse}
+th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-raised);color:var(--text-soft);font-size:11px;font-weight:780;letter-spacing:.035em;white-space:nowrap}
+td{color:#D7DFEA}
+td:first-child{color:var(--text)}
+td code{white-space:normal}
+
+/* release history */
+.chg{margin-top:4px}
+.chg .rel{padding:15px 0;border-top:1px solid var(--line)}
+.chg .rel:first-child{padding-top:0;border-top:0}
+.chg .rel b{font-variant-numeric:tabular-nums}
+.chg .rel .d{margin-left:8px;color:var(--text-faint);font-size:12px}
+.chg .rel ul{margin:7px 0 0}
+
+/* brand sign-off */
+.powered{margin-top:22px;padding:42px 24px 46px;border-top:1px solid var(--line);text-align:center;background:var(--bg-deep)}
+.powered .hairline{width:40px;height:1px;margin:0 auto 18px;background:var(--brass)}
+.powered .pb{margin:0 0 14px;padding-left:.32em;color:var(--text-soft);font-size:10px;font-weight:650;letter-spacing:.32em;text-transform:uppercase}
+.powered img{display:block;width:auto;height:28px;max-width:min(270px,80vw);margin:0 auto;object-fit:contain}
+.powered .places{margin:22px 0 0;color:var(--text-faint);font-size:10px;font-weight:650;letter-spacing:.22em;text-transform:uppercase}
+.powered .places b{padding:0 8px;color:var(--brass);font-weight:700}
+.powered .support{margin:18px 0 0;color:var(--text-soft);font-size:12px}
+
+@media(max-width:700px){
+  .wrap{padding:0 18px}
+  .mast{padding:22px 0 28px}
+  .brandbar img{height:24px;max-width:170px}
+  .eyebrow{margin-top:26px}
+  h1{font-size:32px}
+  .sub{font-size:15px}
+  main{padding-top:24px}
+  .card{padding:21px 19px;border-radius:var(--radius-md)}
+  .card h2{font-size:18px}
+  th,td{min-width:130px;padding:10px 11px}
+}
+@media(max-width:420px){
+  .wrap{padding:0 14px}
+  .version{padding:5px 8px}
+  .version .word{display:none}
+  h1{font-size:29px}
+  .ready{font-size:11px}
+  .card{padding:18px 15px}
+  .card h2{align-items:flex-start}
+  .powered{padding-left:14px;padding-right:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc a{transition:none}}
+@media print{
+  :root{--bg:#F7F8FA;--bg-deep:#FFFFFF;--surface:#FFFFFF;--surface-raised:#F0F3F7;--line:#CCD3DD;--line-strong:#AEB8C6;
+    --text:#101722;--text-soft:#3D4A5E;--text-faint:#59677B;--blue-light:#0049D8}
+  .shell{background:#F7F8FA}.toc-wrap{position:static;box-shadow:none}.card{break-inside:avoid}.powered img{filter:invert(1)}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <div class="wrap">
+      <div class="brandbar">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDoAAAC+CAYAAADUQ29kAAAgIElEQVR4nO3d0XVUR7YG4MNdPJ9hIjCO4MoRGCIwPM2jIQJQBEAE4AjAj34CRwBEYN0I0ERwdSuBuWvLJVvYAnW3umvXOfV9a2mBZ8CnrVZ3n/pr197TBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALu7dYO/CwB/KKUcTdN0p/7jvS/8sdN5nt9MnSulPM9+DAtyWr/Ofz/P88XvAQBSCDoA2Fgp5e40TUf165tpmi7++SLguM6HeZ7vT50rpfwn+zGsJPw4mabp/+J5j9/P83yW/cAAgPUTdABwpVLKnRpiRHXG91sGGl8i6BjbRfjxsf4sxO+5pJTypWqo6zQLki69NwBtnXnfhM3c3nD37tF0eHHD82GDx/Ngnud3O5RTP7jRowPWbhFHKhotsn6o4YaFDPt2t36dfyaXUmJhHp/9v9b7AMdepun9jn/vxTRNrY5cHd3gcQK7i/fLm20W/Os/zdZ20y+3rl3bTf/6TzyWeEywnV9uPb9R0FF/8J5NbVz/YpimJxG+zPP8atN/aSSfpZSXXzkzDhDvP0MGHREg13DjwR4qNmAbd+rP3UXwETuVP0/T9E7osbUnDYMOYLl6W9v9aI3GDq4tfPivaZle1iqNbTy81CwNYGgRbpRSXpdS/neaprd1d0fIQbb4bI+NiU+llPellBa7jmtxx/cLgEH8utagI7ytZ0Q3Us+tRtihERowpKiGi+o24QYLETt852Fc/blV2rxZVQcArN1qKzpC3PC83uYv1OY9x4d7SADdVm/EefpP0zQ9FW6wMHfqz21UeUTwIfD4sqMbNDMFgCWI/i9naw46Qty8b3UetTYb3Li/B8BSRRl7KeVTrd6w+GENogpJ4HH9eXcAGPbYyhqCjvBs292LeZ6PN2yOA7AocaQvAuB6PCWq3iwGWXvgoULpcxFwet0DsFbvRgk6tu7XUWlOCqxKrXD7VLupW/wxUuARR1v4k6akAKzRyfTLrdORgo47tTR72qE5KcBajqgIOBhR/MxHs9LfdpjItlaakgKwRhufylhL0BHu7dCvI5qTPj7cQwI4nDi2V5uMOqICv4+m/W3be4GVMmoWgDX6ecSgY9d+HdGcNL4AltSHI8KNCDk0GYW/3wu817tDVQcAq3I6/XIrChWGDDp26tcxz3NUdWz8TQPIUndp45iK3Vr4snu1d8fIQaBRswCsyVbDRNYYdGzdr6O6P03TtfN4ATLEFIVLx1RG36mGTcTrJCo7Rg4FjZoFYKixsmsOOkKcW3+5Q3PSCDsAulIXar85pgI7eb3tPcGKGDULwBqcTb/c2mis7NqDjvC0lPJgm7+gOSnQYS+OqFBTxQE3vyeI19GIRq5oAWDAYytrDzoudnG22snQnBToQR2TGVUcWwW2wFerG0YMOzQlBWCoYysjBB079evQnBTIVEp5WkMOJeewXyOGHUbNArB0Wx1bGSHouOg6vsvZXM1JgayxsaP2E4AWRgw7VHUAsFQfpl9ubb0uHyHo2LVfR3wzHx7uIQH8qY7Fjqkqdl6hTdgx0mvNqFkAhjm2MlLQsWu/jmh6cny4hwTwRz+OT7EYyX4sMNh9wUiLf6NmARji2MpoQcd5v466a7qxeZ5faU4KHEpdaEUlh6kq0F7cF4zSC8eoWQCW5mT65dbpLn/x9jSWo3r2fdsRssf179ptBfamls6vpVfAWW3iHF//V3+9OE95Uo8DLkn0aeJzR38J5L7/wv++JHfqa3CU5zvec55nPwgAONRY2VGDjosdjY91jOxG4ga9lPKwTkFY6s0c0JEVhBzxwfOx/rrEIGOTo4t87sMG1Ul369f3CwpA7pVSns/z/HyQpqQj/HcCsA4/7/oXRww6wstSStyYbzxCdp7n0xp2RIk5wGghx2k9I/mrEICrXPVzUfvPRADyQ/21V89KKe+2uS9Y8qjZbTZ7viCCzbW/D7QK6tb+fWS/1v4eBZedTr/c2vlnftSg47xUtZRyf5tdyLiJK6V8t5Adqp69bHQMaJRSZPajSUXCwkKOi3Dj5wEWgBxA/bmJr1e1R9aDGnpsNQmt4WfT/UGqOt7s4Xld9feqlPK+RTg3z/Oqv4+wYYuANa6tWqx3TlY+OOPsJn951KBj534dbvZvrpTSZEFp15neLCjkuAg3dupyDVepGwuxwH5Tm2I+qovuOx0dYdlHtcMiRs36jAS6cIMd+6796z8t1jtn0y+3vJd/wUhTV77UryNutABGDzkuFqHfzvP8UMjBIcVx0NoT49u6G3XW0dHWXoKXQzJqFoBVGz3ouLipMU0FOJhSyoOOQ45YYL6oAcfjWIBmPyDGqvKoY9y/rT+H2SLkeDqtn1GzAKyaoOPPfh0j7OAAjdUgtdeQ43yBGTvra5uawiIDj4sKj+wy3CeD3BOoaAVgtQQdv+t5IQIsVN0xjYZ2vS2aPtSA41jAQYdHWu4nV3eMUtUR/VEAYJUEHX96UEoZ4cYGaKDuCL/tLOSIYynRfyMmTjmiQrdqdUeMdM8K4kboYXE+ajb7QQDAIQg6PqdfB7AvUSV21Nkxle80GWUp6s/q/aSw4+4gIcCz7AcAAIcg6Pi7t4OczQUOpJQSu9HRgLQHZ7WKwzEVFqeOdM8KO36Y1i8CnXvZDwIA9k3Q8Xdxpl6/DmAnddHwrLNeHKo4WEPYkXGkNWMySfz3tqRXBwCrI+i4mn4dwE36cvTgRe3FoYqDtYQdxwmXzqjM+mmQQAcADub24f7Vq+jX8aHeXDHWbnyLMt43mkGuUg/NRyPYeKyKg7WZ5/lVKeX7xuHDD7W/TTPzPL8ppbxs/F7yJClIYvfjkc8aBeZxLYDFEXR83ftSSpR92xEdR6tjB3GkQNCxvhvP7LPu8V4VVRwCWtbqcX2dtQoB7kWlVsJ9wE+Nj8A9KqXEotb9DgCr4OjK1/VUhg50qk5ryu7LEeFGBLNCDlarLsRfNL5sRoD5JuF+p5cGygBwY4KOzXZzlO0BX5PdwPi8WaPdWEY5wtK4Ii6OyzRVjza2Djuyw1oA2BtBx2aeGb8GXKUGoVHRkUXIwYhaNuzM+vz/ufH1jJoFYDUEHZt7WycqAJyrkwoyd0GFHIyqZbVDSpA5z3P0cjJqFgB2IOjYnH4dQE9HVoQcDKv+3DebLJRY6WDULAAMEnRkNtrTrwM4V0qJxn1Zi584vy/kYHS/NrxWyuI/Rs3WaUotqeoAYPEWF3TM83ycHHZEvw6dyWFg9Rjby6TLx6LnoZAD2lV0ZAUdSVUdMWrWUV0AFm1xQUf1MGGH47LXSjthaE8TFz4Rchghy/Bq2NfqtfDNlMeoWQAYIeioY9ceJz4E/TpgUHWnM6u0+7g2KAR+1yroSNvcMGoWAAYJOsI8z1Gy+irxIRyVUrJK14E8sQDIKOt+M89z5nse9Ojf0xiMmgWAEYKOS/06Mnc3n+rXAeOoR9bi2EprsaMb73dATkVH6qLfqFkAGCjoqPTrANZezq35KFxtpNeFUbMAMErQUW/+I+zIol8HDKDe8D9KuPQLzUeBOmo2qrtaUtUBwCItPui4VNL5IvEh6NcB65cRcpzM8/w84bpAn1r36jBqFoBFWkXQEepiILtfR8ZCCFjvpJXM6VJAf1o3JDZqFoBFWk3Q0Um/jpellKPE6wOHESFm613NV46sAFcc1zVqFgBGCjo66dcRzUmVecK6tK7mOEs+jgf0q3VTUqNmAVicVQUdvfTriMqOxOsDe1Rv8FtPHjg2ZQW4Sq30an1UV1NSABZldUHHpX4d7xIfQjTv0q8D1uHHxtc7rdMVgOu1Oi7aetpJb01JjZoFYFFWGXRcauKXeWOiXwcsXD2G1jq01IAUNvfNiEGHUbMAMGjQoV8HsAetQ44P9fgdsJmRNxSMmgWA0YKOS+dYjxMfgn4dsGw/rrzJICxdqyaZH6f+GDULACMGHWGe51cd9Ot4mnh9YAf1PPpR494cme9VsCiNJ4F01xzYqFkAGDjoqPTrALbVeufSOFnYzg8NrxUVoj0yahYARg06OujXEd462wqL0vLYyplJK9B1GNll0GHULAAMHHRcuhnInGYQZfCvE68PbKiGki2rsIQcsIU6wv1uw2Nl3R1ducSoWQAYNegIdcc0c0ERNwf6dUD/Wh9b0YQU+q246noSklGzADB40FEdJ5eg6tcB/fu+4bVO5nnO7CEEi1JKiSCyZZ+IHieu/JVRswAwctBRy0/jCEtmGap+HdC3eyteoMBi1c/O1mPbu67oqIyaBYCRg45L/TqisiOLfh3QqXr2vOX5cyNlYbvxpi1fn4uouDJqFgA+N2TQ0VG/jueJ1wfyqzkWsYiCjo6stO5ztaSKK6NmAWD0oKOTfh3P3CTA0P05lrSIgjS1t1VGJeRiKq6MmgWAPw0ddOjXAVyhZbPgJZz9hx5Cjve1L0RLHxZYcWXULACMHnRc2gGJsCNL3Li9Tbw+kBN0nNX3H6C/kGORFVdGzQLA74YPOsI8z+8SOpZfdk+/DsjX+CiZag64vidHVshxWkODJTJqFoDh3c5+AL2Y5/m4LnJalq3/tV9HlMla/ECeliXYHxteCxajLpqfJTQeXXQ1xyWvGk9EuRg1u9RgiC/7Ri+5dqwBYL8EHZ97OE3Tb0m7Rxf9Or6tvUNYt5elFM9zI/M839/wjzYdW9nwWrAIdVEVTUcz+z6cJVd53kjcQ5RSInR41PCyEawIOtbnUeOfo9Hdyn4AsCaCjkui6Vgp5XFiz4w7tUz3u6Tr005W5RCdTFyxcwN/qg0tX9bKgGw/rWDD4afGC9TzUbPe1wDohR4d/fXrOCqlxM0e0F6rai7VHFArOEopUcHxqZOQI3pzLL5nVtKo2ZbHZQDgqwQdX+jXkbwQeVqbsAHrrLRZ2shK2GsPjlJKNLD8rVYx9lQaH5//a9G6z0iEVkbNAtAFQcfX+3Vklq6+dsMAq/U/2Q8AWorPs1JKhPhxNPR/ax+O3o7wvatVnauQNGpWVQcAXRB0fKVfRw07Mkvos3qFwHAad5ZX0cEIR1Ii2IjQPo6lfOqoB8dVYmMjenStTeuqjgdGzQLQA81IvyKaapVSXiTuUJz366hHaYD1EHSwlmDwTq3M+Ef9NSoRl1iN+HgFDUh7GTX7aMlTawBYB0HHNaIpWSklJjFkzRGPHbGPayqnBVKPxTVXSok+DFwtwgE74LlerfUzNmnU7BNBBwDZBB2beVjLbrNuRqP0NzrBm9QAh9MszBzwtZwVFMN1PgxQNZkxavbBWsMjAJZBj44N1HLW7H4dEXbY9QOA/ThJ/mxf86jZqOoAgDSCji36dUzTFP06Msubo5EbAHAz5xsYK+3LcRWjZgEYiqBjy34dCbsilz0qpbQsPwX2b5SFFfT8Grxfp6sNwahZAEYj6NhelLlm3hy9LKVEdQewTKP154AeQ44RX4dGzQIwDEHHlvTrAIBFOh045JgSJqFcjJoFgOYEHTuoN0mZXdr16wCAzcXn9ncDhxwXGzVxhKUlTUkBSCHo2NE8z7Ezkjk6Tb8OWCbVWNDWu1rJoT/O76Nmp9ajZhtfEwAEHTf0WL8OYEtes9DOi3meR5qu8lVGzQIwCkHH8vt1vNWvAwCu7McR09L4nFGzAKyeoGP5/Tri5uF14vUBoCdvaj+OzHHw3TJqFoARCDrW0a8jRrg9Tbw+rEGzG39VWHDQKo7Hjqp016vDqFkAmhJ07LdfR2Y3d/064GZa7nB6rcJ+vVDFsZWo6mgZBhk1C0BTgo49qbtHEXZk7iLp1wHAaAv2b6MXhyqOzdXvVetKVE1JAWhG0LFH+nXAorWs6LjX8Fqw5oAjjqlkTj9behVMS0bNAtDM7XaXGqfJVynl+8QSzfN+HbVvCLChWCyVUlpd7h+tLgQrDDhiZKxwYz/veR8aB69PknuasZ14nXmtAYsk6DiM43oG/yixX8eJs8rd/4xk9nThalHO3eL4lx4dsN3rMppnvhFw7N1PjYOO81GznsfF+NmIZmCpBB0HOvtaSol+He8bLZq+1K8jynqdWe6TIKpPJ41u+gUdcL3Y+f+1jkPlAOZ5fldKOa1HX1uOmo17JAA4GD061tuvIwKWt4nXhyVqtct4R+NguNLFZ2cE9Q+FHE0YNQvA6gg6DqjeoGXepEWJqJJD2Ny/G15LQ1L4s3LjItyIEbGvHG1oyqhZAFZH0HFg0RE+uRfDs1KKBRVspuVxIsdXGF1MTLlVKzeEG0mMmgVgjfToaOPhNE2/6dcB3Wu50IrpTKNoPcZyX35s3LtgNL63fb1GH7UeNRs9QhpeE4CBCDrajXB7nNgz46Jfx/2k68OSXqutJq8MU2m11K79dVS4xfhhKw7f1Z5WJDJqFoC1EXS07Wz+apqmp5n9Opa64IAVTl6JhbQdTV708r5cSnmZ8BkV1xTC98GoWQBWQ4+OhuZ5Pu6gX8eDxOvDEnxseK2Rjq+wjOMLrY84xmJXY8oO1NC1degQo2YBYO8EHTn9OjJ7ZbyOHZTE60PvWjYkFTzSjdrHKWMs+kvjRrth1CwAqyDoaKyWaEa/jim5XwdwtZPGDflMX6G3segtw76Lz6U4wkI+o2YBWAVBR155aOYUgqN6Fhu4elf7pPFkD+hJRhj/yCj0fEbNArAWgo4ktflc612zy57q1wFf9GvDa3kd0mPlYUYYL4DvQ+vn/nzUbONrArBygo5c+nVAn1qGkG7y6dGrhMaUUW3YxQSakdWgq/VGjKoOAPZK0JFfIhphRxb9OuAK8zx/aBxC/tDwWtBzY9InAvghm5Kej5ptfE0AVkzQ0ceCKrtfx+vE60Ov3jXuT+Amnx77Sb1LCOB9JiUzahaApRN0dKCDfh2xyNL1HPL6dASvQXp0nHDEMnb3HefKZ9QsAIt1O/sB8Ic4wvKp7mZleFlKOZnnueW0Ceh6R7OUctbwNRkl+6/qkQHopl9DKeWnhN32+Ez6sM3roQb2KqP25x+Nr3cxajb6wwDAjQg6OhE3c6WUCDveJz2E83LhUsp9Cy34w7uGlRbxGoxd7DeNrgcbVx2WUqKPzFHDy96t4co2fULis8vxh2WLpqSCDgBuzNGV/vp1ZDR/uxA3scb7Qd7xFYs0enWcNAb9qPOeIuyXKVQA7IWgozPzPL9KvlHTrwPyGvLFTf7ThteDbYL4jGqjbcP3x8lj27k5o2YBuDFBR58eJ3Q7/+vZ6JYlytCznxtf75mGfHQqqzHpxuFfPXqZOcmM/Tzn7kEAuBFBR4fqjVr065iS+3VYbEH7Xex43anqoNfPpowjLFuFf7UyMnOSGTenqgOAGxF0dKpOP8nu1/E68frQzdSJhONksbAzPYLuzPP8JiFEiJDDEZaxxDFamy0A7EzQ0bEO+nXETHs7yzBNMV6zNY2B6dVx0sL33pYBpSMsy+b+A4CdCTr6p18H9NGI8TQhaDR9gF4rDjNGgL7eYbMgHivL9GP2AwBguQQdy+nXkVmC+1YJKaTsDuuVQ8+vh9bhX0wler7DZgHLFM+3KXAA7ETQsQAd9OuIXgH6dTC02pvgNKMxcONrQs+NSZ9s07+mfn46wrJcqjoA2ImgY1mLrNbTHy7TrwNyFkyOsNCleZ7fJTUm3fYIS1SBOMKyTEbNArATQceyHCffrOnXwdCSqjoujrCYwkKPMqab3Nsh/MusiuRmjJoFYGuCjuWVCmePzNOvg9FlVHXEa+5twnVhk+kmP/Xev6Y2FM5ooMrNGTULwNYEHQvTSb8OCy6GlVjVcVRK0a+D7tSjIRn9a54toIEq++HoLABbEXQsUAf9Ou7t0Pke1uRx4s6mKQT0KOM18XSb45SXqiJZHk1JAdiKoGO5svt1PCul3Eu8PqSpZfCtmzBeLtnXnJQeXxMZAfzrhTxObsaoWQC2IuhYqF76dSReG7Jl7gxH2KExMD0G8GcJR7qeLuBxcnOqOgDYmKBj+f06MhdbmoMxehPGjMakF6+998IOOgzgXyRVGG7TmNQRlmUyahaAjQk6Fm6e53c6yUOaV4nNDYUddGee51cJxyrv7HCEJT4744tlMWoWgI0IOlZgnufsfh0wpA52hoUd9CjjNfFgh75R2cc/2Z5RswBsRNCxHg/dsEF7tblhZlWVsIMej1VmvCZeL+SoDTdj1CwA1xJ0rKtfgDPHkONF4hGWIOygx9fEWcJkjuc7HLXJmqDEbjQlBeBat6//IyxFnDkupcRNm90OaCh2hkspETS+7yDsOJ7n2fhMenlNvE1oTPqmhv+berxtNQh/c6/1qFnvcwB8jaBjhf066jllO7vQ+AhLKSV2sZ8lPozzpoyllLvzPG+1s83nah+Au9mPYwXh+4fGi+Cphhb3N/3DNRTZ+M/zd6WU942f56jqEHQA8EWOrqxT3LDp1wGN1XChhzL42NV+q2nfbmpY/EnQsRePk8aQPki47sh+anw9o2YB+CpBxwrVBmvRnBQYtzFwLPR+sxjYXARDpZSX9QiSkGgParVERsPPqGzyHDZSx/W27lNk1CwAXyToWPckCN3kYeyg8W4NOxxj2ayK4zc9jg5W6dR6EXwn+RjZiFpXdRg1C8AXCTpWrKMyehgxaDye+hFHWaJRqaMYV1dxvK5VHL4/6zrC8rQGWLTxJqGaTTAJwJUEHevXSxk9DKWOreypWd553wnVHZ8FHM9rL45H2Y9nkPAvjje0FkeRaFfN1vo5NmoWgCsJOlauszJ6GMo8z487rKqK6o5PI+90x2jKekwljjYofW/nOCF4Pyql2PVvp/WR2fNRs42vCcACCDoGoF8HpIqg8WTqSxzRiKMs70cJPGoFR5zpjwqOOKrimMo4jUkj3PN8t3uOW4e7qjoA+BtBxyD064DUqqpeRz7fW3vgEQvcS0dUBBx9HOlqHfxF1Y4jLO0YNQtAOkHHeDvLrTvfw/A6Dzv+GnjEWNrFi+CmNhmNgMMRlb5kNOp9sNYwrzdGzQLQA0HHQPTrgDzzPJ90HnaEWAi+rT08YmLFosKB2NUtpbysx1Niioqz+/0ep4zKjtZeL+1nesGMmgUg1e3cy5Ox2CqlxG6aMt5cP9pd7M7pPM9vGrz+7tdFeM835Xfre0SEBrE7+2tMU6hhaVdqyXqc0X+w0GMpvfVvaeVFDaJavg7i5yMak5o8dHhvEiqpPLeH6W8TzyP9+DDPc9xHANcQdAx6RrqU8n1dGJDDTnN/PrQYB7ugsOPCg/r1uoYeH+uNVsoCvTaVjJDw4j1sCd/DL3lcy/yHE6FZDd3jeFHrhdub2jSTwz6/7xp/1kXgKegA4JygY1wx9vJooTugsGgLDDv+GnpE4BALxZMafMSvJ/uu+KihxkWw8d/11yV9v64LOQ4erPUs/vtLKbE4bV3dFuGKHdF2VTtNR82O/roC4HeCjrF3W6Jfx2/ZjwUGDzti0bXEiQEXIcQflWGllLMaekQI8u/6P28y7enoUoDxff39Er8nmzgbuZLjCscJn0PRqNaC+MCiaqaU8qFxkBXBmecVAEHHyPTrgK4qO9awsL9zxaLG+e4/nU/fyTr20/Fr4EXCz8l5/5ke+86ssCnpvdajZr3GADB1ZXDRr8PuB3QxetYO/7rFwutbC7ArxefQaUIoJ4Q7MKNmAcgi6CBEVYebb0gMO+Z5fpg0cpPDe1MrOVQPXKF+X+JzqLUYoWz61eEZNQtAc4IOLm4yozmpm3BINM9zLPa8FtfXjyO+PKfX7/xnVDU5utkm6Gv98x+jZgEYmKCDc7WcOmNHDbikNkiMoyzGXy7bSa3icDRwc8cJC+KjUoqRpAdUQ77WIVY0JQVgYIIO/lBvyN2UQx/B43f6dixWHEHSdHSHKR0JxxzCkzrKmMOJhrNT61Gzja8JQEcEHfyVfh3QV9+OjF1udnNaA45jR1V2M8/z84TPoOjn4AjL4UOsTUZN75OqDoCBCTr4jH4d0OVkpDjKIoDsWzxP383z3Hoxt0YZxygflFIeJFx3JK2rdWLUrGazAIMSdPA3+nVAf6/JeZ6/Syj/5nrnx4xUcexPDYsyjlG+NK1jdaNmVXUADErQwdf6dRh1Cf2V9UfgoWqgn4kqEXKottm/jCNb0afDtI71jZrVfwVgQIIOrht16QYe+qvuiKMsjpjlOKuVNd+aqHI4tTomo4LpWSnlKOG6o8gYNaspKcCABB1cJ5ohWkxBZ+oi+1uVV03F9zwqOJ47ptKsP01G9ZLGpOsaNfuk8fUA6ICgg006pcfOMdDnZJbjGngYRXs456HSPM9xVKV1j4HRZfSLiiaWqgAOp3Wlzh3PJ8B4BB1s2kDMrjF0KhbfdRRtHGnRv2M/YudZwJGs9j/J+PzRmHRdo2ZVdQAMRtDBRvTrgGVMq6j9OwQe++nBIeDoQzwfrZ+HCDkcYVlPU9Ijo2YBxiLoYBv6dcDyAg8NMzcTwVAEG//Ug6Mv9bnIOMISEzssjg/AqFkADk3Qwcb064BFBh6Paw+P2BW3eP/cWT0WEdUb901R6X5hrDHpuhg1C8DBCDrY5WYzY+QfcLMeHlGl8M8aVo7cuPSi98bDWr1x7HjKYmSMVI4jD88bX3MURs0CcDCCDrYWCybn/2GZomqhNi6NKo9Reu/8EW5c6r0xctizSDWQal0FEJ6oBNg/o2YBOKTbB/23s2axYPiU/SCAGy0a49jGq7qIe1DPsB9N63BSA9mPQo11Be2llP+uzUJbVwKo7Ni/qBBtGiJF35U41rfBH+05BM6YXEMfev65hMUFHaeNjip4w17YTkwpJRod7uLnWHxMffJzOK5hjy/8JfS4U0OP76dpikaMS9nJvrjxj/eW6E0y7PO5drUiiRWor9Nd7yVaTJvrUu0npKcQu7K2a6PFese9zlfc+tr/CcDYarXHUQ0+4tceplCc1q+PF5UbpqQAAHBB0AHALuHH3Rp6fFN/f/G1L2c1xIhf/+dSuHEi1AAA4GsEHQDs/Qz8pX+8c03fj4sw449/FmQAAAAAAAAAAAAAwLQi/w+lRpP0rjIHZwAAAABJRU5ErkJggg==" alt="IntegrateIT">
+        <span class="version"><span class="word">Driver</span> v0.2.0</span>
+      </div>
+      <p class="eyebrow">Control4 commissioning guide</p>
+      <h1>IntegrateIT JVC D-ILA Projector</h1>
+      <p class="sub">JVC D-ILA projector control for Control4 over RS-232 or LAN (read back), with an optional IR Power On for ECO Mode sites and a one-way IR fallback - JVC's own published protocol, ACK-paced. Powered by IntegrateIT.</p>
+      <div class="meta">
+        <span>Updated 2026-11-01</span>
+        <span>Supported by IntegrateIT</span>
+      </div>
+      <div class="readiness" aria-label="Driver capabilities">
+        <span class="ready"><b aria-hidden="true">✓</b> Control4 DriverWorks</span>
+        <span class="ready"><b aria-hidden="true">✓</b> OS 3.0.0+</span>
+        <span class="ready"><b aria-hidden="true">✓</b> License framework</span>
+        <span class="ready"><b aria-hidden="true">✓</b> Self-update ready</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toc-wrap">
+    <nav class="toc wrap" aria-label="Documentation sections"><a href="#overview">1 Start here</a><a href="#feedback">2 The feedback contract</a><a href="#setup">3 Wire and commission</a><a href="#lan">4 LAN control</a><a href="#lan-silent">5 LAN never connects</a><a href="#assist">6 IR Power On assist</a><a href="#readbacks">7 Read-backs and alerts</a><a href="#diagnose">8 Diagnose Link</a><a href="#silent">9 The projector never answers</a><a href="#ir">10 IR control (the fallback)</a><a href="#protocol">11 Protocol on the wire</a><a href="#lockouts">12 Warmup, cooldown and held commands</a><a href="#room">13 Room remote and Navigator</a><a href="#programming">14 Program the project</a><a href="#status">15 Read status at a glance</a><a href="#troubleshooting">16 Troubleshoot methodically</a><a href="#trust">17 Ownership, privacy, and licensing</a><a href="#reference">R Reference</a><a href="#licensing">L Licensing</a><a href="#updates">U Automatic updates</a><a href="#diagnostics">D Diagnostics and self-test</a><a href="#changelog">V Version history</a></nav>
+  </div>
+
+  <main class="wrap">
+    <section class="card" id="overview" data-card="overview">
+  <h2><span class="n">1</span> Start here</h2>
+  <p>IntegrateIT JVC D-ILA Projector turns one Control4 serial port, or the projector's network port, into two-way control of a JVC D-ILA projector over RS-232 or LAN, speaking JVC's own published external-control protocol (the binary <code>21 89 01 … 0A</code> command family in JVC's External Control Command specification and D-ILA remote control guide on support.jvc.com). It was built for the <b>DLA-RS49U</b> and its siblings, the DLA-RS4910 and DLA-X500R, which report model code <code>XHK1</code> / <code>XHK2</code>.</p>
+  <p><b>Control Method</b> picks how the driver reaches the projector:</p>
+  <table>
+    <tr><th>Control Method</th><th>What it does</th></tr>
+    <tr><td><b>RS-232</b> (default)</td><td>Two-way control over the serial port. Installed sites keep this.</td></tr>
+    <tr><td><b>RS-232 + IR Power On</b></td><td>The same, and every Power On also sends JVC's discrete IR Power On code through an emitter, so a projector whose port sleeps in standby (ECO Mode On) still turns on.</td></tr>
+    <tr><td><b>LAN</b></td><td>The same two-way control over TCP port 20554 to <b>Projector IP Address</b>, behind JVC's PJ_OK / PJREQ / PJACK handshake. No serial cable, baud rate or port gender to get wrong.</td></tr>
+    <tr><td><b>LAN + IR Power On</b></td><td>LAN, with the IR Power On assist.</td></tr>
+    <tr><td><b>IR</b></td><td>One-way fallback: the same commands go out as JVC remote codes through an IR emitter, with power modeled instead of read.</td></tr>
+  </table>
+  <p>The projector joins the room as a real Control4 video endpoint. <b>Watch</b> powers it up and lands on the right HDMI input once the lamp is warm, <b>Room Off</b> puts it in standby, the room remote's menu and cursor keys reach the JVC menu, and an input change made with the JVC remote shows up in the room.</p>
+  <div class="note warn">For RS-232 or LAN, set the projector's <b>Function &gt; ECO Mode to Off</b>. JVC's RS49 / X500R user guide (https://manual3.jvckenwood.com/projector/mobile/dla/lch60830-001en/QUDFSYuraxfcif.php) says to set ECO Mode to Off if RS-232C or LAN communication is performed in Standby mode, and a controller that has to turn the projector on from standby is exactly that. If the site must keep ECO Mode On, use an <b>IR Power On</b> Control Method (see <i>IR Power On assist</i>). If the menu also has <b>Communication Terminal</b>, it must read <b>RS-232C</b> for RS-232 and <b>LAN</b> for LAN: on the models JVC's LAN guide lists the two are exclusive. That guide does not list the RS49 / X500R, so check on the projector whether your menu has the item rather than assuming it.</div>
+  <div class="note good">Ready for controlled commissioning. The package, Lua 5.1 runtime, exact wire frames, ACK pacing, power-state machine, held power and input commands, TV-proxy contract, poll miss accounting, license gate, persistence, and documentation pass automated QA against a simulated projector that answers as JVC's specification describes. A qualified dealer must still complete a fresh install and an observed control test against a real projector on the target controller.</div>
+  <p><b>What you get</b></p>
+  <ul>
+    <li>A Control4 video endpoint: Watch, Room Off, and discrete HDMI 1 / HDMI 2 selection through the room, with input changes from the JVC remote reported back to the room</li>
+    <li>Two-way control over RS-232 or over the network (LAN), with the same command set, ACK pacing and power-state machine on both</li>
+    <li>An optional IR Power On assist for sites that keep ECO Mode on, where the projector's port cannot hear a Power On from standby, with a <b>Test IR</b> action to prove the emitter</li>
+    <li>JVC's ACK pacing: one command in flight at a time, the next sent only after the projector acknowledges the last, as JVC's specification requires</li>
+    <li>Power On / Off with warmup modeling and cooldown read from the projector: a Power On during cooling and a Power Off during warmup are held, then released when the projector can accept them</li>
+    <li>Input changes held through warmup, so a Watch press on a cold projector still ends on the right input</li>
+    <li>Picture mode, lens memory 1-5, anamorphic Off / A / B, aspect, and lamp power as programming commands, each written with JVC's documented frame</li>
+    <li>Lamp hours, picture mode, and the projector's model code read back into properties and variables</li>
+    <li>Read-backs of ECO Mode (flagged when On, because it silences the port in standby), the video input signal (with Signal Present / Signal Lost events), anamorphic, aspect, lamp power and the projector's own remote code, a <b>Set ECO Mode</b> command, an installer <b>Lamp Alert Hours</b> threshold with a <b>Lamp Hours Alert</b> event, and a <b>Diagnose Link</b> action that ranks the likely causes of a silent link</li>
+    <li>The room remote's menu, cursor, OK, back, info, and aspect keys passed through, plus a <b>Send Remote Key</b> command for the JVC remote's setup keys</li>
+  </ul>
+</section>
+
+<section class="card" id="feedback" data-card="feedback">
+  <h2><span class="n">2</span> The feedback contract</h2>
+  <p>This driver never invents state. Everything it reports comes from what the projector answers:</p>
+  <ul>
+    <li>The power poll (<code>3F 89 01 50 57 0A</code>) reads Standby, Lamp On, Cooling, or Error straight from the projector, every <code>Power Poll (s)</code> and every 5 s while a power change is in progress. Cooling is reported by the projector, so a held Power On is released the moment it reports Standby.</li>
+    <li>Warmup is the one thing the driver models. This generation is assumed to report Lamp On as soon as the lamp strikes (JVC's 2015 command table lists the warming code only as Reserved and says nothing about warmup, so confirm this on the bench), so after a Power On the driver holds input and power-off commands for <code>Warmup Time (s)</code>, then reads the input, picture mode, and lamp hours. The window is never shorter than 25 s, whatever <code>Warmup Time (s)</code> says: the 15 s grace window and the 10 s Power On ACK wait have to fit inside it.</li>
+    <li>Every input change is followed by an input query, and the room hears about the input the projector reports, not the one that was asked for.</li>
+    <li>The projector answers nothing for a command it cannot act on: an unsupported value, or anything except power and the null command while in standby. The driver reports that as <b>No ACK</b> in <code>Last Error</code>. Only power polls that draw no ACK at all count toward <code>Communication = Lost</code>, so one ignored command never takes the projector offline.</li>
+    <li>While someone is working the JVC's own menu, it ACKs queries at once but holds the answers. The driver treats that as alive and busy and stays quiet about it. A held power or input answer that arrives late is still applied; a late picture-mode, lamp-hours or model answer is dropped, and <b>Refresh Status</b> asks again.</li>
+    <li>A frame that starts with the controller's own header (<code>21</code> or <code>3F</code>) is the controller's command coming back, from a loopback plug or an echoing adapter. It is never counted as a projector reply, so it cannot make <code>Communication</code> read <code>Responding</code>.</li>
+    <li>A Power On or Power Off that draws no ACK is sent again, up to four more times, 6 s after each unanswered try (the ACK wait is 10 s) and only while it is still the latest press; a lamp that is still warming ignores Power Off, for example. A Power Off the projector ACKs but leaves the lamp lit (or a Power On it ACKs but leaves in standby) is sent once more after the 15 s grace window. <code>Last Error</code> only reports it when the tries run out.</li>
+    <li>While the projector is On the driver also reads what it has set: <code>ECO Mode</code>, <code>Input Signal</code>, <code>Anamorphic</code>, <code>Aspect</code>, <code>Lamp Power</code> and <code>Projector IR Code</code> (see <i>Read-backs and alerts</i>). Each is a quiet query: a projector that does not answer one never raises <code>Last Error</code> for it, and a setting written to it is followed by a read, so a write the projector ignored leaves the property showing what it really holds. Lens memory is not read back, because JVC's 2015 command table lists no reference for it.</li>
+    <li>After a controller reboot <code>Power State</code> and <code>Current Input</code> restart at <code>Unknown</code> and, while the state is still <code>Unknown</code>, one power poll goes out about 1.5 s after the driver starts, so they fill in within seconds even with a slow <code>Power Poll (s)</code>. Only <code>Lamp Hours</code> (and the fact that the lamp alert has fired) is restored from persistence; <code>Serial Received</code>, <code>Last Response</code>, <code>Last Command</code>, <code>Projector Model</code>, <code>Picture Mode</code>, <code>ECO Mode</code>, <code>Input Signal</code>, <code>Anamorphic</code>, <code>Aspect</code>, <code>Lamp Power</code>, <code>Projector IR Code</code> and <code>Link Diagnosis</code> restart too, so they only ever describe this session.</li>
+  </ul>
+</section>
+
+<section class="card" id="setup" data-card="setup">
+  <h2><span class="n">3</span> Wire and commission</h2>
+  <ol class="steps">
+    <li>Choose <b>Control Method</b>. The steps below are for <b>RS-232</b> (two-way over the serial port); for the others see <i>LAN control</i> and <i>IR Power On assist</i> below, and <i>IR control (the fallback)</i> for IR alone.</li>
+    <li>On the projector, open <b>Function</b> and set <b>ECO Mode</b> to <b>Off</b> (JVC's user guide, linked above). If the menu has <b>Communication Terminal</b>, set it to <b>RS-232C</b>. Note the <b>Remote Code</b> setting (A or B) on the same menu.</li>
+    <li>Wire a controller or IO-extender serial port to the projector's <b>RS-232C D-Sub 9</b> port with a <b>crossover (null-modem)</b> cable or adapter. JVC's pinout is pin 2 RXD, pin 3 TXD, pin 5 GND, and its guide says a PC (DTE) needs a cross-connected cable. If your controller's port is wired the other way round (check its documentation), the straight cable is the right one: the loopback test in <i>The projector never answers</i> below tells you which end is at fault.</li>
+    <li>The controller port must run <b>19200 baud, 8 data bits, no parity, 1 stop bit, no flow control</b>. The driver declares those settings, but the sources behind this driver do not say when Composer applies them to the port, so <b>read the port's live setting in Composer and set 19200 8N1 by hand if it differs</b>. If the driver was just updated, unbinding and binding Projector RS-232 Port again (or removing and re-adding the driver) is a cheap thing to try. A wrong baud looks exactly like a projector that never answers.</li>
+    <li>Add <b>IntegrateIT JVC D-ILA Projector</b> to the room. In Connections, bind <b>Projector RS-232 Port</b> to the serial port.</li>
+    <li>On the AV tab, bind your sources or matrix outputs to <b>HDMI 1</b> and <b>HDMI 2</b>, and confirm the room's video endpoint is the projector (the <b>Room Selection - Video</b> binding).</li>
+    <li>Set <b>Remote Code</b> to match the projector, and set <b>Warmup Time (s)</b> to how long your projector takes from Power On to a usable picture (default 60 s, minimum 25 s).</li>
+    <li>Run <b>Test Connection</b> from the Actions tab. The projector ACKs JVC's null command in standby or on, so <code>Status</code> reads <i>Test Connection passed</i> when the cable, port settings, and Communication Terminal are right. If it fails, follow <i>The projector never answers</i> below. With an IR Power On method this tests the two-way link only: press <b>Test IR</b> as well, with the projector on, and watch for its information screen (see <i>IR Power On assist</i>).</li>
+    <li>Run <b>Refresh Status</b> and confirm <code>Communication</code> reads <code>Responding</code>, <code>Power State</code> matches the projector, and <code>Projector Model</code> shows <code>XHK1</code> (RS49U / X500R) or <code>XHK2</code> (RS4910). With the projector On, also check that <code>ECO Mode</code> reads <b>Off</b> (if it reads On, <code>Last Error</code> explains why Control4 will not be able to turn the projector on from standby) and that <code>Projector IR Code</code> matches your <code>Remote Code</code> setting.</li>
+    <li>Press <b>Watch</b> on a source in the room with the projector off. Expect Power On, then the input switch once warmup ends. Press <b>Room Off</b> and expect <code>Cooling Down</code>, then <code>Off</code>.</li>
+  </ol>
+</section>
+
+<section class="card" id="lan" data-card="lan">
+  <h2><span class="n">4</span> LAN control</h2>
+  <p>Set <b>Control Method</b> to <b>LAN</b> (or <b>LAN + IR Power On</b>) to drive the projector over the network instead of the serial port. The commands, the ACK pacing, the power-state machine, the held Power On / input, the polls and the room's video endpoint are exactly the ones RS-232 uses; only the transport differs.</p>
+  <p><b>Set up</b></p>
+  <ol class="steps">
+    <li>On the projector, open <b>Function &gt; Communication Terminal</b> and change it from RS-232C (the default) to <b>LAN</b>. JVC's LAN guide describes this for the models it lists (DLA-X7, X9, X30, X70, X90, RS50, RS60, RS45, RS55, RS65): it enables the <b>Network</b> menu, and the RS-232C port is no longer the control port, so LAN and RS-232C are not both live. That list does not include the RS49 / X500R. If your projector's Function menu has no Communication Terminal item, look in its manual for how it selects LAN rather than hunting for the item.</li>
+    <li>In the projector's <b>Network</b> menu set its IP address (and DHCP, Subnet Mask, Default Gateway if your network needs them). Give it a DHCP reservation or a fixed address so it never moves, and ping it from the same network.</li>
+    <li>Set <b>Function &gt; ECO Mode</b> to <b>Off</b> if the projector must be controlled from standby: JVC's user guide (https://manual3.jvckenwood.com/projector/mobile/dla/lch60830-001en/QUDFSYuraxfcif.php) gives that rule for RS-232C and LAN alike. With ECO Mode On, use <b>LAN + IR Power On</b>.</li>
+    <li>In the driver, set <b>Control Method</b> to <b>LAN</b>, <b>Projector IP Address</b> to that address, and leave <b>LAN Port</b> at <b>20554</b> (the only port the projector uses). The serial port and <b>Projector RS-232 Port</b> are not used; <code>Serial Port</code> reads <i>Not used</i>.</li>
+    <li>Run <b>Test Connection</b>: <code>Status</code> reads <i>Test Connection passed</i>, <code>Communication</code> reads <code>Responding</code>, and <code>LAN Status</code> reads <i>Idle - last exchange OK</i>. Then follow steps 6 to 10 of <i>Wire and commission</i>.</li>
+  </ol>
+  <p><b>What the driver does for every command.</b> JVC's guide requires the same handshake in front of each command, and the projector closes the socket about 5 s after one, so the driver gives each queued command its own connection:</p>
+  <ol class="steps">
+    <li>It creates a dynamic network connection to <b>Projector IP Address</b> and connects to <b>LAN Port</b>. Director is told not to reconnect or probe it, because JVC closes the socket by design. No connection within 5 s is a timeout; a connection that is refused or closed at once is reported as refused.</li>
+    <li>The projector sends <code>PJ_OK</code>. The driver answers <code>PJREQ</code> at once (JVC allows the controller 5 s). If instead it sends <code>PJ_NG</code> it is busy (JVC allows one LAN connection, so another controller or app, such as JVC's phone app, holds it): the driver closes, waits 0.5 s, then 1 s, 1.5 s and 2 s, and tries up to four more times. After that it gives up on that command and says so in <code>Last Error</code>; the next command or poll tries again. <code>PJREQ</code> is never sent to a busy socket. <code>PJ_NG</code> is the projector answering, so it is <b>not</b> counted as a missed poll: a busy projector does not go <code>Communication</code> <b>Lost</b>, its <code>Power State</code> is not forgotten, and no second <b>Power On</b> event fires when the other client lets go. The first valid reply clears the busy note from <code>Last Error</code>.</li>
+    <li>The projector answers <code>PJACK</code>. Only now is the command frame written, the same binary frame the serial port carries. The ACK clock (<code>ACK Timeout (ms)</code>, or the longer 10 s and 30 s waits for power, input, picture-mode and lens commands) starts from this write, so a slow connection never eats into it.</li>
+    <li>The ACK and any response are parsed by the same code RS-232 uses. The moment the reply is complete, the driver closes the socket itself, so the projector is free for the next connection.</li>
+    <li>New connections are kept at least 0.75 s apart after a query and 1 s after an operation. A burst of menu cursor presses is therefore slower over LAN than over RS-232, where presses go out about 0.1 s apart: over LAN they are at least a second apart. The driver does not reuse an open socket, because JVC's guide requires the handshake before each command, and an open socket could leave the projector answering <code>PJ_NG</code> (busy) to the next connection.</li>
+    <li>Each power poll is one such connection and handshake, and while the projector is On the input and signal queries that go with it are two more. Keep <b>Power Poll (s)</b> at its default or longer.</li>
+  </ol>
+  <p><b>No password.</b> The driver sends a bare <code>PJREQ</code>. JVC's LAN guide does not describe a password for the models it lists, but an open-source JVC client (pyjvc) sends one in <code>PJREQ</code> when it is set, and answers <code>PJNAK</code> with a retry, so some projectors do ask for one. If a projector answers a bare <code>PJREQ</code> with <code>PJNAK</code>, the driver reports that in <code>Last Error</code> and <code>LAN Status</code> and does not try to answer it: a projector with a LAN password set (or a model whose handshake differs) is not supported over LAN. Nothing supplied says whether the RS49 / X500R has a password, so if you hit <code>PJNAK</code>, check the projector's Network menu for one.</p>
+  <p><b>Slow commands.</b> JVC ACKs an input switch, a picture-mode change and a lens recall only when the operation is done, which can be longer than the projector keeps a LAN socket open. If the socket closes before such an ACK, the driver reports <i>the projector closed the connection before it ACKed ... may still have landed</i> rather than claiming it was ignored, and asks the projector which input or picture mode it is on now. An input switch is also retried like it is over RS-232.</p>
+  <p>A <b>lens-memory recall</b> is different. The projector ACKs it only when the lens stops (up to 30 s), and it closes the LAN socket about 5 s after the command, so over LAN the ACK normally cannot arrive, and JVC lists no lens-memory reference, so there is nothing to read back. The driver does not call that an error: <code>Status</code> reads <i>Lens Memory 2 sent; over LAN the lens move outlasts the connection, so it cannot be confirmed</i> and <code>Last Error</code> is left alone. Look at the screen, or use RS-232 where you need the move confirmed.</p>
+  <p><b>LAN Status</b> shows the progress of the current exchange (<code>Connecting</code>, <code>PJ_OK - sent PJREQ</code>, <code>Handshake complete</code>), <code>Idle - last exchange OK</code> after a good one, or the last failure: <i>connection refused</i>, <i>no connection within 5 s</i>, <i>no PJ_OK</i>, <i>closed before PJ_OK</i>, <i>PJ_NG (busy)</i>, <i>no PJACK</i>, <i>PJNAK</i>, <i>closed before the ACK</i>, or <i>Projector IP Address is empty</i>. An empty address sends nothing and never marks the projector Lost.</p>
+</section>
+
+<section class="card" id="lan-silent" data-card="lan-silent">
+  <h2><span class="n">5</span> LAN never connects</h2>
+  <p>If <b>Test Connection</b> fails under a LAN Control Method, run <b>Diagnose Link</b> for a ranked verdict, and read <code>Last Error</code> and <code>LAN Status</code>; each failure points at a different layer.</p>
+  <table>
+    <tr><th><code>LAN Status</code> / <code>Last Error</code> says</th><th>Meaning</th><th>Do this</th></tr>
+    <tr><td>Projector IP Address is empty</td><td>Nothing to connect to</td><td>Enter the projector's address</td></tr>
+    <tr><td>connection refused</td><td>The address answered but nothing accepts TCP 20554 there</td><td>Set Function &gt; Communication Terminal to LAN on the projector, check LAN Port is 20554, and confirm the address is the projector's</td></tr>
+    <tr><td>no connection within 5 s</td><td>Nothing answered at all</td><td>Check the IP address, the VLAN or switch path, the cable, and that the projector's Network menu shows that address</td></tr>
+    <tr><td>no PJ_OK</td><td>Something accepted the connection but did not greet like a JVC</td><td>Another device has that address, or the port is forwarded to something else; the message shows what it sent</td></tr>
+    <tr><td>PJ_NG (busy)</td><td>The projector said it is busy, so it is alive</td><td>Something else is connected to it: another controller or an app (JVC's phone app, Home Assistant). Close it; the driver tries again with every poll and clears the note when it answers</td></tr>
+    <tr><td>PJNAK</td><td>The projector refused the handshake (a LAN password may be set)</td><td>This driver sends no password: clear the projector's LAN password if it has one, otherwise send Print Configuration to support</td></tr>
+    <tr><td>no PJACK</td><td>PJREQ drew no answer</td><td>Check the address is that projector's and try again; if it repeats, send Print Configuration to support</td></tr>
+    <tr><td>handshake works but no ACK</td><td>The handshake is fine and the command was written, but nothing was ACKed</td><td>If the projector is in standby, set ECO Mode to Off; otherwise check the address is that projector's</td></tr>
+    <tr><td>closed before the ACK</td><td>The projector closed the socket first</td><td>Expected after a slow input or picture-mode change: the driver reads the result back. A lens-memory recall cannot be read back; it shows as a <code>Status</code> note (<i>cannot be confirmed</i>), not as an error</td></tr>
+  </table>
+  <p>To test the projector with a PC instead, JVC's guide suggests the Hercules Setup Utility TCP Client tab: connect to the projector on port 20554, read <code>PJ_OK</code>, send <code>PJREQ</code> within 5 s, read <code>PJACK</code>, then send hex <code>21 89 01 00 00 0A</code> within 5 s; it answers <code>06 89 01 00 00 0A</code>. Set Control Method to RS-232 while you do, so the driver and the PC do not compete for the projector. <code>Print Configuration</code> lists how many connections the driver opened, how many reached PJ_OK and PJACK, and how many drew PJNAK or PJ_NG, which is the quickest way to see how far each attempt got.</p>
+</section>
+
+<section class="card" id="assist" data-card="assist">
+  <h2><span class="n">6</span> IR Power On assist</h2>
+  <p>A projector with <b>ECO Mode On</b> puts its RS-232C / LAN port to sleep in standby, so it cannot hear a Power On sent over that port, and a room that powers it off from Control4 can never power it back on. JVC's user guide gives the rule for sites that can: set ECO Mode to Off. Sites that must keep it on use <b>RS-232 + IR Power On</b> or <b>LAN + IR Power On</b>.</p>
+  <ul>
+    <li><b>Where to wire it.</b> Bind <b>Projector IR</b> to a controller IR output and put the emitter over the projector's IR window, as for IR control, and bind the serial port or set the LAN address as for the two-way method. <b>Remote Code</b> selects the A (73) or B (63) code.</li>
+    <li><b>What it sends.</b> Every time the driver sends a Power On to the projector, it also sends JVC's discrete IR <b>Power On</b> code, once, through Projector IR. Only Power On uses IR: inputs, Room Off, picture modes and the rest stay on the two-way link, so everything is still read back while the lamp is on.</li>
+    <li><b>The warmup.</b> The warmup window starts from the IR press, because IR is the one command a sleeping port cannot refuse. The two-way Power On is sent right behind it and is best effort: it is not retried, and no ACK for it is not an error (a sleeping port is the whole case). A held input is released when the warmup closes, by which time the port should be awake and answering. If the projector then reports Standby after the 15 s grace window although the two-way Power On was ACKed, the driver sends Power On once more, IR included.</li>
+    <li><b>When it does not send IR.</b> A Power On that finds the projector already On or Warming Up sends nothing, with one exception: if nothing has answered over the two-way link yet (a dead port, or an IR code that never arrived), the driver sends the IR code again and restarts the warmup, because that On could never be repaired otherwise. While the state is Unknown (just after a reboot) the driver first asks the power state over the link, as it always does; if nothing answers, it sends the Power On and the IR code, so a Watch on a sleeping projector takes a couple of seconds longer than on a known one.</li>
+    <li><b>Standby reads as Off.</b> After a Room Off the projector cools down and then goes to sleep. If it stops answering while the state is <b>Cooling Down</b>, or after it has already answered standby (a projector may answer one standby poll before its port goes dark), these Control Methods read that as standby: <code>Power State</code> becomes <b>Off</b> (not Unknown) and <code>Communication</code> reads <b>Lost</b>, with a note in <code>Last Error</code> about ECO Mode. A Watch held during that cooldown is released and powers the projector on by IR. Polls keep running, and the first answer returns <code>Communication</code> to <code>Responding</code>. The other Control Methods keep reading a silent projector as Unknown.</li>
+    <li><b>Dead serial line.</b> If the two-way link never works, the room is not stranded: Watch still powers the projector on by IR and models the warmup, while <code>Communication</code> shows the dead line and its advice.</li>
+    <li><b>IR that never reaches the projector.</b> While the modeled warmup runs, unanswered polls do not declare the projector Lost and a held input is kept: a sleeping port can take a while to wake. If nothing has answered over the two-way link when the warmup closes, the IR code most likely never arrived (emitter mis-aimed, wrong Remote Code), so <code>Power State</code> returns to <b>Unknown</b> instead of claiming On, a held input is dropped, and <code>Last Error</code> says to check the emitter, the binding and Remote Code. Watch again sends the IR code again, and so does Watch pressed during such a warmup.</li>
+    <li><b>Room Off right after Watch.</b> The IR Power On leaves the moment Watch is pressed, so a Room Off pressed while the two-way Power On is still waiting behind another exchange cannot cancel the IR code. The queued two-way Power On is dropped and the Power Off is held until the warmup closes, then sent, so the lamp does not stay lit.</li>
+    <li><b>Prove the emitter.</b> Press <b>Test IR</b> on the Actions tab with the projector on. It sends JVC's <b>Info</b> key once through Projector IR, and the projector's information screen should appear. Nothing comes back over IR, so the screen is the proof; do this before relying on the assist. <b>Test Connection</b> does not do it under these methods, because it tests the two-way link. Under RS-232 and LAN, <b>Test IR</b> sends nothing and says IR is not used. If Projector IR is not bound, <code>Last Error</code> says so.</li>
+    <li><b>License.</b> The IR code is gated by the license like every other control path.</li>
+  </ul>
+  <p>Changing only between a two-way method and its IR Power On version (for example <b>RS-232</b> to <b>RS-232 + IR Power On</b>) keeps what the driver has learned; changing between RS-232, LAN and IR starts again from <code>Unknown</code>, as does changing the address or port; the frame and handshake counters Diagnose Link reads start over too.</p>
+</section>
+
+<section class="card" id="readbacks" data-card="readbacks">
+  <h2><span class="n">7</span> Read-backs and alerts</h2>
+  <p>These are read from the projector while it is <b>On</b>, over RS-232 or LAN (IR reads nothing). Each is a quiet query: if the projector does not answer, nothing is written to <code>Last Error</code>. They are read when the projector reaches On and on <b>Refresh Status</b>; the ones the driver can set are also read right after the command. A change made with the JVC remote therefore shows after the next Refresh Status (or power-on), except <code>Input Signal</code>, which is asked with every power poll. A one-shot read (ECO Mode, anamorphic, aspect, lamp power, the projector's remote code) that drew no ACK is asked again on later polls once the projector has answered an On-only command, up to three misses each, so a lamp that was still settling at power-on does not leave them at Unknown (or lose the ECO Mode warning).</p>
+  <p><b>ECO Mode.</b> <code>ECO Mode</code> shows the projector's Function &gt; ECO Mode setting (JVC command <code>FUEM</code>). With ECO Mode <b>On</b> the projector's RS-232C / LAN port goes dark in standby, so Control4 can switch it off but never on again, and nothing shows that while it is lit. JVC's user guide says to set ECO Mode to Off if RS-232C or LAN communication is used in Standby mode (https://manual3.jvckenwood.com/projector/mobile/dla/lch60830-001en/QUDFSYuraxfcif.php). When the driver reads On it says so in <code>Last Error</code> and <code>Status</code>, and every refresh or power-on repeats the warning; reading Off clears it. With an <b>IR Power On</b> Control Method ECO Mode On is the case the assist exists for, so only <code>Status</code> says so. The <b>Set ECO Mode</b> command (Off or On, projector On, RS-232 or LAN) writes the setting and reads it back; the driver never changes ECO Mode by itself. If the projector later goes quiet in standby while ECO Mode was read On, the dead-line advice names it as the cause.</p>
+  <p><b>Input signal.</b> <code>Input Signal</code> reads <b>Present</b> or <b>No signal</b> (JVC's source query <code>SC</code>), or <b>Logo (starting)</b> on older projectors that answer a raw 0x00 while their logo is up. It is asked with every power poll while the projector is On, and when it reaches On. The variable <code>SIGNAL</code> carries the same text. The <b>Signal Present</b> event fires when the projector starts reporting a signal (including the first answer after the driver or projector started); <b>Signal Lost</b> fires only when a signal it had reported goes away (a first answer of No signal is not a loss), and neither repeats while the answer stays the same. <code>Input Signal</code> returns to <b>Unknown</b> when the projector leaves On, without an event. A projector that never ACKs the source query is asked three times and then left alone (<code>Input Signal</code> reads <i>Not reported</i>); Refresh Status and the next power-on try again. The three misses only count once the projector has answered some other On-only command: right after the lamp strikes a projector can ignore everything for a while, and until it answers something the source query is simply asked again with each poll. Over LAN each query is one more connection, so a poll while On is three connections (power, input, signal): keep <code>Power Poll (s)</code> at its default or longer.</p>
+  <p><b>Lamp alert.</b> Set <b>Lamp Alert Hours</b> to the lamp hours at which you want to hear about it (0 is off; JVC publishes no rated lamp life, so you choose). The <b>Lamp Hours Alert</b> event fires once when a lamp reading first reaches that number. The driver remembers that it fired, so a controller restart does not repeat it; a reading below the threshold (a new lamp, or a raised threshold) arms it again, and a changed threshold fires again for the new number. A changed threshold is compared with the lamp hours already read at once, so to test the alert set <b>Lamp Alert Hours</b> below the current <code>Lamp Hours</code> and the event fires straight away (once). With a threshold set, lamp hours are re-read about every hour while the projector is On, as well as at every power-on and on <b>Query Lamp Hours</b>; with none set they are not re-read.</p>
+  <p><b>Anamorphic, aspect and lamp power.</b> <code>Anamorphic</code> (Off, A, B), <code>Aspect</code> (4:3, 16:9, Zoom, Auto, Just, Full) and <code>Lamp Power</code> (Normal, High) show what the projector holds, with the variables <code>ANAMORPHIC</code>, <code>ASPECT</code> and <code>LAMP_POWER</code>. <b>Set Aspect</b> offers 4:3, 16:9 and Zoom; the projector may report Auto, Just or Full if someone picked them on its remote. A code the driver does not know shows as <i>Unknown (x)</i>. A write the projector ignores is reported as <i>No ACK</i> in <code>Last Error</code>, and the property keeps showing what the projector actually holds.</p>
+  <p><b>The projector's remote code.</b> <code>Projector IR Code</code> shows the remote code the projector says it listens to (A is 73, B is 63; JVC command <code>SURC</code>), read when it is first On and on Refresh Status. If it differs from <b>Remote Code</b> here, <code>Last Error</code> and <code>Status</code> say so: JVC's guide says a projector switched to Code B responds only to Code B, so menu keys, <b>Send Remote Key</b> and IR codes sent with the other code are not accepted. Fix it by changing <b>Remote Code</b> (the warning clears at once) or the projector's Function &gt; Remote Code.</p>
+</section>
+
+<section class="card" id="diagnose" data-card="diagnose">
+  <h2><span class="n">8</span> Diagnose Link</h2>
+  <p>Run <b>Diagnose Link</b> from the Actions tab when the projector is silent or misbehaves. It reads what the driver has counted this session and sends nothing to the projector, so it works even under Strict license enforcement (where it says that is the problem). It prints a <b>verdict</b>, the <b>checks to do, most likely first</b>, and the facts it used to the Lua output window, and stores the one-line verdict in <code>Link Diagnosis</code>.</p>
+  <ul>
+    <li><b>RS-232</b>: the binding (<code>Serial Port</code>), frames sent, bytes received, valid replies and echoes of the controller's own frames, and <code>Communication</code>. It tells apart: the port not bound; nothing sent yet (run Test Connection first); your own commands coming back (loopback or echo); bytes that are not JVC replies (baud or cable); nothing at all coming back (the checks are the controller port's 19200 8N1, re-binding after a driver update as something to try, the cable, a loopback test, Communication Terminal and ECO Mode, the projector's Function &gt; Control4 setting if it has one, a PC test, then the IR Power On or LAN alternatives); with an IR Power On method, a quiet port after Room Off is reported as a <b>Note</b> (the projector is most likely asleep with ECO Mode On, which is what those methods are for) with the IR side to check, not as a problem; a projector that answered and then stopped; and a healthy link. If <code>ECO Mode</code> was read On, that check goes first.</li>
+    <li><b>LAN</b>: the address and port, and how far the handshake got. It tells apart: an empty <code>Projector IP Address</code>; nothing tried yet; no TCP connection (Communication Terminal, address, network path, another controller holding the connection, ECO Mode); connections that only ever answer PJ_NG (another controller or app holds the projector's one connection); connections without PJ_OK; PJ_OK without PJACK (or PJNAK, a refused handshake); a working handshake with no ACK (ECO Mode); a projector that answered and then stopped; and a healthy link.</li>
+    <li><b>IR</b>: one-way, so there is no verdict to read from the wire; it lists what can be checked (binding, emitter, Remote Code, Test Connection) and flags an unbound <code>Projector IR</code>.</li>
+  </ul>
+  <p><code>Link Diagnosis</code> reads <i>OK</i>, <i>Problem</i>, <i>Not tested yet</i> or <i>Note</i>, and <i>Not run</i> until the action is used. It is a snapshot of the counters at that moment; run it again after changing something. The counters start over when <code>Control Method</code> moves between RS-232, LAN and IR or the LAN address or port changes, so a serial session's replies never make a LAN link look healthy.</p>
+</section>
+
+<section class="card" id="silent" data-card="silent">
+  <h2><span class="n">9</span> The projector never answers</h2>
+  <p>This list is for the serial methods; for LAN see <i>LAN never connects</i>. Run <b>Test Connection</b> and then <b>Diagnose Link</b> first: it names the most likely cause from the counters and ranks the checks. If <b>Test Connection</b> fails and <code>Serial Received</code> reads <i>Nothing yet</i>, work down this list. Each step rules out one thing.</p>
+  <ol class="steps">
+    <li>Set <code>Debug Mode</code> to <b>Print</b> and run <b>Test Connection</b> again. The Lua output window shows <code>tx: ! &lt;00&gt;&lt;00&gt;</code> (the null command) when the driver writes it, and <code>Last Command</code> shows the same. If nothing is written, check <code>License Status</code> (Strict enforcement blocks control), that <code>Control Method</code> is <b>RS-232</b> and not IR, and <code>Serial Port</code>.</li>
+    <li>Loopback: unplug the cable from the projector and jumper pins 2 and 3 at the controller end. Run <b>Test Connection</b>. It should <i>fail</i> with <i>Your own command came back (loopback or echoing adapter)</i> and <code>Serial Received</code> should start counting bytes (6 for each null command, and its last chunk reads <code>21 89 01 00 00 0A</code>). That proves the binding, the controller port and this driver receive correctly, and that the problem is the cable, the baud or the projector. If <code>Serial Received</code> stays at <i>Nothing yet</i>, fix the binding and the port first. Remove the jumper afterwards.</li>
+    <li>Check the baud. Read the port's setting in Composer and make it 19200 8N1; if the driver was just updated, re-binding Projector RS-232 Port is a cheap thing to try (step 4 above).</li>
+    <li>Test the cable and projector with a PC: a USB serial adapter and a terminal program such as Hercules, on the same cable, at 19200 8N1 and a cross-connected cable. Send hex <code>21 89 01 00 00 0A</code>; the projector answers <code>06 89 01 00 00 0A</code>, in standby or on. If the PC gets the answer but the controller does not, the controller port, its baud or the driver binding is the problem.</li>
+    <li>Try the other cable type (crossover versus straight-through).</li>
+    <li>Turn the projector on with its remote, set <b>Function &gt; ECO Mode</b> to <b>Off</b>, check <b>Communication Terminal</b> reads RS-232C if the menu has that item, then repeat <b>Test Connection</b>.</li>
+    <li>If the projector has a <b>Function &gt; Control4</b> setting (JVC's command list includes one, <code>FUCF</code>, Off or On), look at it and try <b>On</b>. The sources this driver was built from do not say what that setting changes, so treat it as something to try, not a known fix; the driver does not read it.</li>
+    <li>If the site must keep ECO Mode on, choose <b>RS-232 + IR Power On</b>: the projector is powered on by IR and the serial link takes over once the lamp is lit (see <i>IR Power On assist</i>).</li>
+  </ol>
+</section>
+
+<section class="card" id="ir" data-card="ir">
+  <h2><span class="n">10</span> IR control (the fallback)</h2>
+  <p>Set <b>Control Method</b> to <b>IR</b> when RS-232 is not an option. In Connections, bind <b>Projector IR</b> to a controller IR output and stick the emitter over the projector's IR window (front or rear). Leave <b>Remote Code</b> matching the projector: Code A sends custom code 73, Code B sends 63.</p>
+  <p>The codes are JVC's own: the guide's custom code followed by the same key byte the RS-232 pass-through uses, in JVC's 16-bit IR format at 38 kHz. The driver generates them from JVC's published worked example and checks them against it. Power On, Standby, HDMI 1 and 2, picture modes, lens memory 1-5, anamorphic and aspect use JVC's discrete codes; menu, cursor and the setup keys use the remote's keys.</p>
+  <p>IR is one-way, so the driver models what it cannot read:</p>
+  <ul>
+    <li><b>Power On</b> starts the warmup window (<code>Warmup Time (s)</code>); an input picked during it is sent when it ends.</li>
+    <li><b>Power Off</b> sends <b>Standby twice</b>, 1.5 s apart, because the JVC asks you to confirm. It then counts down <code>Cooldown Time (s)</code> from the second, confirming press; a Power On in that window is held and sent when it ends, since the projector ignores Power On while cooling.</li>
+    <li>Power On and Standby are discrete codes, so pressing Watch or Room Off again <b>always sends the code again</b>, even when the model says the projector is already on or off. That is how you repair a model that drifted (someone used the remote, or power was lost). A repeat does not restart the warmup or cooldown windows; only a Power Off during warmup and a Power On during cooldown are held.</li>
+    <li>After a restart or a Control Method switch the model reads <code>Unknown</code>. Keys, inputs and picture modes are sent anyway (nothing in IR could ever tell the model the projector is on). While the model says the projector is off, warming up or cooling down, keys and picture modes are refused with a reason, but an input is held, not refused: it is sent when the next warmup ends, and a Room Off drops it.</li>
+    <li>A Power On pressed while the model already says On or Warming Up sends the IR code again, and the input key that follows goes out at once, as usual. If the projector was really off (someone used the remote), it may be only starting when that key arrives and ignore it. So the same input key is sent once more when <code>Warmup Time (s)</code> has run, unless you chose a different input, pressed Room Off, or changed the Control Method first. The discrete input codes are harmless to repeat on a projector that was already on.</li>
+    <li>The input is assumed to be the one sent, and the room is told so.</li>
+    <li>Lamp power and lamp hours have no IR equivalent and are refused with a reason; ECO Mode, the input signal, anamorphic, aspect, lamp power and the projector's remote code are read over RS-232 or LAN only, so they read <code>Unknown</code> under IR, and <b>Set ECO Mode</b> is refused with a reason.</li>
+    <li><b>Test Connection</b> (and <b>Test IR</b>) sends the <b>Info</b> key: with the projector on, its information screen appears if the emitter reaches it.</li>
+    <li><code>IR Port</code> shows whether Control4 reports <b>Projector IR</b> as bound; while it is unbound, <code>Last Error</code> says nothing leaves the controller. Control4 cannot tell whether an emitter is attached to a bound output, so watch the projector.</li>
+  </ul>
+  <div class="note warn">Because nothing comes back over IR, the driver cannot see changes made with the JVC remote, and <code>Power State</code> can drift from reality if someone uses the remote or the projector loses power. Prefer RS-232 wherever it works.</div>
+</section>
+
+<section class="card" id="protocol" data-card="protocol">
+  <h2><span class="n">11</span> Protocol on the wire</h2>
+  <p>Every frame is binary: a header byte, the fixed unit id <code>89 01</code>, a two-character command, optional data, and a line feed. Over LAN the same frames are carried inside JVC's connection handshake (<code>PJ_OK</code>, <code>PJREQ</code>, <code>PJACK</code>, then the frame; see <i>LAN control</i>). Operations start with <code>21</code> (<code>!</code>), queries with <code>3F</code> (<code>?</code>). The projector replies <code>06 89 01 &lt;command&gt; 0A</code> (ACK) and, for a query, <code>40 89 01 &lt;command&gt; &lt;data&gt; 0A</code> right after it. <code>Last Command</code> and <code>Last Response</code> show these frames as readable text, for example <code>! PW1</code>, <code>ACK PW</code>, and <code>@ PW1</code>.</p>
+  <table>
+    <tr><th>Wire frame (hex)</th><th>Readable</th><th>Meaning</th></tr>
+    <tr><td><code>21 89 01 00 00 0A</code></td><td><code>! &lt;00&gt;&lt;00&gt;</code></td><td>Null command (Test Connection)</td></tr>
+    <tr><td><code>21 89 01 50 57 31 0A</code></td><td><code>! PW1</code></td><td>Power on</td></tr>
+    <tr><td><code>21 89 01 50 57 30 0A</code></td><td><code>! PW0</code></td><td>Power off (standby)</td></tr>
+    <tr><td><code>3F 89 01 50 57 0A</code></td><td><code>? PW</code></td><td>Power query → <code>@ PW0</code> standby, <code>1</code> lamp on, <code>2</code> cooling, <code>4</code> error</td></tr>
+    <tr><td><code>21 89 01 49 50 36 0A</code></td><td><code>! IP6</code></td><td>Input HDMI 1 (<code>37</code> = HDMI 2, <code>2B</code> = next input)</td></tr>
+    <tr><td><code>21 89 01 50 4D 50 4D 30 34 0A</code></td><td><code>! PMPM04</code></td><td>Picture mode Stage</td></tr>
+    <tr><td><code>21 89 01 49 4E 4D 4C 32 0A</code></td><td><code>! INML2</code></td><td>Lens memory 3</td></tr>
+    <tr><td><code>21 89 01 52 43 37 33 32 45 0A</code></td><td><code>! RC732E</code></td><td>Remote key Menu (custom code <code>73</code> = Remote Code A)</td></tr>
+    <tr><td><code>3F 89 01 49 46 4C 54 0A</code></td><td><code>? IFLT</code></td><td>Lamp hours → four hex digits</td></tr>
+  </table>
+  <p>JVC ACKs a power command once the operation has started, an input switch and a picture-mode change once they are done, and a lens-memory recall when the lens stops. So Power On / Off, input switches and picture-mode changes wait up to 10 s and lens-memory recalls up to 30 s. Every other command waits <code>ACK Timeout (ms)</code> (default 2000).</p>
+  <p><b>Picture modes (RS49U):</b> Cinema <code>01</code>, Animation <code>02</code>, Natural <code>03</code>, Stage <code>04</code>, User 1-4 <code>0C</code>-<code>0F</code>. The RS57 / RS67 family adds Film, THX, and Photo; the driver names those correctly if a sibling projector reports them.</p>
+</section>
+
+<section class="card" id="lockouts" data-card="lockouts">
+  <h2><span class="n">12</span> Warmup, cooldown and held commands</h2>
+  <p>JVC ignores a Power On while the projector is cooling, and the lamp is not ready for input commands the instant it strikes. The driver holds what the projector cannot take yet:</p>
+  <ul>
+    <li>After the projector ACKs a Power On, <code>Power State</code> is <b>Warming Up</b> for <code>Warmup Time (s)</code>. An input change in that window is held and sent when it closes. A Power Off in that window is held and sent when it closes.</li>
+    <li>If the projector ignores that input switch because the lamp is still warming past <code>Warmup Time (s)</code>, the driver tries again twice, 5 s apart, and clears the error once it lands. A newer input choice or a Room Off cancels the retry, even one that was still on the wire when you chose.</li>
+    <li>After the projector ACKs a Power Off, <code>Power State</code> is <b>Cooling Down</b> until the poll reports Standby. A Power On in that window is held and sent the moment it does. A Watch pressed during cooldown keeps both its power-on and its input.</li>
+    <li>One power intent is held at a time, and the latest press wins, even against a power command already on its way. Room Off pressed before a queued Power On reaches the wire cancels it outright; pressed while the projector is still acknowledging it, the Off is held and sent when warmup ends. The same holds the other way round, and a Watch pressed while a Power Off is on its way keeps its input.</li>
+    <li>For 15 s after a power command is ACKed, poll replies that still show the previous state are ignored, so the room does not bounce between on and off while the projector changes over. If the lamp is still in the old state when the window ends, the command is sent once more.</li>
+    <li>A Watch or Room Off pressed while the state is still <code>Unknown</code> (just after a reboot) asks for the power state first and acts on the answer, so a projector that is already in standby is never sent a Power Off, and one that is already on is never re-powered. If nothing answers the query, the press is sent anyway (a Power On only once), so a dealer can tell a silent line from a silent projector.</li>
+    <li>Picture, lens, aspect, and remote-key commands are refused with a named reason in <code>Last Error</code> unless the projector is <b>On</b>, because it would ignore them anyway.</li>
+  </ul>
+  <div class="note">Power On and Power Off cycle a real projector lamp. Leave <code>Warmup Time (s)</code> at a realistic value instead of flooring it to make a demo feel faster.</div>
+</section>
+
+<section class="card" id="room" data-card="room">
+  <h2><span class="n">13</span> Room remote and Navigator</h2>
+  <p>The projector uses Control4's documented TV proxy, which makes it the room's video endpoint. Room commands map like this:</p>
+  <table>
+    <tr><th>Room / Navigator command</th><th>Projector action</th></tr>
+    <tr><td>Watch (<code>ON</code> + <code>SET_INPUT</code>)</td><td>Power On, then HDMI 1 or HDMI 2 after warmup</td></tr>
+    <tr><td>Room Off (<code>OFF</code>)</td><td>Power Off</td></tr>
+    <tr><td>Input toggle (<code>PULSE_INPUT</code>)</td><td>Next input (<code>IP+</code>), then read back</td></tr>
+    <tr><td>Menu, Up, Down, Left, Right</td><td>JVC remote keys Menu, cursor</td></tr>
+    <tr><td>Enter</td><td>JVC OK</td></tr>
+    <tr><td>Back, Cancel, Exit</td><td>JVC Back</td></tr>
+    <tr><td>Info</td><td>JVC Info</td></tr>
+    <tr><td>Aspect</td><td>JVC Aspect</td></tr>
+  </table>
+  <p>The projector has no speakers, so it declares no volume or mute. The room keeps volume on your audio device.</p>
+</section>
+
+<section class="card" id="programming" data-card="programming">
+  <h2><span class="n">14</span> Program the project</h2>
+  <table>
+    <tr><th>Event</th><th>Meaning</th></tr>
+    <tr><td><code>Power On</code></td><td>The projector reached On, after warmup. It also fires when the driver first finds the projector On after a controller restart (with no <code>Warmup Started</code>) and again when the projector answers after <code>Communication</code> was Lost</td></tr>
+    <tr><td><code>Power Off</code></td><td>The projector reached standby. It also fires when the driver first finds the projector in standby after a controller restart, and again when the projector answers after <code>Communication</code> was Lost</td></tr>
+    <tr><td><code>Warmup Started</code></td><td>The projector ACKed a power-on, or was turned on from its own remote</td></tr>
+    <tr><td><code>Cooldown Started</code></td><td>The projector ACKed a power-off, or reported Cooling (IR: the Standby presses were sent)</td></tr>
+    <tr><td><code>Input Changed</code></td><td>The projector reported a different input</td></tr>
+    <tr><td><code>Projector Responding</code></td><td>The projector answered (first answer, or recovery after Lost)</td></tr>
+    <tr><td><code>Projector Lost</code></td><td>Three power polls in a row went unanswered (a <code>PJ_NG</code> from a busy LAN projector is an answer, not a miss; during an IR-modeled warmup the count waits until the warmup closes)</td></tr>
+    <tr><td><code>Projector Error</code></td><td>The projector reported its Error (emergency) power state</td></tr>
+    <tr><td><code>Signal Present</code></td><td>The projector now reports a video signal (RS-232 or LAN)</td></tr>
+    <tr><td><code>Signal Lost</code></td><td>A signal the projector had reported went away</td></tr>
+    <tr><td><code>Lamp Hours Alert</code></td><td>Lamp hours first reached <code>Lamp Alert Hours</code> (once; not repeated after a restart)</td></tr>
+  </table>
+  <table>
+    <tr><th>Variable</th><th>Type</th><th>Meaning</th></tr>
+    <tr><td><code>POWER_STATE</code></td><td>STRING</td><td>Off, Warming Up, On, Cooling Down, Error, or Unknown</td></tr>
+    <tr><td><code>INPUT</code></td><td>STRING</td><td>HDMI 1 or HDMI 2, as last reported</td></tr>
+    <tr><td><code>PICTURE_MODE</code></td><td>STRING</td><td>The picture mode last reported</td></tr>
+    <tr><td><code>LAMP_HOURS</code></td><td>NUMBER</td><td>Lamp hours (persists across reboots)</td></tr>
+    <tr><td><code>ECO_MODE</code></td><td>STRING</td><td>Off or On, as last read from the projector, or Unknown</td></tr>
+    <tr><td><code>SIGNAL</code></td><td>STRING</td><td>Present, No signal, Logo (starting) or Unknown</td></tr>
+    <tr><td><code>ANAMORPHIC</code></td><td>STRING</td><td>Off, A, B, or Unknown</td></tr>
+    <tr><td><code>ASPECT</code></td><td>STRING</td><td>4:3, 16:9, Zoom, Auto, Just, Full, or Unknown</td></tr>
+    <tr><td><code>LAMP_POWER</code></td><td>STRING</td><td>Normal, High, or Unknown</td></tr>
+  </table>
+  <p>Programming commands: <b>Select Input</b>, <b>Set Picture Mode</b>, <b>Recall Lens Memory</b>, <b>Set Anamorphic</b>, <b>Set Aspect</b>, <b>Set Lamp Power</b>, <b>Set ECO Mode</b>, <b>Send Remote Key</b>, plus Power On / Off, Refresh Status, Query Lamp Hours, and Test Connection. <b>Diagnose Link</b> and <b>Test IR</b> are on the Actions tab.</p>
+  <p>Programming ideas that use the read-backs: <b>Signal Lost</b> for a few minutes, then Room Off; <b>Signal Present</b> then a lighting scene; <b>Lamp Hours Alert</b> then a service notice; a condition on <code>ANAMORPHIC</code> or <code>ASPECT</code> before a scene recalls a lens memory.</p>
+  <p>A common recipe for a scope screen: on a 2.35 movie source, <b>Recall Lens Memory</b> Memory 2 and <b>Set Anamorphic</b> Off; on a 16:9 source, Memory 1. Over LAN the lens recall cannot be confirmed (see <i>Slow commands</i>), so give the lens time to move before the picture starts and do not hang a condition on the result.</p>
+  <p><b>Power On</b> and <b>Power Off</b> also fire when the driver first learns the state after a controller restart, and when the projector answers again after <code>Communication</code> was Lost. A lighting scene hung on them can therefore run at a reboot or after a cable glitch, not only when the room starts or stops. For scenes that must follow a real start or stop, use <b>Warmup Started</b> and <b>Cooldown Started</b>, which fire only when the projector actually begins to warm or cool (a restart with the projector already On or in standby fires neither), or put a condition on the room state. Hang a scene on <b>Power On</b> when it should also run if someone uses the JVC remote, and a repeat at a reboot is acceptable.</p>
+  <p>Control commands are gated by the license. Under Strict enforcement an unlicensed controller writes nothing to the serial port, not even polls. The default Lenient mode allows commissioning while <code>License Status</code> carries the reminder.</p>
+</section>
+
+<section class="card" id="status" data-card="status">
+  <h2><span class="n">15</span> Read status at a glance</h2>
+  <table>
+    <tr><th>Property</th><th>Healthy result</th><th>What to do otherwise</th></tr>
+    <tr><td><code>Communication</code></td><td><code>Responding</code> (RS-232 or LAN) or <code>IR - one-way, no feedback (state is modeled)</code> (IR)</td><td>RS-232: follow <i>The projector never answers</i>. LAN: follow <i>LAN never connects</i>. IR: watch the screen; nothing comes back</td></tr>
+    <tr><td><code>Serial Port</code> / <code>IR Port</code></td><td><code>Bound</code> for the ones your Control Method uses (IR Port also for the IR Power On methods)</td><td>Bind the connection in Composer; the others read <code>Not used</code> (both do under LAN, except IR Port with LAN + IR Power On)</td></tr>
+    <tr><td><code>LAN Status</code></td><td><code>Idle - last exchange OK</code> (LAN methods), <code>Not used</code> otherwise</td><td>The text names the layer that failed; follow <i>LAN never connects</i></td></tr>
+    <tr><td><code>Power State</code></td><td>Matches the projector</td><td><code>Unknown</code> means nobody has answered yet; run Refresh Status</td></tr>
+    <tr><td><code>Current Input</code></td><td>The input on screen</td><td>Updates after every switch and on each poll while On</td></tr>
+    <tr><td><code>Projector Model</code></td><td><code>XHK1</code> or <code>XHK2</code></td><td>Another code means a different D-ILA generation; check its picture modes and lens memories</td></tr>
+    <tr><td><code>Lamp Hours</code></td><td>Counts up over the lamp's life</td><td>Run Query Lamp Hours with the projector On</td></tr>
+    <tr><td><code>ECO Mode</code></td><td><code>Off</code> (or <code>On</code> with an IR Power On Control Method)</td><td><code>On</code> means the port goes dark in standby: run Set ECO Mode with Off, or set it on the projector. <code>Unknown</code> until the projector has been On and answered</td></tr>
+    <tr><td><code>Input Signal</code></td><td><code>Present</code> while a source is playing</td><td><code>No signal</code>: check the source and the HDMI path. <code>Not reported</code>: the projector does not answer the source query</td></tr>
+    <tr><td><code>Anamorphic</code> / <code>Aspect</code> / <code>Lamp Power</code></td><td>What the projector holds</td><td>Run Refresh Status after a change made on the JVC remote</td></tr>
+    <tr><td><code>Projector IR Code</code></td><td>Matches <code>Remote Code</code></td><td>If not, change <code>Remote Code</code> or the projector's Function &gt; Remote Code</td></tr>
+    <tr><td><code>Link Diagnosis</code></td><td><code>OK: ...</code> after Diagnose Link</td><td><code>Problem: ...</code> names the most likely cause; the checks are in the Lua output window</td></tr>
+    <tr><td><code>Last Error</code></td><td><code>None</code></td><td>A held or refused command, or a command the projector did not ACK. On a line that never answered it carries the dead-line advice, which clears itself once the projector answers</td></tr>
+    <tr><td><code>License Status</code></td><td>Activated, or Lenient during commissioning</td><td>Enter a key before selecting Strict enforcement</td></tr>
+  </table>
+  <p><b>Print Configuration</b> writes the power state, any held power or input, communication health, input, picture mode, lamp hours, model, ECO Mode, input signal, anamorphic, aspect, lamp power, the projector's IR code and the lamp alert threshold, the poll, warmup, ACK, and remote-code settings, and the link counters to the Lua output window: for the serial methods frames sent, bytes received, valid replies and echoes of the controller's own frames, with the serial settings the installed package declares when the controller reports them; for the LAN methods the target address and port, how many connections were attempted, connected, answered <code>PJ_OK</code> and <code>PJACK</code>, drew <code>PJNAK</code>, or met <code>PJ_NG</code>, and the current connection state. It never prints the license key.</p>
+</section>
+
+<section class="card" id="troubleshooting" data-card="troubleshooting">
+  <h2><span class="n">16</span> Troubleshoot methodically</h2>
+  <table>
+    <tr><th>Symptom</th><th>Likely cause</th><th>Resolution</th></tr>
+    <tr><td>Test Connection fails and <code>Serial Received</code> reads Nothing yet</td><td>The controller port is not at 19200 8N1, the port is not bound, the cable is the wrong type, or ECO Mode is on</td><td>Follow <i>The projector never answers</i>: loopback test, baud and re-bind, PC test, other cable, then ECO Mode with the projector on</td></tr>
+    <tr><td><code>Last Error</code> says <i>Your own command came back</i></td><td>TX is looped into RX: a loopback jumper is still fitted, an adapter echoes, or pins 2 and 3 are tied</td><td>Remove the jumper or fix the adapter. It is never counted as a projector reply</td></tr>
+    <tr><td><code>Serial Received</code> counts bytes but <code>Communication</code> never responds</td><td>Wrong baud or a damaged cable</td><td>Confirm the port runs 19200 8N1 (re-binding after a driver update is a cheap thing to try) and check the cable</td></tr>
+    <tr><td>Power works but menu keys do nothing</td><td><code>Remote Code</code> does not match the projector</td><td>Match the projector's Function &gt; Remote Code (A or B)</td></tr>
+    <tr><td><code>No ACK for Input HDMI 2</code></td><td>The input was sent before the lamp was ready</td><td>Raise <code>Warmup Time (s)</code> to your projector's real warmup</td></tr>
+    <tr><td><code>No ACK for</code> a picture or lens command</td><td>The value is not supported on this model (picture mode and lens memory wait 10 s and 30 s, so this is not a slow switch)</td><td>Use the RS49U values listed under Protocol on the wire</td></tr>
+    <tr><td>Watch powers on but stays on the old input</td><td>Lamp warmup longer than <code>Warmup Time (s)</code> plus the two retries</td><td>Raise <code>Warmup Time (s)</code> to the measured warmup</td></tr>
+    <tr><td>Power On "does nothing" right after Power Off</td><td>It is held during cooldown by design</td><td>Watch <code>Status</code>; it releases when the projector reports Standby</td></tr>
+    <tr><td><code>Projector Lost</code> with the projector in standby</td><td>The serial port is asleep (ECO Mode On) or the cable is loose</td><td>Set ECO Mode to Off, or use an IR Power On Control Method; re-run Test Connection; check the connector</td></tr>
+    <tr><td>LAN: Test Connection fails with <i>refused</i>, <i>no connection</i>, <i>no PJ_OK</i> or <i>PJ_NG</i></td><td>The address, Communication Terminal, the network path or another controller</td><td>The table in <i>LAN never connects</i></td></tr>
+    <tr><td>LAN: <code>Last Error</code> says the projector answered <i>PJ_NG</i> but it is not Lost</td><td>Another controller or app holds the projector's one LAN connection</td><td>Close it; the note clears on the first valid reply</td></tr>
+    <tr><td>Watch on a sleeping projector, <code>Power State</code> goes back to Unknown after the warmup</td><td>The IR code did not reach it (emitter, binding, Remote Code) so nothing answered</td><td>Check the emitter and <code>Remote Code</code>, then press Watch again</td></tr>
+    <tr><td>LAN: menu cursor presses feel slow</td><td>Each command is its own connection, at least 0.75 s to 1 s apart</td><td>Expected over LAN; use RS-232 where fast menu work matters</td></tr>
+    <tr><td>LAN: input switch says <i>closed before the ACK</i></td><td>The projector closed the socket before a slow ACK</td><td>Check <code>Current Input</code>; the driver reads it back and retries the switch</td></tr>
+    <tr><td>LAN: <code>Status</code> says a lens move <i>cannot be confirmed</i></td><td>The lens ACK comes after the projector has closed the socket, and lens memory has no read-back</td><td>Expected over LAN and not an error: look at the screen, or use RS-232 where the move must be confirmed</td></tr>
+    <tr><td>Watch does not power on a sleeping projector</td><td>ECO Mode puts the port to sleep</td><td>Choose the same method with IR Power On and bind Projector IR, or set ECO Mode to Off</td></tr>
+    <tr><td><code>Last Error</code> says <i>ECO Mode is On</i></td><td>The projector's ECO Mode setting turns its port off in standby, so Control4 can power it off but not on</td><td>Run Set ECO Mode with Off (projector On), or set Function &gt; ECO Mode to Off on the projector, or use an IR Power On Control Method</td></tr>
+    <tr><td><code>Last Error</code> says the projector's remote code is B (or A)</td><td>The projector's Function &gt; Remote Code differs from <code>Remote Code</code> here, so keys and IR codes are not accepted</td><td>Change <code>Remote Code</code> to match, or change the projector's setting</td></tr>
+    <tr><td><code>Input Signal</code> is <i>Not reported</i></td><td>The projector never ACKed the source query (an older model)</td><td>Nothing to fix; Refresh Status tries again</td></tr>
+    <tr><td>A silent or odd link and no idea where to start</td><td></td><td>Run Diagnose Link: it ranks the likely causes and prints the checks</td></tr>
+  </table>
+  <div class="note">If none of these restores control, run <b>Print Configuration</b>, note the projector model code, and send that output to IntegrateIT support at support@integrateit.tech · (913) 804-7575.</div>
+</section>
+
+<section class="card" id="trust" data-card="trust">
+  <h2><span class="n">17</span> Ownership, privacy, and licensing</h2>
+  <p>This package is an original IntegrateIT implementation of JVC's published external-control protocol for D-ILA projectors. It bundles no other vendor's runtime, source code, brand assets, trial system, or license. JVC and D-ILA are trademarks of JVCKENWOOD Corporation; IntegrateIT is not affiliated with JVCKENWOOD, and this driver is not a JVC product. Driver engineering, Control4 integration, documentation, QA, licensing, updates, and support are provided by IntegrateIT.</p>
+  <p>The driver sends projector commands over the bound serial port (RS-232), over one TCP connection at a time to <b>Projector IP Address</b> (LAN) or through the bound IR output (IR and the IR Power On assist), and nowhere else; no projector data leaves the controller. None of the three has a login or encryption, so physical access to the port or the projector's IR window, or to the network the projector is on, is the entire security model, which is one more reason the wiring belongs inside the rack. The shared IntegrateIT license and update services use the controller identity, driver slug, version, configured license key, and update channel as documented in the reference below; the license key is never written to the log.</p>
+  <div class="note warn">LAN control is plain TCP on port 20554 and this driver sends no password: unless the projector has one set, anyone who can reach that port can control it, and while someone else is connected the projector answers the driver with PJ_NG (busy). Put the projector on a trusted AV VLAN, never a routable user network.</div>
+  <p>Lenient mode allows commissioning without an activated key and keeps <code>License Status</code> visible. Strict mode blocks all control, including polls and the IR Power On assist, whichever Control Method is chosen (a LAN controller opens no connection), until the Ops Portal has minted and validated a key for that controller. Installing this package does not itself mint or activate a controller license.</p>
+<section class="card" id="reference" data-card="reference">
+  <h2><span class="n">R</span> Reference</h2>
+  <p>Generated from the driver manifest at build time — always matches this build (v0.2.0).</p>
+  <h3>Properties</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Control Method</code></td><td>LIST</td><td><code>RS-232</code></td><td>RS-232: two-way control over the serial port. LAN: the same two-way control over TCP port 20554 to Projector IP Address (if the projector's Function menu has a Communication Terminal item, set it to LAN; that guide does not list the RS49 / X500R, so check yours). RS-232 + IR Power On and LAN + IR Power On: the same, and every Power On also sends JVC's discrete IR Power On through an emitter on the projector's IR window, so a projector whose port sleeps in standby (ECO Mode On) still turns on; nothing else uses IR. IR: one-way, through the emitter only - the driver models power with Warmup Time and Cooldown Time and assumes every command landed. Bind Projector RS-232 Port, Projector IR, or neither (LAN) to match. One of: RS-232 · RS-232 + IR Power On · LAN · LAN + IR Power On · IR</td></tr>
+    <tr><td><code>Projector IP Address</code></td><td>STRING</td><td><code></code></td><td>LAN control methods only: the projector's IP address, from its Function &gt; Network menu. Reserve it in DHCP (or set it fixed) so it never changes. The driver opens a TCP connection here, on LAN Port, for every command.</td></tr>
+    <tr><td><code>LAN Port</code></td><td>INTEGER 1–65535</td><td><code>20554</code></td><td>LAN control methods only: JVC's LAN control port. 20554 is the only port the projector uses; change it only if you have put a port forward in front of it.</td></tr>
+    <tr><td><code>Remote Code</code></td><td>LIST</td><td><code>A (73)</code></td><td>Must match the projector's Function &gt; Remote Code setting. Applies to remote-key pass-through over RS-232 or LAN and to every IR code (A = 73, B = 63). One of: A (73) · B (63)</td></tr>
+    <tr><td><code>Power Poll (s)</code></td><td>INTEGER 5–600</td><td><code>10</code></td><td>How often the driver asks the projector for its power state (and, while On, its input). Polls run every 5 s while warming up, cooling down, or holding a power command, and one extra poll goes out about 1.5 s after the driver starts so Power State is learned at once. Three consecutive unanswered polls mark the projector Lost. Over LAN every query is a full connection and handshake, and while the projector is On each poll also asks the input and the video signal.</td></tr>
+    <tr><td><code>Warmup Time (s)</code></td><td>INTEGER 25–300</td><td><code>60</code></td><td>How long after Power On before the projector takes input and picture commands. Input changes and a Power Off issued in this window are held and released when it closes. With an IR Power On method the window starts when the IR code is sent. The minimum is 25 s (the driver's 15 s grace window plus a 10 s Power On ACK wait must fit inside it); a lower saved value is treated as 25 s. In IR mode an input key sent right after a repeated Power On is sent once more when this time has run.</td></tr>
+    <tr><td><code>Cooldown Time (s)</code></td><td>INTEGER 10–300</td><td><code>90</code></td><td>IR only: how long after the confirming (second) Standby press the projector ignores Power On. A Power On in this window is held and sent when it ends. In RS-232 the projector reports its own cooldown.</td></tr>
+    <tr><td><code>ACK Timeout (ms)</code></td><td>INTEGER 500–5000</td><td><code>2000</code></td><td>How long to wait for the projector's ACK before giving up on a command. Power On / Off, input switching and picture mode wait at least 10 s and lens memory 30 s, because JVC sends those ACKs only once the operation has started or finished. Over LAN the clock starts when the command is written, after the handshake.</td></tr>
+    <tr><td><code>Lamp Alert Hours</code></td><td>INTEGER 0–100000</td><td><code>0</code></td><td>Installer threshold for the Lamp Hours Alert event, in lamp hours; 0 turns it off. JVC publishes no rated lamp life, so you choose it. The event fires once when a lamp reading first reaches this number, and the driver remembers it fired, so a controller restart does not repeat it; a reading below the threshold (a new lamp, or a higher threshold) arms it again. Changing this compares the new number with the lamp hours already read, so setting it below the current reading fires the event at once. While the projector is On with a threshold set, lamp hours are re-read about every hour. RS-232 and LAN only.</td></tr>
+    <tr><td><code>Power State</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Off, Warming Up, On, Cooling Down, Error, or Unknown. Read from the projector by the power poll; Warming Up is the modeled warmup window; with an IR Power On method that nothing answers by the time it closes, the state returns to Unknown instead of claiming On.</td></tr>
+    <tr><td><code>Current Input</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>HDMI 1 or HDMI 2, as the projector last reported it.</td></tr>
+    <tr><td><code>Picture Mode</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The picture mode the projector last reported.</td></tr>
+    <tr><td><code>Lamp Hours</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Lamp hours the projector last reported (persists across reboots).</td></tr>
+    <tr><td><code>Projector Model</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The model code the projector reports. XHK1 is the DLA-RS49U / X500R, XHK2 the DLA-RS4910.</td></tr>
+    <tr><td><code>ECO Mode</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The projector's Function &gt; ECO Mode setting, read while the projector is On (FUEM). On means its RS-232C / LAN port goes dark in standby, so Control4 can turn it off but never on again: Last Error says so, and Set ECO Mode can switch it Off. JVC's user guide says to set ECO Mode to Off if RS-232C or LAN communication is used in Standby mode. Unknown until the projector has been On and answered; RS-232 and LAN only.</td></tr>
+    <tr><td><code>Input Signal</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Whether the projector sees a video signal: Present, No signal, or Logo (starting) on older projectors that answer 0x00 while their logo is up. Asked with every poll while the projector is On, and the Signal Present / Signal Lost events fire on changes. Unknown while the projector is not On, and Not reported if it never answers the source query. RS-232 and LAN only.</td></tr>
+    <tr><td><code>Anamorphic</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The anamorphic setting (Off, A or B) the projector last reported. Read when the projector reaches On, on Refresh Status and after every Set Anamorphic, so a change made with the JVC remote shows after the next refresh. RS-232 and LAN only.</td></tr>
+    <tr><td><code>Aspect</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The aspect (4:3, 16:9, Zoom, Auto, Just or Full) the projector last reported. Read when the projector reaches On, on Refresh Status and after every Set Aspect. Set Aspect offers 4:3, 16:9 and Zoom; the projector may report the others. RS-232 and LAN only.</td></tr>
+    <tr><td><code>Lamp Power</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The lamp power (Normal or High) the projector last reported. Read when the projector reaches On, on Refresh Status and after every Set Lamp Power. RS-232 and LAN only.</td></tr>
+    <tr><td><code>Projector IR Code</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The remote code the projector says it listens to (A (73) or B (63)), read once when it is On and again on Refresh Status. If it differs from Remote Code here, Last Error and Status say so. RS-232 and LAN only.</td></tr>
+    <tr><td><code>Link Diagnosis</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not run - use the Diagnose Link action</code></td><td>The one-line verdict of the last Diagnose Link: OK, Problem (with the most likely cause), Not tested yet, or Note (IR is one-way, or an IR Power On method whose port is asleep in standby). The full ranked list of checks is printed to the Lua output window.</td></tr>
+    <tr><td><code>Communication</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>No response yet</code></td><td>Responding once the projector ACKs (over RS-232 or LAN); Lost after three consecutive unanswered power polls. A frame that is only the controller's own echo (a loopback) never counts as an answer, and a PJ_NG from a busy LAN projector is an answer, not a miss. With an IR Power On method the count waits while the modeled warmup runs.</td></tr>
+    <tr><td><code>Serial Received</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Nothing yet</code></td><td>Running count of bytes received since the driver started, with the last chunk (up to 16 bytes) in hex. Nothing yet with Communication Lost means no reply has arrived (controller port baud, binding, cable, or ECO Mode); bytes without valid replies mean a baud or cable fault. Reads Not used under a LAN Control Method.</td></tr>
+    <tr><td><code>Serial Port</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not reported</code></td><td>Bound or Not bound, as Control4 reports the Projector RS-232 Port connection. Reads Not used while Control Method is IR or LAN.</td></tr>
+    <tr><td><code>IR Port</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not reported</code></td><td>Bound or Not bound, as Control4 reports the Projector IR connection. Reads Not used while Control Method is RS-232 or LAN; the IR Power On methods use it for the Power On code. Control4 cannot tell whether an emitter is attached to a bound output, so with IR watch the projector.</td></tr>
+    <tr><td><code>LAN Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not used - Control Method is RS-232</code></td><td>What the LAN link is doing or last did: Connecting, PJ_OK / PJREQ / PJACK progress, Idle after a good exchange, or the last failure (connection refused, no connection within 5 s, no PJ_OK, PJ_NG busy, PJNAK, no PJACK, closed before the ACK). Reads Not used unless Control Method is LAN or LAN + IR Power On.</td></tr>
+    <tr><td><code>Last Command</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>The most recent command written to the serial port, sent over LAN or sent as an IR code, as readable ASCII.</td></tr>
+    <tr><td><code>Last Response</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>The most recent ACK or response the projector returned, as readable ASCII.</td></tr>
+    <tr><td><code>Last Error</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>The most recent refusal: a command the driver held or refused for the power state, or a command the projector did not ACK. Dead-line advice clears itself when the projector answers.</td></tr>
+  </table>
+  <p><b>Standard IntegrateIT properties</b> — licensing, self-update, and diagnostics, auto-injected into every IntegrateIT driver:</p>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Driver Version</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>Debug Mode</code></td><td>LIST</td><td><code>Off</code></td><td>One of: Off · Print</td></tr>
+    <tr><td><code>Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Idle</code></td><td></td></tr>
+    <tr><td><code>License Key</code></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>License Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not activated - Lenient mode (control enabled)</code></td><td></td></tr>
+    <tr><td><code>License Enforcement</code></td><td>LIST</td><td><code>Lenient (recommended)</code></td><td>One of: Lenient (recommended) · Strict</td></tr>
+    <tr><td><code>License Server URL</code></td><td>STRING</td><td><code>https://relay.integrateit.dev</code></td><td></td></tr>
+    <tr><td><code>Update Manifest URL</code></td><td>STRING</td><td><code>https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_jvc_projector/version.json</code></td><td></td></tr>
+    <tr><td><code>Automatic Update Check</code></td><td>LIST</td><td><code>Daily</code></td><td>One of: Daily · Off</td></tr>
+    <tr><td><code>Automatic Update Install</code></td><td>LIST</td><td><code>Auto-stage (installs at next Director restart)</code></td><td>One of: Auto-stage (installs at next Director restart) · Notify only</td></tr>
+    <tr><td><code>Update Available</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td></td></tr>
+    <tr><td><code>About</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Powered by IntegrateIT - integrateit.tech</code></td><td></td></tr>
+  </table>
+  <h3>Programming commands</h3>
+  <table>
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><code>Power On</code></td><td>Turn the projector on. Held until the projector reports standby if it is still cooling down.</td></tr>
+    <tr><td><code>Power Off</code></td><td>Put the projector in standby. Held until warmup completes if it is still warming up.</td></tr>
+    <tr><td><code>Select Input</code></td><td>Switch the projector to PARAM1</td></tr>
+    <tr><td><code>Set Picture Mode</code></td><td>Set the picture mode to PARAM1</td></tr>
+    <tr><td><code>Recall Lens Memory</code></td><td>Move the lens to PARAM1</td></tr>
+    <tr><td><code>Set Anamorphic</code></td><td>Set anamorphic to PARAM1 and read it back into the Anamorphic property</td></tr>
+    <tr><td><code>Set Aspect</code></td><td>Set the aspect to PARAM1 and read it back into the Aspect property</td></tr>
+    <tr><td><code>Set Lamp Power</code></td><td>Set lamp power to PARAM1 and read it back into the Lamp Power property (RS-232 or LAN only - the JVC remote has no lamp power key)</td></tr>
+    <tr><td><code>Set ECO Mode</code></td><td>Set the projector's ECO Mode to PARAM1 (RS-232 or LAN only; requires the projector On). Off lets the projector's port answer in standby, which Control4 needs to power it on.</td></tr>
+    <tr><td><code>Send Remote Key</code></td><td>Press PARAM1 on the JVC remote</td></tr>
+    <tr><td><code>Refresh Status</code></td><td>Query power now, plus input, picture mode, lamp hours, ECO Mode, input signal, anamorphic, aspect, lamp power and the projector's remote code when the projector is On.</td></tr>
+    <tr><td><code>Query Lamp Hours</code></td><td>Read lamp hours into the Lamp Hours property and LAMP_HOURS variable. Requires the projector On.</td></tr>
+    <tr><td><code>Test Connection</code></td><td>RS-232 or LAN: send JVC's null command (over LAN behind the PJ_OK / PJREQ / PJACK handshake), which the projector ACKs on or in standby. IR: send the Info key, so the projector's info screen appears if the emitter reaches it. With an IR Power On method this tests the two-way link only; use Test IR for the emitter.</td></tr>
+  </table>
+  <h3>Actions (Composer Actions tab)</h3>
+  <table>
+    <tr><th>Action</th><th>Command</th></tr>
+    <tr><td>Test Connection</td><td><code>TEST_CONNECTION</code></td></tr>
+    <tr><td>Power On</td><td><code>POWER_ON</code></td></tr>
+    <tr><td>Power Off</td><td><code>POWER_OFF</code></td></tr>
+    <tr><td>Refresh Status</td><td><code>REFRESH_STATUS</code></td></tr>
+    <tr><td>Query Lamp Hours</td><td><code>QUERY_LAMP_HOURS</code></td></tr>
+    <tr><td>Diagnose Link</td><td><code>DIAGNOSE_LINK</code></td></tr>
+    <tr><td>Test IR</td><td><code>TEST_IR</code></td></tr>
+    <tr><td>Print Configuration</td><td><code>PRINT_CONFIG</code></td></tr>
+    <tr><td>Activate License Now <span class="pill blue">shared</span></td><td><code>ACTIVATE_LICENSE</code></td></tr>
+    <tr><td>Check for Update Now <span class="pill blue">shared</span></td><td><code>CHECK_UPDATE</code></td></tr>
+    <tr><td>Download &amp; Stage Update <span class="pill blue">shared</span></td><td><code>DOWNLOAD_UPDATE</code></td></tr>
+    <tr><td>Run Diagnostics <span class="pill blue">shared</span></td><td><code>RUN_DIAGNOSTICS</code></td></tr>
+    <tr><td>Run Self-Test <span class="pill blue">shared</span></td><td><code>RUN_SELF_TEST</code></td></tr>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tr><th>ID</th><th>Event</th><th>Fires when</th></tr>
+    <tr><td>11</td><td>Power On</td><td>The projector reached the On state after warmup, or was found On: it also fires after a controller restart with the projector already lit, and again when the projector answers after Communication was Lost. Use Warmup Started for a real start.</td></tr>
+    <tr><td>12</td><td>Power Off</td><td>The projector reached standby, or was found in standby: it also fires after a controller restart with the projector in standby, and again when the projector answers after Communication was Lost. Use Cooldown Started for a real stop.</td></tr>
+    <tr><td>13</td><td>Warmup Started</td><td>The projector ACKed a power-on; the warmup window began.</td></tr>
+    <tr><td>14</td><td>Cooldown Started</td><td>The projector ACKed a power-off, or reported Cooling.</td></tr>
+    <tr><td>15</td><td>Input Changed</td><td>The projector reported a different input than before (from Control4 or the JVC remote).</td></tr>
+    <tr><td>16</td><td>Projector Responding</td><td>The projector answered (first response, or recovery after Lost), over RS-232 or LAN.</td></tr>
+    <tr><td>17</td><td>Projector Lost</td><td>Three consecutive power polls went unanswered - check the cable or network and, if the projector's menu has a Communication Terminal item, that it matches your Control Method (RS-232C or LAN).</td></tr>
+    <tr><td>18</td><td>Projector Error</td><td>The projector reported its Error (emergency) power state.</td></tr>
+    <tr><td>19</td><td>Signal Present</td><td>The projector now reports a video signal (it did not a moment ago, or this is its first answer since the driver or projector started). RS-232 and LAN only.</td></tr>
+    <tr><td>20</td><td>Signal Lost</td><td>The projector reported a video signal and now reports none. Use it for 'no signal for N minutes, then Room Off'. RS-232 and LAN only.</td></tr>
+    <tr><td>21</td><td>Lamp Hours Alert</td><td>Lamp hours first reached Lamp Alert Hours. Fires once, and is not repeated after a restart; a lower reading (a new lamp) or a changed threshold arms it again, and a changed threshold is checked against the lamp hours already read at once.</td></tr>
+    <tr><td>1001</td><td>Update Available <span class="pill blue">shared</span></td><td>A newer driver version is available from IntegrateIT</td></tr>
+    <tr><td>1002</td><td>License Problem <span class="pill blue">shared</span></td><td>License key invalid, revoked, or bound to a different controller</td></tr>
+  </table>
+</section>
+</section>
+<section class="card" id="licensing" data-card="licensing">
+  <h2><span class="n">L</span> Licensing</h2>
+  <p>This driver is licensed <b>per controller</b>. Each license key locks to one controller's
+  MAC address the first time it activates, exactly like other professional Control4 vendors.</p>
+  <ol>
+    <li>Generate a key for the customer in the IntegrateIT Ops Portal → <b>Licenses</b>.</li>
+    <li>Paste it into the driver's <code>License Key</code> property in Composer.</li>
+    <li>On activation the key binds to this controller; the <code>License Status</code> property
+      shows <span class="pill green">Licensed</span>.</li>
+  </ol>
+  <p><b>Enforcement.</b> <code>License Enforcement</code> defaults to
+  <span class="pill blue">Lenient (recommended)</span>: the driver works the moment it is wired,
+  so you can stage and verify a job before a key is minted, and a paid site keeps running if the
+  license server is ever unreachable. <code>License Status</code> still nags until a key activates.
+  Set it to <span class="pill amber">Strict</span> to disable all control until a valid key binds.</p>
+  <table>
+    <tr><th>License Status</th><th>What it means</th></tr>
+    <tr><td><span class="pill green">Licensed</span></td><td>Bound to this controller and activated.</td></tr>
+    <tr><td>Not activated, Lenient mode</td><td>No valid key yet. Control still works in Lenient mode; enter a key for production.</td></tr>
+    <tr><td><span class="pill amber">Bound elsewhere</span></td><td>The key is active on another controller. Unbind it in the Ops Portal to move it here.</td></tr>
+    <tr><td><span class="pill red">Revoked / Invalid</span></td><td>Contact IntegrateIT. Under Strict enforcement control stays disabled until a valid key is entered.</td></tr>
+  </table>
+  <div class="note">Replaced the controller? Click <b>Unbind</b> in the Ops Portal. The next controller
+  to activate with the key becomes its new home. The driver re-checks on boot and every 12 hours, and
+  keeps working through brief internet outages (it re-validates when the relay is reachable again).</div>
+</section>
+
+<section class="card" id="updates" data-card="updates">
+  <h2><span class="n">U</span> Automatic updates</h2>
+  <p>The driver checks IntegrateIT for a newer version on boot and once a day. With
+  <code>Automatic Update Install</code> set to <b>Auto-stage</b> (the default), a new release is
+  downloaded onto the controller by itself and <b>installs at the next Director restart</b> — no
+  re-adding the driver, and settings, bindings, and programming are preserved. Set it to
+  <b>Notify only</b> to be told about updates without staging them.</p>
+  <ol class="steps">
+    <li>A new release appears as <code>Update Available: vX.Y.Z</code> and the driver fires its
+      <span class="pill blue">Update Available</span> event (or run <b>Check for Update Now</b>).</li>
+    <li>Auto-stage fetches the new <code>.c4z</code> onto the controller by itself; with Notify
+      only, run the <b>Download &amp; Stage Update</b> action instead. The property then reads
+      <code>STAGED</code>.</li>
+    <li>The staged version <b>loads at the next Director restart</b> (System Manager &gt; Restart
+      Director, or a controller power cycle). To apply immediately without a restart, update from
+      a local copy of the new <code>.c4z</code> in Composer.</li>
+  </ol>
+  <div class="note warn">Composer&rsquo;s right-click <b>Update Driver</b> reads the <i>PC&rsquo;s</i> local
+  driver folder, not the controller-staged file &mdash; with an old local copy it quietly reinstalls the
+  old version. Field-confirmed 2026-08-30; trust the restart, or use a fresh local file.</div>
+  <div class="note good">Tip: wire the <b>Update Available</b> event to a notification so you know the
+  moment a new build ships.</div>
+</section>
+
+<section class="card" id="diagnostics" data-card="diagnostics">
+  <h2><span class="n">D</span> Diagnostics and self-test</h2>
+  <p>Every IntegrateIT driver carries two read-only Actions for the field. <b>Run Diagnostics</b> prints
+  a report of what the driver has <i>already observed</i> — version and Lua runtime, license mode and
+  cached activation, update channel and any staged build, every armed timer with its interval, which
+  dealer-supplied properties are still empty, and the last few <code>Status</code> messages. It probes
+  nothing, sends nothing, and changes nothing, so it is safe on a live job.
+  <b>Run Self-Test</b> checks the shared layer itself — string and URL encoding, version comparison,
+  the non-finite number guard, the timer registry, and the persistence store — and ends with
+  <code>SELF-TEST PASS</code> or a per-check failure. It stays local: no network, no device commands.</p>
+  <div class="note">Neither Action is license gated, on purpose: you reach for them when a site is
+  broken, and the license may be the broken thing. Values are never printed — a key or secret is
+  reported only as <span class="pill blue">set</span> or <span class="pill amber">NOT SET</span>, so the
+  output is safe to paste into a support ticket. Both print to the Lua output window
+  (Composer &rarr; the driver's <b>Lua</b> tab).</div>
+</section>
+
+    <section class="card" id="changelog" data-card="changelog">
+  <h2><span class="n">V</span> Version history</h2>
+  <div class="chg">
+    <div class="rel"><b>v0.2.0</b> <span class="pill green">current</span><span class="d">2026-11-01</span>
+      <ul><li>LAN control: Control Method now offers RS-232, RS-232 + IR Power On, LAN, LAN + IR Power On and IR. LAN uses JVC's TCP 20554 handshake (PJ_OK, PJREQ, PJACK) per command, and Last Error names refused, silent, busy (PJ_NG) and password (PJNAK) cases. Existing RS-232 and IR projects keep their setting. A lens recall over LAN reports as sent, not as a No ACK, because the lens move outlasts the connection.</li><li>IR Power On assist: the + IR Power On methods send JVC's discrete IR Power On with every Power On, so a projector whose port sleeps in standby (ECO Mode On) still turns on; everything else stays two-way. A quiet port in standby reads as a note, not an error. New Test IR action sends the Info key to prove the emitter, the IR binding and the Remote Code, and "Projector IR is not bound" stays in Last Error until the output is bound.</li><li>Diagnosis: new Diagnose Link action and Link Diagnosis property print a verdict and a checklist, most likely cause first (port baud, binding, crossover cable, ECO Mode, Communication Terminal, Control4 setting). The driver also recognises and names echoes from a loopback plug or an echoing adapter. Counters restart at boot and on a Control Method change.</li><li>Read-backs: ECO Mode (plus Set ECO Mode), input signal (Signal Present and Signal Lost events), anamorphic, aspect, lamp power and the projector's own remote code are read into properties and variables. If the projector's remote code differs from the Remote Code property, Last Error names both. Lamp Alert Hours fires a Lamp Hours Alert event once per threshold. It takes effect as soon as it is changed and survives restarts.</li><li>Power reliability: a power command with no ACK is retried up to 4 times, 6 s apart. A command the projector ACKs but ignores is sent again after the 15 s grace window, even if Watch or Room Off is tapped again or alternated meanwhile. A Watch keeps its input through those retries. Power On from Unknown is sent even if the power query is not answered; Room Off from Unknown asks first. Set Picture Mode waits 10 s for its ACK. Warmup Time is now at least 25 s.</li><li>IR only: an Unknown model no longer refuses commands. Power On and Standby are always sent, so a projector switched off with the JVC remote can be brought back. After a re-sent Power On, the input key is sent again when Warmup Time ends, so the input still lands. Cooldown counts from the confirming second Standby.</li><li>Docs: the guide and catalog are rewritten for LAN, the IR assist, read-backs and Diagnose Link. Hardware claims the sources do not prove are hedged: Communication Terminal exclusivity, when Composer applies the serial settings, and Lamp On timing. Power On and Power Off events are documented as also firing when the state is relearned after a restart or a lost link. Correction to the 0.1.0 notes: declaring 19200 8N1 does not guarantee the bound port uses it, so check the port in Composer.</li></ul></div>
+    <div class="rel"><b>v0.1.3</b><span class="d">2026-10-30</span>
+      <ul><li>IR fallback: new Control Method property (RS-232 or IR). In IR mode the driver sends JVC's own remote codes (Code A 73 or B 63, JVC 16-bit format, Pronto patterns generated from and checked against JVC's published example) out of a new Projector IR connection: power, standby sent twice to confirm, HDMI 1/2, picture modes, lens memory 1-5, anamorphic, aspect, and every remote key. IR is one-way, so power is modeled with Warmup Time and a new Cooldown Time, inputs are assumed, and lamp power / lamp hours are refused with a reason. RS-232 behavior is unchanged.</li></ul></div>
+    <div class="rel"><b>v0.1.2</b><span class="d">2026-10-30</span>
+      <ul><li>Diagnostics for a projector that does not answer: JVC turns RS-232 off in standby when ECO Mode is on, so the guide and catalog now require ECO Mode Off, and Last Error says which link is broken - nothing ever received (ECO Mode, binding, crossover cable) versus bytes that are not JVC replies (baud or cable). New Serial Received property shows every byte in hex; new Serial Port property shows the Control4 binding state.</li></ul></div>
+    <div class="rel"><b>v0.1.1</b><span class="d">2026-10-30</span>
+      <ul><li>Fix: the projector showed as a blank row with no name in Composer's System Design tree. Composer draws the device tiles at 16 and 32 px and this build handed it a 300 px image (and pointed the proxy's small icon at it too), so the row rendered as an oversized blank smear. Tiles are now 16/32 px and the proxy carries the same image attributes as the bench-proven Xbox driver. No control changes.</li></ul></div>
+    <div class="rel"><b>v0.1.0</b><span class="d">2026-10-29</span>
+      <ul><li>Initial release: RS-232 control of JVC D-ILA projectors per JVC's published external-control protocol (19200 8N1, binary <code>21 89 01 … 0A</code> frames), built for the DLA-RS49U / RS4910 / X500R family (model code XHK1/XHK2). The projector joins the room through Control4's documented TV proxy as a video endpoint: Watch powers it on and selects HDMI 1 or HDMI 2, Room Off puts it in standby, and input changes from the JVC remote are reported back to the room.</li><li>ACK pacing per JVC's spec: one command in flight, the next sent only after the ACK (and, for queries, the <code>@</code> response). Input switches wait up to 10 s and lens memory up to 30 s, because JVC ACKs those when the operation finishes.</li><li>Power-state machine read from the projector: warmup is modeled (this generation reports Lamp On as soon as the lamp strikes), cooldown is read from the poll. Power On during cooling, Power Off during warmup, and input changes during warmup are held and released when the projector can accept them; a Watch during cooldown keeps its input. A 15 s grace window ignores one stale poll reply after a power ACK.</li><li>Programming commands for picture mode, lens memory 1-5, anamorphic, aspect, lamp power, and Send Remote Key; lamp hours, picture mode, input, and model code read back into properties and variables; Remote Code A/B selectable for pass-through keys; Test Connection via JVC's null command.</li><li>Silence handling: a command the projector ignores is reported as No ACK in Last Error; only power polls that draw no ACK count toward Projector Lost, so a projector that ACKs but holds answers while someone is in its menu stays Responding.</li><li>Declares <code>&lt;serialsettings&gt;19200 8 none 1 none 232&lt;/serialsettings&gt;</code> so the controller configures the bound port (factory gained the <code>serialSettings</code> manifest key for this).</li><li>Pre-bench hardening: latest press wins against a power command already queued or awaiting its ACK (a queued one is cancelled, an in-flight one is followed by the held opposite); a source picked while a Power Off is in flight is held instead of dropped; a held power intent is cleared if its power command never gets an ACK; power commands wait up to 10 s for their ACK; an input switch the projector ignores (lamp still warming) is retried twice, 5 s apart, and cancelled by a newer input or Room Off.</li></ul></div>
+  </div>
+</section>
+  </main>
+
+  <footer class="powered">
+    <div class="hairline" aria-hidden="true"></div>
+    <div class="pb">Powered by</div>
+    <img src="data:image/png;base64,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" alt="IntegrateIT">
+    <p class="places">Kansas City <b>·</b> South Florida</p>
+    <p class="support">support@integrateit.tech · (913) 804-7575</p>
+  </footer>
+</div>
+</body>
+</html>
