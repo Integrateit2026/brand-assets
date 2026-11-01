@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-11-01T14:12:29.545Z",
+  "generated_at": "2026-11-01T14:12:44.164Z",
   "drivers": [
     {
       "slug": "integrateit_appliance_status",
@@ -4591,6 +4591,145 @@
       "license": "IntegrateIT licensing · Lenient release-candidate mode",
       "provenance": "Original IntegrateIT implementation",
       "published_at": "2026-10-30T05:49:57.530Z"
+    },
+    {
+      "slug": "integrateit_lg_webos_tv",
+      "name": "IntegrateIT LG webOS TV",
+      "summary": "IP control of LG webOS TVs over LG's secure SSAP WebSocket, paired the webOS 26 way: a Control4 video and audio endpoint with Wake-on-LAN power-on, HDMI 1-3, volume and mute, Navigator remote keys, and Gallery mode as an art-mode option for LG Gallery TVs such as the 55LX7BPUA.",
+      "category": "others",
+      "device_type": "LG webOS TV (IP)",
+      "release_status": "release-candidate",
+      "hardware_status": "simulation-verified",
+      "featured": false,
+      "features": [
+        "A Control4 video and audio endpoint: Watch wakes the TV and lands on the right HDMI input, Room Off follows your choice of standby, Gallery mode, or screen off",
+        "Gallery mode as art mode: Art Mode On / Off / Toggle commands, an ART_MODE variable and events, and a room that reads as off while the TV shows art",
+        "Pairs the webOS 26 way: one on-screen prompt with the manifest webOS 26 accepts, key kept across reboots, no prompt spam when nobody answers",
+        "IR options: IP + IR Power On adds LG's discrete IR Power On for TVs Wake-on-LAN cannot wake; IR-only control uses LG's NEC codes (discrete power and HDMI 1-3, volume, mute and the Navigator and Send Remote Key buttons LG has a code for) through an emitter",
+        "Wake-on-LAN power-on with the TV's MAC address learned automatically while it is on",
+        "Live state pushed by the TV: power, foreground app, input, volume and mute, including changes made with the LG remote",
+        "Navigator remote: menu, cursor, OK, back, info, guide, numbers, color keys, and media transport over LG's pointer-input socket; Send Remote Key adds Netflix, Amazon, My Apps, Recent, Live Zoom, Teletext and the other LG function buttons",
+        "Reads whether the TV is set up to be woken (Turn on via Wi-Fi, Quick Start+) and says in plain words when Wake-on-LAN cannot work",
+        "Sound output awareness: Sound Output and SOUND_OUTPUT show where the TV's sound goes, Set Sound Output switches it (for example to an eARC soundbar), and a held volume ramp slows down over eARC/ARC",
+        "List Apps marks the app in front, so the Gallery app ID can be read off the actual TV in art mode, and Gallery App IDs takes a list, so art mode works even if LG shows art through a different app after a firmware update",
+        "Capture TV Facts: one read-only button that prints what this TV really reports (system info, services, inputs, sound output, wake settings, launch points) for support, never the pairing key"
+      ],
+      "compatibility": [
+        {
+          "label": "Control4 OS",
+          "value": "3.0.0 or newer"
+        },
+        {
+          "label": "Control",
+          "value": "IP: LG's SSAP WebSocket on TCP 3001 (TLS) or 3000, plus Wake-on-LAN. IR: any Control4 IR output with an emitter on the TV's IR window (LG NEC codes, address 04)."
+        },
+        {
+          "label": "TVs",
+          "value": "LG webOS TVs, built for the 2026 Gallery TV with Frame (55LX7BPUA, webOS 26). Gallery mode needs a TV with LG's Gallery app."
+        },
+        {
+          "label": "Feedback",
+          "value": "Bidirectional and push-driven: power, input, app, volume and mute"
+        },
+        {
+          "label": "Self-update staging",
+          "value": "Control4 OS 3.3.1 or newer"
+        }
+      ],
+      "requirements": [
+        "The TV on the same LAN as the controller with a reserved IP address",
+        "On the TV: LG Connect Apps / mobile TV on enabled, and Turn on via Wi-Fi / Quick Start+ enabled so Wake-on-LAN can power it on",
+        "Someone at the TV to accept the one-time pairing prompt",
+        "Composer Pro access to set the IP, run Pair TV, and bind the HDMI inputs and the room"
+      ],
+      "limitations": [
+        "IR-only control is one-way: power and inputs are modeled, Gallery mode, absolute volume, apps and messages need IP, and changes made with the LG remote are not seen.",
+        "LG does not publish the Gallery app's ID for the 2026 Gallery TV. The driver recognises com.webos.app.igallery as art; With the actual TV in art mode, the Current App property, List Apps (IN FRONT NOW) and Capture TV Facts show what it uses, and Gallery App IDs takes the list.",
+        "Power-on depends on Wake-on-LAN. Over Wi-Fi it is unreliable, so a wired TV is strongly recommended.",
+        "Picture mode and other settings changes are not included: webOS 26 refuses direct settings writes from SSAP clients.",
+        "Release Candidate: simulator verified against LG's SSAP protocol as implemented by the open-source webOS libraries; hardware acceptance on a 55LX7BPUA is still pending."
+      ],
+      "screenshots": [
+        {
+          "file": "catalog/documentation.png",
+          "title": "Packaged Documentation tab",
+          "caption": "The exact self-contained commissioning guide included inside the C4Z package.",
+          "alt": "IntegrateIT LG webOS TV commissioning guide showing the SSAP over TLS connection, the webOS 26 pairing note, Gallery mode as art mode and the IR options.",
+          "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/catalog/documentation.png"
+        }
+      ],
+      "qa": {
+        "schema": 1,
+        "slug": "integrateit_lg_webos_tv",
+        "generated_at": "2026-11-01T14:12:43.708Z",
+        "status": "pass",
+        "failed_stage": null,
+        "build_inputs_sha256": "b409483ccd40ec89c9c54d84f11f827a7bfa6c9677283460a91ca49a13fd30e1",
+        "artifact_sha256": "d9862122ed5aa8095c89011391d61b57bb4ddf8d3cb05936c0a37f3e0643d63e",
+        "artifact_size_bytes": 108444,
+        "build_version_manifest_sha256": "bee88b4badd89b267eeb341f732ea067cf1e50932b0b6872aa7bea7e170a8291",
+        "version_manifest_sha256": "2961de4fda2db3bb8b0d1dd88e8c345f9c1424cfc26dcc3e40180b1b8ff74d14",
+        "version": "0.2.0",
+        "xml_version": 3,
+        "environment": "Control4 API simulator + deterministic package validators",
+        "hardware_status": "simulation-verified",
+        "channel_verification": {
+          "status": "pending",
+          "checked_at": null,
+          "note": "Live channel verification runs after publication."
+        },
+        "stages": [
+          {
+            "name": "build",
+            "status": "pass",
+            "duration_ms": 156
+          },
+          {
+            "name": "static",
+            "status": "pass",
+            "duration_ms": 197,
+            "checks": 21,
+            "warnings": 0
+          },
+          {
+            "name": "runtime",
+            "status": "pass",
+            "duration_ms": 1079,
+            "checks": 1426,
+            "violations": 0
+          },
+          {
+            "name": "golden",
+            "status": "pass",
+            "duration_ms": 85,
+            "files": 2
+          }
+        ]
+      },
+      "stats": {
+        "proxies": 1,
+        "connections": 6,
+        "properties": 25,
+        "commands": 19,
+        "actions": 9,
+        "events": 10
+      },
+      "version": "0.2.0",
+      "xml_version": 3,
+      "min_os": "3.0.0",
+      "size_bytes": 108444,
+      "sha256": "d9862122ed5aa8095c89011391d61b57bb4ddf8d3cb05936c0a37f3e0643d63e",
+      "download_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/integrateit_lg_webos_tv.c4z",
+      "manifest_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/version.json",
+      "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/CHANGELOG.md",
+      "doc_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/documentation.html",
+      "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/releases.json",
+      "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/qa-report.json",
+      "update_mode": "manual-or-staged-in-place",
+      "update_min_os": "3.3.1",
+      "license": "IntegrateIT licensing · Lenient release-candidate mode",
+      "provenance": "Original IntegrateIT implementation",
+      "published_at": "2026-11-01T14:12:44.151Z"
     },
     {
       "slug": "integrateit_lifestyle_buttons",

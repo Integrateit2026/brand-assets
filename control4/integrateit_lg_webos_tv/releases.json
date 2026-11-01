@@ -1,0 +1,15 @@
+{
+  "latest": "0.2.0",
+  "history": [
+    {
+      "version": "0.2.0",
+      "xml_version": 3,
+      "sha256": "d9862122ed5aa8095c89011391d61b57bb4ddf8d3cb05936c0a37f3e0643d63e",
+      "size_bytes": 108444,
+      "published_at": "2026-11-01T14:12:44.151Z",
+      "notes": "The room no longer flaps. A dropped connection, a re-pair, or a Pair TV prompt that is declined or ignored holds the room for up to 8 s while the driver reconnects. So does a change of Control Method, TV IP Address or Connection. Power Off and OFF are reported only for a real standby. A 5 s heartbeat on both sockets notices a vanished TV in 5-10 s. · Watch: a Watch of the same input after Room Off now switches inputs, and a Watch right after Room Off wakes the TV again. A Watch after a Screen Off Room Off lights the panel. A cold Watch tells the room the requested input, then ON, instead of the input the TV woke on. A held input expires after Power On Timeout. · Room Off: the Room Off Action is held through a wake and applied when the TV answers. Power Off no longer reports \"refused: disconnected\". Screen Off never turns the room off by itself, because it is used for audio-only listening. If someone lights the screen with the LG remote, the room is told ON once. · Pair TV keeps the working key until the TV issues a new one, so a declined or ignored prompt leaves pairing working. It gives up after 2 minutes on an unreachable TV. · Gallery: a Gallery App IDs list (default com.webos.app.igallery), launched through system.launcher/launch with a fallback, plus an art-app finder. List Apps marks the app in front, and the commissioning steps say to read Current App while the TV shows art. · New: a Wake Readiness property, which checks Turn on via Wi-Fi and Quick Start+ and gives each its own hedged menu path. Also a Capture TV Facts command, Sound Output read-back with Set Sound Output, and an ARC Volume Step Delay. system/turnOn is sent alongside Wake-on-LAN. There are more remote keys, and IR codes for Guide, Record and SAP. · Fixes: mute follows the TV's audio status, and the Wake-on-LAN MAC is learned only from a connected interface. List Apps accepts large replies, and the pointer socket retries. A held volume ramp stops when the connection closes, and connection errors are no longer reported as the TV refusing. Docs: the Power On wording is corrected, the privacy paragraph lists every outside call (license check, update check, and the update download when updates are set to Auto), and a troubleshooting row covers a TV that forgot its key.",
+      "qa_status": "pass",
+      "hardware_status": "simulation-verified"
+    }
+  ]
+}

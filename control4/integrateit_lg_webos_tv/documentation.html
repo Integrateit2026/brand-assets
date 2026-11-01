@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>IntegrateIT LG webOS TV</title>
+<style>
+/* IntegrateIT driver documentation tokens. These are intentionally self-contained
+   and use sRGB values for compatibility with Control4's embedded browser. */
+:root{
+  --bg:#0A0D13;
+  --bg-deep:#070A0F;
+  --surface:#141A26;
+  --surface-raised:#1A2332;
+  --surface-strong:#222D3D;
+  --line:#2B3749;
+  --line-strong:#3B4B63;
+  --text:#EDF2F9;
+  --text-soft:#A7B2C3;
+  --text-faint:#77859A;
+  --blue:#0157FF;
+  --blue-light:#7FB2FF;
+  --blue-tint:rgba(1,87,255,.13);
+  --brass:#B89968;
+  --good:#34D399;
+  --good-tint:rgba(52,211,153,.11);
+  --warn:#FBBF24;
+  --warn-tint:rgba(251,191,36,.10);
+  --bad:#F87171;
+  --bad-tint:rgba(248,113,113,.10);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:18px;
+  --ease:cubic-bezier(.25,1,.5,1);
+}
+
+/* IntegrateIT Documentation tab: The Commissioning Book */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--blue-light);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--text)}
+a:focus-visible{outline:2px solid var(--blue-light);outline-offset:3px;border-radius:4px}
+.shell{min-height:100vh;background:
+  radial-gradient(900px 420px at 86% -10%,rgba(1,87,255,.14),transparent 68%),
+  linear-gradient(180deg,var(--bg-deep) 0,var(--bg) 360px)}
+.wrap{width:min(1040px,100%);margin:0 auto;padding:0 28px}
+
+/* masthead */
+.mast{padding:30px 0 34px;border-bottom:1px solid var(--line)}
+.brandbar{display:flex;align-items:center;gap:18px;min-height:42px}
+.brandbar img{display:block;width:auto;height:30px;max-width:210px;object-fit:contain}
+.version{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line-strong);
+  border-radius:999px;background:var(--surface);color:var(--text-soft);font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.version::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-tint)}
+.eyebrow{margin:32px 0 12px;color:var(--brass);font-size:11px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+h1{max-width:760px;margin:0;font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.035em;font-weight:780;text-wrap:balance}
+.sub{max-width:68ch;margin:16px 0 0;color:var(--text-soft);font-size:16px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;color:var(--text-faint);font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+.meta span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--brass)}
+.readiness{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ready{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(20,26,38,.76);color:var(--text-soft);font-size:12px;font-weight:700}
+.ready b{color:var(--good);font-size:13px}
+
+/* task navigation */
+.toc-wrap{position:sticky;top:0;z-index:10;background:rgba(10,13,19,.97);border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px rgba(0,0,0,.20)}
+.toc{display:flex;gap:7px;overflow-x:auto;padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.toc a{flex:none;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text-soft);
+  font-size:12px;font-weight:720;text-decoration:none;transition:color 180ms var(--ease),border-color 180ms var(--ease),background 180ms var(--ease)}
+.toc a:hover{color:var(--text);border-color:var(--blue);background:var(--blue-tint)}
+
+/* document */
+main{padding:34px 0 24px}
+.card{scroll-margin-top:80px;margin:0 0 18px;padding:26px 28px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface)}
+.card h2{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:20px;line-height:1.2;letter-spacing:-.018em;font-weight:760}
+.card h2 .n{display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--blue);
+  color:var(--text);font-size:12px;font-weight:820;font-variant-numeric:tabular-nums}
+.card h3{margin:24px 0 10px;color:var(--text);font-size:15px;line-height:1.35;font-weight:760}
+.card p{max-width:74ch;margin:10px 0;color:#D7DFEA}
+.card ul,.card ol{max-width:76ch;margin:12px 0;padding-left:23px}
+.card li{margin:7px 0;color:#D7DFEA}
+.card li::marker{color:var(--blue-light);font-weight:800}
+.card b{color:var(--text);font-weight:750}
+
+/* operational callouts */
+.note{margin:16px 0;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--surface-raised);
+  color:#D7DFEA;font-size:14px}
+.note::before{content:"INFO";display:block;margin-bottom:4px;color:var(--blue-light);font-size:10px;font-weight:800;letter-spacing:.12em}
+.note.good{border-color:rgba(52,211,153,.36);background:var(--good-tint)}
+.note.good::before{content:"READY";color:var(--good)}
+.note.warn{border-color:rgba(251,191,36,.38);background:var(--warn-tint)}
+.note.warn::before{content:"CHECK";color:var(--warn)}
+.pill{display:inline-flex;align-items:center;margin-left:6px;padding:3px 8px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--surface-raised);color:var(--text-soft);font-size:10px;font-weight:800;letter-spacing:.04em;vertical-align:middle}
+.pill.blue{border-color:rgba(127,178,255,.34);background:var(--blue-tint);color:var(--blue-light)}
+.pill.green{border-color:rgba(52,211,153,.34);background:var(--good-tint);color:var(--good)}
+.pill.amber{border-color:rgba(251,191,36,.34);background:var(--warn-tint);color:var(--warn)}
+.pill.red{border-color:rgba(248,113,113,.34);background:var(--bad-tint);color:var(--bad)}
+
+/* steps, code, and reference data */
+.steps{counter-reset:step;list-style:none!important;padding:0!important}
+.steps li{counter-increment:step;position:relative;padding:11px 0 11px 46px;margin:0!important;border-top:1px solid var(--line)}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(step);position:absolute;left:0;top:9px;display:grid;place-items:center;width:30px;height:30px;
+  border:1px solid var(--line-strong);border-radius:9px;background:var(--surface-raised);color:var(--blue-light);font-size:12px;font-weight:820}
+code{padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface-raised);color:#8DE2D6;
+  font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere}
+pre{max-width:100%;overflow:auto;margin:14px 0;padding:15px 17px;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:var(--bg-deep);color:#BCEDE6;font-family:var(--mono);font-size:12.5px;line-height:1.6}
+pre code{padding:0;border:0;background:transparent;color:inherit}
+table{display:block;width:100%;max-width:100%;overflow-x:auto;border-spacing:0;border-collapse:separate;margin:14px 0 20px;
+  border:1px solid var(--line);border-radius:var(--radius-md);font-size:13px}
+tbody{display:table;width:100%;border-collapse:collapse}
+th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-raised);color:var(--text-soft);font-size:11px;font-weight:780;letter-spacing:.035em;white-space:nowrap}
+td{color:#D7DFEA}
+td:first-child{color:var(--text)}
+td code{white-space:normal}
+
+/* release history */
+.chg{margin-top:4px}
+.chg .rel{padding:15px 0;border-top:1px solid var(--line)}
+.chg .rel:first-child{padding-top:0;border-top:0}
+.chg .rel b{font-variant-numeric:tabular-nums}
+.chg .rel .d{margin-left:8px;color:var(--text-faint);font-size:12px}
+.chg .rel ul{margin:7px 0 0}
+
+/* brand sign-off */
+.powered{margin-top:22px;padding:42px 24px 46px;border-top:1px solid var(--line);text-align:center;background:var(--bg-deep)}
+.powered .hairline{width:40px;height:1px;margin:0 auto 18px;background:var(--brass)}
+.powered .pb{margin:0 0 14px;padding-left:.32em;color:var(--text-soft);font-size:10px;font-weight:650;letter-spacing:.32em;text-transform:uppercase}
+.powered img{display:block;width:auto;height:28px;max-width:min(270px,80vw);margin:0 auto;object-fit:contain}
+.powered .places{margin:22px 0 0;color:var(--text-faint);font-size:10px;font-weight:650;letter-spacing:.22em;text-transform:uppercase}
+.powered .places b{padding:0 8px;color:var(--brass);font-weight:700}
+.powered .support{margin:18px 0 0;color:var(--text-soft);font-size:12px}
+
+@media(max-width:700px){
+  .wrap{padding:0 18px}
+  .mast{padding:22px 0 28px}
+  .brandbar img{height:24px;max-width:170px}
+  .eyebrow{margin-top:26px}
+  h1{font-size:32px}
+  .sub{font-size:15px}
+  main{padding-top:24px}
+  .card{padding:21px 19px;border-radius:var(--radius-md)}
+  .card h2{font-size:18px}
+  th,td{min-width:130px;padding:10px 11px}
+}
+@media(max-width:420px){
+  .wrap{padding:0 14px}
+  .version{padding:5px 8px}
+  .version .word{display:none}
+  h1{font-size:29px}
+  .ready{font-size:11px}
+  .card{padding:18px 15px}
+  .card h2{align-items:flex-start}
+  .powered{padding-left:14px;padding-right:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc a{transition:none}}
+@media print{
+  :root{--bg:#F7F8FA;--bg-deep:#FFFFFF;--surface:#FFFFFF;--surface-raised:#F0F3F7;--line:#CCD3DD;--line-strong:#AEB8C6;
+    --text:#101722;--text-soft:#3D4A5E;--text-faint:#59677B;--blue-light:#0049D8}
+  .shell{background:#F7F8FA}.toc-wrap{position:static;box-shadow:none}.card{break-inside:avoid}.powered img{filter:invert(1)}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <div class="wrap">
+      <div class="brandbar">
+        <img src="data:image/png;base64,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" alt="IntegrateIT">
+        <span class="version"><span class="word">Driver</span> v0.2.0</span>
+      </div>
+      <p class="eyebrow">Control4 commissioning guide</p>
+      <h1>IntegrateIT LG webOS TV</h1>
+      <p class="sub">LG webOS TV control over IP for Control4, with Gallery mode as art mode. Powered by IntegrateIT.</p>
+      <div class="meta">
+        <span>Updated 2026-11-01</span>
+        <span>Supported by IntegrateIT</span>
+      </div>
+      <div class="readiness" aria-label="Driver capabilities">
+        <span class="ready"><b aria-hidden="true">✓</b> Control4 DriverWorks</span>
+        <span class="ready"><b aria-hidden="true">✓</b> OS 3.0.0+</span>
+        <span class="ready"><b aria-hidden="true">✓</b> License framework</span>
+        <span class="ready"><b aria-hidden="true">✓</b> Self-update ready</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toc-wrap">
+    <nav class="toc wrap" aria-label="Documentation sections"><a href="#overview">1 Start here</a><a href="#feedback">2 The feedback contract</a><a href="#ir">3 IR options</a><a href="#setup">4 Wire and commission</a><a href="#art">5 Gallery mode (art mode)</a><a href="#power">6 Power on and off</a><a href="#room">7 Room remote and Navigator</a><a href="#audio">8 Sound output</a><a href="#programming">9 Program the project</a><a href="#status">10 Read status at a glance</a><a href="#troubleshooting">11 Troubleshoot methodically</a><a href="#trust">12 Ownership, privacy, and licensing</a><a href="#reference">R Reference</a><a href="#licensing">L Licensing</a><a href="#updates">U Automatic updates</a><a href="#diagnostics">D Diagnostics and self-test</a><a href="#changelog">V Version history</a></nav>
+  </div>
+
+  <main class="wrap">
+    <section class="card" id="overview" data-card="overview">
+  <h2><span class="n">1</span> Start here</h2>
+  <p>IntegrateIT LG webOS TV controls an LG webOS TV over the network using LG's own second-screen protocol (SSAP): JSON messages over a WebSocket on TCP 3001 with TLS. It was built for the 2026 <b>LG Gallery TV with Frame, 55LX7BPUA</b> (webOS 26), and it works with other LG webOS TVs on the same protocol.</p>
+  <p>The TV joins the room as a Control4 video and audio endpoint. <b>Watch</b> wakes it and lands on the right HDMI input, <b>Room Off</b> does what you choose, volume and mute follow the room remote, and the Navigator remote's menu and cursor keys reach the TV. <b>Gallery mode is the art-mode option</b>: the TV can show art when the room is off, and the room reads it as off while it does.</p>
+  <div class="note warn">webOS 26 (firmware from about August 2026) blocked the pairing manifest that older open-source LG controllers used, so they fail with "403 blacklisted certificate". This driver pairs with the unsigned manifest webOS 26 accepts, and a fresh pairing gets full permissions.</div>
+  <div class="note good">Ready for controlled commissioning. The WebSocket client, TLS connection options, pairing flow, Wake-on-LAN power-on, room proxy contract, Gallery mode, remote keys, push state, reconnect, license gate, persistence, and documentation pass automated QA against a simulated LG TV that speaks real WebSocket frames and SSAP messages. A qualified dealer must still complete a fresh install and an observed control test against the real TV.</div>
+  <p><b>What you get</b></p>
+  <ul>
+    <li>A room video and audio endpoint: Watch, Room Off, HDMI 1-3, volume, mute, and Navigator remote keys</li>
+    <li>Gallery mode (art mode): Art Mode On, Off, and Toggle commands, an <code>ART_MODE</code> variable, Art Mode On / Off events, and <b>Room Off Action = Gallery Mode</b> to show art whenever the room turns off</li>
+    <li>Wake-on-LAN power-on, with the TV's MAC address learned from the TV itself</li>
+    <li>Live state pushed by the TV: power, input, the app in front, volume, and mute, including changes made with the LG remote</li>
+    <li>One-time pairing on the TV's own prompt, a key kept across reboots, and no repeated prompts if nobody answers</li>
+    <li>List Apps, which prints every app on the TV and lists the ones whose names look like art apps, and <b>Gallery App IDs</b>, a list, so more than one app can count as art</li>
+    <li><b>Wake Readiness</b>, which reads the TV's own wake-up settings and says in plain words when Wake-on-LAN cannot work</li>
+    <li><b>Sound Output</b> feedback and a <b>Set Sound Output</b> command (for an eARC soundbar, the TV speaker, optical and the rest), with a volume ramp that slows down over eARC/ARC</li>
+    <li><b>Capture TV Facts</b>, a read-only button that prints what this TV really reports, for support</li>
+  </ul>
+</section>
+
+<section class="card" id="feedback" data-card="feedback">
+  <h2><span class="n">2</span> The feedback contract</h2>
+  <p>This driver reports what the TV tells it:</p>
+  <ul>
+    <li>Power, the app in front, and volume and mute are <b>subscriptions</b>. The TV pushes every change within a second, whether it came from Control4, the LG remote, or the TV's own buttons. After every new connection the driver waits until the TV has said both whether it is on and what is in front before it tells the room anything, so a reconnect while Gallery is showing never flashes the room on.</li>
+    <li>The room's power follows what is on screen. The room reads <b>on</b> while the TV shows an input or an app, and <b>off</b> while the TV is in standby or showing art in Gallery mode.</li>
+    <li><code>Current Input</code> is HDMI 1, 2, or 3 when an HDMI input is in front, <b>Gallery</b> in art mode, or the app's ID otherwise. The room hears about HDMI changes through <code>INPUT_CHANGED</code>.</li>
+    <li>A TV that goes to standby says so before its connection closes, and <code>Power State</code> reads <b>Off</b> at once. A connection that drops with no such notice (a network blip, the TV recycling its socket) is held for up to 8 seconds while the driver reconnects straight away: if the TV answers still on, nothing changed and no Power Off or Power On event fires; if it does not come back, or comes back in standby, <code>Power State</code> reads <b>Off</b>. After that the driver keeps trying every <code>Reconnect Interval (s)</code>.</li>
+    <li>On a <b>Watch</b> from standby the TV wakes on whatever it showed last. When the Watch's input request reaches the driver together with Power On (the normal case), the room is not told that input, or ON, first: the driver switches to the requested input and tells the room when it shows. If the TV refuses the switch, or the input does not show within about 5 seconds, the room is told what the TV really shows. If the room sends the input request late (for example a long input-switch delay set in Composer) and the TV has already answered, the room can hear the TV's old input first and the requested one after. In IR-only mode there is no feedback: the room hears ON at once, and if the Watch's input request arrives within about 0.3 seconds of Power On, that is the only input the room hears. If it arrives later, the room first hears the last input the driver remembers, then the requested one once the IR Boot Delay has passed.</li>
+    <li>Changing <b>Control Method</b>, <b>TV IP Address</b> or <b>Connection</b> while the TV is on does not tell the room the TV went away. The room's state is held while the driver reconnects (up to 8 seconds like any dropped connection), and only a real difference is reported. IP and IP + IR Power On differ only in whether Power On also sends the IR code, so switching between them touches nothing. Switching to IR starts the IR model from what was last known.</li>
+    <li>The driver pings both of its connections every 5 seconds, as LG's open-source clients do. A TV that disappears without closing them (power cut, Wi-Fi gone) is noticed when nothing at all comes back for a whole 5-second beat after a ping, within about 10 seconds, then handled like any other drop. Any reply from the TV counts as a sign of life.</li>
+    <li><code>Sound Output</code> follows the TV's sound output the same way. A TV that does not offer the service leaves it at <b>Unknown</b>, which is not an error.</li>
+    <li>After a controller reboot, <code>Power State</code> reads <b>Unknown</b> until the driver connects, or fails to reach the TV, in which case it reads <b>Off</b>. The pairing key and learned MAC address are restored from persistence.</li>
+  </ul>
+</section>
+
+<section class="card" id="ir" data-card="ir">
+  <h2><span class="n">3</span> IR options</h2>
+  <p><b>Control Method</b> chooses how the driver reaches the TV:</p>
+  <table>
+    <tr><th>Control Method</th><th>What it does</th><th>Best for</th></tr>
+    <tr><td><b>IP</b> (default)</td><td>Everything over the network, power-on by Wake-on-LAN</td><td>Wired TVs with Quick Start+ on</td></tr>
+    <tr><td><b>IP + IR Power On</b></td><td>IP for everything, plus LG's discrete IR <b>Power On</b> through an emitter</td><td>TVs Wake-on-LAN cannot wake (Wi-Fi, deep standby)</td></tr>
+    <tr><td><b>IR</b></td><td>One-way control through an emitter only</td><td>When IP control is not possible</td></tr>
+  </table>
+  <p>For either IR option, bind <b>TV IR</b> in Connections to a controller IR output and put the emitter over the TV's IR receiver. The codes are LG's own NEC codes (custom code 04 FB), with the command bytes from LG's <i>External Control Device Setup</i> manual: discrete <b>Power On</b> (C4), <b>Power Off</b> (C5), <b>HDMI 1</b> (CE), <b>HDMI 2</b> (CC), <b>HDMI 3</b> (E9), volume, mute, and the Navigator and Send Remote Key buttons LG has a code for (including Guide, Record, SAP and List; LG's manual gives List and Dash the same code). The driver builds the codes from that format. When the codes were generated they were checked once against the 14 LG Pronto codes published on RemoteCentral (power, AV, component, HDMI 1-3, aspect), and every other code comes straight from LG's manual; the driver does not check them again on each build.</p>
+  <p>In <b>IR</b>-only mode nothing comes back from the TV, so:</p>
+  <ul>
+    <li>Power is modeled: Power On marks the TV on, Power Off marks it off. An input picked within <b>IR Boot Delay (s)</b> of a Power On (default 8 s) is held and sent once the TV has booted, even if the model thought the TV was already on. An input picked at any other time is sent at once.</li>
+    <li>Inputs are assumed to switch, and the room is told so. Volume steps and the press-and-hold ramp work; the ramp stops the moment the button is released. Mute is a toggle on LG remotes, so the driver tracks it and only sends it when the modeled state differs; a volume key clears the modeled mute, as it does on the TV.</li>
+    <li><b>Gallery mode, absolute volume, screen off, apps, messages, List Apps and pairing need IP control</b> and are refused with a reason in <code>Last Error</code> (the absolute-volume refusal is shown once, not on every step of a dragged slider; the room's volume slider stays visible but does nothing in IR mode, and the volume keys still work). A Room Off Action of Gallery Mode or Screen Off falls back to Power Off and says so in <code>Last Error</code>.</li>
+    <li>Keys LG's IR table has no code for (Asterisk, and the app and function buttons such as Netflix, Amazon, Recent, Program, AD and Teletext) are refused rather than guessed. <b>My Apps</b>, <b>Guide</b>, <b>Record</b>, <b>SAP</b> and <b>List</b> are the exceptions: LG's table has a code for each.</li>
+  </ul>
+  <div class="note warn">In IR mode the driver cannot see what someone does with the LG remote, so <code>Power State</code> and <code>Current Input</code> can drift from the TV. Prefer IP, or IP + IR Power On, wherever the network allows.</div>
+</section>
+
+<section class="card" id="setup" data-card="setup">
+  <h2><span class="n">4</span> Wire and commission</h2>
+  <ol class="steps">
+    <li>Choose <b>Control Method</b> (see IR options). For <b>IR</b> only, bind <b>TV IR</b>, place the emitter, and skip the network steps below.</li>
+    <li>Wire the TV to the network (strongly recommended over Wi-Fi) and reserve its IP address in DHCP.</li>
+    <li>On the TV, turn on <b>Turn on via Wi-Fi</b> (also called <b>TV On With Mobile</b>; usually under <b>Settings &gt; General &gt; Devices &gt; External Devices</b>) and <b>Quick Start+</b> (usually under <b>Settings &gt; General &gt; System &gt; Additional Settings</b>). Names and paths vary by firmware, so use the TV's settings search if you cannot find them. Without both, Wake-on-LAN may not turn the TV on. Make sure <b>LG Connect Apps</b> is on. Once the TV is paired, <code>Wake Readiness</code> reads the two settings back from the TV and tells you if either is off.</li>
+    <li>Add <b>IntegrateIT LG webOS TV</b> to the room. Set <b>TV IP Address</b>. Leave <b>Connection</b> on <b>Secure (port 3001)</b>.</li>
+    <li>Run <b>Pair TV</b> from the Actions tab and accept the prompt on the TV within 60 seconds. <code>Pairing</code> reads <b>Paired</b> and <code>Connection Status</code> reads <b>Connected</b> when it worked. <code>TV Model</code> and <code>TV MAC Address</code> fill in by themselves.</li>
+    <li>On the AV tab, bind your sources to <b>HDMI 1</b>, <b>HDMI 2</b>, and <b>HDMI 3</b>, and confirm the room's video and audio endpoints are the TV (the <b>Room Selection</b> binding).</li>
+    <li>For art mode, first put the TV in art mode with the LG remote. Then run <b>List Apps</b>: it prints a line <code>&gt;&gt;&gt; IN FRONT NOW: &lt;app ID&gt; &lt;&lt;&lt;</code> and marks the same app in the list. You can also read the <b>Current App</b> property, or the foreground app line from <b>Capture TV Facts</b>. That ID is the one that really shows art on this TV: put it first in <b>Gallery App IDs</b> (the list is separated by commas). <b>Gallery Apps Found</b> lists other app IDs whose names look like art apps; it is a list of candidates, not an answer, and some will not show art. If you open an older project, also clear <b>Gallery App ID</b> (the old single field) if it holds anything other than <code>com.webos.app.igallery</code>, because a value there goes ahead of the list. Then set <b>Room Off Action</b> to <b>Gallery Mode</b> if the TV should show art whenever the room turns off.</li>
+    <li>Test it. Press <b>Room Off</b> and watch the TV go to standby (or show art). Press <b>Watch</b> on a source and watch the TV wake and switch input. Use the room remote's arrows on the TV menu.</li>
+  </ol>
+  <div class="note">If <b>Pair TV</b> shows no prompt on the TV, check that the IP is right and the TV is on. Run <b>Print Configuration</b> and read <code>Connection Status</code> and <code>Last Error</code>: they say whether the TV could not be reached, refused the WebSocket, or refused pairing. Pair TV waits two minutes for a TV that does not answer, then stops, so a prompt you started does not turn up whenever the TV is next switched on. (A TV that was reset or updated can still show a prompt on its own, because it no longer knows the stored key: see the troubleshooting table.)</div>
+  <p><b>Pair TV on a TV that is already paired</b> asks the TV for a new key, but the working key stays stored and in use until the TV issues the new one. If nobody accepts the prompt, or someone declines it, the existing pairing keeps working and <code>Last Error</code> says so. While the TV is on, the room does not hear the TV go away and come back during any of this: the room's state is held until the connection is back.</p>
+</section>
+
+<section class="card" id="art" data-card="art">
+  <h2><span class="n">5</span> Gallery mode (art mode)</h2>
+  <p>LG's Gallery TVs show paintings and photos in their <b>Gallery</b> app. The driver treats "the Gallery app is in front" as <b>art mode</b>:</p>
+  <ul>
+    <li><b>Art Mode On</b> launches the first app in <b>Gallery App IDs</b>. If the TV is off, it wakes it first with Wake-on-LAN.</li>
+    <li><b>Art Mode Off</b> takes a TV that is showing art back to its last input, the way The Frame's art-mode-off does. Use <b>Power Off</b> for standby.</li>
+    <li><b>Art Mode Toggle</b> does one or the other.</li>
+    <li><b>Room Off Action</b> decides what Room Off does: <b>Power Off</b> (standby), <b>Gallery Mode</b> (show art), or <b>Screen Off</b> (blank the panel, keep the TV awake). With <b>Screen Off</b>, <code>Power State</code> reads <b>Screen Off</b>, no Power Off event fires, and the room stays as Control4 left it, because a blank panel is often used for audio-only listening. If someone then lights the screen with the LG remote, the room is told ON once (and a Power On event fires), as it is when a TV comes out of standby. A Watch that follows a Screen Off straight away lights the panel again, even if the TV has not yet said it blanked. A Watch or a plain Control4 ON that lights the panel does not tell the room ON a second time, because the room just asked for it. The <b>Power On</b> and <b>Screen On</b> programming commands are different: they tell the room ON once (and fire the Power On event) when they light a panel that Room Off blanked. From standby, <b>Power On</b> does the same, but <b>Screen On</b> only lights the panel of a TV that is already awake and tells the room nothing. If Room Off is pressed again within a few seconds of a Watch or one of these commands, the panel ends dark and the room is not told ON afterwards.</li>
+    <li>The TV counts as showing art while <b>any</b> app in <b>Gallery App IDs</b> is in front. By default the list holds only <code>com.webos.app.igallery</code> (launched by Art Mode On); an empty list means the default. The list is separated by commas (semicolons and spaces also work); order matters only for the first entry. An older project that still has a value in the single <b>Gallery App ID</b> field keeps it as the first ID, ahead of the list, so nothing changes for it: if you want the list's first ID launched instead, clear that field. The old default <code>com.webos.app.igallery</code> in that field is ignored for ordering (it still counts as art).</li>
+    <li>In art mode the room reads <b>off</b>, <code>ART_MODE</code> is 1, and <code>Art Mode</code> reads On. <b>Watch</b> from art mode just switches input, with no wake-up delay. <b>Power On</b> with no input request returns to the last input.</li>
+  </ul>
+  <div class="note warn">LG does not publish which app shows art on the 2026 Gallery TV. The default ID is a guess that has not been seen in front on a real Gallery TV. Put the actual TV in art mode with the LG remote first, then read the <b>Current App</b> property (or run <b>List Apps</b> and read the line marked <code>IN FRONT NOW</code>, or the foreground app line of <b>Capture TV Facts</b>), and put that ID first in <b>Gallery App IDs</b>. A webOS 26 settings dump also shows <code>com.webos.app.artisticdisplay</code> (the Artistic Display screen saver) and <code>com.webos.app.lifeonscreen-legacy</code> (the Always-On-Display themes); they are not in the default list because a screen saver or clock would then read as art on every LG TV, but add them if the real TV shows art through one of them.</div>
+</section>
+
+<section class="card" id="power" data-card="power">
+  <h2><span class="n">6</span> Power on and off</h2>
+  <ul>
+    <li><b>Wake Readiness</b> reads two of the TV's own settings after every connection and when you run Refresh Status: <b>Turn on via Wi-Fi</b> and <b>Quick Start+</b>. It reads <b>Ready</b> when both are on. It names the setting and where it usually is when Turn on via Wi-Fi is off (Wake-on-LAN cannot work) or Quick Start+ is off (the TV may not wake from standby), and <b>Unknown</b> when the TV will not say. The usual paths are Settings &gt; General &gt; Devices &gt; External Devices for Turn on via Wi-Fi and Settings &gt; General &gt; System &gt; Additional Settings for Quick Start+; names and paths vary by firmware. The driver only reads; it never changes a TV setting. If a Power On then times out, <code>Last Error</code> repeats the same advice.</li>
+    <li><b>Power On</b> wakes the TV (Wake-on-LAN; in the IR methods, LG's IR code). It comes on at whatever it last showed; use <b>Watch</b> or <b>Select Input</b> to choose an input. It sends three Wake-on-LAN packets a second apart to the TV's MAC, then retries the connection every 2 seconds until the TV answers, for up to <code>Power On Timeout (s)</code>. If the TV is in standby with its connection still open, the driver also asks it directly to turn on (a magic packet is a local broadcast and may not reach it) and checks the connection is alive, replacing it if it is not. An input or Gallery request made meanwhile is applied as soon as the TV is on.</li>
+    <li>If the TV does not come on in time, <code>Last Error</code> says so and names the TV settings to check, and the held request is dropped so it cannot fire later by surprise. If the driver is not paired, or the TV IP is empty, <code>Last Error</code> says that instead, because nothing can be applied until it is fixed. An input chosen while the TV is off and no wake-up is running is dropped after the same time.</li>
+    <li><b>Power Off</b> puts the TV in standby. The driver sends it and does not treat a closed connection or a missing answer as a refusal, since the TV often closes before it answers. A Watch that follows straight away wakes the TV again and is not lost: if the TV reaches standby only after the Watch's first magic packets went out (they are ignored by a TV that is still on), the driver sends a fresh set of packets, and asks the TV directly if its connection is still open, as soon as the TV reports standby and again when it closes the connection.</li>
+    <li><b>Room Off while a Pair TV prompt is showing</b>: the old connection is closed while the TV waits for the prompt, so the Room Off Action is held and applied when the prompt is answered, declined or times out (up to about a minute). <code>Status</code> says "Room Off waits for the pairing prompt on the TV".</li>
+    <li><b>Room Off while the TV is still waking</b> cannot recall the first magic packet, so the TV does come on. The driver stops sending more packets, drops the Watch's input, and applies the Room Off Action (standby, Gallery mode or screen off) as soon as the TV answers, without telling the room it came on.</li>
+    <li>The MAC address is learned from the TV the first time the driver connects while it is on, from the network interface the TV reports as connected (the one holding its IP address when both are). A MAC you type into <code>TV MAC Address</code> is never replaced. If the TV is off at commissioning, or reports no connected interface, type the MAC in.</li>
+  </ul>
+</section>
+
+<section class="card" id="room" data-card="room">
+  <h2><span class="n">7</span> Room remote and Navigator</h2>
+  <table>
+    <tr><th>Room / Navigator command</th><th>TV action</th></tr>
+    <tr><td>Watch (<code>ON</code> + <code>SET_INPUT</code>)</td><td>Wake (or leave art mode), then HDMI 1, 2, or 3</td></tr>
+    <tr><td>Room Off (<code>OFF</code>)</td><td>Room Off Action: standby, Gallery mode, or screen off</td></tr>
+    <tr><td>Volume, Mute</td><td>TV speaker volume and mute; press and hold ramps</td></tr>
+    <tr><td>Menu, arrows, Enter, Back / Cancel, Exit, Info, Guide</td><td>LG remote keys</td></tr>
+    <tr><td>Numbers, Channel Up / Down, Play / Pause / Stop / Scan</td><td>LG remote keys</td></tr>
+    <tr><td>Program A-D</td><td>Red, Green, Yellow, Blue</td></tr>
+  </table>
+  <p>A volume or mute press while the TV is not connected is not written to <code>Last Error</code> as if the TV had refused it, and a held volume ramp stops when the connection closes. A request the TV really refuses still shows in <code>Last Error</code>.</p>
+  <p>Remote keys travel over a second WebSocket the TV opens for pointer input. The driver asks the TV for it after every connection and keeps asking (every 5 seconds at first, backing off to a minute) if the TV is busy or does not answer, and reopens it if it drops. A key pressed while it is closed, and <b>Refresh Status</b>, also ask for it again.</p>
+  <p>Remote keys beyond the Navigator set are available from <b>Send Remote Key</b> in programming: besides the cursor, transport and color keys it offers Netflix, Amazon, My Apps, Recent, List, Program, SAP, AD, Live Zoom, Magnifier Zoom, Screen Remote, Teletext, Text Option, Asterisk, Record, Channel Up / Down, CC, Dash and the digits. There is no Power key on purpose: use Power On and Power Off.</p>
+</section>
+
+<section class="card" id="audio" data-card="audio">
+  <h2><span class="n">8</span> Sound output</h2>
+  <p>The TV reports where its sound is going, and the driver shows it in <code>Sound Output</code> and the <code>SOUND_OUTPUT</code> variable as the TV names it: <code>tv_speaker</code>, <code>external_arc</code> (HDMI eARC/ARC), <code>external_optical</code>, <code>bt_soundbar</code>, <code>headphone</code>, <code>lineout</code> and so on. A TV or firmware that does not offer the service leaves it at <b>Unknown</b>.</p>
+  <ul>
+    <li><b>Set Sound Output</b> sends the TV's sound to the output you pick from the list (the same names). For example, program it to <code>external_arc</code> when a movie starts and <code>tv_speaker</code> at Room Off. The TV decides whether an output can be used; if it refuses the change, <code>Last Error</code> says so.</li>
+    <li><b>Volume ramp over eARC/ARC.</b> When the output is <code>external_arc</code>, the TV does not perform back-to-back volume steps at once, so holding the volume button steps every <b>ARC Volume Step Delay (ms)</b> (default 600) instead of every 300 ms. Raise it if the volume overshoots when the button is released. On every other output the pace is unchanged. Single volume presses are not delayed.</li>
+  </ul>
+</section>
+
+<section class="card" id="programming" data-card="programming">
+  <h2><span class="n">9</span> Program the project</h2>
+  <table>
+    <tr><th>Event</th><th>Meaning</th></tr>
+    <tr><td><code>Power On</code></td><td>The TV came on and is showing something to watch</td></tr>
+    <tr><td><code>Power Off</code></td><td>The TV went to standby or left the network (Screen Off does not fire it)</td></tr>
+    <tr><td><code>Art Mode On</code> / <code>Art Mode Off</code></td><td>The Gallery app came to the front, or left it</td></tr>
+    <tr><td><code>Input Changed</code></td><td>The TV switched to a different HDMI input</td></tr>
+    <tr><td><code>TV Connected</code> / <code>TV Disconnected</code></td><td>The driver's session with the TV started or ended</td></tr>
+    <tr><td><code>Pairing Required</code></td><td>The TV is showing the pairing prompt</td></tr>
+    <tr><td><code>Paired</code> / <code>Pairing Failed</code></td><td>The TV accepted, or refused or timed out</td></tr>
+  </table>
+  <table>
+    <tr><th>Variable</th><th>Type</th><th>Meaning</th></tr>
+    <tr><td><code>POWER_STATE</code></td><td>STRING</td><td>On, Screen Off, Off, or Unknown</td></tr>
+    <tr><td><code>INPUT</code></td><td>STRING</td><td>HDMI 1-3, Gallery, or the app in front</td></tr>
+    <tr><td><code>CURRENT_APP</code></td><td>STRING</td><td>The webOS app ID in front</td></tr>
+    <tr><td><code>ART_MODE</code></td><td>BOOL</td><td>1 while the Gallery app is in front</td></tr>
+    <tr><td><code>VOLUME</code></td><td>NUMBER</td><td>TV speaker volume</td></tr>
+    <tr><td><code>MUTE</code></td><td>BOOL</td><td>1 while muted</td></tr>
+    <tr><td><code>SOUND_OUTPUT</code></td><td>STRING</td><td>The TV's sound output, such as <code>tv_speaker</code> or <code>external_arc</code></td></tr>
+  </table>
+  <p>Programming commands: <b>Select Input</b>, <b>Art Mode On / Off / Toggle</b>, <b>Screen Off / On</b>, <b>Set Volume</b>, <b>Mute On / Off</b>, <b>Set Sound Output</b>, <b>Launch App</b>, <b>Send Remote Key</b>, <b>Show Message</b> (a toast on screen), plus Power On / Off, List Apps, Capture TV Facts, Pair TV, and Refresh Status.</p>
+  <p>A common recipe: when the last person leaves the room, Room Off sends the TV to Gallery mode; at bedtime, program <b>Power Off</b> so the panel does not glow all night.</p>
+  <p>Control commands are gated by the license. Under Strict enforcement an unlicensed controller opens no connection to the TV and sends no Wake-on-LAN. The default Lenient mode allows commissioning while <code>License Status</code> carries the reminder.</p>
+</section>
+
+<section class="card" id="status" data-card="status">
+  <h2><span class="n">10</span> Read status at a glance</h2>
+  <table>
+    <tr><th>Property</th><th>Healthy result</th><th>What to do otherwise</th></tr>
+    <tr><td><code>Connection Status</code></td><td><code>Connected</code></td><td>The text after "Not connected" names the reason</td></tr>
+    <tr><td><code>Pairing</code></td><td><code>Paired</code></td><td>Run <b>Pair TV</b> and accept the prompt on the TV</td></tr>
+    <tr><td><code>Power State</code></td><td>Matches the TV</td><td><code>Unknown</code> until the driver first connects or fails to reach the TV after a reboot</td></tr>
+    <tr><td><code>Art Mode</code></td><td>On while art is showing</td><td>Check <b>Gallery App IDs</b> against <b>List Apps</b></td></tr>
+    <tr><td><code>Wake Readiness</code></td><td><code>Ready</code></td><td>Turn on the setting it names on the TV; <code>Unknown</code> means the TV would not say</td></tr>
+    <tr><td><code>Sound Output</code></td><td>Where the TV's sound goes</td><td><code>Unknown</code> if this TV does not report it</td></tr>
+    <tr><td><code>TV Facts</code></td><td>A one-line summary after <b>Capture TV Facts</b></td><td>Run <b>Capture TV Facts</b></td></tr>
+    <tr><td><code>TV MAC Address</code></td><td>Filled in</td><td>Type it in if power-on fails before the first connection</td></tr>
+    <tr><td><code>Last Error</code></td><td><code>None</code></td><td>A refused request, a pairing problem, or a power-on timeout, in words</td></tr>
+  </table>
+  <p><b>Print Configuration</b> writes the connection and pairing state, <code>Connection Status</code>, <code>Last Error</code>, power, mode, app, input, volume, sound output, <code>Wake Readiness</code>, Gallery apps, Room Off Action, MAC, and anything the driver is holding (an input, Gallery, or a Room Off waiting for the TV) to the Lua output window. It never prints the pairing key.</p>
+</section>
+
+<section class="card" id="troubleshooting" data-card="troubleshooting">
+  <h2><span class="n">11</span> Troubleshoot methodically</h2>
+  <table>
+    <tr><th>Symptom</th><th>Likely cause</th><th>Resolution</th></tr>
+    <tr><td>Pair TV shows nothing on the TV</td><td>Wrong IP, TV off, or LG Connect Apps off</td><td>Fix the IP, turn the TV on, enable LG Connect Apps</td></tr>
+    <tr><td><code>Pairing</code> says refused</td><td>The prompt was declined</td><td>Run <b>Pair TV</b> again and accept the prompt on the TV</td></tr>
+    <tr><td><code>Pairing</code> says nobody accepted the prompt, or the TV shows a prompt nobody started</td><td>The TV was reset or updated and no longer knows the stored key</td><td>Run <b>Pair TV</b> and accept the prompt on the TV</td></tr>
+    <tr><td>The TV answers "403 blacklisted certificate"</td><td>The TV firmware rejected the pairing manifest</td><td>Update this driver; the manifest is the webOS 26 one and re-running Pair TV cannot change it</td></tr>
+    <tr><td>Watch does nothing when the TV is off</td><td>Wake-on-LAN cannot reach it</td><td>Wire the TV, enable Quick Start+ and Turn on via Wi-Fi, check <code>TV MAC Address</code> - or set Control Method to <b>IP + IR Power On</b> and add an emitter</td></tr>
+    <tr><td>Power-on works but the input does not change</td><td>The TV took longer than <code>Power On Timeout (s)</code></td><td>Raise the timeout; check <code>Last Error</code></td></tr>
+    <tr><td>Art Mode On does nothing, or <code>Art Mode</code> stays Off while art shows</td><td>This TV shows art through an app that is not first (or not at all) in <b>Gallery App IDs</b></td><td>Put the TV in art mode with the LG remote, then read <code>Current App</code> (or the <code>IN FRONT NOW</code> line of <b>List Apps</b>, or the foreground app line of <b>Capture TV Facts</b>) and put that ID first in <b>Gallery App IDs</b></td></tr>
+    <tr><td><code>Wake Readiness</code> names a setting</td><td>That wake-up setting is off on the TV</td><td>Turn it on: Turn on via Wi-Fi is usually under Settings &gt; General &gt; Devices &gt; External Devices, Quick Start+ under Settings &gt; General &gt; System &gt; Additional Settings (names and paths vary by firmware)</td></tr>
+    <tr><td>Holding volume overshoots through a soundbar</td><td>The sound goes over eARC/ARC, which does not perform fast back-to-back steps</td><td>Raise <b>ARC Volume Step Delay (ms)</b></td></tr>
+    <tr><td>Remote keys do nothing</td><td>The pointer socket is not open yet</td><td>Wait a few seconds after connecting (the driver keeps asking for it), or press a key or run <b>Refresh Status</b> to ask again</td></tr>
+    <tr><td><code>Power State</code> flips to Off now and then</td><td>The TV was unreachable for more than 8 seconds</td><td>Check the TV's network link; shorter drops are ridden out, and the driver reconnects by itself</td></tr>
+    <tr><td><code>Last Error</code> says the TV is not paired</td><td>Watch was pressed before <b>Pair TV</b> was run, or a prompt was refused</td><td>Run <b>Pair TV</b> and accept the prompt on the TV</td></tr>
+  </table>
+  <p><b>Capture TV Facts</b> asks the TV a fixed list of read-only questions and prints each answer to the Lua output: system info, the service list, inputs, sound output, the two wake settings, the power state, the app in front (from two services), the launch point count and software info. A question the TV turns down prints "not available" with the TV's reason and the rest carry on. It also fills <code>TV Facts</code> with a one-line summary. It changes nothing on the TV, and the pairing key is never printed.</p>
+  <div class="note">If none of these restores control, run <b>Print Configuration</b> and <b>Capture TV Facts</b>, and send both outputs to IntegrateIT support at support@integrateit.tech · (913) 804-7575.</div>
+</section>
+
+<section class="card" id="trust" data-card="trust">
+  <h2><span class="n">12</span> Ownership, privacy, and licensing</h2>
+  <p>This package is an original IntegrateIT implementation of LG's webOS SSAP protocol, written from the protocol as the open-source webOS clients document it. It bundles no other vendor's code, brand assets, or license. LG and webOS are trademarks of LG Electronics; IntegrateIT is not affiliated with LG, and this driver is not an LG product. Driver engineering, Control4 integration, documentation, QA, licensing, updates, and support are provided by IntegrateIT.</p>
+  <p>Besides the TV and the Wake-on-LAN broadcast, the shared license and update layer makes outside calls (see Reference): a license check to the IntegrateIT license server (<code>relay.integrateit.dev</code> by default), and a daily read of the update manifest from the address in <code>Update Manifest URL</code>, which is a GitHub address by default. The manifest read is a plain download of a small version file, and no TV or pairing data goes with it. With <b>Automatic Update Install</b> left on <b>Auto-stage</b> (the default), a newer release is also downloaded as a driver package (.c4z) from the address the manifest names, which may be a different host from the manifest's own; set it to <b>Notify only</b> so the driver never downloads a package on its own. Nothing about the TV or the room is sent with that download either. The license check sends the license key, the controller's MAC address, and the driver name and version. No TV data, pairing key or room data is sent to either. With <b>Connection</b> left on <b>Secure (port 3001)</b> the session to the TV is TLS; choosing <b>Plain (port 3000)</b>, for older firmware, sends everything on that connection, including the pairing key, unencrypted, so use it only on a trusted AV network. The pairing key is stored in the driver's persistent data so the TV does not prompt again after a reboot; it is never shown in a property or written to the log. The shared IntegrateIT license and update services use the controller identity, driver slug, version, configured license key, and update channel as documented in the reference below.</p>
+  <div class="note warn">Anyone on the TV's network who can complete a pairing prompt can control the TV, which is LG's design. Keep the TV on a trusted AV VLAN, and decline pairing prompts you did not start.</div>
+  <p>Lenient mode allows commissioning without an activated key and keeps <code>License Status</code> visible. Strict mode blocks all TV control, including the connection itself, until the Ops Portal has minted and validated a key for that controller. Installing this package does not itself mint or activate a controller license.</p>
+<section class="card" id="reference" data-card="reference">
+  <h2><span class="n">R</span> Reference</h2>
+  <p>Generated from the driver manifest at build time — always matches this build (v0.2.0).</p>
+  <h3>Properties</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Control Method</code></td><td>LIST</td><td><code>IP</code></td><td>IP: two-way control over the network, power-on by Wake-on-LAN. IP + IR Power On: the same, plus LG's discrete IR Power On through an emitter, for TVs Wake-on-LAN cannot wake. IR: one-way control through an emitter only - no feedback, no Gallery mode, no absolute volume. Bind TV IR to an IR output for either IR option. One of: IP · IP + IR Power On · IR</td></tr>
+    <tr><td><code>TV IP Address</code></td><td>STRING</td><td><code></code></td><td>The TV's IP address. Reserve it in DHCP so it never changes.</td></tr>
+    <tr><td><code>TV MAC Address</code></td><td>STRING</td><td><code></code></td><td>Used for Wake-on-LAN power-on. Learned automatically the first time the driver connects while the TV is on; type it in only if power-on fails before that.</td></tr>
+    <tr><td><code>Connection</code></td><td>LIST</td><td><code>Secure (port 3001)</code></td><td>Current LG firmware, including webOS 26, accepts only the secure port. Plain is for older TVs. One of: Secure (port 3001) · Plain (port 3000)</td></tr>
+    <tr><td><code>Room Off Action</code></td><td>LIST</td><td><code>Power Off</code></td><td>What the TV does when the room turns off. Gallery Mode shows art (the art-mode option); Screen Off blanks the panel but keeps the TV awake (Power State reads Screen Off, no Power Off event fires, and the room stays as Control4 left it). One of: Power Off · Gallery Mode · Screen Off</td></tr>
+    <tr><td><code>Gallery App ID</code></td><td>STRING</td><td><code></code></td><td>The older single-ID field, kept so existing projects do not change. Leave it empty and use Gallery App IDs. A value here other than com.webos.app.igallery is treated as the FIRST Gallery app ID, ahead of the list, so clear it if you want the list's first ID launched.</td></tr>
+    <tr><td><code>Gallery App IDs</code></td><td>STRING</td><td><code>com.webos.app.igallery</code></td><td>The webOS apps that count as art, separated by commas. Art Mode On launches the first one; the TV counts as showing art while any of them is in front. If this TV shows art through a different app, put the TV in art mode with the LG remote, run List Apps (or read Current App), copy the ID marked IN FRONT NOW and put it first here. An empty list means the default.</td></tr>
+    <tr><td><code>Power On Timeout (s)</code></td><td>INTEGER 10–120</td><td><code>30</code></td><td>How long to keep trying to reach the TV after a Wake-on-LAN before giving up and reporting it in Last Error.</td></tr>
+    <tr><td><code>Reconnect Interval (s)</code></td><td>INTEGER 5–300</td><td><code>10</code></td><td>How often the driver tries to reconnect while the TV is off or unreachable.</td></tr>
+    <tr><td><code>IR Boot Delay (s)</code></td><td>INTEGER 2–30</td><td><code>8</code></td><td>IR only: how long after IR Power On the TV needs before it takes an input command. An input picked in this window is sent when it ends.</td></tr>
+    <tr><td><code>ARC Volume Step Delay (ms)</code></td><td>INTEGER 300–3000</td><td><code>600</code></td><td>Time between volume steps while the room's volume button is held and the TV sends its sound out over eARC/ARC. Through ARC the TV does not perform back-to-back steps at once, so a faster ramp overshoots. The TV speaker keeps 300 ms.</td></tr>
+    <tr><td><code>Connection Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not connected</code></td><td>Connected, Connecting, Waiting for pairing, or Not connected (with the reason).</td></tr>
+    <tr><td><code>Pairing</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not paired</code></td><td>Paired, Not paired, or what the TV said. The key itself is never shown or logged.</td></tr>
+    <tr><td><code>Power State</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>On, Screen Off, Off, or Unknown, as the TV reports it. Screen Off does not fire the Power Off event.</td></tr>
+    <tr><td><code>Current Input</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>HDMI 1-3, Gallery, or the app in front.</td></tr>
+    <tr><td><code>Current App</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The webOS app ID in the foreground.</td></tr>
+    <tr><td><code>Art Mode</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Off</code></td><td>On while the Gallery app is in front.</td></tr>
+    <tr><td><code>Sound Output</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>Where the TV's sound is going, as the TV reports it: tv_speaker, external_arc (HDMI eARC/ARC), external_optical, bt_soundbar and so on. Unknown if this TV does not report it.</td></tr>
+    <tr><td><code>Volume</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>TV speaker volume as the TV reports it.</td></tr>
+    <tr><td><code>Mute</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>On or Off as the TV reports it.</td></tr>
+    <tr><td><code>TV Model</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Unknown</code></td><td>The model name the TV reports.</td></tr>
+    <tr><td><code>Gallery Apps Found</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Run List Apps</code></td><td>App IDs on this TV whose names look like Gallery or art apps, filled in by List Apps. These are candidates, not all art: copy only the one or two that really show art into Gallery App IDs, the one Art Mode On should launch first.</td></tr>
+    <tr><td><code>Wake Readiness</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not checked yet - read after the driver connects</code></td><td>Whether the TV is set up to be woken by Wake-on-LAN: it reads the TV's own Turn on via Wi-Fi and Quick Start+ settings after connecting. When one is off it says which and where to turn it on. Read-only: the driver never changes a TV setting.</td></tr>
+    <tr><td><code>TV Facts</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Run Capture TV Facts</code></td><td>One-line summary from Capture TV Facts: model, inputs, sound output, wake settings, the app in front and the launch point count. The full answers go to the Lua output.</td></tr>
+    <tr><td><code>Last Error</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td>The most recent failure, in words: a refused request, a pairing problem, or a power-on that timed out.</td></tr>
+  </table>
+  <p><b>Standard IntegrateIT properties</b> — licensing, self-update, and diagnostics, auto-injected into every IntegrateIT driver:</p>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>Driver Version</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>Debug Mode</code></td><td>LIST</td><td><code>Off</code></td><td>One of: Off · Print</td></tr>
+    <tr><td><code>Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Idle</code></td><td></td></tr>
+    <tr><td><code>License Key</code></td><td>STRING</td><td><code></code></td><td></td></tr>
+    <tr><td><code>License Status</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Not activated - Lenient mode (control enabled)</code></td><td></td></tr>
+    <tr><td><code>License Enforcement</code></td><td>LIST</td><td><code>Lenient (recommended)</code></td><td>One of: Lenient (recommended) · Strict</td></tr>
+    <tr><td><code>License Server URL</code></td><td>STRING</td><td><code>https://relay.integrateit.dev</code></td><td></td></tr>
+    <tr><td><code>Update Manifest URL</code></td><td>STRING</td><td><code>https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/version.json</code></td><td></td></tr>
+    <tr><td><code>Automatic Update Check</code></td><td>LIST</td><td><code>Daily</code></td><td>One of: Daily · Off</td></tr>
+    <tr><td><code>Automatic Update Install</code></td><td>LIST</td><td><code>Auto-stage (installs at next Director restart)</code></td><td>One of: Auto-stage (installs at next Director restart) · Notify only</td></tr>
+    <tr><td><code>Update Available</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>None</code></td><td></td></tr>
+    <tr><td><code>About</code> <span class="pill blue">read-only</span></td><td>STRING</td><td><code>Powered by IntegrateIT - integrateit.tech</code></td><td></td></tr>
+  </table>
+  <h3>Programming commands</h3>
+  <table>
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><code>Power On</code></td><td>Wake the TV (Wake-on-LAN; IR in the IR methods). It comes on at whatever it last showed; use Watch or Select Input to choose an input.</td></tr>
+    <tr><td><code>Power Off</code></td><td>Put the TV in standby.</td></tr>
+    <tr><td><code>Select Input</code></td><td>Switch the TV to PARAM1</td></tr>
+    <tr><td><code>Art Mode On</code></td><td>Show art (launch the Gallery app), waking the TV first if needed.</td></tr>
+    <tr><td><code>Art Mode Off</code></td><td>If the TV is showing art, return to the last input (use Power Off for standby).</td></tr>
+    <tr><td><code>Art Mode Toggle</code></td><td>Art Mode On if it is off; back to the last input if art is showing.</td></tr>
+    <tr><td><code>Screen Off</code></td><td>Blank the panel and leave the TV awake.</td></tr>
+    <tr><td><code>Screen On</code></td><td>Light the panel again after Screen Off.</td></tr>
+    <tr><td><code>Set Volume</code></td><td>Set TV volume to PARAM1</td></tr>
+    <tr><td><code>Mute On</code></td><td>Mute the TV speakers.</td></tr>
+    <tr><td><code>Mute Off</code></td><td>Unmute the TV speakers.</td></tr>
+    <tr><td><code>Set Sound Output</code></td><td>Send the TV's sound to PARAM1 (for example external_arc for an eARC soundbar, tv_speaker for the TV)</td></tr>
+    <tr><td><code>Launch App</code></td><td>Launch webOS app PARAM1</td></tr>
+    <tr><td><code>Send Remote Key</code></td><td>Press PARAM1 on the LG remote</td></tr>
+    <tr><td><code>Show Message</code></td><td>Show PARAM1 as a toast on the TV</td></tr>
+    <tr><td><code>List Apps</code></td><td>Print every app ID on the TV to the Lua output, mark the app in front (IN FRONT NOW), and fill Gallery Apps Found with the IDs that look like art apps. With the TV in art mode, the marked app is the one for Gallery App IDs.</td></tr>
+    <tr><td><code>Capture TV Facts</code></td><td>Ask the TV what it reports (system info, services, inputs, sound output, wake settings, the app in front, launch points, software info), print the answers to the Lua output and fill TV Facts. Read-only; the pairing key is never printed.</td></tr>
+    <tr><td><code>Pair TV</code></td><td>Start pairing: the TV shows a prompt to accept this controller.</td></tr>
+    <tr><td><code>Refresh Status</code></td><td>Reconnect now if disconnected, and re-read power, app, input, volume and mute.</td></tr>
+  </table>
+  <h3>Actions (Composer Actions tab)</h3>
+  <table>
+    <tr><th>Action</th><th>Command</th></tr>
+    <tr><td>Pair TV</td><td><code>PAIR_TV</code></td></tr>
+    <tr><td>List Apps</td><td><code>LIST_APPS</code></td></tr>
+    <tr><td>Capture TV Facts</td><td><code>CAPTURE_TV_FACTS</code></td></tr>
+    <tr><td>Refresh Status</td><td><code>REFRESH_STATUS</code></td></tr>
+    <tr><td>Power On</td><td><code>POWER_ON</code></td></tr>
+    <tr><td>Power Off</td><td><code>POWER_OFF</code></td></tr>
+    <tr><td>Art Mode On</td><td><code>ART_MODE_ON</code></td></tr>
+    <tr><td>Art Mode Off</td><td><code>ART_MODE_OFF</code></td></tr>
+    <tr><td>Print Configuration</td><td><code>PRINT_CONFIG</code></td></tr>
+    <tr><td>Activate License Now <span class="pill blue">shared</span></td><td><code>ACTIVATE_LICENSE</code></td></tr>
+    <tr><td>Check for Update Now <span class="pill blue">shared</span></td><td><code>CHECK_UPDATE</code></td></tr>
+    <tr><td>Download &amp; Stage Update <span class="pill blue">shared</span></td><td><code>DOWNLOAD_UPDATE</code></td></tr>
+    <tr><td>Run Diagnostics <span class="pill blue">shared</span></td><td><code>RUN_DIAGNOSTICS</code></td></tr>
+    <tr><td>Run Self-Test <span class="pill blue">shared</span></td><td><code>RUN_SELF_TEST</code></td></tr>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tr><th>ID</th><th>Event</th><th>Fires when</th></tr>
+    <tr><td>11</td><td>Power On</td><td>The TV came on (screen on, not showing art).</td></tr>
+    <tr><td>12</td><td>Power Off</td><td>The TV went to standby or became unreachable. Screen Off does not fire it.</td></tr>
+    <tr><td>13</td><td>Art Mode On</td><td>The Gallery app came to the front.</td></tr>
+    <tr><td>14</td><td>Art Mode Off</td><td>The Gallery app left the front.</td></tr>
+    <tr><td>15</td><td>Input Changed</td><td>The TV switched to a different HDMI input.</td></tr>
+    <tr><td>16</td><td>TV Connected</td><td>The driver connected and registered with the TV.</td></tr>
+    <tr><td>17</td><td>TV Disconnected</td><td>The connection to the TV dropped.</td></tr>
+    <tr><td>18</td><td>Pairing Required</td><td>The TV is showing the pairing prompt; someone needs to accept it.</td></tr>
+    <tr><td>19</td><td>Paired</td><td>The TV accepted this controller and issued a key.</td></tr>
+    <tr><td>20</td><td>Pairing Failed</td><td>The TV refused pairing, or nobody accepted the prompt in time.</td></tr>
+    <tr><td>1001</td><td>Update Available <span class="pill blue">shared</span></td><td>A newer driver version is available from IntegrateIT</td></tr>
+    <tr><td>1002</td><td>License Problem <span class="pill blue">shared</span></td><td>License key invalid, revoked, or bound to a different controller</td></tr>
+  </table>
+</section>
+</section>
+<section class="card" id="licensing" data-card="licensing">
+  <h2><span class="n">L</span> Licensing</h2>
+  <p>This driver is licensed <b>per controller</b>. Each license key locks to one controller's
+  MAC address the first time it activates, exactly like other professional Control4 vendors.</p>
+  <ol>
+    <li>Generate a key for the customer in the IntegrateIT Ops Portal → <b>Licenses</b>.</li>
+    <li>Paste it into the driver's <code>License Key</code> property in Composer.</li>
+    <li>On activation the key binds to this controller; the <code>License Status</code> property
+      shows <span class="pill green">Licensed</span>.</li>
+  </ol>
+  <p><b>Enforcement.</b> <code>License Enforcement</code> defaults to
+  <span class="pill blue">Lenient (recommended)</span>: the driver works the moment it is wired,
+  so you can stage and verify a job before a key is minted, and a paid site keeps running if the
+  license server is ever unreachable. <code>License Status</code> still nags until a key activates.
+  Set it to <span class="pill amber">Strict</span> to disable all control until a valid key binds.</p>
+  <table>
+    <tr><th>License Status</th><th>What it means</th></tr>
+    <tr><td><span class="pill green">Licensed</span></td><td>Bound to this controller and activated.</td></tr>
+    <tr><td>Not activated, Lenient mode</td><td>No valid key yet. Control still works in Lenient mode; enter a key for production.</td></tr>
+    <tr><td><span class="pill amber">Bound elsewhere</span></td><td>The key is active on another controller. Unbind it in the Ops Portal to move it here.</td></tr>
+    <tr><td><span class="pill red">Revoked / Invalid</span></td><td>Contact IntegrateIT. Under Strict enforcement control stays disabled until a valid key is entered.</td></tr>
+  </table>
+  <div class="note">Replaced the controller? Click <b>Unbind</b> in the Ops Portal. The next controller
+  to activate with the key becomes its new home. The driver re-checks on boot and every 12 hours, and
+  keeps working through brief internet outages (it re-validates when the relay is reachable again).</div>
+</section>
+
+<section class="card" id="updates" data-card="updates">
+  <h2><span class="n">U</span> Automatic updates</h2>
+  <p>The driver checks IntegrateIT for a newer version on boot and once a day. With
+  <code>Automatic Update Install</code> set to <b>Auto-stage</b> (the default), a new release is
+  downloaded onto the controller by itself and <b>installs at the next Director restart</b> — no
+  re-adding the driver, and settings, bindings, and programming are preserved. Set it to
+  <b>Notify only</b> to be told about updates without staging them.</p>
+  <ol class="steps">
+    <li>A new release appears as <code>Update Available: vX.Y.Z</code> and the driver fires its
+      <span class="pill blue">Update Available</span> event (or run <b>Check for Update Now</b>).</li>
+    <li>Auto-stage fetches the new <code>.c4z</code> onto the controller by itself; with Notify
+      only, run the <b>Download &amp; Stage Update</b> action instead. The property then reads
+      <code>STAGED</code>.</li>
+    <li>The staged version <b>loads at the next Director restart</b> (System Manager &gt; Restart
+      Director, or a controller power cycle). To apply immediately without a restart, update from
+      a local copy of the new <code>.c4z</code> in Composer.</li>
+  </ol>
+  <div class="note warn">Composer&rsquo;s right-click <b>Update Driver</b> reads the <i>PC&rsquo;s</i> local
+  driver folder, not the controller-staged file &mdash; with an old local copy it quietly reinstalls the
+  old version. Field-confirmed 2026-08-30; trust the restart, or use a fresh local file.</div>
+  <div class="note good">Tip: wire the <b>Update Available</b> event to a notification so you know the
+  moment a new build ships.</div>
+</section>
+
+<section class="card" id="diagnostics" data-card="diagnostics">
+  <h2><span class="n">D</span> Diagnostics and self-test</h2>
+  <p>Every IntegrateIT driver carries two read-only Actions for the field. <b>Run Diagnostics</b> prints
+  a report of what the driver has <i>already observed</i> — version and Lua runtime, license mode and
+  cached activation, update channel and any staged build, every armed timer with its interval, which
+  dealer-supplied properties are still empty, and the last few <code>Status</code> messages. It probes
+  nothing, sends nothing, and changes nothing, so it is safe on a live job.
+  <b>Run Self-Test</b> checks the shared layer itself — string and URL encoding, version comparison,
+  the non-finite number guard, the timer registry, and the persistence store — and ends with
+  <code>SELF-TEST PASS</code> or a per-check failure. It stays local: no network, no device commands.</p>
+  <div class="note">Neither Action is license gated, on purpose: you reach for them when a site is
+  broken, and the license may be the broken thing. Values are never printed — a key or secret is
+  reported only as <span class="pill blue">set</span> or <span class="pill amber">NOT SET</span>, so the
+  output is safe to paste into a support ticket. Both print to the Lua output window
+  (Composer &rarr; the driver's <b>Lua</b> tab).</div>
+</section>
+
+    <section class="card" id="changelog" data-card="changelog">
+  <h2><span class="n">V</span> Version history</h2>
+  <div class="chg">
+    <div class="rel"><b>v0.2.0</b> <span class="pill green">current</span><span class="d">2026-11-01</span>
+      <ul><li>The room no longer flaps. A dropped connection, a re-pair, or a Pair TV prompt that is declined or ignored holds the room for up to 8 s while the driver reconnects. So does a change of Control Method, TV IP Address or Connection. Power Off and OFF are reported only for a real standby. A 5 s heartbeat on both sockets notices a vanished TV in 5-10 s.</li><li>Watch: a Watch of the same input after Room Off now switches inputs, and a Watch right after Room Off wakes the TV again. A Watch after a Screen Off Room Off lights the panel. A cold Watch tells the room the requested input, then ON, instead of the input the TV woke on. A held input expires after Power On Timeout.</li><li>Room Off: the Room Off Action is held through a wake and applied when the TV answers. Power Off no longer reports "refused: disconnected". Screen Off never turns the room off by itself, because it is used for audio-only listening. If someone lights the screen with the LG remote, the room is told ON once.</li><li>Pair TV keeps the working key until the TV issues a new one, so a declined or ignored prompt leaves pairing working. It gives up after 2 minutes on an unreachable TV.</li><li>Gallery: a Gallery App IDs list (default com.webos.app.igallery), launched through system.launcher/launch with a fallback, plus an art-app finder. List Apps marks the app in front, and the commissioning steps say to read Current App while the TV shows art.</li><li>New: a Wake Readiness property, which checks Turn on via Wi-Fi and Quick Start+ and gives each its own hedged menu path. Also a Capture TV Facts command, Sound Output read-back with Set Sound Output, and an ARC Volume Step Delay. system/turnOn is sent alongside Wake-on-LAN. There are more remote keys, and IR codes for Guide, Record and SAP.</li><li>Fixes: mute follows the TV's audio status, and the Wake-on-LAN MAC is learned only from a connected interface. List Apps accepts large replies, and the pointer socket retries. A held volume ramp stops when the connection closes, and connection errors are no longer reported as the TV refusing. Docs: the Power On wording is corrected, the privacy paragraph lists every outside call (license check, update check, and the update download when updates are set to Auto), and a troubleshooting row covers a TV that forgot its key.</li></ul></div>
+    <div class="rel"><b>v0.1.1</b><span class="d">2026-10-30</span>
+      <ul><li>IR options: new Control Method property. IP + IR Power On adds LG's discrete IR Power On through an emitter for TVs Wake-on-LAN cannot wake; IR runs the TV one-way through an emitter only. Codes are LG's NEC codes (address 04 FB, command bytes from LG's External Control Device Setup manual), with the format checked against LG Pronto codes published on RemoteCentral: discrete power on/off, HDMI 1-3, volume, mute and every remote key. In IR mode power and inputs are modeled (inputs held through an IR Boot Delay), the volume ramp stops on release, mute is tracked, and Gallery mode, absolute volume, screen off, apps, messages and pairing are refused with a reason. IP behavior is unchanged.</li></ul></div>
+    <div class="rel"><b>v0.1.0</b><span class="d">2026-10-29</span>
+      <ul><li>Initial release: IP control of LG webOS TVs over LG's SSAP protocol on a TLS WebSocket (port 3001, self-signed certificate accepted; port 3000 for older TVs), built for the 2026 LG Gallery TV with Frame 55LX7BPUA on webOS 26. Original RFC 6455 client (masked frames, fragments, ping/pong, close) on Control4 dynamic network bindings.</li><li>Pairs the webOS 26 way: hello, system info before registration, and the unsigned canonical manifest (appVersion 1.1, one permissions list incl. LAUNCH and WRITE_SETTINGS) that webOS 26 accepts after it blacklisted the old shared signed manifest. The key persists across reboots and is never shown or logged. No connection is attempted until Pair TV is run, and an ignored or refused prompt stops all retries until Pair TV, so the TV is never spammed with prompts.</li><li>Control4 video and audio endpoint through the documented TV proxy: Watch wakes the TV (Wake-on-LAN, three packets, fast reconnect) and applies the requested HDMI input once it is on; Room Off follows Room Off Action (standby, Gallery mode, or screen off); volume (incl. press-and-hold ramp) and mute; Navigator keys over the TV's pointer-input socket.</li><li>Gallery mode as art mode: Art Mode On / Off / Toggle (Off returns to the last input, like The Frame; Power Off is standby), ART_MODE variable and events, the room reads off while art shows, Watch from art mode switches input without waking, Power On from art returns to the last input. Gallery App ID is a property and List Apps finds the candidates on the actual TV.</li><li>Live state by subscription: power (incl. Active Standby / Suspend / Request Power Off as off), foreground app (input, Gallery, app), volume and mute; the MAC address is learned from the TV for Wake-on-LAN.</li><li>Factory: the simulator gains NetPortOptions and SendWOL (documented DriverWorks APIs) so TLS options and magic packets are asserted, not assumed.</li></ul></div>
+  </div>
+</section>
+  </main>
+
+  <footer class="powered">
+    <div class="hairline" aria-hidden="true"></div>
+    <div class="pb">Powered by</div>
+    <img src="data:image/png;base64,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" alt="IntegrateIT">
+    <p class="places">Kansas City <b>·</b> South Florida</p>
+    <p class="support">support@integrateit.tech · (913) 804-7575</p>
+  </footer>
+</div>
+</body>
+</html>

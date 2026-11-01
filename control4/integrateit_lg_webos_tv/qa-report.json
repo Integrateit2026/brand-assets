@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "slug": "integrateit_lg_webos_tv",
+  "generated_at": "2026-11-01T14:12:43.708Z",
+  "status": "pass",
+  "failed_stage": null,
+  "build_inputs_sha256": "b409483ccd40ec89c9c54d84f11f827a7bfa6c9677283460a91ca49a13fd30e1",
+  "artifact_sha256": "d9862122ed5aa8095c89011391d61b57bb4ddf8d3cb05936c0a37f3e0643d63e",
+  "artifact_size_bytes": 108444,
+  "build_version_manifest_sha256": "bee88b4badd89b267eeb341f732ea067cf1e50932b0b6872aa7bea7e170a8291",
+  "version_manifest_sha256": "2961de4fda2db3bb8b0d1dd88e8c345f9c1424cfc26dcc3e40180b1b8ff74d14",
+  "version": "0.2.0",
+  "xml_version": 3,
+  "environment": "Control4 API simulator + deterministic package validators",
+  "hardware_status": "simulation-verified",
+  "channel_verification": {
+    "status": "pending",
+    "checked_at": null,
+    "note": "Live channel verification runs after publication."
+  },
+  "stages": [
+    {
+      "name": "build",
+      "status": "pass",
+      "duration_ms": 156
+    },
+    {
+      "name": "static",
+      "status": "pass",
+      "duration_ms": 197,
+      "checks": 21,
+      "warnings": 0
+    },
+    {
+      "name": "runtime",
+      "status": "pass",
+      "duration_ms": 1079,
+      "checks": 1426,
+      "violations": 0
+    },
+    {
+      "name": "golden",
+      "status": "pass",
+      "duration_ms": 85,
+      "files": 2
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "IntegrateIT LG webOS TV",
+  "version": "0.2.0",
+  "xml_version": 3,
+  "url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/releases/0.2.0/integrateit_lg_webos_tv.c4z",
+  "notes": "IP control of LG webOS TVs over LG's secure SSAP WebSocket, paired the webOS 26 way: a Control4 video and audio endpoint with Wake-on-LAN power-on, HDMI 1-3, volume and mute, Navigator remote keys, and Gallery mode as an art-mode option for LG Gallery TVs such as the 55LX7BPUA.",
+  "sha256": "d9862122ed5aa8095c89011391d61b57bb4ddf8d3cb05936c0a37f3e0643d63e",
+  "size_bytes": 108444,
+  "min_os": "3.0.0",
+  "published_at": "2026-11-01T14:12:44.151Z",
+  "changelog_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/CHANGELOG.md",
+  "releases_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/releases.json",
+  "qa_url": "https://raw.githubusercontent.com/Integrateit2026/brand-assets/main/control4/integrateit_lg_webos_tv/qa-report.json"
+}
